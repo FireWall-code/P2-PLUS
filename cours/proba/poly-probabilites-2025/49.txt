@@ -1,0 +1,27 @@
+Classe Proportion Probabilité
+moins de 25 ans 0,25 0,12
+de 25 ans à 50 ans 0,53 0,06
+plus de 50 ans 0,22 0,09
+a) Un assuré est tiré au hasard dans le fichier de la compagnie. Quelle est la probabilité qu’il ait
+déclaré au moins un accident au cours de l’année ?
+b) Quelle est la probabilité qu’un assuré ayant déclaré au moins un accident au cours de l’année
+soit âgé d’au plus 25 ans.
+c) Quelle est la probabilité pour qu’un assuré âgé de 25 ans ou plus ait au moins un accident au
+cours de l’année ?
+d) Quelle est la probabilité qu’un assuré n’ayant déclaré aucun accident soit âgé de 25 à 50 ans.
+Exercice 2.18 [*]
+Dans une usine, on fabrique des composants électroniques sur trois machines. Les machines M1, M2
+et M3 produisent respectivement 50%, 30% et 20% des composants. Le qualiticien de l’usine estime
+que :
+⋆ 2 % des composants fabriqués par la machine M1 sont défectueux.
+⋆ 3 % des composants fabriqués par la machine M2 sont défectueux.
+⋆ 5 % des composants fabriqués par la machine M3 sont défectueux.
+a) Quelle est la probabilité qu’un composant pris au hasard à la sortie de l’usine soit défectueux ?
+b) Quelle est la probabilité d’obtenir une pièce défectueuse provenant de M1 ?
+c) Les évènements "la pièce est défectueuse" et "la pièce provient de M1" sont-ils indépendants ?
+d) Un composant est défectueux. Quelle est la probabilité pour qu’il provienne de M1 ?
+Exercice 2.19 [*] Bien répondre à un QCM
+Lors d’un QCM, un étudiant a deux options : soit il connaît la bonne réponse (ce qui arrive avec
+une probabilité p = 1/2), soit il coche une réponse au hasard parmi les m = 5 réponses possibles (une
+seule bonne réponse). Sachant que l’étudiant a coché la bonne réponse, quelle est la probabilité que
+l’étudiant connaissait la bonne réponse ?

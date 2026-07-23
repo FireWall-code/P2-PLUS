@@ -1,0 +1,53 @@
+E
+E
+F
+F
+F
+F
+P(E) = 1
+2
+P(E) = 1
+2
+P(F|E) = 1
+3
+P(F|E) = 2
+3
+P(F|E) = 2
+3
+P(F|E) = 1
+3
+La définition de la probabilité conditionnelle nous donne la probabilité que les deux boules blanches
+soient tirées : P(E ∩F) = P(F|E)×P(E) = 1
+6
+. On “lit la probabilité de l’intersection” en multipliant
+les probabilités conditionnelles apparaissant le long de l’arbre. On remarque qu’à chaque embranchement, la somme des probabilités fait 1. Aussi, on peut résumer ces informations dans le tableau de
+contingence suivant :
+E E
+F P(F ∩E) = 1
+6
+P(F ∩E) = 1
+3
+F P(F ∩E) = 1
+3
+P(F ∩E) = 1
+6
+Proposition 2.1 : Formule des évènements contraires
+Soit (Ω,P) un espace probabilisé et soient E et F deux évènements de Ω tels que F ne soit pas
+impossible. Alors, on a
+P(E|F) +P(E|F) = 1.
+Démonstration. Ce résultat devrait être évident intuitivement. Formellement, on a, par définition :
+P(E|F) +P(E|F) = P(E ∩F) +P(E ∩F)
+P(F)
+.
+Or, puisque les évènements E ∩F et E ∩F sont disjoints, on a
+P(E ∩F) +P(E ∩F) = P
+
+(E ∩F)∪(E ∩F)
+
+= P
+
+(E ∪E)∩F
+
+= P(Ω∩F) = P(F).
+Ce qui montre bien le résultat.
+La terminologie de probabilité conditionnelle est justifiée puisque :

@@ -1,0 +1,34 @@
+Exercice 4.22 [**]
+On suppose que la répartition du taux de cholestérol dans une population d’enfants (en cg) suit une
+loi normale de moyenne µ et d’écart-type σ.
+On a constaté que 57,9% de ces enfants ont un taux de cholestérol inférieur à 165cg et que 4,5% ont
+un taux de cholestérol supérieur à 180cg.
+a) Calculer µ et σ.
+b) Les enfants dont le taux est supérieur à 183cg doivent subir un traitement. Quel pourcentage
+de la population doit-on soigner ?
+♦ Exercice 4.23 [*] Score de Maddrey
+Chez les malades ayant une atteinte sévère, le score de Maddrey est une variable aléatoire X qui
+est distribuée selon une loi normale N (µ = 54,σ
+2 = 142
+), tandis que chez les malades avec atteinte
+minime, le score de Maddrey est une variable aléatoire Y qui est distribuée selon une loi normale
+N (µ = 20,σ
+2 = 62
+).
+a) Pour un malade ayant une atteinte sévère, calculer la probabilité qu’il ait un score de Maddrey
+en dessous de 68.
+b) Pour un malade ayant une atteinte minime, calculer la probabilité qu’il ait un score de
+Maddrey en dessous de 8.
+c) Chez les malades ayant une atteinte sévère, quel seuil s devons-nous prendre pour que
+P(X > s) = 0,95 ?
+d) Chez les malades ayant une atteinte minime, quel seuil s devons-nous prendre pour que
+P(Y < s) = 0,90 ?
+On choisit maintenant s = 32 pour détecter les deux types d’atteintes.
+e) Chez les malades ayant une atteinte sévère, que vaut P(X < s) ?
+f) Chez les malades ayant une atteinte minime, que vaut P(Y > s) ?
+g) Sachant que la probabilité pour qu’un patient ait une atteinte sévère est de p = 0.3, donner
+le nombre d’erreurs de diagnostic pour ce seuil s de détection sur un échantillon de 100
+patients.
+♦ Exercice 4.24 [**]
+Soit X le total des retraits mensuels d’argent d’un client au distributeur. On suppose X ∼ N (650,1502).
+a) Déterminer la proportion de clients qui retirent plus de 750e par mois.

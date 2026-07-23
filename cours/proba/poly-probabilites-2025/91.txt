@@ -1,0 +1,28 @@
+♦ Exercice 3.25 [**] Croissance des coraux dans le contexte du réchauffement climatique
+Le réchauffement des eaux océaniques entraîne un stress thermique qui contribue de manière significative au blanchissement des coraux. Des recherches indiquent qu’une augmentation de la température
+mondiale de 0.6°C pourrait entraîner l’extinction de tous les récifs coralliens. Ces écosystèmes sont
+vitaux pour la biodiversité marine, et leur survie dépend du maintien de températures océaniques
+stables.
+Dans cet exercice, nous allons simuler les défis auxquels sont confrontés les récifs coralliens. Tous
+les dix ans, la communauté internationale met en œuvre diverses politiques qui peuvent soit :
+⋆ Causer une augmentation de la température mondiale de 0.2°C, plaçant ainsi une pression
+supplémentaire sur les récifs coralliens, avec une probabilité de p = 0.6.
+⋆ Maintenir des conditions océaniques stables, permettant ainsi aux récifs coralliens de s’épanouir
+pendant cette période.
+On suppose que le résultat de chaque décennie est indépendant de celui de la précédente, reflétant ainsi
+la difficulté à prévoir l’impact des politiques climatiques.
+a) Quelle est la probabilité que les récifs coralliens existent encore dans cinquante ans ?
+b) Quelle est la probabilité que les récifs coralliens durent exactement sept décennies de plus ?
+c) Quelle est l’espérance de vie des récifs coralliens dans les conditions actuelles ?
+Exercice 3.26 [***] Le problème des allumettes de Banach
+Un mathématicien fumant la pipe porte toujours deux boîtes d’allumettes, une dans la poche gauche
+de son manteau et une dans la poche droite. Chaque fois qu’il allume sa pipe, il pioche au hasard
+dans une des deux boîtes. Considérez le moment où ce mathématicien découvre pour la première fois
+qu’une des boîtes d’allumettes est vide. Sachant qu’initialement il y avait N allumettes dans chaque
+boîte, quelle est la probabilité que la boîte non vide contienne exactement k allumettes (où k est un
+entier tel que 0 < k ≤ N) ?
+♦ Exercice 3.27 [*]
+Soient X1 et X2 deux variables aléatoires indépendantes, définies sur le même espace probabilisé, suivant des lois binomiales négatives de paramètre n = 1 et p ∈]0,1[. On pose U = X1 +X2 et
+V = X1 −X2.
+a) Calculer cov(U,V).
+b) Les variables aléatoires U et V sont-elles indépendantes ?

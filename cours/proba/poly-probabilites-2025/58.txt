@@ -1,0 +1,54 @@
+On est souvent confronté au problème de trouver la loi de probabilité d’une variable aléatoire Y qui
+s’exprime en fonction d’une variable aléatoire X dont la loi de probabilité est connue :
+Fiche méthode #2 (Loi de probabilité de Y = g(X) dans le cas discret)
+Soit X une variable aléatoire discrète de support X(Ω) = {x1, x2,..., xn,...} et dont la loi de
+probabilité est connue. Soient g une fonction réelle définie sur X(Ω) et Y = g(X) une nouvelle
+variable aléatoire. Pour trouver la loi de probabilité de Y :
+a) Déterminer d’abord les valeurs possibles de Y (i.e., le support Y(Ω)).
+b) Pour y ∈Y(Ω), décrire l’évènement (Y = y) en fonction du système complet d’évènements
+(X = xi)xi∈X(Ω).
+c) Utiliser les propriétés des fonctions de probabilités pour calculer P(Y = y) grâce aux
+valeurs pi = P(X = xi).
+♦Exemple : On considère une variable aléatoire discrète X dont la loi de probabilité est donnée
+ci-dessous :
+xi −2 −1 0 1 2 3 4
+P(X = xi)
+3
+16
+1
+4
+1
+8
+1
+16
+1
+16
+1
+8
+3
+16
+Soit Y = X
+2
+. Le support de Y est Y(Ω) = {0,1,4,9,16}. De plus, on a
+(Y = 0) = (X = 0) (Y = 1) = (X = −1)∪(X = 1)
+(Y = 4) = (X = −2)∪(X = 2) (Y = 9) = (X = 3) (Y = 16) = (X = 4)
+et donc la loi de probabilité de Y est :
+yi 0 1 4 9 16
+P(Y = yi)
+1
+8
+5
+16
+1
+4
+1
+8
+3
+16
+3.2 Couples de variables aléatoires discrètes
+Définition 3.6 (Loi de probabilité conjointe)
+Soient X,Y ∈ ℓ(Ω) deux variables aléatoires discrètes sur Ω. La loi de probabilité conjointe
+de X et Y est la donnée des nombres P(X = x,Y = y) pour tous les couples de valeurs (x, y) ∈
+X(Ω)×Y(Ω).
+Exemple : Lorsque les supports des variables aléatoires sont petits, on peut tout représenter sous forme
+d’un tableau à deux dimensions.

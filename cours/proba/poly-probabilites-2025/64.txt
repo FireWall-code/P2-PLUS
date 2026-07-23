@@ -1,0 +1,113 @@
+variance et permet de comprendre sa signification. Voici la preuve que les deux formules sont égales :
+E
+
+X −E(X)
+2
+
+= E
+
+X
+2 −2XE(X) +E(X)2
+
+= E(X
+2
+)−E (2XE(X)) +E
+
+E(X)
+2
+
+= E(X
+2
+)−2E(X)
+2 +E(X)2
+(car E(X) est une constante)
+= E(X
+2
+)−E(X)
+2
+.
+♦Exemple : Toujours avec l’exemple de l’âge des étudiants de l’EFREI (pages 57 et 61)). On a déjà
+calculé E(X). Calculons maintenant E(X
+2
+) avec le théorème du transfert
+E(X
+2
+) = 162 ×
+1
+100
++172 ×
+4
+100
++182 ×
+10
+100
++192 ×
+15
+100
++202 ×
+15
+100
++212 ×
+20
+100
++222 ×
+15
+100
++232 ×
+10
+100
++242 ×
+5
+100
++252 ×
+3
+100
++262 ×
+1
+100
++272 ×
+1
+100
+= 435.97
+Et donc :
+V(X) = E(X
+2
+)−(E(X))2 = 435.97−20.772 = 4.5771 et σ(X) ≈ 2.14.
+Autrement dit, en moyenne, si l’on prend un étudiant au hasard, son âge aura un écart de 2.14 ans par
+rapport à l’âge moyen de 20.77 ans.
+En général, la variance n’est pas une application linéaire sur ℓ2(Ω) (autrement dit, en général on a
+V(X +Y) ̸= V(X) +V(Y)). Cependant, on a les deux résultats suivants :
+Proposition 3.5
+Soient X ∈ ℓ2(Ω) une variable aléatoire discrète et a,b ∈ R. On a
+V(aX +b) = a
+2V(X).
+Démonstration.
+V(aX +b) = E
+
+aX +b
+2
+
+−E(aX +b)
+2
+= E(a
+2X2 +2abX +b2
+)−(aE(X) +b)
+2
+= a
+2E(X2
+) +2abE(X) +b
+2 −
+
+a
+2E(X)2 +2abE(X) +b2
+
+= a
+2
+
+E(X
+2
+)−E(X)
+2
+
+= a
+2V(X).

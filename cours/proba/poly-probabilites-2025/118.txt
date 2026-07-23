@@ -1,0 +1,14 @@
+FIGURE 4.12 – L’école de Saint-Pétersbourg qui a prouvé le théorème central limite : Pafnouti
+Tchebychev et ses étudiants Andrei Markov et Alexandre Liapounov.
+Interprétation du théorème central limite : Prenons une population avec une distribution quelconque, par exemple avec deux pics. Disons que cette distribution représente le poids de chaque
+individu dans cette population. Tirons aléatoirement des échantillons contenant un nombre fixé
+d’individus à l’intérieur de la population. Les moyennes des poids calculées sur chacun des
+échantillons suivront alors une loi gaussienne de paramètre N (µ,
+σ
+2
+n
+) avec σ et µ l’écart-type
+et le poids moyen dans la population totale.
+FIGURE 4.13 – La distribution à deux pics de la population est à gauche. À droite, il s’agit de
+la distribution de la moyenne ¯x calculée sur des échantillons de taille n fixée.
+Figure tirée de l’ouvrage "Calcul d’incertitudes" de Mathieu Rouaud.

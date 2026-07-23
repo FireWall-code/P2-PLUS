@@ -1,0 +1,67 @@
+♦ Exercice 4.2 [*]
+Une variable aléatoire continue X admet une densité de probabilité donnée par
+f(x) =
+
+
+
+k
+x
+si x ∈ [1,4]
+0 sinon.
+a) Déterminer la valeur de la constante k.
+b) Calculer P(1 ≤ X ≤ 2
+
+1 ≤ X ≤ 3).
+c) Déterminer E(X) et V(X).
+Exercice 4.3 [*]
+Une variable aléatoire continue X admet une densité de probabilité donnée par
+∀x ∈ R, f(x) = c
+1+x
+2
+.
+a) Déterminer la valeur de la constante c.
+b) Déterminer la fonction de répartition FX.
+c) Calculer P(X ≥ 2) et P(−3 ≤ X ≤ 4).
+d) Calculer P(
+1
+3
+≤ X
+2 ≤ 1).
+e) Déterminer E(X) et V(X).
+Exercice 4.4 [**]
+Une variable aléatoire continue U admet une densité de probabilité donnée par
+fU (u) =
+
+
+
+k sin(u) si u ∈ [0,
+π
+2
+]
+−k sin(u) si u ∈ [−
+π
+3
+,0]
+0 sinon.
+De plus, on considère la variable aléatoire V = cos(U).
+a) Trouver la valeur de la constante k.
+b) Calculer P
+
+U > 0
+
+U <
+π
+3
+
+.
+c) Calculer P(U
+2 =
+1
+2
+).
+d) Calculer P(V
+2 ≤
+1
+2
+).
+e) Calculer E(U) et E(V).

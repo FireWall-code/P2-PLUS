@@ -1,0 +1,67 @@
+Proposition 2.2
+Soient (Ω,P) un espace probabilisé et F un évènement possible. Alors la fonction sur P(Ω)
+définie par :
+P(·|F) : P(Ω) −→ R
+E 7−→ P(E|F)
+est une fonction de probabilité sur Ω.
+Démonstration. Voir exercice 2.2.
+Proposition 2.3 : Propriété de multiplication
+Soit (Ω,P) un espace probabilisé et E1,...,En une famille d’évènements possibles. Alors, on a
+P(E1 ∩E2) = P(E2|E1)P(E1),
+P(E1 ∩E2 ∩E3) = P(E3
+
+E1 ∩E2)P(E2|E1)P(E1)
+et, plus généralement,
+P
+ 
+\
+1≤i≤n
+Ei
+!
+= P
+ 
+En
+
+
+\
+1≤i≤n−1
+Ei
+!
+P
+ 
+En−1
+
+
+\
+1≤i≤n−2
+Ei
+!
+···P(E2
+
+E1)P(E1).
+Démonstration. Pour deux évènements, la formule est juste une réécriture de la définition de la
+probabilité conditionnelle. Pour trois évènements, on a
+P(E1 ∩E2 ∩E3) = P
+
+(E1 ∩E2)∩E3
+
+P(E1 ∩E2)
+×
+P(E1 ∩E2)
+P(E1)
+×P(E1) = P(E3
+
+E1 ∩E2)P(E2|E1)P(E1).
+Même idée pour une famille de n évènements.
+♦Exemple : A Paris, il pleut en moyenne 111 jours par an. A Bogota, par contre, il pleut en moyenne
+181 jours par an et à Quito il pleut 128 jours par an. Sachant que ce texte a été écrit pendant l’été et
+que l’auteur de cette phrase a passé 20% de l’été à Paris, 20% à Bogota et 60% à Quito, calculer la
+probabilité que cette phrase ait été écrite à Bogota en regardant la pluie par la fenêtre.
+On pose les évènements B =“l’auteur de cette phrase était à Bogota au moment de l’écriture”,
+Pl =“il pleuvait au moment de l’écriture”, on cherche à calculer P(B∩Pl). D’après les données, on a
+P(B∩Pl) = P(B)×P(Pl|B) = 20
+100
+×
+181
+365
+≈ 0,1.

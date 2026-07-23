@@ -1,0 +1,78 @@
+Proposition 4.10 : Espérance et variance de la loi uniforme
+Si X ∼ U ([a,b]), alors E(X) = a+b
+2
+et V(X) = (b−a)
+2
+12
+.
+Démonstration. Si X ∼ ([a,b]), on a
+E(X) = Z +∞
+−∞
+x f(x)dx =
+1
+b−a
+Z b
+a
+xdx =
+b
+2 −a2
+2(b−a)
+=
+a+b
+2
+.
+De même, par le théorème du transfert, on a
+E(X
+2
+) = 1
+b−a
+Z b
+a
+x
+2
+dx =
+b
+3 −a3
+3(b−a)
+=
+a
+2 +ab+b2
+3
+.
+Et donc
+V(X) = E(X
+2
+)−E(X)
+2 =
+a
+2 +ab+b2
+3
+−
+(a+b)
+2
+4
+=
+(b−a)
+2
+12
+.
+4.4.2 Loi exponentielle
+Nous allons maintenant voir une loi importante qui modélise les phénomènes sans mémoire. Par
+exemple, la durée de vie d’un composant électronique obéit à une loi exponentielle.
+Définition 4.10 (Loi exponentielle)
+Soient X une variable aléatoire continue et λ un réel strictement positif. On dit que X suit une
+loi exponentielle de paramètre λ, noté X ∼ E (λ), si sa densité de probabilité est donnée par :
+f(x) =
+
+
+
+λe
+−λx
+si x ≥ 0
+0 sinon.
+Exemples :
+⋆ Relire l’exemple sur le temps de vie d’un ordinateur (page 94).
+⋆ Un exemple plus classique : le temps de vie d’un atome radioactif.
+⋆ Le temps d’attente dans une file, la durée d’un appel téléphonique ou la distance parcourue par
+une météorite dans l’atmosphère terrestre avant de se désintégrer complètement peuvent aussi
+être modélisés par des lois exponentielles.

@@ -1,0 +1,32 @@
+on prend
+α = 0,62205...
+Alors, par construction, pour tout n ∈ N, α ̸= f(n) et donc α n’admet pas d’antécédent par f ce qui
+contredit l’hypothèse que f est une bijection.
+Cantor a donc prouvé qu’il existe différentes tailles d’infinis. Mais il est allé plus loin : il a prouvé
+qu’en partant de n’importe quel ensemble (dénombrable ou pas), on peut construire une suite infinie
+d’ensembles de plus en plus grands.
+Théorème 1.6 : Théorème de Cantor
+Soit E un ensemble et notons P(E) l’ensemble des sous-ensembles de E. Alors card(P(E)) >
+card(E).
+Démonstration. La preuve (par l’absurde) donnée par Cantor est d’une simplicité étonnante : soit f
+une application de E dans P(E) et soit B l’ensemble défini par
+B = {x ∈ E
+
+x ∈/ f(x)}.
+Supposons que f soit bijective. Alors, il existe y ∈ E tel que f(y) = B et on a
+y ∈ B ⇐⇒ y ∈ f(y) ⇐⇒ y ∈/ B
+ce qui constitue une contradiction. Il n’y a donc pas de fonction bijective (ni surjective) de E dans
+P(E) et donc card(P(E)) > card(E)!
+Revenons aux probabilités et prenons comme univers un carré Ω = [0,1]×[0,1]. Nous voudrions
+généraliser la probabilité uniforme (voir page 15) à cet univers indénombrable. Le plus naturel serait
+de définir la probabilité uniforme par
+∀E ⊂ Ω,P(E) = aire(E)
+aire(Ω)
+.
+Cela requiert donc d’être capable de donner l’aire de n’importe quel sous-ensemble de Ω.
+Ainsi, le problème de définir la probabilité uniforme sur des espaces indénombrables est donc
+ramené à un problème de mesure de la “taille” ou de “l’aire” des sous-ensembles de l’univers.
+La théorie de la mesure est une branche importante des mathématiques qui a été développée par les
+mathématiciens Emile Borel et Henri-Léon Lebesgue entre la fin du 19ème siècle et le début du 20ème.
+L’aire doit être une application aire : P(Ω) −→ R
++ satisfaisant

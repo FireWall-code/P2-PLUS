@@ -1,0 +1,41 @@
+b) On considère une famille de quatre personnes et on suppose qu’ils se comportent indépendamment les uns des autres. Quelle est la probabilité que le montant total de leurs retraits
+mensuels dépasse 3500e ?
+c) On considère un groupe de n clients et on note M le montant moyen de leurs retraits mensuels.
+Quelle valeur doit-on attribuer à n pour être pratiquement sûr, avec une probabilité supérieure
+à 95%, que le montant moyen des retraits ne diffère pas de E(M) de plus de E(M)/10.
+d) On considère maintenant un ensemble de 100 clients et on note Y le nombre de clients
+retirant plus de 750e par mois. Donner la loi de probabilité de Y et calculer la probabilité
+que 30% des clients retirent plus de 750e par mois.
+e) On considère maintenant le nombre Z de clients parmi 100 qui retirent plus de 900e par
+mois. Calculer la probabilité qu’au moins l’un d’entre eux retire plus de 900e par mois puis,
+en utilisant une approximation adéquate, refaire le même calcul et évaluer la marge d’erreur.
+♦ Exercice 4.25 [**] Étude des météorites
+Un météoroïde est un petit corps du système solaire dont la taille varie entre 0.03mm= 3×10−5m
+et 1m (au-delà de cette taille, on parle d’astéroïde; en dessous de cette taille, on parle de poussière
+interplanétaire). Lorsqu’un météoroïde rentre dans l’atmosphère terrestre, il rentre en combustion et est
+alors appelé météore ou étoile filante. Lorsqu’il arrive à rentrer en collision avec la surface terrestre, il
+est appelé météorite.
+On estime que la taille moyenne d’un météoroïde est r = 5mm.
+On note X la variable aléatoire qui mesure la taille des météoroïdes. On suppose que la variable
+aléatoire Y = ln(
+X
+r
+) suit une loi normale :
+Y ∼ N (µ = −4, σ
+2 = (2.83)2
+).
+a) Calculer la probabilité que X soit inférieure à 0.1mm.
+b) Sachant que la probabilité pour qu’un météoroïde devienne une météorite est de p = 0.002,
+trouver la taille minimale qu’un météoroïde doit avoir en entrant dans l’atmosphère pour
+impacter la surface terrestre.
+c) On estime que ce soir il y aura n = 1500 étoiles filantes dans le ciel (pas toutes visibles à
+l’œil nu !). On note Z le nombre de météoroïdes qui impacteront la surface terrestre ce soir.
+Donner la loi de probabilité de Z.
+d) Donner l’espérance E(Z) et son écart-type σ(Z).
+e) Bonus : Vérifier qu’en effet, si Y = ln(
+X
+r
+) ∼ N (−2.5,(2.24)
+2
+), alors l’espérance de X est
+approximativement égale à r.

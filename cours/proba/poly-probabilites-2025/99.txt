@@ -1,0 +1,36 @@
+d) Enfin, en dérivant FY , on obtient la densité de probabilité de Y :
+fY (y) =
+
+
+
+4y(1−y
+2
+) si y ∈ [0,1]
+0 sinon.
+(On peut vérifier que l’on a bien Z +∞
+−∞
+fY (y)dy = 1.)
+4.2 Couples de variables aléatoires continues
+Dans cette section, on regarde comment adapter les définitions de la section 3.2 au cas de variables
+continues.
+Définition 4.3 (Fonction de répartition conjointe)
+Soient X,Y deux variables aléatoires (continues ou discrètes). La fonction de répartition
+conjointe de X et Y est la fonction FX,Y : R
+2 −→ [0,1] définie par
+FX,Y (a,b) = P(X ≤ a,Y ≤ b).
+Proposition 4.5
+Soient X,Y deux variables aléatoires (continues ou discrètes). Alors, si l’on connaît la fonction
+de répartition conjointe FX,Y , on connaît aussi les fonctions de répartition de X et de Y. (La
+réciproque est fausse !)
+Démonstration. En effet, pour a ∈ R, on a
+FX(a) = P(X ≤ a) = P(X ≤ a,Y ≤ +∞) = lim
+b→+∞
+FX,Y (a,b).
+Remarque : Ainsi, tous les calculs de probabilités sur X et Y peuvent être déterminés à partir de la
+fonction de répartition conjointe.
+♦Exemple : Si l’on cherche à calculer P(X ≥ a,Y ≥ b) avec a,b ∈ R, on a
+P(X ≥ a,Y ≥ b) = 1−P({X ≥ a} ∩ {Y ≥ b})
+= 1−P({X ≥ a} ∪{Y ≥ b})
+= 1−P({X ≥ a})−P({Y ≥ b}) +P({X ≥ a} ∩{Y ≥ b})
+= 1−P(X < a)−P(Y < b) +P(X < a,Y < b)
+= 1−FX(a)−FY (b) +FX,Y (a,b).

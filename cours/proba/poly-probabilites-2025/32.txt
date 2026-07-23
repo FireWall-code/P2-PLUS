@@ -1,0 +1,27 @@
+2.1 Définition et propriétés de base
+Définition 2.1 (Probabilité conditionnelle)
+Soit (Ω,P) un espace probabilisé et soient E et F deux évènements de Ω tels que F ne soit
+pas impossible. Alors, la probabilité de E sachant F (ou probabilité conditionnelle de E en F),
+notée P(E|F) ou PF(E), est définie par :
+PF(E) = P(E|F) = P(E ∩F)
+P(F)
+.
+Cette définition se comprend bien : tout se passe comme si F s’était produit, donc on ne regarde
+plus que l’ensemble F qui “remplace” en quelque sorte l’univers Ω.
+FIGURE 2.1 – La probabilité de réalisation de l’évènement E est le rapport de la surface bleue
+sur celle de l’univers des possibles (surface grise). Lorsque l’on conditionne sur F (figure de
+droite), l’univers des possibles se rétrécit et on ignore la partie hachurée.
+♦Exemple : Soit l’expérience suivante : on tire, successivement et sans remise, deux boules dans une
+urne contenant initialement deux boules noires et deux boules blanches.
+Soient E l’évènement "tirer une boule blanche lors du premier tirage" et F l’évènement "tirer
+une boule blanche lors du deuxième tirage". Il est clair que P(E) = 2
+4 =
+1
+2
+. Aussi, le fait que E se
+soit produit ou non change la probabilité que F se produise. En effet, P(F|E) = 1
+3
+et P(F|E) = 2
+3
+.
+Modélisons ces embranchements à l’aide de l’arbre pondéré suivant :

@@ -1,0 +1,18 @@
+Interprétation Bayésienne ou subjective
+La probabilité de l’évènement E est une mesure de la croyance subjective en la
+réalisation future de l’évènement E étant données les connaissances subjectives
+actuelles.
+Ainsi, lorsque j’affirme que “la probabilité que je tombe sur six au prochain lancer du dé est 1/6”, cela
+montre en réalité que j’ignore tout sur la vitesse et le moment cinétique du dé au moment où il quitte
+ma main et sur la répartition (équitable ou pas) du poids dans le dé.
+Selon l’approche Bayésienne, les probabilités sont toujours des probabilités conditionnelles (ça n’a
+pas de sens de parler d’une probabilité dans l’absolu) et le théorème 2.6 décrit précisément comment
+fonctionne l’apprentissage : la formule de Bayes décrirait comment évoluent nos croyances en certaines
+informations Aj au fur et à mesure que nous découvrons l’existence de certains évènements E. Cette
+deuxième approche des probabilités a été très féconde en statistiques et a donné lieu à une méthode
+appelée l’inférence Bayésienne.
+Voici une liste de liens pour explorer davantage le sujet :
+• Page Wikipédia de l’approche fréquentiste,
+• Page Wikipédia de l’approche Bayésienne,
+• Article du Stanford Encyclopedia of Philosophy sur les différentes interprétations des probabilités,
+• Article du Stanford Encyclopedia of Philosophy sur l’interprétation de la formule de Bayes.

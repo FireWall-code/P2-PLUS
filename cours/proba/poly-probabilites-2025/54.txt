@@ -1,0 +1,37 @@
+3.1 Définitions de base
+3.2 Couples de variables aléatoires discrètes
+3.3 Espérance, Variance, Écart-type
+3.4 Covariance et coefficient de corrélation
+3.5 Lois usuelles
+3.6 Acquis d’apprentissage
+3.7 Exercices
+4 Variables aléatoires continues . . 93
+4.1 Définitions de base
+4.2 Couples de variables aléatoires continues
+4.3 Espérance, Variance, Écart-type
+4.4 Lois usuelles
+4.5 Acquis d’apprentissage
+4.6 Exercices
+Les variables aléatoires
+
+3. Variables aléatoires discrètes
+Souvent, dans une expérience aléatoire, ce n’est pas le résultat en lui-même qui nous intéresse mais
+une certaine valeur liée au résultat. Par exemple, on peut :
+⋆ tirer au hasard une personne dans la population française et mesurer sa hauteur ou son nombre
+moyen d’heures de sommeil par jour,
+⋆ tirer au hasard un étudiant de l’EFREI en troisième année et mesurer la note qu’il ou elle a eu au
+DE de probabilités,
+⋆ jeter deux dés et compter la somme des dés.
+Ces valeurs que l’on forme grâce au résultat d’une expérience sont appelées des “variables aléatoires”
+et leur étude est au coeur de la théorie des probabilités.
+3.1 Définitions de base
+Définition 3.1 (Variable aléatoire)
+Soit (Ω,P) un espace probabilisé. On appelle variable aléatoire toute fonction X : Ω −→ R.
+L’ensemble des valeurs possibles de X est appelé le support de X et est noté X(Ω).
+L’ensemble des variables aléatoires sur Ω est noté R
+Ω.
+Exemples : En reprenant les exemples de l’introduction :
+⋆ Si Ω = {population française} et P est la probabilité uniforme sur Ω, alors la hauteur et le
+nombre moyen d’heures de sommeil par jour sont bien des fonctions H,S : Ω −→ R dont les
+supports sont respectivement [25,222] (en cm) et [3,18] (en heures).
+54

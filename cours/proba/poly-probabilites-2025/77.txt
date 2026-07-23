@@ -1,0 +1,36 @@
+3.5.4 Loi binomiale négative
+Dans le cas d’une loi binomiale :
+⋆ on fixe le nombre de répétitions d’une certaine expérience de Bernoulli,
+⋆ on compte le nombre de succès obtenus.
+Mais on peut s’intéresser à la situation inverse :
+⋆ on fixe le nombre de succès que l’on veut obtenir,
+⋆ on compte le nombre de répétitions nécessaires pour y arriver.
+Définition 3.17 (Loi binomiale négative)
+Une variable aléatoire discrète X suit une loi binomiale négative de paramètres r et p, notée
+X ∼ BN (r, p), si X compte le nombre de répétitions indépendantes d’une expérience de
+Bernoulli (où la probabilité de succès est p) nécessaires pour atteindre r > 0 succès.
+Dans ce cas-là, on a X(Ω) = [[r,+∞[[ et ∀ j ∈ [[r,+∞[[,
+P(X = j) = 
+j −1
+r −1
+
+p
+r
+(1− p)
+j−r
+.
+Autrement dit, P(X = j) est la probabilité que le r-ième succès arrive à la j-ième répétition.
+♦Exemple : À partir de la L3, un étudiant de l’EFREI qui doit passer le rattrapage d’une certaine
+matière doit repasser chaque année ce rattrapage jusqu’à ce qu’il ou elle réussisse à le valider. En
+général, pour les rattrapages de mathématiques de L3, il y a 80% des copies qui valident. Si l’on note
+X le nombre de fois qu’un étudiant doit passer le rattrapage, on a X ∼ BN (1,0.8).
+2
+Par exemple, on peut se demander quelle est la probabilité qu’un étudiant ne réussisse pas à valider
+avant la fin du Master 2 une matière qu’il ou elle n’a pas validé en L3 (avant le rattrapage). On a :
+P(X > 3) = 1−P(X = 1)−P(X = 2)−P(X = 3)
+= 1−0.8−0.2×0.8−0.2
+2 ×0.8
+≈ 0.008.
+Remarque : Dans le cas r = 1, la loi binomiale négative est plutôt appelée loi géométrique.
+2. On pourrait s’attendre à ce que les répétitions ne soient pas indépendantes, mais l’expérience montre que le fait
+d’avoir déjà passé le rattrapage n’a pas d’influence sur le résultat du rattrapage suivant...

@@ -1,0 +1,22 @@
+FIGURE 4.7 – Allure de la loi Gaussienne. Le paramètre µ fixe l’axe de symétrie de la loi. Et le
+paramètre σ représente la distance de cette position au point d’inflexion de la courbe.
+Remarque : En partant de la loi normale centrée réduite, si l’on change la valeur de µ, la courbe est
+translatée vers la gauche ou la droite. Si l’on diminue σ, le pic est plus prononcé. Si l’on augmente σ,
+la courbe s’étale.
+Script Matlab de la figure :
+x=linspace(-8,8);
+y1=normpdf(x,0,1); y2=normpdf(x,3,1);
+y3=normpdf(x,0,3); y4=normpdf(x,-4,1/2);
+plot(x,y1,’LineWidth’,3)
+hold on
+plot(x,y2,":",’LineWidth’,1.5)
+plot(x,y3,"–",’LineWidth’,1.5)
+plot(x,y4,"-.",’LineWidth’,1.5)
+hold off
+legend(["N(0,1)" "N(3,1)" "N(0,9)"
+"N(-4,1/4)"])
+xlabel(’x’)
+ylabel(’f(x)’)
+FIGURE 4.8 – Allure de la loi Gaussienne pour différentes valeurs des paramètres.
+En pratique, tous les calculs de probabilités d’une loi normale sont réalisés en changeant de variable
+pour se ramener à une loi normale centrée réduite, puis en utilisant les valeurs de la fonction de

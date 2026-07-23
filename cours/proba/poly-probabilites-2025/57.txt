@@ -1,0 +1,65 @@
+Exemple : On tire au hasard un étudiant de l’EFREI et on regarde son âge (en années). Ici l’univers Ω
+est l’ensemble des étudiants inscrits à l’EFREI en ce moment. La variable aléatoire X est l’âge et le
+support de X est X(Ω) = {16,17,18,19,20,21,22,23,24,25,26,27}. Une bonne façon de représenter
+la loi de probabilité de X est sous forme d’un tableau :
+xi 16 17 18 19 20 21 22 23 24 25 26 27
+P(X = xi)
+1
+100
+4
+100
+10
+100
+15
+100
+15
+100
+20
+100
+15
+100
+10
+100
+5
+100
+3
+100
+1
+100
+1
+100
+(et on vérifie bien que 1
+100 +
+4
+100 +
+10
+100 +
+15
+100 +
+15
+100 +
+20
+100 +
+15
+100 +
+10
+100 +
+5
+100 +
+3
+100 +
+1
+100 +
+1
+100 = 1).
+Définition 3.5 (Fonction de répartition)
+On appelle fonction de répartition de la variable aléatoire X, que l’on note FX(x) (ou F(x) si la
+variable aléatoire est évidente), la fonction définie pour tout réel x ∈ R par
+F(x) = P(X ≤ x) = ∑
+xi≤x
+P(X = xi).
+Exemple : Voici le graphe représentant la fonction de répartition de la variable X de l’exemple précédent
+(âge des étudiants de l’EFREI) :
+FIGURE 3.2 – La distribution initiale est en haut. En bas, la fonction de répartition (en bleu) est
+une fonction constante par morceaux. On peut lire dans chaque “saut” correspondant à la valeur
+de la probabilité P(X = xi).

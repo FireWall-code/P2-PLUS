@@ -1,0 +1,58 @@
+Voici une loi de probabilité conjointe de X et Y différente mais qui donne lieu aux mêmes lois de
+probabilités pour X et pour Y :
+X = −2 X = −1 X = 0 X = 1 X = 2 P(Y = y)
+Y = 15 4
+15 0 0 0 0 4/15
+Y = 30 0
+2
+15
+1
+6
+1
+30 0 1/3
+Y = 40 0 0 0
+1
+5
+1
+5
+2/5
+P(X = x) 4/15 2/15 1/6 7/30 1/5 1
+Définition 3.7 (Couple de variables aléatoires discrètes indépendantes)
+Soient X,Y ∈ ℓ(Ω) deux variables aléatoires discrètes sur Ω. On dit que X et Y sont indépendantes si
+∀(x, y) ∈ X(Ω)×Y(Ω),P(X = x,Y = y) = P(X = x)P(Y = y).
+De façon équivalente, cette condition s’écrit :
+∀(x, y) ∈ X(Ω)×Y(Ω),P(X = x
+
+Y = y) = P(X = x).
+Autrement dit, les variables X et Y sont indépendantes si les évènements (X = x) et (Y = y) sont
+indépendants pour tout choix de x et y.
+Exemples :
+⋆ Si l’on reprend le dernier tableau de l’exemple précédent, les variables X et Y ne sont pas
+indépendantes puisque l’on a P(X = −2
+
+Y = 15) = 1 or P(X = −2) = 4/15.
+⋆ La loi de probabilité conjointe ci-dessous représente deux variables aléatoires indépendantes :
+X = 1 X = 2 X = 3 P(Y = y)
+Y = 0
+1
+18
+1
+6
+1
+9
+1/3
+Y = 1
+1
+9
+1
+3
+2
+9
+2/3
+P(X = x) 1/6 1/2 1/3 1
+Une façon directe de remarquer l’indépendance est de voir que les valeurs sur les lignes Y = 0
+et Y = 1 sont proportionnelles. On pourrait dire la même chose des colonnes X = 1, X = 2 et
+X = 3. Ainsi le résultat obtenu sur Y n’affectera pas la distribution de probabilité des X.
+⋆ On tire au hasard une personne de la population française. On note X le nombre de fois que cette
+personne a donné "positif" à un test de la COVID-19 et Y le nombre de têtes d’ail mangées par
+la personne, en moyenne, par semaine. Ces deux variables aléatoires sont indépendantes.

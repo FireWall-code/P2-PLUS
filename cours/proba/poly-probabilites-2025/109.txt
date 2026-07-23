@@ -1,0 +1,46 @@
+FIGURE 4.6 – Allure de la loi exponentielle de paramètre λ = 1/5.
+Proposition 4.11 : Espérance et variance de la loi exponentielle
+Si X ∼ E (λ), alors E(X) = 1
+λ
+et V(X) = 1
+λ
+2
+.
+Démonstration. En intégrant par parties, on a
+E(X) = Z +∞
+−∞
+x f(x)dx = λ
+Z +∞
+0
+xe−λxdx =
+1
+λ
+.
+De même, en intégrant par parties deux fois,
+E(X
+2
+) = Z +∞
+−∞
+x
+2
+f(x)dx = λ
+Z +∞
+0
+x
+2
+e
+−λx
+dx =
+2
+λ
+2
+et donc
+V(X) = E(X
+2
+)−E(X)
+2 =
+1
+λ
+2
+.
+La proposition suivante donne une propriété importante qui caractérise la loi exponentielle :

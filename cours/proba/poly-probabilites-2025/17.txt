@@ -1,0 +1,43 @@
+♦Exemple : Pour une famille de quatre événements E,F,G,H, la formule de Poincaré écrite explicitement est :
+P(E ∪F ∪G∪H) =P(E) +P(F) +P(G) +P(H)
+−P(E ∩F)−P(E ∩G)−P(E ∩H)−P(F ∩G)−P(F ∩H)−P(G∩H)
++P(E ∩F ∩G) +P(E ∩F ∩H) +P(E ∩G∩H) +P(F ∩G∩H)
+−P(E ∩F ∩G∩H)
+Démonstration. La preuve se fait par récurrence en prouvant les cas n = 1 et n = 2 d’abord, puis en
+utilisant le fait que
+P
+ n[
++1
+i=1
+Ei
+!
+= P
+ 
+[n
+i=1
+Ei
+!
++P(En+1)−P
+ [n
+i=1
+(Ei ∩En+1)
+
+.
+5
+Fiche méthode #1 ()
+Raisonnement en trois étapes pour déterminer la probabilité d’un évènement
+Lorsque vous devez calculer la probabilité d’un certain évènement E, suivez la méthode suivante :
+1. Commencez par identifier les évènements élémentaires qui vous permettent de décrire
+complètement l’expérience aléatoire.
+2. Décrivez l’évènement E grâce aux évènements élémentaires (en utilisant les opérations
+sur les ensembles ∩,∪, ).
+3. Enfin, utilisez les propriétés des fonctions de probabilité pour trouver P(E).
+♦Exemple : Nous sommes dans un duel au Poker (Texas Hold’em). Le premier joueur a dans sa main
+(8♠,8♡), le deuxième a dans sa main (2♣, J♣). Sur la table, le croupier a pour l’instant retourné
+les cartes suivantes : (2♢,4♣,9♡,A♣). Il reste donc une dernière carte à retourner. Pour gagner, le
+deuxième joueur a besoin que cette carte soit un 2 ou un J ou un trèfle. Calculer la probabilité de
+victoire du deuxième joueur.
+1. L’univers Ω consiste ici dans toutes les possibilités pour cette dernière carte. Ω est donc l’ensemble des 44 cartes restantes qui ne sont pas déjà sur la table.
+2. Notons V2 l’évènement “le deuxième joueur gagne” et "Deux", "Valet", "Trèfle" les évènements
+"la dernière carte retournée est un deux" (respectivement "un valet", "un trèfle"). On a donc
+5. Pour une preuve détaillée, voir le Chapitre 2 de cette leçon sur Wikiversité.

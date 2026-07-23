@@ -1,0 +1,96 @@
+⋆ D’abord, en utilisant la loi de probabilité de la variable aléatoire Y = X
+2
+. Cela donne
+E(X
+2
+) = 0×
+1
+8
++1×
+5
+16
++4×
+1
+4
++9×
+1
+8
++16×
+3
+16
+=
+87
+16
+.
+⋆ Ensuite, en utilisant le théorème du transfert :
+E(X
+2
+) = (−2)
+2 ×
+3
+16
++ (−1)
+2 ×
+1
+4
++0
+2 ×
+1
+8
++1
+2 ×
+1
+16
++2
+2 ×
+1
+16
++3
+2 ×
+1
+8
++4
+2 ×
+3
+16
+=
+87
+16
+.
+Remarque : Dans cet exemple, comme en général, on a E(X
+2
+) ̸=
+
+E(X)
+2
+.
+Définition 3.9 (Variance et écart-type d’une variable aléatoire discrète)
+Soit X une variable aléatoire discrète. On appelle variance de X, si elle existe, la quantité
+V(X) = E
+
+X −E(X)
+2
+
+= E(X
+2
+)−E(X)
+2
+.
+De plus, on appelle écart-type de X la quantité σ(X) = pV(X).
+L’ensemble des variables aléatoires discrètes sur Ω pour lesquelles la variance existe est noté
+ℓ2(Ω).
+Si l’espérance mesure la moyenne théorique de X, l’écart-type (qui a les mêmes unités que X) permet
+de mesurer la dispersion de X, c’est-à-dire la distance moyenne entre le résultat d’une expérience
+aléatoire et E(X) : plus σ(X) est “petit”, plus les valeurs de X sont “concentrées” autour de E(X).
+FIGURE 3.3 – Illustration de la signification de l’espérance et l’écart-type d’une variable
+aléatoire discrète. À gauche, E(X) = 5 et σ = 2,2. Et à droite, E(X) = 10 et σ = 3,2.
+Remarque : En pratique, on utilise la formule V(X) = E(X
+2
+)−E(X)
+2 pour calculer la variance d’une
+variable aléatoire. Mais, en toute rigueur, c’est la formule V(X) = E
+
+X −E(X)
+2
+
+qui définit la

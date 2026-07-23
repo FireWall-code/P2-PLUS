@@ -1,0 +1,55 @@
+Proposition 1.3
+Soit (Ω,P) un espace probabilisé. Alors :
+⋆ P(∅) = 0,
+⋆ P(E) = 1−P(E),
+⋆ E ⊂ F =⇒ P(E) ≤ P(F),
+⋆ P(E ∪F) = P(E) +P(F)−P(E ∩F).
+Démonstration. D’abord, il suffit de regarder à nouveau les dessins des opérations sur les ensembles
+et penser la probabilité comme la surface relative d’un sous-ensemble pour avoir une compréhension
+intuitive de ces résultats.
+Formellement (c’est un bon exercice pour se familiariser avec les propriétés des fonctions de
+probabilité) :
+⋆ On a ∅∩Ω = ∅ et ∅∪Ω = Ω donc P(∅∪Ω) = P(∅)+P(Ω) = P(Ω), ce qui donne P(∅) = 0.
+⋆ Puisque E ∩E = ∅, on a P(E ∪E) = P(E) + P(E). De plus, on a E ∪E = Ω, ce qui donne
+P(E) +P(E) = P(Ω) = 1.
+⋆ Si E ⊂ F, on a F = E∪(F ∩E). De plus, puisque E∩(F ∩E) = ∅, on a P(F) = P(E)+P(F ∩E).
+Enfin, comme P(F ∩E) ≥ 0, on a P(F) ≥ P(E).
+⋆ On a E ∪ F = E ∪ (F ∩ E). Comme E ∩ (F ∩ E) = ∅, on a P(E ∪ F) = P(E) + P(F ∩ E).
+De plus, F = (E ∩ F) ∪ (F ∩ E) et ces deux derniers ensembles sont aussi disjoints. Donc
+P(F) = P(E ∩F) +P(F ∩E). D’où l’égalité P(E ∪F) = P(E) +P(F)−P(E ∩F).
+Proposition 1.4 : Formule de Poincaré
+Soit (Ω,P) un espace probabilisé et {E1,E2,...En} une famille quelconque d’évènements. On a :
+P
+ 
+[n
+i=1
+Ei
+!
+=
+n
+∑
+k=1
+(−1)
+k+1 ∑
+1≤i1<...<ik≤n
+P(Ei1 ∩...∩Eik)
+=
+n
+∑
+i=1
+P(Ei)−
+n
+∑
+1≤i<j≤n
+P(Ei ∩Ej) +
+n
+∑
+1≤i<j<k≤n
+P(Ei ∩Ej ∩Ek) +...+ (−1)
+n+1P
+ 
+\n
+i=1
+Ei
+!
+.

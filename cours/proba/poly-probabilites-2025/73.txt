@@ -1,0 +1,57 @@
+pour avoir la probabilité P(X = k), il ne faut pas oublier de compter tous les chemins possibles, il y en
+a autant que le nombre de façons de choisir les k expériences parmi les n qui donneront un succès. Ce
+nombre est donné par le coefficient du binôme :
+
+n
+k
+
+=
+n!
+k!(n−k)!
+.
+k=3
+k=2
+k=1 k=2
+k=0 k=1
+k=0 k=1
+k=0
+k=0
+n=0 n=1 n=2 n=3
+p
+1− p
+p
+1− p
+p
+1− p
+1− p
+p
+1− p
+p
+p
+1− p
+FIGURE 3.5 – Arborescence pour n = 3. Nous avons trois façons d’avoir k = 2 succès, ce qui
+correspond aux tracés en rouge. Il s’agit bien de choisir 2 succès parmi 3 tentatives, ou bien 1
+échec parmi 3 tentatives, ce qui correspond bien aux 
+3
+2
+
+=
+
+3
+1
+
+= 3 chemins.
+Définition 3.16 (Loi binomiale)
+Une variable aléatoire discrète X suit une loi binomiale de paramètres n et p, noté X ∼ B(n, p),
+si X compte le nombre de succès dans n répétitions identiques et indépendantes d’une expérience
+de Bernoulli où la probabilité de succès est p.
+Dans ce cas-là, on a X(Ω) = [[0,n]] et ∀k ∈ [[0,n]],
+P(X = k) = 
+n
+k
+
+p
+k
+(1− p)
+n−k
+.

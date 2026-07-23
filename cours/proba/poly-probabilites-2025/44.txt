@@ -1,0 +1,31 @@
+2.5 Exercices
+♦= Exercice obligatoire.
+[*] = Application directe du cours : sert à vérifier que vous avez bien compris les notions et techniques de base.
+[**] = Demande plus de réflexion mais vous devez être capables de le résoudre et maîtriser les techniques utilisées dans cet
+exercice.
+[***] = Exercice difficile pour aller plus loin, découvrir de nouvelles idées ou techniques. Pour les plus motivés !
+Faire le point en autonomie : QCM sur les notions de base
+Soient A et B des évènements quelconques de Ω, l’ensemble de tous les résultats possibles d’une
+épreuve. Parmi les propositions suivantes, trouvez les propositions vraies :
+Item Énoncé
+A B étant possible, on a P(A|B) = PB(A) = P(A∩B)
+P(B)
+.
+B A et B étant deux évènements possibles, on a P(A|B) = P(B|A).
+C B étant possible, on a P(A|B) +P(A|B) = 1.
+D A = (A∩B)∪(A∩B).
+E A et B étant deux évènements possibles, on a P(B|A) = P(B)P(A|B)
+P(B)P(A|B) +P(B)P(A|B)
+♦ Exercice 2.1 [*] Indépendance vs. Incompatibilité
+a) Donner un exemple de deux évènements qui sont compatibles et indépendants.
+b) Donner un exemple de deux évènements qui sont compatibles et ne sont pas indépendants.
+c) Donner un exemple de deux évènements qui sont incompatibles et ne sont pas indépendants.
+d) Prouver que deux évènements possibles et incompatibles ne peuvent pas être indépendants.
+Exercice 2.2 [**] Démonstration de la proposition 2.2
+Soient (Ω,P) un espace probabilisé et F ⊂ Ω. On considère la fonction suivante :
+P(·|F) : P(Ω) −→ R
+E 7−→ P(E|F)
+Montrer que P(·|F) est une fonction de probabilité sur Ω.
+Exercice 2.3 [**] Démonstration de la proposition 2.4
+Soient (Ω,P) un espace probabilisé et E,F ⊂ Ω. Démontrer que l’on a
+E et F indépendants ⇐⇒ E et F indépendants.

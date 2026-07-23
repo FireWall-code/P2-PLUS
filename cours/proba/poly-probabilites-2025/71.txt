@@ -1,0 +1,66 @@
+3.5 Lois usuelles
+On va maintenant regarder certaines lois de probabilités de référence que l’on rencontre souvent.
+3.5.1 Loi uniforme
+Définition 3.14 (Loi uniforme)
+Soit X une variable aléatoire discrète. On dit que X suit une loi uniforme si toutes les valeurs
+possibles de X sont équiprobables.
+En particulier, soit n ∈ N
+∗
+. On note X ∼ U ([[1,n]]) si
+X(Ω) = [[1,n]] et ∀k ∈ [[1,n]],P(X = k) = 1
+n
+.
+Remarque : D’après la définition, si X suit une loi uniforme, X(Ω) est forcément un ensemble fini et,
+pour x ∈ X(Ω), on a P(X = x) = 1
+|X(Ω)|
+.
+Proposition 3.12 : Espérance et variance de la loi uniforme
+Si X ∼ U ([[1,n]]), alors E(X) = n+1
+2
+et V(X) = n
+2 −1
+12
+.
+Démonstration. Par définition, on a
+E(X) =
+n
+∑
+k=1
+kP(X = k) = 1
+n
+n
+∑
+k=1
+k =
+n+1
+2
+.
+De même,
+E(X
+2
+) =
+n
+∑
+k=1
+k
+2P(X = k) = 1
+n
+n
+∑
+k=1
+k
+2 =
+(n+1)(2n+1)
+6
+et donc
+V(X) = E(X
+2
+)−E(X)
+2 =
+2(n+1)(2n+1)−3(n+1)
+2
+12
+=
+(n+1)(n−1)
+12
+.

@@ -1,0 +1,44 @@
+Remarque : ℓ(Ω) est un sous-espace vectoriel de R
+Ω.
+FIGURE 3.1 – Une variable aléatoire discrète dont l’univers est
+Ω = {ω1,ω2,ω3,ω4,ω5,ω6,ω7} et le support est X(Ω) = {x1, x2, x3, x4}.
+Figure tirée du site https://chauvetmath.fr.
+Théorème 3.1 : Système complet d’évènements associé à X
+Soient (Ω,P) un espace probabilisé et X une variable aléatoire discrète sur Ω. On note
+(X = x) = {ω ∈ Ω
+
+X(ω) = x}.
+Alors la famille (X = x)x∈X(Ω)
+
+est un système complet d’évènements de l’univers Ω.
+Exemple : Dans la figure précédente, on a
+Ω = {ω1,ω2,ω3,ω4,ω5,ω6,ω7} = {ω1,ω6,ω7
+| {z }
+(X=x1)
+, ω5
+|{z}
+X=x2
+,ω2,ω3
+| {z }
+X=x3
+, ω4
+|{z}
+X=x4
+} =
+
+(X = x)x∈X(Ω)
+
+La variable aléatoire discrète redéfinit ainsi complètement l’espace d’étude.
+Définition 3.4 (Loi de probabilité d’une variable aléatoire discrète)
+Soient (Ω,P) un espace probabilisé et X une variable aléatoire discrète sur Ω. Supposons, de
+plus, que l’on peut classer les valeurs prises par X par ordre croissant depuis une plus petite
+valeur x1 (autrement dit, X(Ω) = {x1, x2,..., xn,...}, avec i < j =⇒ xi < x j).
+Alors la loi de probabilité de X est la donnée des nombres pi = P(X = xi).
+Remarque : Par définition, la suite des nombres pi doit satisfaire les deux propriétés suivantes :
+∑
+i
+pi = 1 et P(xi ≤ X ≤ x j) =
+j
+∑
+k=i
+pk.

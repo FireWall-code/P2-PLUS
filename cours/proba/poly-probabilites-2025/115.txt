@@ -1,0 +1,84 @@
+Proposition 4.14 : Espérance et variance de la loi normale
+Si X ∼ N (µ,σ
+2
+), alors E(X) = µ et V(X) = σ
+2
+.
+Démonstration. Soit X ∼ N (µ,σ
+2
+). Puisque Z =
+X − µ
+σ
+∼ N (0,1) et que, E(Z) = E(X)− µ
+σ
+et
+V(Z) = V(X)
+σ2
+, il suffit de faire les calculs avec Z ∼ N (0,1) pour prouver le cas général.
+On a
+E(Z) = 1
+√
+2π
+Z
+R
+ze−z
+2/2
+dz = 0
+puisque la fonction à l’intérieur de l’intégrale est impaire.
+De même, on a
+V(Z) = E(Z
+2
+) = 1
+√
+2π
+Z
+R
+z
+2
+e
+−z
+2/2
+dz
+= −
+1
+√
+2π
+Z
+R
+z×
+
+−ze−z
+2/2
+
+dz
+=
+1
+√
+2π
+Z
+R
+e
+−z
+2/2
+dz
+= P(Z ∈ R) = 1
+où, de la deuxième à la troisième ligne, on a fait une intégration par parties en remarquant que −ze−z
+2/2
+est la dérivée de e
+−z
+2/2
+.
+Le théorème suivant, qui est un cas particulier du théorème central limite (voir le point historique
+ci-dessous), explique en grande partie la prédominance de la loi normale dans la modélisation de
+phénomènes physiques :
+Théorème 4.15 : Lien entre la loi binomiale et la loi normale
+Lorsque n tend vers l’infini, la loi binomiale tend vers une loi normale. Plus précisément :
+Soit (Xn)n∈N une suite de variables aléatoires discrètes telles que Xn ∼ B(n, p).
+Soit Zn =
+Xn −np
+p
+np(1− p)
+la variable aléatoire centrée réduite associée à Xn. Alors, on a
+lim
+n→+∞
+Zn ∼ N (0,1).

@@ -1,0 +1,71 @@
+L’évènement E =“l’enfant récupère le ballon” correspond au cas où la distance du ballon au centre de
+la mare est supérieure à R−r. Ainsi, la probabilité que l’on cherche à calculer est
+P(
+p
+x
+2 +y2 ≥ R−r) = 1−P(x
+2 +y2 ≤ (R−r)2
+)
+= 1−
+ZZ
+x
+2+y2≤(R−r)2
+fX,Y (x, y)dxdy
+= 1−
+1
+πR2
+ZZ
+x
+2+y2≤(R−r)2
+dxdy
+= 1−
+(R−r)
+2
+R2
+.
+Proposition 4.6
+Soient X et Y deux variables aléatoires conjointement continues. Alors X et Y sont toutes les deux
+des variables aléatoires continues (la réciproque est fausse !).
+De plus, les densités de probabilité sont données par
+fX(x) = Z +∞
+−∞
+fX,Y (x, y)dy et fY (y) = Z +∞
+−∞
+fX,Y (x, y)dx.
+Démonstration. Soit A ⊂ R. Par définition, la densité de probabilité de X est la fonction telle que
+P(X ∈ A) = Z
+A
+fX(x)dx. Or on a
+P(X ∈ A) = P(X ∈ A,Y ∈ R) = Z
+A
+
+
+Z
++∞
+−∞
+fX,Y (x, y)dy
+
+dx.
+♦Exemple : En continuant avec le même exemple, la densité de probabilité de la variable aléatoire X
+(position sur l’axe X du ballon sur la mare), on a, pour −R ≤ x ≤ R :
+fX(x) = Z +∞
+−∞
+fX,Y (x, y)dy =
+1
+πR2
++
+√
+R2−x
+2
+Z
+−
+√
+R2−x
+2
+dy =
+2
+√
+R2 −x
+2
+πR2
+.

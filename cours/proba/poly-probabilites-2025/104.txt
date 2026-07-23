@@ -1,0 +1,84 @@
+Théorème 4.8 : Théorème du transfert (version continue)
+Soit X ∈ L1(Ω) une variable aléatoire continue et notons fX la densité de probabilité de X. Soit g
+une fonction réelle définie sur X(Ω). Alors, si l’espérance de Y = g(X) existe, on a
+E(g(X)) = Z
+X(Ω)
+g(x)fX(x)dx.
+Démonstration. Admis.
+♦Exemple : On tire un nombre au hasard dans l’intervalle [0,2] et on calcule ensuite le carré de
+ce nombre. Pour trouver l’espérance de cette expérience, on note X le nombre tiré au hasard dans
+l’intervalle [0,2]. Cette variable aléatoire admet comme densité de probabilité
+fX(x) =
+
+
+
+1
+2
+si x ∈ [0,2]
+0 sinon.
+Pour calculer E(X
+2
+), on utilise directement le théorème du transfert :
+E(X
+2
+) = Z +∞
+−∞
+x
+2
+fX(x)dx =
+1
+2
+Z 2
+0
+x
+2
+dx =
+4
+3
+.
+Remarque : Dans l’exemple précédent, on peut aussi calculer E(X
+2
+) en utilisant la fiche méthode page
+98 pour trouver la densité de probabilité de Y = X
+2 pour ensuite calculer E(Y) :
+⋆ Puisque X(Ω) = [0,2], on a Y(Ω) = [0,4].
+⋆ Puisque X et Y ne prennent que des valeurs positives, on a, pour a ∈ [0,4],
+{Y ≤ a} = {X ≤
+√
+a}.
+⋆ Ainsi
+FY (a) = P(Y ≤ a) = P(X ≤
+√
+a) = 1
+2
+Z √
+a
+0
+dx =
+√
+a
+2
+.
+⋆ Donc, on trouve que la densité de probabilité de Y vaut
+fY (y) =
+
+
+
+1
+4
+√y
+si y ∈ [0,4]
+0 sinon.
+(On voit au passage que, même si les valeurs de X sont équiprobables, celles de X
+2 ne le sont
+pas.)
+⋆ Enfin, pour l’espérance, on a
+E(Y) = Z 4
+0
+√y
+4
+dy =
+4
+3
+.
+On mesure ici à quel point le théorème du transfert nous simplifie les calculs !

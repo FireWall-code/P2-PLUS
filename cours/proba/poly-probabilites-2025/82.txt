@@ -1,0 +1,42 @@
+3.7 Exercices
+♦= Exercice obligatoire.
+[*] = Application directe du cours : sert à vérifier que vous avez bien compris les notions et techniques de base.
+[**] = Demande plus de réflexion mais vous devez être capables de le résoudre et maîtriser les techniques utilisées dans cet
+exercice.
+[***] = Exercice difficile pour aller plus loin, découvrir de nouvelles idées ou techniques. Pour les plus motivés !
+Faire le point en autonomie : QCM sur les notions de base
+Soient X et Y deux variables aléatoires sur un espace probabilisé fini (Ω,P) :
+Item Énoncé
+A Si X suit une loi uniforme U ([[1,n]]) alors P(X = k) = 1
+n
+2
+B E(X
+2
+) ≤ E(X)
+2
+C Si X(Ω) = [[1,n]] alors E(e
+X
+) = ∑
+n
+k=1
+e
+kP(X = k)
+D Si X suit une loi de Bernoulli B(p) alors E(X) = 1
+p
+E Si X suit une loi binomiale B(n, p) alors E(X) = np
+F Si X suit une loi binomiale négative BN (r, p) alors X(Ω) = [[1,r]]
+G Si X suit une loi binomiale B(n, p) alors P(X = 0) = (1− p)
+n
+H Pour que X et Y ne soient pas indépendantes, il suffit que Cov(X,Y) ̸= 0
+I X et Y sont indépendantes si ∀(x, y) ∈ X(Ω)×Y(Ω),P(X = x,Y = y) = P(X = x)P(Y = y).
+♦ Exercice 3.1 [*]
+On considère les familles de trois enfants et l’on note X la variable aléatoire qui compte le nombre
+de garçons. Donner la loi de probabilité de X en supposant l’équiprobabilité des sexes.
+♦ Exercice 3.2 [*]
+On jette simultanément trois monnaies. Soient NF et NP le nombre de faces et de piles obtenus
+respectivement. On considère la variable aléatoire X = NF −NP. Donner la loi de probabilité de X.
+♦ Exercice 3.3 [*]
+Un secrétariat a établi sur plusieurs années la distribution du nombre X d’appels téléphoniques par
+minute les jours ouvrés (du lundi au vendredi), tabulée ci-dessous :
+Nombre d’appels x 0 1 2 3 4 5 6 7
+P(X ≤ x) 0,05 0,15 0,3 0,5 0,7 0,85 0,95 1

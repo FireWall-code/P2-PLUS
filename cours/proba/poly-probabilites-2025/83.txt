@@ -1,0 +1,30 @@
+a) Remplir le tableau ci-dessous
+Nombre d’appels x 0 1 2 3 4 5 6 7
+P(X = x)
+b) Calculer E(X) et V(X).
+c) Quelle est la probabilité de recevoir au plus 2 appels par minute ?
+d) Quelle est la probabilité que, sur dix minutes, il y ait exactement trois appels chaque minute ?
+e) Parmi les minutes avec plus de quatre appels, quelle proportion en reçoit exactement sept ?
+f) Soit Y le nombre d’appels téléphoniques par heure les jours ouvrés. Calculer E(Y) et V(Y).
+♦ Exercice 3.4 [*]
+Cet exercice est tiré de S. Ross, A first course in Probability, p. 186.
+Quatre autocars transportent 148 étudiants de l’EFREI au WEI. Les bus transportent, respectivement,
+40,33,25 et 50 étudiants. Un étudiant parmi les 148 et un conducteur parmi les quatre sont tirés au
+hasard. On désigne par X le nombre d’étudiants transportés dans le bus de l’étudiant tiré au hasard et
+par Y le nombre d’étudiants transportés dans le bus du conducteur tiré au hasard.
+a) À votre avis, parmi E(X) et E(Y) lequel est plus grand ? Et parmi V(X) et V(Y) ?
+b) Maintenant, calculez E(X),E(Y),V(X) et V(Y).
+Exercice 3.5 [*] Le rang d’un enfant
+Dans le petit village d’Ayampe en Équateur, il y a cent familles, dont trente avec un seul enfant,
+cinquante avec deux enfants et vingt avec trois enfants. Le rang de naissance d’un enfant est 1 si
+l’enfant est l’aîné (l’enfant le plus âgé de la famille), 2 si l’enfant est le cadet (le deuxième enfant le
+plus âgé de la famille) et 3 si l’enfant est le troisième enfant le plus âgé de la famille.
+a) On choisit aléatoirement une famille parmi les 100, puis, dans cette famille, on choisit
+aléatoirement un enfant. Donner la loi de probabilité, l’espérance et l’écart-type du rang de
+naissance de l’enfant choisi.
+b) Cette fois-ci on choisit aléatoirement un enfant du village. Donner la loi de probabilité,
+l’espérance et l’écart-type du rang de naissance de l’enfant choisi.
+Exercice 3.6 [**] Preuve du théorème 3.8 et des propositions 3.6 et 3.9.
+Soient X et Y deux variables aléatoires discrètes sur Ω.
+a) Prouver que l’on a V(X +Y) = V(X) +V(Y) +2Cov(X,Y).
+b) Prouver que l’on a X et Y indépendantes =⇒ Cov(X,Y) = 0.

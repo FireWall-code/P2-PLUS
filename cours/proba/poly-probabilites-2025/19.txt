@@ -1,0 +1,33 @@
+1.4 [Hors programme] Les univers indénombrables
+Cette section ne fait pas partie du programme. Elle est écrite pour les étudiants curieux, qui veulent
+avoir un aperçu de ce que sont réellement les mathématiques. Peut-être, sur un malentendu, vous y
+prendrez du goût !
+La définition d’une fonction de probabilité (1.6, page 15) semble assez innocente. Mais le monde
+des objets mathématiques est surprenant et subtil. Il se trouve que cette définition des probabilités ne
+fonctionne pas dès que l’on a à faire à des ensembles indénombrables. Commençons donc par rappeler
+la définition précise du concept d’ensemble indénombrable.
+Définition 1.7 (Ensembles dénombrables, indénombrables)
+Soit E un ensemble. On dit que E est dénombrable s’il existe une bijection de E dans un
+sous-ensemble de N. Autrement, on dit que E est indénombrable.
+Exemples :
+⋆ Tout ensemble fini est dénombrable. En effet, si card(E) = n avec n ∈ N
+∗
+, alors il existe une
+bijection de E dans [[1,n]].
+⋆ L’ensemble des nombres pairs 2N, l’ensemble des entiers relatifs Z, l’ensemble des nombres
+rationnels Q sont tous dénombrables.
+Le concept d’ensemble dénombrable/indénombrable a été introduit par le mathématicien allemand
+Georg Cantor qui prouva en 1891 l’existence d’ensembles indénombrables.
+Théorème 1.5 : R est indénombrable
+L’ensemble des nombres réels est un ensemble indénombrable.
+Démonstration. Nous allons prouver par l’absurde que l’intervalle ]0,1[ est indénombrable. La preuve
+est basée sur l’argument diagonal de Cantor.
+Supposons qu’il existe une bijection f : N −→]0,1[ et écrivons chaque nombre dans ]0,1[ dans son
+écriture décimale. Définissons alors le nombre α de sorte que son n-ième chiffre après la virgule soit
+égal au n-ième chiffre de f(n) plus un modulo 10.
+Par exemple, si
+f(0) = 0,5486276021766767...
+f(1) = 0,4118197681602603...
+f(2) = 0,6718761791761260...
+f(3) = 0,0019653165281527...
+f(4) = 0,3333433333333333...

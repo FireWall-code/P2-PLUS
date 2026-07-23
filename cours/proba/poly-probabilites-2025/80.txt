@@ -1,0 +1,26 @@
+FIGURE 3.8 – En haut à gauche : représentation de la loi de Poisson pour λ = 50. Les trois
+autres graphes sont des représentations de lois binomiales où np = 50. On voit que plus n
+augmente (et donc p diminue), plus la loi binomiale ressemble à la loi de Poisson.
+La preuve de ce résultat dépasse les notions de ce cours car elle utilise l’approximation de Stirling
+n! ∼
++∞
+√
+2πn
+n
+e
+n
+et la limite
+lim
+n→+∞
+
+1−
+x
+n
+n
+= e
+−x
+.
+Proposition 3.19 : Somme de variables aléatoires indépendantes de Poisson
+Soient X et Y deux variables aléatoires indépendantes telles que X ∼ P(λ) et Y ∼ P(θ). Alors,
+on a X +Y ∼ P(λ +θ).
+Démonstration. Voir exercice 3.31.

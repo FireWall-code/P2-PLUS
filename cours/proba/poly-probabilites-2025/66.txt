@@ -1,0 +1,30 @@
+Définition 3.11 (Moment d’ordre n)
+Soit X ∈ ℓ(Ω) une variable aléatoire discrète et n ∈ N
+∗
+. On appelle moment d’ordre n, si elle
+existe, la quantité
+mn(X) = E(X
+n
+) = ∑
+x∈X(Ω)
+x
+nP(X = x).
+On appelle moment centré d’ordre n, si elle existe, la quantité
+µn(X) = E ((X −E(X))n).
+Remarque : Cette définition généralise bien l’espérance et la variance puisque m1 = µ1 = E(X) et
+µ2(X) = V(X).
+3.4 Covariance et coefficient de corrélation
+Lorsque l’on étudie des couples de variables aléatoires, la question principale est de mesurer
+leur “’influence mutuelle” (dans quelle mesure le cancer de poumon est-il lié au tabagisme? Le
+réchauffement planétaire est-il lié aux émissions de CO2 ?). Pour quantifier ces influences, on introduit
+des quantités similaires à la variance d’une variable aléatoire.
+Définition 3.12 (Covariance entre X et Y)
+Soient X,Y ∈ ℓ2(Ω) deux variables aléatoires discrètes. On appelle covariance entre X et Y la
+quantité :
+Cov(X,Y) = E(XY)−E(X)E(Y).
+Remarque : On a Cov(X,X) = V(X).
+Le résultat principal qui montre que la covariance est une quantité pertinente est le théorème suivant :
+Théorème 3.8 : Indépendance et covariance
+Soient X,Y ∈ ℓ2(Ω) deux variables aléatoires discrètes. Alors, on a
+X et Y indépendantes =⇒ Cov(X,Y) = 0.
+Démonstration. Voir exercice 3.6.

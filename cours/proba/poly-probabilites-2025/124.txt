@@ -1,0 +1,21 @@
+a) Calculer f(r).
+b) Calculer la densité de probabilité de l’angle θ = BOP.
+c) Calculer la probabilité qu’une particule frappe la cible entre θ = 0 et θ = π/4.
+Exercice 4.12 [**]
+Reprendre l’exemple de la section 4.2 mais en considérant une mare carrée de côté R.
+En particulier :
+a) Trouver la densité de probabilité conjointe de X et Y.
+b) Calculer la probabilité que l’enfant puisse récupérer le ballon lorsqu’il revient le jour d’après.
+c) Trouver la densité de probabilité de X et celle de Y.
+d) Déterminer si X et Y sont indépendantes.
+Exercice 4.13 [***] Le problème de l’aiguille de Buffon
+On jette une aiguille de longueur L sur une feuille de papier lignée dont la séparation entre les lignes
+horizontales est D ≥ L. Quelle est la probabilité que l’aiguille intersecte une ligne ?
+Exercice 4.14 [**] Temps d’attente
+Cet exercice est tiré de S. Ross, A first course in Probability, p. 297.
+Un homme et une femme se donnent rendez-vous à la place Furstenberg autour de 12h30. En
+supposant que les deux personnes sont indépendantes et que l’heure d’arrivée de l’homme suit une loi
+uniforme entre 12h15 et 12h45 et l’heure d’arrivée de la femme suit une loi uniforme entre 12h et 13h,
+calculer :
+a) La probabilité que le premier arrivé n’attende pas plus de cinq minutes.
+b) La probabilité que l’homme arrive en premier.

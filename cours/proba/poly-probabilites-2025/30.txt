@@ -1,0 +1,41 @@
+Exercice 1.14 [***] Une expérience surprenante
+Cet exercice est tiré de S. Ross, A first course in Probability, p. 51-53.
+Supposons que l’on dispose d’une urne infinie et d’une collection infinie de balles, numérotées
+1,2,3,.... Considérons l’expérience de pensée suivante :
+⋆ une minute avant minuit, on place les balles 1 à 10 dans l’urne puis on en retire la balle 10.
+⋆ 1/2 minute avant minuit, on place les balles 11 à 20 dans l’urne puis on en retire la balle 20.
+⋆ 1/4 minute avant minuit, on place les balles 21 à 30 dans l’urne puis on en retire la balle 30.
+⋆ 1/8 minute avant minuit, on place les balles 31 à 40 dans l’urne puis on en retire la balle 40.
+⋆ etc ...
+a) Les balles 1 à 9, puis 11 à 19, et ainsi de suite ont-elles une chance d’être enlevées? Ainsi,
+combien de balles y aura-t-il dans l’urne à minuit ?
+b) Maintenant, on modifie un peu l’expérience. Au lieu de retirer d’abord la balle numéro 10,
+puis 20, puis 30, puis 40, . . ., on retire d’abord la balle numéro 1, puis 2, puis 3, puis 4, . . ..
+i) Puisqu’à chaque étape on rajoute plus de balles qu’on n’en enlève, combien de
+balles diriez-vous qu’il y a dans l’urne à minuit ?
+ii) Y aura-t-il une balle qui ne sera pas enlevée lorsqu’on s’approche suffisamment
+près de minuit ?
+iii) Ainsi, à minuit pile, combien de balles y aura-t-il dans l’urne ?
+c) Enfin, dernière modification, au lieu de choisir la balle que l’on retire dans un ordre précis,
+on la choisit à chaque étape de façon aléatoire.
+i) Pour une balle n donnée, calculer la probabilité Pk(n) qu’elle soit encore dans
+l’urne à l’étape k.
+ii) Combien vaut la limite lim
+k→+∞
+Pk(n) ?
+iii) Ainsi, à minuit pile, combien de balles y a-t-il dans l’urne ?
+
+2. Probabilités conditionnelles
+Dans les calculs pratiques sur les probabilités, nous sommes rapidement confrontés à deux types de
+situations qui nous poussent à introduire le concept de “probabilité conditionnelle” :
+⋆ D’abord, il y a des situations où nous possédons des informations partielles sur le résultat de
+l’expérience aléatoire, informations qu’il faut prendre en compte car, souvent, elles modifient les
+probabilités du résultat. La probabilité qu’une personne ait moins de 20 ans n’est pas la même si
+l’on sait, en plus, que cette personne est étudiante à l’EFREI ou qu’elle est capable de prouver le
+théorème central limite.
+⋆ Ensuite, même quand des informations partielles ne sont pas connues, il est souvent plus facile
+de calculer la probabilité que l’on veut en faisant une distinction de cas : si l’on veut calculer la
+probabilité pour qu’un citoyen de l’union européenne vote pour le parti écologiste aux prochaines
+élections européennes, le plus facile est de regarder ce qui se passe pays par pays (probabilité
+sachant qu’il est français, allemand, hongrois, etc).
+31

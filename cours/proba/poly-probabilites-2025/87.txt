@@ -1,0 +1,61 @@
+♦ Exercice 3.15 [*]
+Les infections invasives à méningocoques (IIM) sont des infections graves mais relativement rares,
+leur fréquence annuelle étant estimée à 1,5 cas/100 000 habitants par an.
+a) Dans une ville de 50 000 habitants, quelle est la probabilité d’observer plus de 2 cas d’IIM
+par an ?
+b) On sait que 80% des cas d’IIM surviennent chez des sujets âgés de moins de 25 ans. On sait
+par ailleurs que les moins de 25 ans représentent 31% de la population française. Quelle est
+la probabilité d’avoir une IIM sachant que l’on a moins de 25 ans ?
+c) Dans un département de 1 million d’habitants, quelle est la probabilité d’observer moins de
+2 cas d’IIM sur un an chez les moins de 25 ans ?
+Exercice 3.16 [**] Une puce brownienne 1
+Soit p ∈ [0;1]. Une puce se déplace aléatoirement sur une droite d’origine O. À chaque instant, elle
+fait un bond d’une unité vers la droite ou d’une unité vers la gauche avec les probabilités respectives p
+et q = 1− p. À l’instant initial, la puce est à l’origine.
+Étant donné n ∈ N
+∗
+, on note Xn l’abscisse de la puce à l’instant n.
+Déterminer la loi de Xn, son espérance et sa variance.
+Exercice 3.17 [***] Une puce brownienne 2
+Reprenons l’exercice précédent. Mais cette fois-ci, étudions la distribution de probabilité quand
+p = q =
+1
+2
+, c’est-à-dire quand il n’y a plus de dérive.
+a) Montrer par récurrence que
+∀n ∈ N
+∗
+,
+n
+∑
+k=1
+
+2k
+k
+
+4
+k
+=
+2n+1
+4
+n
+
+2n
+n
+
+−1.
+b) Soit k ∈ N
+∗
+. Calculer la probabilité que la puce soit à l’origine en l’instant 2k.
+c) Soit n ∈ N
+∗
+. On note Nn la variable aléatoire égale au nombre de passages à l’origine entre
+l’instant 0 et n. Calculer l’espérance de Nn.
+d) Donner un équivalent de Nn lorsque n tend vers l’infini en utilisant la formule de Stirling :
+n! ∼
++∞
+√
+2πn
+n
+e
+n

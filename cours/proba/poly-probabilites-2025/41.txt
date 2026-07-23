@@ -1,0 +1,34 @@
+2.3 [Hors programme] Un peu de philosophie
+Le concept de probabilité est le concept le plus important des sciences
+modernes, d’autant plus que personne n’a la moindre idée de ce qu’il signifie.
+Bertrand Russell - Prix Nobel de littérature en 1950
+Après les travaux d’Andreï Kolmogorov dans les années 1930, un mathématicien n’a pas de doute
+de ce qu’est une probabilité : il prendra tout simplement la définition abstraite 1.6, page 15 (ou plus
+exactement la définition encore plus abstraite 1.9, page 23). Mais, dès que l’on sort du cadre strict des
+mathématiques –et c’est justement en dehors des mathématiques que les probabilités acquièrent leur
+importance– la signification précise du concept de “probabilité” est bien plus évasive que ce que l’on
+pourrait croire naïvement.
+Des affirmations telles que “la probabilité que je tombe sur six au prochain lancer du dé est 1/6”
+ou bien “la probabilité que cet atome de carbone 14 se désintègre dans les prochaines 5734 années
+est de 0.5” sont prises comme des descriptions objectives d’une certaine réalité du monde. Ici, leur
+interprétation semble assez claire : par exemple la première affirmation dit que, si je répétais le lancer
+de dés 600 fois, je tomberais sur 6 environ cent fois et que si je faisais une infinité de lancers, la
+proportion des fois où je tomberais sur 6 serait exactement un sixième.
+Cette interprétation des probabilités est appelée l’interprétation fréquentiste :
+Interprétation fréquentiste
+La probabilité de l’évènement E est comprise comme la fréquence relative d’apparition de l’évènement E dans une série infinie de répétitions.
+Cette interprétation était implicite chez De Moivre, Poisson et Gauss et a été définie explicitement par
+Mills, Ellis, Cournot et Fries. C’était le point de vue dominant dans les sciences jusqu’au début du
+vingtième siècle et ça continue sans doute à l’être dans la discussion courante aujourd’hui.
+Mais, au-delà des problèmes évidents liés à l’apparition de l’infini dans cette définition 2, l’interprétation fréquentiste devient plus problématique pour des affirmations comme “la probabilité de pluie
+pour demain est de 80%” ou, encore pire, “la probabilité de victoire de Carlos Alcaraz au prochain US
+Open de tennis est de 30%”. Le problème principal est, clairement, que les évènements en question ne
+peuvent pas être répétés. Mais, problème encore plus profond, on peut mettre en doute le caractère
+objectif des affirmations précédentes et les voir comme des affirmations sur les connaissances et
+croyances subjectives de la personne qui les proclame.
+2. Prenez un résultat de probabilités qui soit contre-intuitif, par exemple celui de l’exercice 1.13, et essayez de
+convaincre par l’expérience vos amis non scientifiques qui sont réticents à accepter le résultat. Vous allez voir que, très
+souvent, l’expérience vous donnera tort, ce à quoi vous rétorquerez, un peu embarrassé : “si l’on avait répété l’expérience
+plus de fois, vous auriez vu que le résultat est vrai”.
+Pour donner un exemple facile et concret : la probabilité que, sur 10000 lancers d’une monnaie, il y ait exactement
+5000 piles et 5000 faces est de seulement 0.008 !

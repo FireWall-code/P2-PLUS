@@ -1,0 +1,18 @@
+Exercice 1.2 [***] La différence symétrique
+Soit Ω un ensemble. La proposition 1.1 laisse penser que la structure de (P(Ω),∪,∩) est de celle
+d’un anneau. En effet, ∪ et ∩ joueraient les rôles de + et ×, alors que Ω et ∅ joueraient les rôles de 1
+et 0.
+Mais il y a une différence fondamentale : dans un anneau, tout entier admet un opposé (on peut faire
+des soustractions), alors que les éléments de P(Ω) n’admettent pas d’opposé. On peut écrire cela de
+la façon suivante : ∀A ∈ P(Ω),A ̸= ∅,∄B ∈ P(Ω),A∪B = ∅.
+Pour avoir une structure d’anneau, on va donc définir une nouvelle opération, appelée la différence
+symétrique, notée A△B et définie par :
+A△B = (A∩B)∪(B∩A).
+A△B est donc l’ensemble des éléments de Ω qui appartiennent à A∪B mais pas à A∩B.
+a) Sur le dessin ci-dessous, hachurer l’ensemble A△B.
+b) Soit Ω = {1,2,3,4,5,6,7,8,9,10}, A = {1,2,3,4,6,7} et B = {1,5,6,7,9}.
+Déterminer A△B.
+c) Soit Ω = R, A =]−∞,2] et B =]1,+∞[. Déterminer A△B.
+d) Prouver que △ est commutative et associative.
+e) Sur le dessin ci-dessous, hachurer l’ensemble A△B△C.
+f) Prouver que ∅ est l’élément neutre de △.

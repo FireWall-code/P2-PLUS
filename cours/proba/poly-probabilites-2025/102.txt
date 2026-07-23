@@ -1,0 +1,39 @@
+Définition 4.5 (Couple de variables aléatoires continues indépendantes)
+Soient X,Y ∈ L (Ω) deux variables aléatoires conjointement continues. On dit que X et Y sont
+indépendantes si
+∀(x, y) ∈ R
+2
+, FX,Y (x, y) = FX(x)FY (y).
+Ceci équivaut à dire que la densité de probabilité conjointe est le produit des densités de
+probabilité :
+∀(x, y) ∈ R
+2
+, fX,Y (x, y) = fX(x)fY (y).
+♦Exemple : En continuant avec le même exemple, par symétrie on a fX = fY et on voit bien que
+fX,Y (x, y) ̸= fX(x)fY (y) dont la position du ballon selon un axe n’est pas indépendante de la position
+selon l’autre axe (ce qui est normal puisque la surface est limitée à un cercle).
+4.3 Espérance, Variance, Écart-type
+Définition 4.6 (Espérance d’une variable aléatoire continue)
+Soit X une variable aléatoire continue. On appelle espérance de X, si elle existe, la quantité
+E(X) = Z +∞
+−∞
+x f(x)dx.
+L’ensemble des variables aléatoires continues sur Ω pour lesquelles l’espérance existe est noté
+L1(Ω).
+♦Exemples :
+⋆ Si l’on reprend l’exemple de la durée de vie d’un ordinateur (pages 94 et 95), on a
+E(T) = 1
+1000 Z +∞
+0
+te−t/1000dt =
+Z +∞
+0
+e
+−t/1000dt = 1000.
+⋆ Voici l’exemple le plus connu de variable aléatoire continue dont l’espérance n’existe pas : on
+dit que X suit une loi de Cauchy standard 2si sa densité de probabilité est donnée par
+f(x) = 1
+π(1+x
+2)
+.
+2. Malgré ce que le nom suggère, cette loi a été d’abord étudiée par Siméon Denis Poisson en 1824.

@@ -1,0 +1,2020 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EFREI Wiki — Yoan</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0e0e0e;
+    --surface: #161616;
+    --surface2: #1e1e1e;
+    --surface3: #242424;
+    --border: #2a2a2a;
+    --border-hover: #3a3a3a;
+    --text: #ececec;
+    --text-muted: #6b6b6b;
+    --text-dim: #9a9a9a;
+    --accent: #d4a853;
+    --accent-dim: rgba(212,168,83,0.12);
+    --accent-hover: rgba(212,168,83,0.08);
+    --danger: #c0392b;
+    --sidebar-w: 260px;
+    --header-h: 54px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── HEADER ─── */
+  header {
+    height: var(--header-h);
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+    gap: 16px;
+    flex-shrink: 0;
+    z-index: 30;
+  }
+  .logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+  .search-wrap { flex: 1; max-width: 460px; position: relative; }
+  .search-wrap input {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 8px 12px 8px 34px;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    outline: none;
+    transition: border-color .15s;
+  }
+  .search-wrap input:focus { border-color: var(--accent); }
+  .search-wrap input::placeholder { color: var(--text-muted); }
+  .search-icon {
+    position: absolute; left: 11px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted); pointer-events: none; font-size: 13px;
+  }
+  #search-results {
+    position: absolute; top: calc(100% + 6px); left: 0; right: 0;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; max-height: 340px; overflow-y: auto;
+    z-index: 100; display: none;
+    box-shadow: 0 12px 32px rgba(0,0,0,.5);
+  }
+  .search-result-item {
+    padding: 10px 14px; cursor: pointer;
+    border-bottom: 1px solid var(--border); transition: background .1s;
+  }
+  .search-result-item:last-child { border-bottom: none; }
+  .search-result-item:hover { background: var(--accent-hover); }
+  .search-result-item .res-title { font-size: 13px; font-weight: 500; }
+  .search-result-item .res-meta { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+
+  /* ─── LAYOUT ─── */
+  .app { display: flex; flex: 1; overflow: hidden; }
+
+  /* ─── SIDEBAR ─── */
+  aside {
+    width: var(--sidebar-w);
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    display: flex; flex-direction: column; overflow: hidden; flex-shrink: 0;
+  }
+  .sidebar-scroll { flex: 1; overflow-y: auto; padding: 10px 0; }
+  .sidebar-label {
+    font-size: 10px; font-weight: 600; letter-spacing: .1em;
+    color: var(--text-muted); padding: 6px 16px; text-transform: uppercase;
+  }
+
+  /* Matière (niveau 1) */
+  .subject-block { margin-bottom: 2px; }
+  .subject-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 16px; cursor: pointer; transition: background .1s;
+    font-size: 13px; font-weight: 500; color: var(--text);
+    user-select: none;
+  }
+  .subject-row:hover { background: var(--accent-hover); }
+  .subject-caret {
+    font-size: 9px; color: var(--text-muted);
+    transition: transform .18s; width: 8px; flex-shrink: 0;
+  }
+  .subject-block.open .subject-caret { transform: rotate(90deg); }
+  .subject-emoji { font-size: 15px; width: 18px; text-align: center; }
+  .subject-name { flex: 1; }
+  .subject-total {
+    font-size: 10px; color: var(--text-muted);
+    background: var(--surface2); border-radius: 9px; padding: 1px 7px;
+  }
+
+  /* Sous-matières (niveau 2) */
+  .topics { display: none; padding: 2px 0 6px; }
+  .subject-block.open .topics { display: block; }
+  .topic-row {
+    display: flex; align-items: center; gap: 8px;
+    padding: 7px 16px 7px 42px; cursor: pointer;
+    transition: background .1s; font-size: 12.5px;
+    color: var(--text-dim); position: relative;
+  }
+  .topic-row:hover { background: var(--accent-hover); color: var(--text); }
+  .topic-row.active { background: var(--accent-dim); color: var(--accent); }
+  .topic-row.active::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 2px; background: var(--accent);
+  }
+  .topic-name { flex: 1; }
+  .topic-count { font-size: 10px; color: var(--text-muted); }
+  .topic-add {
+    padding: 6px 16px 6px 42px; font-size: 11.5px; color: var(--text-muted);
+    cursor: pointer; transition: color .1s;
+  }
+  .topic-add:hover { color: var(--accent); }
+
+  .sidebar-footer { padding: 12px; border-top: 1px solid var(--border); }
+  .btn-add-subject {
+    width: 100%; background: none; border: 1px dashed var(--border);
+    border-radius: 6px; padding: 8px; color: var(--text-muted);
+    font-family: 'Inter', sans-serif; font-size: 12px; cursor: pointer;
+    transition: all .15s;
+  }
+  .btn-add-subject:hover { border-color: var(--accent); color: var(--accent); }
+  .io-row { display: flex; gap: 6px; margin-top: 8px; }
+  .btn-io {
+    flex: 1; background: none; border: 1px solid var(--border);
+    border-radius: 5px; padding: 6px; color: var(--text-muted);
+    font-family: 'Inter', sans-serif; font-size: 11px; cursor: pointer;
+    transition: all .15s; text-align: center;
+  }
+  .btn-io:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ─── MAIN ─── */
+  main { flex: 1; overflow-y: auto; display: flex; flex-direction: column; }
+
+  #welcome {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 14px; color: var(--text-muted);
+    padding: 40px;
+  }
+  .welcome-logo {
+    font-family: 'JetBrains Mono', monospace; font-size: 26px;
+    color: var(--accent); letter-spacing: .02em;
+  }
+  .welcome-sub { font-size: 14px; text-align: center; max-width: 420px; line-height: 1.6; }
+
+  /* Vue sous-matière */
+  #topic-view { display: none; flex-direction: column; flex: 1; }
+  .topic-header {
+    padding: 28px 40px 0; border-bottom: 1px solid var(--border); flex-shrink: 0;
+  }
+  .breadcrumb {
+    font-size: 12px; color: var(--text-muted); margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .breadcrumb .bc-sep { opacity: .5; }
+  .topic-title {
+    font-size: 24px; font-weight: 700; letter-spacing: -.01em;
+    display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+  }
+  .tabs { display: flex; gap: 4px; }
+  .tab {
+    padding: 10px 20px; font-size: 13.5px; color: var(--text-muted);
+    cursor: pointer; border-bottom: 2px solid transparent;
+    transition: all .15s; user-select: none; font-weight: 500;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .topic-content { flex: 1; overflow-y: auto; padding: 28px 40px 60px; }
+  .content-inner { max-width: 1100px; margin: 0 auto; }
+
+  .section-header {
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;
+  }
+  .section-title {
+    font-size: 13px; font-weight: 600; color: var(--text-dim);
+    text-transform: uppercase; letter-spacing: .08em;
+  }
+  .btn-new {
+    background: var(--accent); color: #000; border: none; border-radius: 6px;
+    padding: 8px 15px; font-family: 'Inter', sans-serif; font-size: 12.5px;
+    font-weight: 600; cursor: pointer; transition: opacity .15s;
+  }
+  .btn-new:hover { opacity: .85; }
+
+  .cards-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 14px;
+  }
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 18px 20px; cursor: pointer;
+    transition: border-color .15s, background .15s, transform .1s; position: relative;
+  }
+  .card:hover { border-color: var(--border-hover); background: var(--surface2); transform: translateY(-1px); }
+  .card-title { font-size: 15px; font-weight: 600; margin-bottom: 8px; padding-right: 20px; }
+  .card-preview {
+    font-size: 12.5px; color: var(--text-muted); line-height: 1.55;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .card-meta {
+    font-size: 11px; color: var(--text-muted); margin-top: 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .card-type { background: var(--surface3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 500; }
+  .card-del {
+    position: absolute; top: 12px; right: 12px; background: none; border: none;
+    color: var(--text-muted); cursor: pointer; font-size: 16px; line-height: 1;
+    opacity: 0; transition: opacity .15s, color .15s; padding: 2px 5px;
+  }
+  .card:hover .card-del { opacity: 1; }
+  .card-del:hover { color: var(--danger); }
+  .empty-state { text-align: center; color: var(--text-muted); font-size: 13.5px; padding: 60px 0; line-height: 1.7; }
+  .empty-state code {
+    background: var(--surface2); border-radius: 4px; padding: 1px 6px;
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+  }
+
+  /* Cartes de document (onglet Poly) */
+  .doc-grid { display: flex; flex-direction: column; gap: 9px; }
+  .doc-card {
+    display: flex; align-items: center; gap: 15px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 9px; padding: 15px 18px; cursor: pointer;
+    transition: border-color .15s, background .15s;
+  }
+  .doc-card:hover { border-color: var(--accent); background: var(--surface2); }
+  .doc-icon {
+    font-size: 17px; color: var(--accent); width: 26px; text-align: center; flex-shrink: 0;
+  }
+  .doc-info { min-width: 0; flex: 1; }
+  .doc-name {
+    font-size: 14px; font-weight: 500; margin-bottom: 3px;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .doc-meta {
+    font-size: 11.5px; color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ─── MODALS ─── */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,.72);
+    z-index: 200; display: none; align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; width: 640px; max-width: 100%; max-height: 92vh;
+    display: flex; flex-direction: column; overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,.6);
+  }
+  .modal-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 22px; border-bottom: 1px solid var(--border);
+  }
+  .modal-title { font-size: 15px; font-weight: 600; }
+  .modal-close {
+    background: none; border: none; color: var(--text-muted);
+    cursor: pointer; font-size: 20px; line-height: 1; padding: 2px;
+  }
+  .modal-close:hover { color: var(--text); }
+  .modal-body {
+    padding: 22px; overflow-y: auto; flex: 1;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .form-group { display: flex; flex-direction: column; gap: 7px; }
+  .form-label { font-size: 12px; font-weight: 500; color: var(--text-dim); }
+  .form-input, .form-select {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 7px; padding: 10px 13px; color: var(--text);
+    font-family: 'Inter', sans-serif; font-size: 13.5px; outline: none;
+    transition: border-color .15s;
+  }
+  .form-input:focus, .form-select:focus { border-color: var(--accent); }
+  .form-select { cursor: pointer; }
+  .form-select option { background: var(--surface2); }
+  .form-textarea {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 7px; padding: 12px 14px; color: var(--text);
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; outline: none;
+    resize: vertical; min-height: 220px; line-height: 1.65; transition: border-color .15s;
+  }
+  .form-textarea:focus { border-color: var(--accent); }
+  .form-hint { font-size: 11px; color: var(--text-muted); line-height: 1.5; }
+  .upload-zone {
+    border: 1px dashed var(--border); border-radius: 7px; padding: 22px;
+    text-align: center; color: var(--text-muted); font-size: 13px;
+    cursor: pointer; transition: all .15s;
+  }
+  .upload-zone:hover { border-color: var(--accent); color: var(--accent); }
+  .upload-zone input { display: none; }
+  .file-list { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+  .file-item {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--surface2); border-radius: 6px; padding: 8px 11px; font-size: 12.5px;
+  }
+  .file-item-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .file-item-del { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 14px; padding: 0 0 0 8px; }
+  .file-item-del:hover { color: var(--danger); }
+  .modal-footer {
+    padding: 15px 22px; border-top: 1px solid var(--border);
+    display: flex; justify-content: flex-end; gap: 10px;
+  }
+  .btn-cancel {
+    background: none; border: 1px solid var(--border); border-radius: 7px;
+    padding: 9px 17px; color: var(--text-dim); font-family: 'Inter', sans-serif;
+    font-size: 13px; cursor: pointer; transition: all .15s;
+  }
+  .btn-cancel:hover { border-color: var(--border-hover); color: var(--text); }
+  .btn-save {
+    background: var(--accent); border: none; border-radius: 7px; padding: 9px 20px;
+    color: #000; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: opacity .15s;
+  }
+  .btn-save:hover { opacity: .85; }
+
+  /* ─── READER (grande fenêtre) ─── */
+  #reader-modal .modal {
+    width: 1000px; height: 92vh; max-height: 92vh;
+  }
+  .reader-topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 32px; border-bottom: 1px solid var(--border); flex-shrink: 0;
+  }
+  .reader-crumb { font-size: 12px; color: var(--text-muted); }
+  .reader-actions { display: flex; gap: 8px; align-items: center; }
+  .reader-body { padding: 32px 48px 56px; overflow-y: auto; flex: 1; }
+  .reader-inner { max-width: 760px; margin: 0 auto; }
+  .reader-title { font-size: 26px; font-weight: 700; letter-spacing: -.015em; margin-bottom: 8px; }
+  .reader-meta {
+    font-size: 12.5px; color: var(--text-muted); margin-bottom: 32px;
+    display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+  }
+  .reader-content { font-size: 16px; line-height: 1.75; color: var(--text); font-family: 'Inter', sans-serif; }
+
+  .rc-h {
+    font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+    color: var(--accent); margin: 34px 0 14px; padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+  }
+  .rc-h:first-child { margin-top: 0; }
+  .rc-ref {
+    font-size: 10.5px; font-weight: 500; letter-spacing: 0;
+    text-transform: none; color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 4px; padding: 2px 7px; white-space: nowrap; flex-shrink: 0;
+  }
+
+  .rc-ref-link { cursor: pointer; transition: all .15s; }
+  .rc-ref-link:hover {
+    color: var(--accent); border-color: var(--accent);
+    background: var(--accent-dim);
+  }
+  .rc-ref-link::after { content: ' \2197'; opacity: .55; }
+
+  /* ─── VISIONNEUSE ─── */
+  #page-modal .modal { width: 1080px; height: 94vh; max-height: 94vh; }
+  .page-topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 13px 22px; border-bottom: 1px solid var(--border); flex-shrink: 0; gap: 16px;
+  }
+  .page-info { min-width: 0; }
+  .page-doc {
+    font-size: 13px; font-weight: 600; white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis;
+  }
+  .page-label {
+    font-size: 11.5px; color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace; margin-top: 2px;
+  }
+  .page-nav { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+  .page-btn {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 6px; width: 32px; height: 30px; color: var(--text);
+    font-size: 17px; line-height: 1; cursor: pointer; transition: all .15s;
+  }
+  .page-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .page-btn:disabled { opacity: .3; cursor: default; }
+  .page-body {
+    flex: 1; overflow-y: auto; padding: 20px;
+    background: #000; text-align: center;
+  }
+  #page-img {
+    max-width: 100%; border-radius: 4px;
+    box-shadow: 0 4px 24px rgba(0,0,0,.5);
+  }
+  .page-error {
+    display: none; color: var(--text-muted); font-size: 14px;
+    padding: 70px 30px; line-height: 1.8;
+  }
+  .page-error span { font-size: 12.5px; opacity: .85; }
+
+  .page-text {
+    display: none; text-align: left; max-width: 780px; margin: 0 auto;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 32px 38px;
+    font-size: 15.5px; line-height: 1.75; color: var(--text);
+  }
+  .page-text-load { color: var(--text-muted); font-size: 13px; text-align: center; padding: 40px 0; }
+  .page-error code {
+    background: var(--surface2); border-radius: 4px;
+    padding: 1px 6px; font-family: 'JetBrains Mono', monospace; font-size: 12px;
+  }
+
+  /* Bloc exemple */
+  .rc-ex {
+    background: rgba(212,168,83,.05);
+    border: 1px solid rgba(212,168,83,.22);
+    border-radius: 8px;
+    padding: 14px 18px 16px;
+    margin: 4px 0 18px;
+  }
+  .rc-ex-label {
+    font-size: 10.5px; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .rc-ex .rc-p { margin-bottom: 10px; font-size: 15px; }
+  .rc-ex .rc-p:last-child { margin-bottom: 0; }
+  .rc-ex .rc-code {
+    margin-bottom: 10px; background: rgba(0,0,0,.28);
+    border-left-color: rgba(212,168,83,.5);
+  }
+  .rc-ex .rc-code:last-child { margin-bottom: 0; }
+  .rc-ex .rc-li { font-size: 15px; }
+  .rc-p { margin: 0 0 15px; }
+  .rc-code {
+    font-family: 'JetBrains Mono', monospace; font-size: 13.5px; line-height: 1.7;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-left: 3px solid var(--accent); border-radius: 8px;
+    padding: 16px 18px; margin: 0 0 18px; overflow-x: auto;
+    white-space: pre; color: var(--text);
+  }
+  .rc-warn {
+    background: rgba(192,57,43,.1); border-left: 3px solid var(--danger);
+    border-radius: 6px; padding: 12px 16px; margin: 0 0 15px; font-size: 15px; line-height: 1.6;
+  }
+  .rc-li { margin: 0 0 9px 4px; padding-left: 20px; position: relative; }
+  .rc-li::before { content: '·'; position: absolute; left: 5px; color: var(--accent); font-weight: 700; font-size: 18px; top: -2px; }
+  .rc-cont { margin-left: 24px; color: var(--text-dim); font-size: 15px; }
+  .rc-cont::before { content: none; }
+
+  .reader-files { margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .reader-files-title {
+    font-size: 12px; font-weight: 600; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px;
+  }
+  .reader-file-item {
+    display: flex; align-items: center; gap: 10px; padding: 10px 14px;
+    background: var(--surface2); border-radius: 7px; margin-bottom: 7px;
+    font-size: 13.5px; cursor: pointer; transition: background .15s;
+  }
+  .reader-file-item:hover { background: var(--accent-dim); }
+
+  #subject-modal .modal, #topic-modal .modal { width: 420px; }
+
+  #toast {
+    position: fixed; bottom: 26px; right: 26px; background: var(--surface3);
+    border: 1px solid var(--border); border-radius: 9px; padding: 11px 18px;
+    font-size: 13px; color: var(--text); z-index: 999; opacity: 0;
+    transform: translateY(8px); transition: all .25s; pointer-events: none;
+  }
+  #toast.show { opacity: 1; transform: translateY(0); }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--border-hover); }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">efrei.wiki</div>
+  <div class="search-wrap">
+    <span class="search-icon">&#9906;</span>
+    <input type="text" id="search-input" placeholder="Rechercher dans tous les cours...">
+    <div id="search-results"></div>
+  </div>
+</header>
+
+<div class="app">
+  <aside>
+    <div class="sidebar-scroll">
+      <div class="sidebar-label">Matières</div>
+      <div id="subjects-list"></div>
+    </div>
+    <div class="sidebar-footer">
+      <button class="btn-add-subject" onclick="openSubjectModal()">+ Nouvelle matière</button>
+      <div class="io-row">
+        <label class="btn-io">
+          <input type="file" id="import-input" accept=".json" hidden>
+          Importer
+        </label>
+        <button class="btn-io" onclick="exportData()">Exporter</button>
+      </div>
+    </div>
+  </aside>
+
+  <main>
+    <div id="welcome">
+      <div class="welcome-logo">efrei.wiki</div>
+      <div class="welcome-sub">Choisis une matière dans le menu, puis une sous-matière pour accéder à tes cours, formules et résumés.</div>
+    </div>
+
+    <div id="topic-view">
+      <div class="topic-header">
+        <div class="breadcrumb" id="topic-breadcrumb"></div>
+        <div class="topic-title">
+          <span id="view-name"></span>
+        </div>
+        <div class="tabs">
+          <div class="tab active" data-tab="cours" onclick="switchTab('cours', this)">Cours</div>
+          <div class="tab" data-tab="formules" onclick="switchTab('formules', this)">Formules</div>
+          <div class="tab" data-tab="résumés" onclick="switchTab('résumés', this)">Résumés</div>
+          <div class="tab" data-tab="poly" onclick="switchTab('poly', this)">Poly</div>
+        </div>
+      </div>
+      <div class="topic-content">
+        <div class="content-inner">
+          <div id="tab-cours" class="tab-content active"></div>
+          <div id="tab-formules" class="tab-content"></div>
+          <div id="tab-résumés" class="tab-content"></div>
+          <div id="tab-poly" class="tab-content"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- MODAL : Note -->
+<div class="modal-overlay" id="note-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="note-modal-title">Nouvelle note</div>
+      <button class="modal-close" onclick="closeModal('note-modal')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Titre</label>
+        <input type="text" class="form-input" id="note-title" placeholder="Ex: Dérivées usuelles">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Contenu</label>
+        <textarea class="form-textarea" id="note-content" placeholder="Écris tes notes ici..."></textarea>
+        <div class="form-hint">Mise en forme auto : &#9632; = titre de section &nbsp;·&nbsp; &#9888; = piège/attention &nbsp;·&nbsp; · = puce &nbsp;·&nbsp; indentation (3 espaces) = formule</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Fichiers joints</label>
+        <label class="upload-zone" id="upload-zone">
+          <input type="file" id="file-input" multiple accept=".pdf,.png,.jpg,.jpeg,.doc,.docx,.txt">
+          &#128206; Glisse ou clique pour joindre des fichiers
+        </label>
+        <div class="file-list" id="file-list"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal('note-modal')">Annuler</button>
+      <button class="btn-save" onclick="saveNote()">Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL : Lecteur -->
+<div class="modal-overlay" id="reader-modal">
+  <div class="modal">
+    <div class="reader-topbar">
+      <div class="reader-crumb" id="reader-crumb"></div>
+      <div class="reader-actions">
+        <button class="btn-cancel" style="font-size:12.5px;padding:6px 13px;" onclick="openEditFromReader()">Modifier</button>
+        <button class="modal-close" onclick="closeModal('reader-modal')">&times;</button>
+      </div>
+    </div>
+    <div class="reader-body">
+      <div class="reader-inner">
+        <div class="reader-title" id="reader-title"></div>
+        <div class="reader-meta" id="reader-meta"></div>
+        <div class="reader-content" id="reader-content"></div>
+        <div class="reader-files" id="reader-files" style="display:none;">
+          <div class="reader-files-title">Fichiers joints</div>
+          <div id="reader-files-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL : Matière -->
+<div class="modal-overlay" id="subject-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Nouvelle matière</div>
+      <button class="modal-close" onclick="closeModal('subject-modal')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Nom</label>
+        <input type="text" class="form-input" id="subject-name-input" placeholder="Ex: Informatique">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Emoji</label>
+        <input type="text" class="form-input" id="subject-emoji-input" placeholder="Ex: 💻" maxlength="4">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal('subject-modal')">Annuler</button>
+      <button class="btn-save" onclick="saveSubject()">Créer</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL : Sous-matière -->
+<div class="modal-overlay" id="topic-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="topic-modal-title">Nouvelle sous-matière</div>
+      <button class="modal-close" onclick="closeModal('topic-modal')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Nom de la sous-matière</label>
+        <input type="text" class="form-input" id="topic-name-input" placeholder="Ex: Analyse, Algèbre linéaire...">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal('topic-modal')">Annuler</button>
+      <button class="btn-save" onclick="saveTopic()">Créer</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL : Page de cours -->
+<div class="modal-overlay" id="page-modal">
+  <div class="modal">
+    <div class="page-topbar">
+      <div class="page-info">
+        <div class="page-doc" id="page-doc"></div>
+        <div class="page-label" id="page-label"></div>
+      </div>
+      <div class="page-nav">
+        <button class="page-btn" id="page-prev" onclick="pageStep(-1)" title="Page précédente">&#8249;</button>
+        <button class="page-btn" id="page-next" onclick="pageStep(1)" title="Page suivante">&#8250;</button>
+        <button class="modal-close" onclick="closeModal('page-modal')">&times;</button>
+      </div>
+    </div>
+    <div class="page-body">
+      <img id="page-img" alt="Page du cours" onload="pageImgOk()" onerror="pageImgError()">
+      <div id="page-text" class="page-text"></div>
+      <div id="page-error" class="page-error">
+        Impossible de charger cette page.<br>
+        <span>Vérifie que le dossier <code>cours/</code> est bien déposé à côté du fichier HTML,
+        et que le site est servi via une URL (GitHub Pages) et non ouvert en double-clic.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════════════
+//  MODÈLE DE DONNÉES  (3 niveaux : subject → topic → note)
+// ═══════════════════════════════════════════════════════════════════════════
+
+const DEFAULT_SUBJECTS = [
+  { id: 's1', name: 'Mathématiques',     emoji: '\u2211' },
+  { id: 's2', name: 'Informatique',       emoji: '\uD83D\uDCBB' },
+  { id: 's3', name: 'Physique & Élec',    emoji: '\u26A1' },
+  { id: 's4', name: 'Formation générale', emoji: '\uD83D\uDCDA' },
+  { id: 's5', name: 'Projet transverse',  emoji: '\uD83D\uDD27' },
+  { id: 's6', name: 'Stage',              emoji: '\uD83C\uDFE2' },
+];
+
+const DEFAULT_TOPICS = [
+  // Mathématiques
+  { id: 't_proba',        subjectId: 's1', name: 'Probabilités' },
+  { id: 't_sm302',        subjectId: 's1', name: 'Fonctions de plusieurs variables' },
+  // Informatique
+  { id: 't_ti301',        subjectId: 's2', name: 'Structures de données' },
+  { id: 't_reseaux',      subjectId: 's2', name: 'Réseaux' },
+  // Physique & Élec
+  { id: 't_sp301',        subjectId: 's3', name: 'Champs électromagnétiques' },
+  { id: 't_te302',        subjectId: 's3', name: 'Systèmes numériques' },
+  { id: 't_phys_moderne', subjectId: 's3', name: 'Relativité & Quantique' },
+];
+
+const TABS = ['cours', 'formules', 'résumés', 'poly'];
+const NOTE_TABS = ['cours', 'formules', 'résumés'];
+
+// Notes pré-chargées : Probabilités SM301 (poly EFREI 2025/2026)
+const SEED_NOTES = [
+{
+"id": "n1784744768538",
+"type": "cours",
+"title": "Ch.1 — Espace probabilisé",
+"content": "■ EXPÉRIENCE ALÉATOIRE ET UNIVERS (Déf 1.1)   [p. 9|cours/proba/poly-probabilites-2025|9]\n\nExpérience aléatoire : expérience dont on ne peut pas prévoir le résultat de façon certaine.\nÉventualités / événements élémentaires : les résultats possibles.\nUnivers Ω : l'ensemble de tous les résultats possibles. Par convention Ω ≠ ∅.\n\nExemples :\n· Lancer d'une pièce : Ω = {P, F}\n· Lancer d'un dé : Ω = {1,2,3,4,5,6}\n· Lancer de deux dés : Ω = {1,...,6}²\n· Durée de vie d'un téléphone (jours) : Ω = ℕ\n· Temps d'attente d'un bus passant toutes les 12 min : Ω = [0,12]\n\n▸ EXEMPLE\nLancer de deux dés. Ω = {1,...,6}² soit 36 issues équiprobables.\nL'événement « la somme vaut 7 » est :\n   E = {(1,6),(2,5),(3,4),(4,3),(5,2),(6,1)}   →  P(E) = 6/36 = 1/6\n\n■ ÉVÉNEMENTS (Déf 1.2)   [p. 9|cours/proba/poly-probabilites-2025|9]\n\n· Événement = un sous-ensemble de Ω\n· Événement certain = Ω\n· Événement impossible = ∅\n\nNote : dans ce cours on considère toujours des univers finis ou dénombrables,\nsauf mention du contraire.\n\n■ OPÉRATIONS SUR LES ENSEMBLES (Déf 1.3)   [p. 10|cours/proba/poly-probabilites-2025|10]\n\n1. Sous-ensemble : E ⊂ Ω si ∀x ∈ E, x ∈ Ω\n   E est un sous-ensemble propre si E ⊂ Ω, E ≠ Ω et E ≠ ∅\n2. Complémentaire : Ē = {x ∈ Ω | x ∉ E}\n3. Union : E ∪ F = {x ∈ Ω | (x ∈ E) ou (x ∈ F)}\n4. Intersection : E ∩ F = {x ∈ Ω | (x ∈ E) et (x ∈ F)}\n\n■ CORRESPONDANCE LOGIQUE ↔ ENSEMBLES ↔ ÉVÉNEMENTS   [p. 12|cours/proba/poly-probabilites-2025|12]\n\n  ET   → Intersection E ∩ F  → les deux événements se réalisent\n  OU   → Union E ∪ F         → au moins un des deux se réalise\n  NON  → Complémentaire Ē    → E ne se réalise pas\n  ⟹    → Sous-ensemble E ⊂ F → chaque fois que E se réalise, F aussi\n\n■ ÉVÉNEMENTS INCOMPATIBLES (Déf 1.4)   [p. 13|cours/proba/poly-probabilites-2025|13]\n\nE et F sont incompatibles si leur réalisation conjointe est impossible : E ∩ F = ∅\n\n■ SYSTÈME COMPLET D'ÉVÉNEMENTS (Déf 1.5)   [p. 13|cours/proba/poly-probabilites-2025|13]\n\nA = {A₁,...,Aₙ} est un système complet d'événements si :\n1. ⋃(1≤i≤n) Aᵢ = Ω          (ils couvrent tout ce qui est possible)\n2. ∀i≠j, Aᵢ ∩ Aⱼ = ∅        (deux à deux incompatibles)\n\n▸ EXEMPLE\nUne urne contient des boules de 3 couleurs. Les événements\nA₁ = « tirer rouge », A₂ = « tirer vert », A₃ = « tirer bleu »\nforment un système complet : leur union est Ω, et on ne peut pas\ntirer deux couleurs à la fois.\n\n▸ CONTRE-EXEMPLE\nA = « le dé donne un nombre pair », B = « le dé donne un nombre > 3 ».\nCe N'EST PAS un système complet : A ∩ B = {4,6} ≠ ∅ (pas incompatibles).\n\n■ FONCTION DE PROBABILITÉ (Déf 1.6)   [p. 14|cours/proba/poly-probabilites-2025|14]\n\nSoit Ω fini ou dénombrable, P(Ω) l'ensemble des parties de Ω.\nUne fonction de probabilité est P : P(Ω) → ℝ telle que :\n1. ∀E ⊂ Ω, 0 ≤ P(E) ≤ 1\n2. P(Ω) = 1\n3. Additivité : pour toute suite (Aₙ) d'événements 2 à 2 incompatibles,\n   P(⋃ᵢ₌₀ⁿ Aᵢ) = Σᵢ₌₀ⁿ P(Aᵢ)\n\n(Ω, P) est alors appelé un espace probabilisé.\n\n■ PROBABILITÉ UNIFORME   [p. 16|cours/proba/poly-probabilites-2025|16]\n\nSi Ω est fini et tous les événements élémentaires sont équiprobables :\n   P(E) = card(E) / card(Ω)      (\"cas favorables sur cas possibles\")\n\nDans ce cas, les calculs de probabilités se réduisent à du dénombrement.\n▸ EXEMPLE\nDans un jeu de 32 cartes, probabilité de tirer un roi :\n   card(E) = 4 rois,  card(Ω) = 32  →  P = 4/32 = 1/8\n",
+"files": [],
+"createdAt": 1784744768538,
+"topicId": "t_proba"
+},
+{
+"id": "n1784744768539",
+"type": "cours",
+"title": "Ch.2 — Probabilités conditionnelles",
+"content": "■ PROBABILITÉ CONDITIONNELLE (Déf 2.1)   [p. 32|cours/proba/poly-probabilites-2025|32]\n\nSoient E et F deux événements avec F non impossible. La probabilité de E sachant F :\n\n   P(E|F) = P_F(E) = P(E ∩ F) / P(F)\n\nIntuition : tout se passe comme si F s'était produit. On ne regarde plus que\nl'ensemble F, qui \"remplace\" en quelque sorte l'univers Ω.\n\n▸ EXEMPLE\nOn tire une carte dans un jeu de 32. Sachant qu'elle est rouge (16 cartes),\nquelle est la probabilité que ce soit un cœur (8 cartes) ?\n\n   P(cœur | rouge) = P(cœur ∩ rouge) / P(rouge)\n                   = (8/32) / (16/32) = 1/2\n\nIntuition : on ne regarde plus que les 16 cartes rouges,\ndont 8 sont des cœurs.\n\n■ INDÉPENDANCE (Déf 2.2)   [p. 34|cours/proba/poly-probabilites-2025|34]\n\nE et F sont indépendants si :  P(E ∩ F) = P(E) · P(F)\n\nSi E et F sont possibles, c'est équivalent à :\n   P(E|F) = P(E)   ou   P(F|E) = P(F)\n\nExemples d'événements indépendants :\n· \"gagner au loto\" et \"porter des chaussettes bleues\"\n· \"la pièce est tombée sur pile aux 10 derniers lancers\" et \"elle tombera sur pile au prochain\"\n\nExemples NON indépendants :\n· \"mesurer plus de 2 m\" et \"peser plus de 100 kg\"\n· \"il y a des nuages\" et \"il va pleuvoir dans 5 min\"\n\n▸ EXEMPLE — indépendants\nDeux lancers de dé successifs. Le résultat du 2ᵉ ne dépend pas du 1ᵉʳ.\n   P(1ᵉʳ = 6 et 2ᵉ = 6) = 1/36 = (1/6) × (1/6)  ✓\n\n▸ CONTRE-EXEMPLE — non indépendants\nTirage de 2 cartes SANS remise dans un jeu de 32.\n   P(2ᵉ est un roi | 1ᵉʳ était un roi) = 3/31\n   P(2ᵉ est un roi) = 4/32 = 1/8\n   3/31 ≠ 1/8  →  les événements ne sont pas indépendants.\n\n■ INDÉPENDANCE DE 3 ÉVÉNEMENTS (Déf 2.3)   [p. 35|cours/proba/poly-probabilites-2025|35]\n\n⚠ Il ne suffit PAS que les couples soient indépendants deux à deux !\nE, F, G sont indépendants s'il faut LES QUATRE conditions :\n   P(E ∩ F) = P(E)P(F)\n   P(E ∩ G) = P(E)P(G)\n   P(F ∩ G) = P(F)P(G)\n   P(E ∩ F ∩ G) = P(E)P(F)P(G)\n\nContre-exemple (deux dés) :\n   E = \"la somme vaut 7\", F = \"premier dé = 4\", G = \"deuxième dé = 3\"\n   Les 3 couples sont indépendants, mais P(E | F ∩ G) = 1 ≠ P(E)\n\n■ FORMULE DE BAYES — L'IDÉE   [p. 37|cours/proba/poly-probabilites-2025|37]\n\nL'objectif est de passer de P(E|A) à P(A|E).\n\nExemple type (médecine) : on observe facilement la proportion de vaccinés parmi\nles malades, soit P(V|M). Mais ce qui nous intéresse est P(M|V) : la probabilité\nde tomber malade sachant qu'on est vacciné.\n\n■ EXEMPLE CLASSIQUE (rougeole vs grippe)   [p. 38|cours/proba/poly-probabilites-2025|38]\n\n90 % des enfants malades du quartier ont la grippe (G), 10 % la rougeole (R).\nP(éruption | rougeole) = 0.95 ; P(éruption | grippe) = 0.1\nL'enfant a une éruption cutanée. Probabilité qu'il ait la rougeole ?\n\n   P(R|EC) = (0.95 × 0.1) / (0.95 × 0.1 + 0.1 × 0.9) ≈ 0.51\n\n→ L'enfant a presque autant de chances d'avoir la rougeole que la grippe.",
+"files": [],
+"createdAt": 1784744768539,
+"topicId": "t_proba"
+},
+{
+"id": "n1784744768540",
+"type": "cours",
+"title": "Ch.3 — Variables aléatoires discrètes",
+"content": "■ VARIABLE ALÉATOIRE DISCRÈTE (Déf 3.1 / 3.3)   [p. 54|cours/proba/poly-probabilites-2025|54]\n\nUne variable aléatoire X associe un nombre réel à chaque résultat de\nl'expérience aléatoire. Elle est discrète si X(Ω) est fini ou dénombrable.\n\n■ LOI DE PROBABILITÉ (Déf 3.4)   [p. 55|cours/proba/poly-probabilites-2025|55]\n\nLa loi de probabilité de X est la donnée de P(X = x) pour tout x ∈ X(Ω).\nElle est complètement déterminée par ces valeurs, avec Σ P(X = x) = 1.\n\n■ FONCTION DE RÉPARTITION (Déf 3.5)   [p. 56|cours/proba/poly-probabilites-2025|56]\n\n   F(x) = P(X ≤ x)\n\nDans le cas discret, F est peu utile en pratique (contrairement au cas continu).\n\n■ SYSTÈME COMPLET ASSOCIÉ À X (Th 3.1)   [p. 57|cours/proba/poly-probabilites-2025|57]\n\nLes événements (X = xᵢ) pour xᵢ ∈ X(Ω) forment un système complet d'événements.\n→ C'est ce qui permet d'appliquer les probabilités totales et Bayes sur les VA.\n\n▸ EXEMPLE\nUne urne contient des boules de 3 couleurs. Les événements\nA₁ = « tirer rouge », A₂ = « tirer vert », A₃ = « tirer bleu »\nforment un système complet : leur union est Ω, et on ne peut pas\ntirer deux couleurs à la fois.\n\n▸ CONTRE-EXEMPLE\nA = « le dé donne un nombre pair », B = « le dé donne un nombre > 3 ».\nCe N'EST PAS un système complet : A ∩ B = {4,6} ≠ ∅ (pas incompatibles).\n\n■ LOI CONJOINTE (Déf 3.6)   [p. 58|cours/proba/poly-probabilites-2025|58]\n\nPour un couple (X, Y), la loi conjointe est P(X = x, Y = y).\nOn la présente dans une table de contingence.\n\nLois marginales : on somme sur les lignes ou les colonnes.\n   P(X = x) = Σ_y P(X = x, Y = y)\n   P(Y = y) = Σ_x P(X = x, Y = y)\n\n■ INDÉPENDANCE DE VA (Déf 3.7)   [p. 59|cours/proba/poly-probabilites-2025|59]\n\nX et Y sont indépendantes si :\n   ∀x, ∀y :  P(X = x, Y = y) = P(X = x) · P(Y = y)\n\n■ ESPÉRANCE (Déf 3.8)   [p. 61|cours/proba/poly-probabilites-2025|61]\n\n   E(X) = Σ_{x ∈ X(Ω)} x · P(X = x)\n\n⚠ L'espérance peut ne pas exister si X(Ω) est infini (série divergente).\nExemple : jeu où l'on gagne 2ⁿ euros avec n = nombre de lancers jusqu'au 1er pile.\n   Σ 2ⁿ · (1/2ⁿ) = ∞ → l'espérance n'existe pas.\n\n▸ EXEMPLE\nUn jeu coûte 2 €. On lance un dé : on gagne 10 € si on fait 6, rien sinon.\nSoit X le gain net :\n   X = 8 avec probabilité 1/6\n   X = −2 avec probabilité 5/6\n\n   E(X) = 8 × (1/6) + (−2) × (5/6) = 8/6 − 10/6 = −1/3 ≈ −0.33 €\n\n→ En moyenne on perd 33 centimes par partie : le jeu est défavorable.\n\n■ VARIANCE ET ÉCART-TYPE (Déf 3.9)   [p. 63|cours/proba/poly-probabilites-2025|63]\n\n   V(X) = E((X − E(X))²) = E(X²) − E(X)²\n   σ(X) = √V(X)\n\nL'espérance mesure la moyenne théorique ; l'écart-type mesure la dispersion,\nc'est-à-dire la distance moyenne entre le résultat et E(X).\nPlus σ(X) est petit, plus les valeurs sont concentrées autour de E(X).\n\nEn pratique on utilise E(X²) − E(X)² pour calculer ; c'est l'autre formule\nqui définit rigoureusement la variance.\n\n▸ EXEMPLE\nReprenons X du jeu de dé ci-dessus (E(X) = −1/3).\n\n   E(X²) = 8² × (1/6) + (−2)² × (5/6) = 64/6 + 20/6 = 14\n   V(X)  = E(X²) − E(X)² = 14 − 1/9 ≈ 13.89\n   σ(X)  = √13.89 ≈ 3.73 €\n\n→ L'écart-type (3.73 €) est bien plus grand que l'espérance en valeur\nabsolue : le résultat d'une partie est très dispersé autour de la moyenne.\n\n■ VARIABLE CENTRÉE RÉDUITE (Déf 3.10 / Prop 3.7)   [p. 65|cours/proba/poly-probabilites-2025|65]\n\nX est centrée si E(X) = 0 ; réduite si V(X) = 1.\nPour toute X de variance non nulle, la variable\n\n   Z = (X − E(X)) / σ(X)\n\nest centrée réduite.\n\n■ COVARIANCE (Déf 3.12)   [p. 66|cours/proba/poly-probabilites-2025|66]\n\n   Cov(X,Y) = E(XY) − E(X)·E(Y)\n\nRemarque : Cov(X,X) = V(X)\n\n▸ EXEMPLE\nOn lance deux dés. X = résultat du 1ᵉʳ, Y = somme des deux.\n   E(X) = 3.5,  E(Y) = 7\n   E(XY) = 27.42 (calcul sur les 36 cas)\n   Cov(X,Y) = 27.42 − 3.5 × 7 = 2.92 > 0\n\n→ Covariance positive : quand X augmente, Y a tendance à augmenter aussi.\nC'est logique, X entre dans le calcul de Y.\n\n■ COEFFICIENT DE CORRÉLATION (Déf 3.13)   [p. 68|cours/proba/poly-probabilites-2025|68]\n\n   ρ(X,Y) = Cov(X,Y) / (σ(X)·σ(Y))\n\nIl normalise la covariance pour rendre la valeur interprétable.",
+"files": [],
+"createdAt": 1784744768540,
+"topicId": "t_proba"
+},
+{
+"id": "n1784744768541",
+"type": "cours",
+"title": "Ch.4 — Variables aléatoires continues",
+"content": "■ VARIABLE ALÉATOIRE CONTINUE ET DENSITÉ (Déf 4.1)\n\nX est continue s'il existe f : ℝ → ℝ telle que :\n   · f ≥ 0\n   · ∀B ⊂ ℝ,  P(X ∈ B) = ∫_B f(x) dx\n\nf est la densité de probabilité de X.\n\n⚠ Une densité N'EST PAS une probabilité ! Rien n'interdit à f de dépasser 1.\nCe ne sont pas les valeurs de f qu'il faut interpréter, mais l'AIRE sous la courbe.\n\n■ CONSÉQUENCE IMPORTANTE   [p. 94|cours/proba/poly-probabilites-2025|94]\n\n   P(X = a) = 0 pour tout réel a\n\n→ Les inégalités strictes ou larges donnent le même résultat :\n   P(a ≤ X ≤ b) = P(a < X < b)\n\n■ FONCTION DE RÉPARTITION (Déf 4.2)   [p. 95|cours/proba/poly-probabilites-2025|95]\n\n   F(x) = P(X ≤ x)\n\nPropriétés (Prop 4.3) :\n   · F est continue\n   · F est croissante\n   · lim_{x→−∞} F(x) = 0\n   · lim_{x→+∞} F(x) = 1\n   · P(a ≤ X ≤ b) = F(b) − F(a)\n\n■ LIEN DENSITÉ ↔ RÉPARTITION (Th 4.4)   [p. 96|cours/proba/poly-probabilites-2025|96]\n\n   F(x) = ∫_{−∞}^{x} f(t) dt\n   f est la dérivée de F\n   F est l'unique primitive continue de f telle que F(−∞) = 0 et F(+∞) = 1\n\n→ Tous les calculs sur X sont déterminés dès qu'on connaît F ou f.\nContrairement au cas discret, F est ici l'objet CENTRAL des calculs.\n\n■ ESPÉRANCE (Déf 4.6)   [p. 102|cours/proba/poly-probabilites-2025|102]\n\n   E(X) = ∫_{−∞}^{+∞} x · f(x) dx\n\nContre-exemple célèbre : la loi de Cauchy standard, de densité\n   f(x) = 1 / (π(1 + x²))\nn'a pas d'espérance.\n\n■ VARIANCE (Déf 4.7)   [p. 104|cours/proba/poly-probabilites-2025|104]\n\nMême formule que dans le cas discret :\n   V(X) = E((X − E(X))²) = E(X²) − E(X)²\n   σ(X) = √V(X)\n\n■ INDÉPENDANCE (Déf 4.5)   [p. 99|cours/proba/poly-probabilites-2025|99]\n\nX et Y sont indépendantes si la densité conjointe se factorise :\n   f(x,y) = f_X(x) · f_Y(y)\n\n■ SANS MÉMOIRE (Prop 4.12)   [p. 110|cours/proba/poly-probabilites-2025|110]\n\nT est sans mémoire si : ∀s ≥ 0, P(T ≥ t+s | T ≥ t) = P(T ≥ s)\n\n   T sans mémoire  ⟺  T suit une loi exponentielle\n\nIntuition : peu importe le temps déjà écoulé, la probabilité que le composant\ntienne s jours de plus reste la même.\n\n■ LIEN BINOMIALE ↔ NORMALE (Th 4.15)   [p. 116|cours/proba/poly-probabilites-2025|116]\n\nQuand n → ∞, la loi binomiale tend vers une loi normale.\nSi Xₙ ∼ B(n,p) et Zₙ = (Xₙ − np) / √(np(1−p)), alors Zₙ → N(0,1).",
+"files": [],
+"createdAt": 1784744768541,
+"topicId": "t_proba"
+},
+{
+"id": "n1784744768542",
+"type": "formules",
+"title": "Propriétés de base des probabilités",
+"content": "■ STRUCTURE ALGÉBRIQUE (Prop 1.1)\n\nCommutativité    E ∪ F = F ∪ E           E ∩ F = F ∩ E\nAssociativité    (E∪F)∪G = E∪(F∪G)       (E∩F)∩G = E∩(F∩G)\nIdempotence      E ∪ E = E = E ∩ E\nÉlément neutre   E ∪ ∅ = E               E ∩ Ω = E\nÉlém. absorbant  E ∪ Ω = Ω               E ∩ ∅ = ∅\n\nDistributivité :\n   (E ∩ F) ∪ G = (E ∪ G) ∩ (F ∪ G)\n   (E ∪ F) ∩ G = (E ∩ G) ∪ (F ∩ G)\n\n■ LOIS DE DE MORGAN (Prop 1.2)   [p. 12|cours/proba/poly-probabilites-2025|12]\n\n   ‾‾‾‾‾‾     ‾   ‾\n   E ∪ F  =   E ∩ F\n\n   ‾‾‾‾‾‾     ‾   ‾\n   E ∩ F  =   E ∪ F\n\nEn mots : la négation d'une conjonction est la disjonction des négations,\net vice-versa.\n\n■ PROPRIÉTÉS DE P (Prop 1.3)   [p. 15|cours/proba/poly-probabilites-2025|15]\n\n   P(∅) = 0\n   P(Ē) = 1 − P(E)\n   E ⊂ F  ⟹  P(E) ≤ P(F)\n   P(E ∪ F) = P(E) + P(F) − P(E ∩ F)\n\n■ FORMULE DE POINCARÉ (Prop 1.4) — cas usuels   [p. 16|cours/proba/poly-probabilites-2025|16]\n\nDeux événements :\n   P(E ∪ F) = P(E) + P(F) − P(E ∩ F)\n\nTrois événements :\n   P(E ∪ F ∪ G) = P(E) + P(F) + P(G)\n                  − P(E∩F) − P(E∩G) − P(F∩G)\n                  + P(E∩F∩G)\n\nQuatre événements :\n   P(E∪F∪G∪H) = ΣP(simples)\n                − ΣP(paires)\n                + ΣP(triples)\n                − P(E∩F∩G∩H)\n\n→ Principe : on alterne les signes (+ − + −) selon le nombre de termes\ndans l'intersection.",
+"files": [],
+"createdAt": 1784744768542,
+"topicId": "t_proba"
+},
+{
+"id": "n1784744768543",
+"type": "formules",
+"title": "Conditionnelles, probabilités totales, Bayes",
+"content": "■ PROBABILITÉ CONDITIONNELLE (Déf 2.1)   [p. 32|cours/proba/poly-probabilites-2025|32]\n\n   P(E|F) = P(E ∩ F) / P(F)          [ P(F) ≠ 0 ]\n\n▸ EXEMPLE\nOn tire une carte dans un jeu de 32. Sachant qu'elle est rouge (16 cartes),\nquelle est la probabilité que ce soit un cœur (8 cartes) ?\n\n   P(cœur | rouge) = P(cœur ∩ rouge) / P(rouge)\n                   = (8/32) / (16/32) = 1/2\n\nIntuition : on ne regarde plus que les 16 cartes rouges,\ndont 8 sont des cœurs.\n\n■ ÉVÉNEMENTS CONTRAIRES (Prop 2.1)\n\n   P(E|F) + P(Ē|F) = 1\n\n⚠ ATTENTION : c'est vrai en conditionnant sur le MÊME événement.\n   P(E|F) + P(E|F̄) ≠ 1   en général !\n\n■ PROPRIÉTÉ DE MULTIPLICATION (Prop 2.3)\n\n   P(E₁ ∩ E₂) = P(E₂|E₁) · P(E₁)\n\n   P(E₁ ∩ E₂ ∩ E₃) = P(E₃ | E₁∩E₂) · P(E₂|E₁) · P(E₁)\n\nCas général :\n   P(⋂ᵢ Eᵢ) = P(Eₙ | ⋂_{i≤n−1} Eᵢ) · P(Eₙ₋₁ | ⋂_{i≤n−2} Eᵢ) ··· P(E₂|E₁) · P(E₁)\n\n→ En pratique : on multiplie les probabilités le long d'une branche d'arbre.\n\n■ INDÉPENDANCE\n\n   E, F indépendants  ⟺  P(E ∩ F) = P(E)·P(F)\n                      ⟺  P(E|F) = P(E)\n                      ⟺  P(F|E) = P(F)\n\n   E, F indépendants  ⟺  Ē, F indépendants          (Prop 2.4)\n\n■ PROBABILITÉS TOTALES (Prop 2.5)   [p. 37|cours/proba/poly-probabilites-2025|37]\n\nSi {A₁,...,Aₙ} est un système complet d'événements :\n\n   P(E) = Σᵢ₌₁ⁿ  P(E|Aᵢ) · P(Aᵢ)\n\nCas de deux événements complémentaires :\n\n   P(E) = P(E|A)·P(A) + P(E|Ā)·P(Ā)\n\n■ FORMULE DE BAYES (Th 2.6)   [p. 38|cours/proba/poly-probabilites-2025|38]\n\nSi {A₁,...,Aₙ} est un système complet d'événements :\n\n                  P(E|Aⱼ) · P(Aⱼ)\n   P(Aⱼ|E) = ─────────────────────────\n              Σᵢ₌₁ⁿ  P(E|Aᵢ) · P(Aᵢ)\n\nCas de deux événements :\n\n                  P(E|A) · P(A)\n   P(A|E) = ───────────────────────────────\n             P(E|A)·P(A) + P(E|Ā)·P(Ā)\n\n→ Le dénominateur n'est rien d'autre que P(E) par les probabilités totales.\n\n■ RÉFLEXE D'EXAMEN\n\nAvant d'appliquer probabilités totales ou Bayes, TOUJOURS vérifier que la\nfamille {Aᵢ} forme bien un système complet d'événements :\n   1. Leur union couvre Ω\n   2. Ils sont deux à deux incompatibles",
+"files": [],
+"createdAt": 1784744768543,
+"topicId": "t_proba"
+},
+{
+"id": "n1784744768544",
+"type": "formules",
+"title": "Espérance, variance, covariance",
+"content": "■ ESPÉRANCE\n\nDiscret :   E(X) = Σ_x  x · P(X = x)\nContinu :   E(X) = ∫_{−∞}^{+∞} x · f(x) dx\n\n■ THÉORÈME DU TRANSFERT (Th 3.4 / 4.8)   [p. 62|cours/proba/poly-probabilites-2025|62]\n\nDiscret :   E(g(X)) = Σ_x  g(x) · P(X = x)\nContinu :   E(g(X)) = ∫ g(x) · f(x) dx\n\nCas particuliers utiles :\n   E(X²) = Σ x² P(X = x)      ou      ∫ x² f(x) dx\n   E(XY) = Σ_x Σ_y  xy · P(X = x, Y = y)\n\n■ LINÉARITÉ DE L'ESPÉRANCE (Prop 3.3)   [p. 62|cours/proba/poly-probabilites-2025|62]\n\n   E(αX + βY) = α·E(X) + β·E(Y)\n\n⚠ Vraie TOUJOURS, même si X et Y ne sont pas indépendantes.\n\n■ VARIANCE\n\n   V(X) = E((X − E(X))²) = E(X²) − E(X)²\n   σ(X) = √V(X)\n\n■ PROPRIÉTÉS DE LA VARIANCE\n\n   V(aX + b) = a² · V(X)                            (Prop 3.5)\n   V(X + Y) = V(X) + V(Y) + 2·Cov(X,Y)              (Prop 3.9)\n   V(X + Y) = V(X) + V(Y)   SI X, Y indépendantes   (Prop 3.6)\n\n⚠ La réciproque est FAUSSE : on peut avoir V(X+Y) = V(X)+V(Y)\nsans que X et Y soient indépendantes.\n\n■ COVARIANCE\n\n   Cov(X,Y) = E(XY) − E(X)·E(Y)\n   Cov(X,X) = V(X)\n\nPropriétés — symétrique et bilinéaire (Prop 3.10) :\n   Cov(X,Y) = Cov(Y,X)\n   Cov(αX + βY, Z) = α·Cov(X,Z) + β·Cov(Y,Z)\n   Cov(X, αY + βZ) = α·Cov(X,Y) + β·Cov(X,Z)\n\n■ COVARIANCE ET INDÉPENDANCE — LE PIÈGE (Th 3.8)\n\n   X, Y indépendantes  ⟹  Cov(X,Y) = 0            ✓ VRAI\n   Cov(X,Y) = 0        ⟹  X, Y indépendantes      ✗ FAUX\n\nContraposée (très utilisée) :\n   Cov(X,Y) ≠ 0  ⟹  X et Y NE SONT PAS indépendantes    ✓ VRAI\n\n   X, Y non indépendantes  ⟹  Cov(X,Y) ≠ 0        ✗ FAUX\n\nContre-exemple (loi conjointe symétrique) :\n        X=−1   X=0   X=1\n   Y=0   1/3    0    1/3\n   Y=1    0    1/3    0\n   → E(X) = 0, E(XY) = 0 donc Cov = 0\n   → mais X et Y ne sont clairement pas indépendantes.\n\n■ COEFFICIENT DE CORRÉLATION\n\n   ρ(X,Y) = Cov(X,Y) / (σ(X)·σ(Y))\n\nIl normalise la covariance : −1 ≤ ρ ≤ 1\n\n■ VARIABLE CENTRÉE RÉDUITE\n\n   Z = (X − E(X)) / σ(X)      →      E(Z) = 0,  V(Z) = 1",
+"files": [],
+"createdAt": 1784744768544,
+"topicId": "t_proba"
+},
+{
+"id": "n1784744768545",
+"type": "formules",
+"title": "Lois usuelles discrètes",
+"content": "┌──────────────────────────────────────────────────────────────┐\n│ UNIFORME    X ∼ U([[1,n]])                                   │\n└──────────────────────────────────────────────────────────────┘\nToutes les valeurs sont équiprobables.\n\n   X(Ω) = [[1,n]]\n   P(X = k) = 1/n\n\n   E(X) = (n+1)/2\n   V(X) = (n² − 1)/12\n\n┌──────────────────────────────────────────────────────────────┐\n│ BERNOULLI    X ∼ B(p)                                        │\n└──────────────────────────────────────────────────────────────┘\nUne expérience à deux issues : succès (1) / échec (0).\n\n   X(Ω) = {0, 1}\n   P(X = 1) = p\n   P(X = 0) = 1 − p\n\n   E(X) = p\n   V(X) = p(1 − p)\n\n┌──────────────────────────────────────────────────────────────┐\n│ BINOMIALE    X ∼ B(n,p)                                      │\n└──────────────────────────────────────────────────────────────┘\nOn répète n fois, de façon indépendante, une expérience de Bernoulli.\nX = nombre de SUCCÈS obtenus.\n\n   X(Ω) = [[0,n]]\n   P(X = k) = C(n,k) · pᵏ · (1−p)ⁿ⁻ᵏ\n\n   avec  C(n,k) = n! / (k!(n−k)!)\n\n   E(X) = np\n   V(X) = np(1 − p)\n\nSomme (Prop 3.15) : si X ∼ B(n,p) et Y ∼ B(m,p) indépendantes,\n   X + Y ∼ B(n+m, p)\n\n┌──────────────────────────────────────────────────────────────┐\n│ BINOMIALE NÉGATIVE    X ∼ BN(r,p)                            │\n└──────────────────────────────────────────────────────────────┘\nSituation INVERSE de la binomiale :\non fixe le nombre de succès r voulu, on compte les répétitions nécessaires.\n\n   X(Ω) = [[r, +∞[[\n   P(X = j) = C(j−1, r−1) · pʳ · (1−p)^(j−r)\n\n   (probabilité que le r-ième succès arrive à la j-ième répétition)\n\n   E(X) = r/p\n   V(X) = r(1−p)/p²\n\n⚠ Cas r = 1 → on parle de LOI GÉOMÉTRIQUE.\n\n┌──────────────────────────────────────────────────────────────┐\n│ POISSON    X ∼ P(λ)                                          │\n└──────────────────────────────────────────────────────────────┘\nLoi des ÉVÉNEMENTS RARES (accidents, désintégrations, défauts de crédit...).\nExcellente approximation de la binomiale dans ces cas.\n\n   X(Ω) = ℕ\n   P(X = k) = e^(−λ) · λᵏ / k!\n\n   E(X) = V(X) = λ        ← à retenir : espérance = variance\n\nExemples : nombre de coquilles par page, patients avec fracture par jour,\nconnexions à un serveur pendant un intervalle T.",
+"files": [],
+"createdAt": 1784744768545,
+"topicId": "t_proba"
+},
+{
+"id": "n1784744768546",
+"type": "formules",
+"title": "Lois usuelles continues",
+"content": "┌──────────────────────────────────────────────────────────────┐\n│ UNIFORME    X ∼ U([a,b])                                     │\n└──────────────────────────────────────────────────────────────┘\nDensité constante sur [a,b], nulle ailleurs.\n\n   f(x) = 1/(b−a)   si x ∈ [a,b]\n   f(x) = 0         sinon\n\n   E(X) = (a+b)/2\n   V(X) = (b−a)²/12\n\n┌──────────────────────────────────────────────────────────────┐\n│ EXPONENTIELLE    X ∼ E(λ)        λ > 0                       │\n└──────────────────────────────────────────────────────────────┘\nModélise les phénomènes SANS MÉMOIRE\n(durée de vie d'un composant, temps d'attente, atome radioactif).\n\n   f(x) = λ·e^(−λx)   si x ≥ 0\n   f(x) = 0           sinon\n\n   F(x) = 1 − e^(−λx)   pour x ≥ 0\n\n   E(X) = 1/λ\n   V(X) = 1/λ²\n\nPropriété sans mémoire (Prop 4.12) :\n   P(T ≥ t+s | T ≥ t) = P(T ≥ s)\n   T sans mémoire  ⟺  T suit une loi exponentielle\n\n┌──────────────────────────────────────────────────────────────┐\n│ NORMALE (Gaussienne)    X ∼ N(µ, σ²)                         │\n└──────────────────────────────────────────────────────────────┘\n\n   f(x) = (1 / (σ√(2π))) · e^( −(x−µ)² / (2σ²) )\n\n   E(X) = µ\n   V(X) = σ²\n\nµ fixe l'axe de symétrie ; σ est la distance de l'axe au point d'inflexion.\nσ petit → pic prononcé ; σ grand → courbe étalée.\n\n■ NORMALE CENTRÉE RÉDUITE  N(0,1)\n\nOn note Φ sa fonction de répartition :\n\n   Φ(x) = P(X ≤ x) = (1/√(2π)) ∫_{−∞}^{x} e^(−t²/2) dt\n\nPropriétés de Φ (Prop 4.13) :\n   P(a ≤ X ≤ b) = Φ(b) − Φ(a)\n   P(X ≥ a) = P(X ≤ −a) = 1 − Φ(a)\n   Φ(−a) = 1 − Φ(a)\n\n■ MÉTHODE DE CALCUL (Fiche méthode #4)\n\nPour X ∼ N(µ, σ²), tous les calculs passent par le centrage-réduction :\n\n   a) Poser Z = (X − µ)/σ    →  Z ∼ N(0,1)\n   b) Réexprimer les événements avec Z\n   c) Utiliser les propriétés de Φ\n   d) Lire la table de Φ\n\n■ COMBINAISON LINÉAIRE (Prop 4.16)\n\nToute combinaison linéaire de lois normales suit une loi normale.\nSi X ∼ N(µ₁, σ₁²) et Y ∼ N(µ₂, σ₂²) INDÉPENDANTES, et Z = aX + bY :\n\n   Z ∼ N(aµ₁ + bµ₂,  a²σ₁² + b²σ₂²)\n\n■ APPROXIMATION BINOMIALE → NORMALE (Th 4.15)\n\nSi Xₙ ∼ B(n,p), alors quand n → ∞ :\n\n   Zₙ = (Xₙ − np) / √(np(1−p))   →   N(0,1)",
+"files": [],
+"createdAt": 1784744768546,
+"topicId": "t_proba"
+},
+{
+"id": "n1784744768547",
+"type": "résumés",
+"title": "Fiches méthode — les 4 réflexes",
+"content": "■ MÉTHODE #1 — Calculer la probabilité d'un événement\n\n1. Identifier les événements élémentaires qui décrivent complètement\n   l'expérience aléatoire.\n2. Décrire E grâce à ces événements élémentaires (avec ∩, ∪, complémentaire).\n3. Utiliser les propriétés des fonctions de probabilité pour trouver P(E).\n\nExemple (poker) : il reste 44 cartes. Le joueur gagne si la dernière carte\nest un 2, un valet ou un trèfle. Ces 3 événements sont incompatibles, donc\non peut simplement additionner : 2/44 + 3/44 + 9/44 = 14/44 ≈ 0.32\n\n\n■ MÉTHODE #2 — Loi de Y = g(X), cas DISCRET\n\na) Déterminer les valeurs possibles de Y (le support Y(Ω)).\nb) Pour chaque y ∈ Y(Ω), décrire l'événement (Y = y) en fonction du système\n   complet (X = xᵢ).\nc) Calculer P(Y = y) à partir des pᵢ = P(X = xᵢ).\n\nExemple : Y = X² avec X(Ω) = {−2,−1,0,1,2,3,4}\n   Y(Ω) = {0,1,4,9,16}\n   (Y = 1) = (X = −1) ∪ (X = 1)   → on ADDITIONNE les probabilités\n   (Y = 4) = (X = −2) ∪ (X = 2)\n\n\n■ MÉTHODE #3 — Densité de Y = g(X), cas CONTINU\n\na) Déterminer le support Y(Ω).\nb) Exprimer l'événement {Y ≤ a} en fonction de X.\nc) En déduire la fonction de répartition de Y.\nd) DÉRIVER pour obtenir la densité de Y.\n\n⚠ Le point clé : on passe TOUJOURS par la fonction de répartition,\njamais directement par la densité.\n\nExemple : Y = √|X| avec X(Ω) = [−1,1] → Y(Ω) = [0,1]\n   Pour a ∈ [0,1] :  Y ≤ a ⟺ √|X| ≤ a ⟺ |X| ≤ a² ⟺ −a² ≤ X ≤ a²\n   Puis F_Y(a) = ∫_{−a²}^{a²} f_X(x) dx, et on dérive.\n\n\n■ MÉTHODE #4 — Probabilités d'une loi normale\n\nPour X ∼ N(µ, σ²), calculer P(X ∈ I₁ | X ∈ I₂) :\n\na) Poser Z = (X − µ)/σ, donc Z ∼ N(0,1).\nb) Réexprimer les événements {X ∈ I₁} et {X ∈ I₂} avec Z.\nc) Utiliser les propriétés de Φ (Prop 4.13).\nd) Lire la table de Φ pour la valeur numérique.",
+"files": [],
+"createdAt": 1784744768547,
+"topicId": "t_proba"
+},
+{
+"id": "n1784744768548",
+"type": "résumés",
+"title": "Pièges classiques et points de vigilance",
+"content": "■ COVARIANCE ET INDÉPENDANCE\n\n   X, Y indép.       ⟹  Cov = 0          ✓\n   Cov = 0           ⟹  X, Y indép.      ✗ FAUX\n   Cov ≠ 0           ⟹  non indép.       ✓ (contraposée, très utilisée)\n   non indép.        ⟹  Cov ≠ 0          ✗ FAUX\n\n→ Une covariance nulle ne prouve RIEN sur l'indépendance.\n\n\n■ VARIANCE D'UNE SOMME\n\n   V(X + Y) = V(X) + V(Y) + 2Cov(X,Y)      ← formule GÉNÉRALE\n   V(X + Y) = V(X) + V(Y)                  ← seulement si INDÉPENDANTES\n\n⚠ La réciproque est fausse : V(X+Y) = V(X)+V(Y) n'implique pas l'indépendance.\n\n⚠ Ne pas confondre :\n   V(aX + b) = a²V(X)       ← le b disparaît, le a est au CARRÉ\n   E(aX + b) = aE(X) + b    ← ici le b reste\n\n\n■ LINÉARITÉ\n\n   E(αX + βY) = αE(X) + βE(Y)     ✓ TOUJOURS vrai\n   E(XY) = E(X)E(Y)               ✗ seulement si indépendantes\n\n\n■ PROBABILITÉS CONDITIONNELLES\n\n   P(E|F) + P(Ē|F) = 1        ✓ (on conditionne sur le MÊME événement)\n   P(E|F) + P(E|F̄) = 1        ✗ FAUX en général\n\n→ Le réflexe : ce qui somme à 1, c'est ce qui est À GAUCHE de la barre.\n\n\n■ INDÉPENDANCE DE 3 ÉVÉNEMENTS\n\nIl ne suffit PAS que les 3 couples soient indépendants deux à deux.\nIl faut AUSSI P(E ∩ F ∩ G) = P(E)P(F)P(G).\n\nContre-exemple : deux dés, E = \"somme = 7\", F = \"1er dé = 4\", G = \"2e dé = 3\".\nLes 3 couples sont indépendants, mais P(E | F∩G) = 1.\n\n\n■ SYSTÈME COMPLET D'ÉVÉNEMENTS\n\nAvant d'appliquer probabilités totales ou Bayes, VÉRIFIER :\n   1. L'union des Aᵢ couvre bien Ω\n   2. Les Aᵢ sont deux à deux incompatibles\n\nC'est l'erreur la plus fréquente : appliquer Bayes sur une famille\nqui ne partitionne pas Ω.\n\n\n▸ EXEMPLE\nUne urne contient des boules de 3 couleurs. Les événements\nA₁ = « tirer rouge », A₂ = « tirer vert », A₃ = « tirer bleu »\nforment un système complet : leur union est Ω, et on ne peut pas\ntirer deux couleurs à la fois.\n\n▸ CONTRE-EXEMPLE\nA = « le dé donne un nombre pair », B = « le dé donne un nombre > 3 ».\nCe N'EST PAS un système complet : A ∩ B = {4,6} ≠ ∅ (pas incompatibles).\n\n■ ÉVÉNEMENTS INCOMPATIBLES ≠ INDÉPENDANTS\n\nDeux événements POSSIBLES et INCOMPATIBLES ne peuvent PAS être indépendants.\nEn effet : E ∩ F = ∅ donne P(E ∩ F) = 0, alors que P(E)P(F) > 0.\n\n→ Incompatibles = ils ne peuvent pas arriver ensemble\n→ Indépendants = savoir que l'un arrive ne change rien à l'autre\nCe sont deux notions COMPLÈTEMENT différentes.\n\n\n■ CAS CONTINU\n\n   P(X = a) = 0 pour tout a réel\n   → donc P(a ≤ X ≤ b) = P(a < X < b), les bornes n'importent pas\n\n⚠ Une densité n'est pas une probabilité : f(x) peut dépasser 1.\nCe qui compte, c'est l'aire sous la courbe.\n\n\n■ ESPÉRANCE QUI N'EXISTE PAS\n\nCe n'est pas qu'un cas d'école :\n   · Discret : gain de 2ⁿ euros au jeu du premier pile → série divergente\n   · Continu : loi de Cauchy, f(x) = 1/(π(1+x²))",
+"files": [],
+"createdAt": 1784744768548,
+"topicId": "t_proba"
+},
+{
+"id": "n1784744768549",
+"type": "résumés",
+"title": "Mémo — toutes les lois d'un coup d'œil",
+"content": "════════════════════ LOIS DISCRÈTES ════════════════════\n\nLOI              P(X = k)                      E(X)        V(X)\n─────────────────────────────────────────────────────────────────────\nUniforme         1/n                           (n+1)/2     (n²−1)/12\nU([[1,n]])\n\nBernoulli        p    si k=1                   p           p(1−p)\nB(p)             1−p  si k=0\n\nBinomiale        C(n,k)·pᵏ·(1−p)ⁿ⁻ᵏ            np          np(1−p)\nB(n,p)\n\nBinom. négative  C(j−1,r−1)·pʳ·(1−p)^(j−r)     r/p         r(1−p)/p²\nBN(r,p)\n\nPoisson          e^(−λ)·λᵏ/k!                  λ           λ\nP(λ)\n\n\n════════════════════ LOIS CONTINUES ════════════════════\n\nLOI              f(x)                          E(X)        V(X)\n─────────────────────────────────────────────────────────────────────\nUniforme         1/(b−a) sur [a,b]             (a+b)/2     (b−a)²/12\nU([a,b])\n\nExponentielle    λe^(−λx)  pour x ≥ 0          1/λ         1/λ²\nE(λ)\n\nNormale          (1/(σ√2π))·e^(−(x−µ)²/2σ²)    µ           σ²\nN(µ,σ²)\n\n\n════════════════════ QUAND UTILISER QUOI ? ════════════════════\n\nBernoulli      → une seule épreuve, deux issues (succès/échec)\nBinomiale      → n épreuves FIXÉES, on compte les succès\nBinom. négative→ nombre de succès FIXÉ, on compte les épreuves\nGéométrique    → cas r = 1 de la binomiale négative (1er succès)\nPoisson        → événements RARES sur une période donnée\nUniforme       → toutes les valeurs équiprobables\nExponentielle  → durée de vie, temps d'attente (SANS MÉMOIRE)\nNormale        → phénomène résultant de nombreux facteurs, limite de B(n,p)\n\n\n════════════════════ RELATIONS ENTRE LOIS ════════════════════\n\nBernoulli → Binomiale\n   B(n,p) = somme de n variables B(p) indépendantes\n\nBinomiale + Binomiale\n   X ∼ B(n,p), Y ∼ B(m,p) indép.  ⟹  X+Y ∼ B(n+m, p)\n\nBinomiale → Normale   (Th 4.15)\n   Xₙ ∼ B(n,p),  n → ∞  ⟹  (Xₙ−np)/√(np(1−p))  →  N(0,1)\n\nBinomiale négative avec r = 1\n   = loi géométrique\n\nNormale + Normale   (Prop 4.16)\n   aX + bY ∼ N(aµ₁+bµ₂,  a²σ₁²+b²σ₂²)   si indépendantes\n\n\n════════════════════ À RETENIR PAR CŒUR ════════════════════\n\n· Poisson : E(X) = V(X) = λ           (le seul cas où c'est égal)\n· Binomiale : E = np, V = np(1−p)     (V < E toujours)\n· Exponentielle : E = 1/λ, V = 1/λ²   (V = E²)\n· Normale : les paramètres SONT E et V",
+"files": [],
+"createdAt": 1784744768549,
+"topicId": "t_proba"
+},
+{
+"id": "n1784803203924",
+"topicId": "t_sm302",
+"type": "cours",
+"title": "Ch.1 — Fonctions de plusieurs variables",
+"content": "■ POURQUOI PLUSIEURS VARIABLES   [p. 5|cours/sm302/01sm3022223chapter1td1|1]\n\nJusqu'ici : fonctions d'une seule variable. Mais dans les situations réelles,\nles quantités dépendent souvent de plusieurs paramètres.\n\n· La température T en Europe dépend de la longitude x et de la latitude y → T = f(x,y)\n· Le volume V d'une boîte dépend de 3 variables : longueur, largeur, profondeur\n· Une couleur en mode RGB dépend de 3 variables\n\nOn étudie donc des fonctions définies non plus sur un intervalle de ℝ,\nmais sur un sous-ensemble (domaine) de ℝⁿ, à valeurs dans ℝ.\n\n■ DÉFINITION (Déf 1.2.1)   [p. 5|cours/sm302/01sm3022223chapter1td1|1]\n\nUne fonction de deux variables f est une correspondance qui associe une valeur\nnotée f(x,y) à chaque couple de réels (x,y) donné dans D_f.\n\n   D_f = domaine de définition (là où la fonction sera calculée)\n   L'ensemble des valeurs prises par f(x,y) est l'image de f\n\nQuand le domaine n'est pas donné explicitement, on le considère comme\nl'ensemble de toutes les valeurs autorisées.\n\nNotation : 2 variables → x, y ; 3 variables → x, y, z ; n variables → x₁,...,xₙ\n\n▸ EXEMPLE (Exemple 1.1 du poly)\n   f(x,y) = √(x+y+1) / (x−1)\n\n   f(2,3) = √6 / 1 = √6\n\n   Domaine : il faut x+y+1 ≥ 0 ET x ≠ 1\n   →  D_f = { (x,y) / y ≥ −x−1 et x ≠ 1 }\n\nC'est le demi-plan au-dessus de la droite y = −x−1, privé de\nla droite verticale x = 1.\n\n■ GRAPHE (Déf 1.3.1)   [p. 6|cours/sm302/01sm3022223chapter1td1|2]\n\nPour f : D_f ⊂ ℝⁿ → ℝ, le graphe de f est le sous-ensemble de ℝⁿ⁺¹ :\n\n   { (X, f(X)) / X ∈ D_f }\n\nPour n = 2, le graphe est représenté dans un repère 3D : le domaine appartient\nau plan (xOx', yOy') et la valeur de f est la hauteur z en ce point.\nOn note z = f(x,y).\n\nLe graphe est alors une SURFACE dans ℝ³, située au-dessus du plan si f(x,y) > 0,\nen-dessous si f(x,y) < 0.\n\n▸ EXEMPLE (Exemple 1.2 du poly)\n   f(x,y) = 8 − 2x − 4y\n\nLe graphe a pour équation z = 8 − 2x − 4y, soit 2x + 4y + z = 8.\nC'est l'équation d'un PLAN passant par les points\n(0,0,8), (4,0,0) et (0,2,0).\n\n■ COURBES DE NIVEAU (Déf 1.3.2)   [p. 8|cours/sm302/01sm3022223chapter1td1|4]\n\nLes lignes de niveau (ou lignes de contour) de f sont les sous-ensembles :\n\n   { X ∈ D_f / f(X) = k }   avec k ∈ ℝ\n\nPour n = 2 : ce sont les courbes d'équation f(x,y) = k.\nCe sont les projections sur le plan (xOx', yOy') des intersections du graphe\nz = f(x,y) avec les plans horizontaux z = k.\n\nIntuition : ce sont les lignes joignant les points de MÊME hauteur.\nSi tu es en un point de la surface, la courbe de niveau est le chemin à suivre\npour rester à la même altitude.\n\nC'est exactement le principe des cartes IGN pour représenter le relief.\n▸ EXEMPLE\n   f(x,y) = 9 − x² − y²  (hémisphère)\n\nCourbe de niveau k :  9 − x² − y² = k  ⟺  x² + y² = 9 − k\n\n→ Ce sont des CERCLES de centre O et de rayon √(9−k).\n   k = 0 → cercle de rayon 3\n   k = 5 → cercle de rayon 2\n   k = 9 → le point O seul\n   k > 9 → aucune courbe (au-dessus du sommet)\n",
+"files": [],
+"createdAt": 1784803203924
+},
+{
+"id": "n1784803203925",
+"topicId": "t_sm302",
+"type": "cours",
+"title": "Ch.2 — Topologie, limites et continuité",
+"content": "■ VOISINAGE (Déf 2.2.1)   [p. 17|cours/sm302/02sm3022223chapter2td2|3]\n\nℝⁿ muni de la norme euclidienne, soit a ∈ ℝⁿ. Un voisinage de a est :\n\n   B(a,r) = { x ∈ ℝⁿ / d(x,a) < r }     pour r > 0\n\nC'est la boule ouverte de centre a et de rayon r.\n\n■ OUVERT (Déf 2.2.2)   [p. 17|cours/sm302/02sm3022223chapter2td2|3]\n\nUn sous-ensemble Ω de ℝⁿ est un OUVERT s'il contient un voisinage de chacun\nde ses points :\n\n   ∀x ∈ Ω, ∃r > 0, B(x,r) ⊂ Ω\n\n■ COMPLÉMENTAIRE ET FERMÉ (Déf 2.2.3)   [p. 18|cours/sm302/02sm3022223chapter2td2|4]\n\n1. Le complémentaire Ωᶜ d'un sous-ensemble Ω de ℝⁿ est l'ensemble des points\n   de ℝⁿ qui n'appartiennent pas à Ω.\n2. Ω est un FERMÉ si son complémentaire est un ouvert.\n\n■ POINTS INTÉRIEURS ET POINTS FRONTIÈRE (Déf 2.2.4)   [p. 18|cours/sm302/02sm3022223chapter2td2|4]\n\nSoit Ω ⊂ ℝⁿ et x ∈ Ω.\n· x est un point INTÉRIEUR à Ω s'il existe une boule ouverte centrée en x\n  entièrement incluse dans Ω : ∃r > 0, B(x,r) ⊂ Ω\n· Sinon, x est un point FRONTIÈRE : toute boule centrée en x contient\n  à la fois des points de Ω et des points hors de Ω.\n\n■ LIMITE (Déf 2.3.1)   [p. 19|cours/sm302/02sm3022223chapter2td2|5]\n\nSoit f : D_f ⊂ ℝ² → ℝ et (a₁,a₂) un point intérieur ou frontière de D_f.\nOn dit que f admet une limite ℓ en (a₁,a₂) et on écrit\n\n   lim_{(x,y)→(a₁,a₂)} f(x,y) = ℓ\n\n⚠ DIFFÉRENCE MAJEURE avec une variable : en dimension 1, on ne peut approcher\nun point que par la gauche ou par la droite. En dimension 2, on peut s'en\napprocher par une INFINITÉ de chemins. La limite n'existe que si toutes ces\napproches donnent la même valeur.\n\n▸ EXEMPLE — limite qui N'EXISTE PAS\n   f(x,y) = xy / (x² + y²)   en (0,0)\n\nChemin y = 0 :  f(x,0) = 0 / x² = 0        → limite 0\nChemin y = x :  f(x,x) = x² / 2x² = 1/2    → limite 1/2\n\nDeux chemins, deux valeurs différentes → la limite n'existe pas.\n\n▸ EXEMPLE — limite qui existe\n   g(x,y) = x²y / (x² + y²)   en (0,0)\n\nEn polaires : x = r cos θ, y = r sin θ\n   g = r³cos²θ sinθ / r² = r · cos²θ sinθ\n   |g| ≤ r → 0  quand r → 0\n\nLa majoration est indépendante de θ, donc la limite vaut 0.\n\n■ UNICITÉ (Prop 2.3.1)   [p. 20|cours/sm302/02sm3022223chapter2td2|6]\n\nQuand la limite existe, elle est UNIQUE.\n\n→ Conséquence pratique : pour montrer qu'une limite N'EXISTE PAS, il suffit\nde trouver deux chemins d'approche donnant des valeurs différentes.\n\n■ CONTINUITÉ (Déf 2.4.1)   [p. 22|cours/sm302/02sm3022223chapter2td2|8]\n\nf est continue en (a₁,a₂) ∈ D_f si et seulement si\n\n   lim_{(x,y)→(a₁,a₂)} f(x,y) = f(a₁,a₂)\n\n■ FONCTIONS CONTINUES USUELLES (Prop 2.4.1 / 2.4.2)   [p. 23|cours/sm302/02sm3022223chapter2td2|9]\n\n· Les fonctions polynomiales de deux variables sont continues sur ℝ².\n· La somme, le produit, le quotient (dénominateur non nul) et la composition\n  de fonctions continues sont continues.",
+"files": [],
+"createdAt": 1784803203925
+},
+{
+"id": "n1784803203926",
+"topicId": "t_sm302",
+"type": "cours",
+"title": "Ch.3 — Dérivées partielles et différentiabilité",
+"content": "■ DÉRIVÉES PARTIELLES PREMIÈRES (Déf 3.2.1)   [p. 30|cours/sm302/04sm3022223chapter3td3|2]\n\nPour f : Ω ⊂ ℝ² → ℝ au point (a₁,a₂) ∈ Ω, les dérivées partielles sont les réels :\n\n   ∂f/∂x (a₁,a₂)   et   ∂f/∂y (a₁,a₂)\n\nPrincipe de calcul : pour dériver par rapport à x, on considère y comme une\nCONSTANTE, et on dérive normalement. Et réciproquement.\n\nPour n variables (Déf 3.2.3), la dérivée partielle par rapport à la i-ième\nvariable se note ∂f/∂xᵢ.\n\n▸ EXEMPLE\n   f(x,y) = x³y² + 2xy + y\n\n   ∂f/∂x = 3x²y² + 2y        (y traité comme constante)\n   ∂f/∂y = 2x³y + 2x + 1     (x traité comme constante)\n\nAu point (1,2) :\n   ∂f/∂x (1,2) = 3×1×4 + 4 = 16\n   ∂f/∂y (1,2) = 2×1×2 + 2 + 1 = 7\n\n■ FONCTIONS DÉRIVÉES PARTIELLES (Déf 3.2.2)   [p. 31|cours/sm302/04sm3022223chapter3td3|3]\n\nSi f admet des dérivées partielles en tout point (x,y) de Ω, alors\n∂f/∂x (x,y) et ∂f/∂y (x,y) sont elles-mêmes des fonctions de deux variables.\n\nOn peut donc les dériver à nouveau → dérivées partielles SECONDES.\n\n■ THÉORÈME DE SCHWARZ (Th 3.2.1)   [p. 33|cours/sm302/04sm3022223chapter3td3|5]\n\nSi f et toutes ses dérivées partielles secondes existent et sont continues\nsur un ouvert, alors les dérivées croisées sont ÉGALES :\n\n   ∂²f/∂x∂y = ∂²f/∂y∂x\n\n→ L'ordre de dérivation n'a pas d'importance.\n\n▸ EXEMPLE — vérification\n   f(x,y) = x³y²\n\n   ∂f/∂x = 3x²y²   →   ∂²f/∂y∂x = 6x²y\n   ∂f/∂y = 2x³y    →   ∂²f/∂x∂y = 6x²y\n\nLes deux dérivées croisées coïncident, conformément au théorème.\n\n■ RÈGLE DE LA CHAÎNE (Th 3.2.2)   [p. 33|cours/sm302/04sm3022223chapter3td3|5]\n\n1. Si f est une fonction de deux variables x et y à dérivées partielles\n   premières continues, et si x et y sont des fonctions dérivables de t :\n\n      df/dt = (∂f/∂x)(dx/dt) + (∂f/∂y)(dy/dt)\n\n2. Version à plusieurs variables intermédiaires : on somme sur tous\n   les chemins de dépendance.\n\n■ DIFFÉRENTIABILITÉ (Th 3.3.1)   [p. 35|cours/sm302/04sm3022223chapter3td3|7]\n\nSi les dérivées partielles ∂f/∂x et ∂f/∂y existent et sont CONTINUES\nau voisinage d'un point, alors f est différentiable en ce point.\n\n⚠ L'existence seule des dérivées partielles NE SUFFIT PAS à garantir la\ndifférentiabilité (contrairement au cas d'une variable). Il faut la continuité.\n\n■ CLASSE C¹ (Déf 3.3.1)   [p. 35|cours/sm302/04sm3022223chapter3td3|7]\n\nf est dite C¹(Ω) si et seulement si ∂f/∂x et ∂f/∂y existent et sont\ncontinues sur Ω.\n\n   f de classe C¹  ⟹  f différentiable  ⟹  f continue\n\n■ OPÉRATIONS (Prop 3.3.2)\n\nLa somme, le produit, le quotient (dénominateur non nul) et la composition\n(domaines compatibles) de fonctions différentiables sont différentiables.\n\n■ GRADIENT (Déf 3.4.1)   [p. 36|cours/sm302/04sm3022223chapter3td3|8]\n\nSi les dérivées partielles de f existent en (a₁,a₂), le gradient est le vecteur\n\n   grad f(a₁,a₂) = ( ∂f/∂x (a₁,a₂) , ∂f/∂y (a₁,a₂) )\n\nInterprétation : le gradient indique la DIRECTION de plus forte croissance\nde la fonction, et sa norme donne le taux de cette croissance.\n\nLe gradient est toujours ORTHOGONAL aux courbes de niveau.\n▸ EXEMPLE\n   f(x,y) = x² + y²\n\n   grad f = (2x, 2y)\n\nAu point (1,1) : grad f = (2,2), dirigé selon la bissectrice,\nc'est-à-dire radialement vers l'extérieur.\n\nLes courbes de niveau sont les cercles x² + y² = k.\nLe gradient (radial) est bien ORTHOGONAL à ces cercles.\n",
+"files": [],
+"createdAt": 1784803203926
+},
+{
+"id": "n1784803203927",
+"topicId": "t_sm302",
+"type": "cours",
+"title": "Ch.4 — Intégrales multiples",
+"content": "■ THÉORÈME DE FUBINI SUR UN RECTANGLE (Th 4.2.1)   [p. 47|cours/sm302/06sm3022223chapter4td4|3]\n\nSoit f continue sur le rectangle R = {(x,y) / a ≤ x ≤ b, c ≤ y ≤ d}. Alors :\n\n   ∬_R f(x,y) dx dy = ∫ₐᵇ ( ∫_c^d f(x,y) dy ) dx\n                     = ∫_c^d ( ∫ₐᵇ f(x,y) dx ) dy\n\n→ On calcule une intégrale double comme deux intégrales simples emboîtées,\net sur un rectangle l'ORDRE n'a pas d'importance.\n\n▸ EXEMPLE\n   ∬_R xy dx dy   sur   R = [0,1] × [0,2]\n\n   = ∫₀¹ ( ∫₀² xy dy ) dx\n   = ∫₀¹ x [ y²/2 ]₀² dx\n   = ∫₀¹ 2x dx = [x²]₀¹ = 1\n\nVérification dans l'autre ordre :\n   = ∫₀² ( ∫₀¹ xy dx ) dy = ∫₀² y/2 dy = [y²/4]₀² = 1  ✓\n\n■ INTÉGRALE SUR UN DOMAINE QUELCONQUE (Déf 4.2.1)   [p. 49|cours/sm302/06sm3022223chapter4td4|5]\n\nSoit f continue sur un domaine borné Ω ⊂ ℝ². Il existe un rectangle R tel que\nΩ ⊂ R. L'intégrale double de f sur Ω est alors définie en prolongeant f par 0\nen dehors de Ω.\n\n■ FUBINI SUR UN DOMAINE BORNÉ (Th 4.2.2)\n\n1. Si Ω = { (x,y) / a ≤ x ≤ b,  φ₁(x) ≤ y ≤ φ₂(x) } avec φ₁, φ₂ continues :\n\n      ∬_Ω f(x,y) dx dy = ∫ₐᵇ ( ∫_{φ₁(x)}^{φ₂(x)} f(x,y) dy ) dx\n\n2. Symétriquement si le domaine est décrit en fixant y d'abord.\n\n⚠ Ici l'ORDRE COMPTE : il faut intégrer d'abord la variable dont les bornes\ndépendent de l'autre. Les bornes intérieures peuvent dépendre de la variable\nextérieure, jamais l'inverse.\n\n▸ EXEMPLE\nDomaine Ω : le triangle 0 ≤ x ≤ 1, 0 ≤ y ≤ x\n\n   ∬_Ω y dx dy = ∫₀¹ ( ∫₀^x y dy ) dx\n               = ∫₀¹ [y²/2]₀^x dx\n               = ∫₀¹ x²/2 dx = 1/6\n\n⚠ Ici l'ordre est imposé : les bornes de y dépendent de x,\ndonc on intègre y en premier.\n\n■ CHANGEMENT DE VARIABLES (Th 4.2.4)   [p. 39|cours/sm302/04sm3022223chapter3td3|11]\n\nSoit ϕ : (u,v) ↦ (x(u,v), y(u,v)) un C¹-difféomorphisme (bijection C¹ dont\nla réciproque est aussi C¹). Alors :\n\n   ∬_Ω f(x,y) dx dy = ∬_{ϕ⁻¹(Ω)} f(x(u,v), y(u,v)) · |J| du dv\n\noù J est le JACOBIEN :\n\n   J = det [ ∂x/∂u   ∂x/∂v ]\n           [ ∂y/∂u   ∂y/∂v ]\n\nCas usuel — coordonnées polaires : x = r cos θ, y = r sin θ, |J| = r\n\n   ∬ f(x,y) dx dy = ∬ f(r cos θ, r sin θ) · r dr dθ\n\n⚠ Ne jamais oublier le facteur r en polaires.\n\n▸ EXEMPLE — passage en polaires\n   ∬_D (x² + y²) dx dy   sur le disque D de rayon 2\n\nEn cartésiennes, ce calcul est pénible. En polaires :\n   x² + y² = r²,  dx dy = r dr dθ\n   D devient : 0 ≤ r ≤ 2, 0 ≤ θ ≤ 2π\n\n   ∬ r² · r dr dθ = ∫₀^{2π} dθ · ∫₀² r³ dr\n                  = 2π × [r⁴/4]₀² = 2π × 4 = 8π\n\n⚠ Sans le facteur r du jacobien, on aurait trouvé 2π × 8/3 : faux.\n\n■ INTÉGRALES TRIPLES (Th 4.3.1 / 4.3.2)   [p. 53|cours/sm302/06sm3022223chapter4td4|9]\n\nMême principe en dimension 3. Sur un pavé B = {a≤x≤b, c≤y≤d, e≤z≤f} :\n\n   ∭_B f dx dy dz = intégrales emboîtées dans n'importe quel ordre\n\nSur un domaine borné Ω = { (x,y,z) / (x,y) ∈ D, φ₁(x,y) ≤ z ≤ φ₂(x,y) } :\n\n   ∭_Ω f = ∬_D ( ∫_{φ₁(x,y)}^{φ₂(x,y)} f dz ) dx dy\n\noù D est la projection de Ω sur ℝ².",
+"files": [],
+"createdAt": 1784803203927
+},
+{
+"id": "n1784803203928",
+"topicId": "t_sm302",
+"type": "cours",
+"title": "Ch.5 — Convexité",
+"content": "■ CONVEXITÉ — UNE VARIABLE (Déf 5.2.1)   [p. 59|cours/sm302/07sm3022223chapter5td5|1]\n\nf : I → ℝ est CONVEXE si et seulement si\n\n   ∀(x₁,x₂) ∈ I², ∀λ ∈ [0,1] :\n      f(λx₁ + (1−λ)x₂) ≤ λf(x₁) + (1−λ)f(x₂)\n\nf est CONCAVE si −f est convexe.\n\nInterprétation géométrique : le segment reliant deux points de la courbe\nest situé AU-DESSUS de la courbe.\n\n▸ EXEMPLE\n   f(x) = x²  est convexe :  f''(x) = 2 > 0\n\nVérification par la définition avec x₁ = 0, x₂ = 2, λ = 1/2 :\n   f(1) = 1\n   ½f(0) + ½f(2) = 0 + 2 = 2\n   1 ≤ 2  ✓  le segment est bien au-dessus de la courbe.\n\n■ MATRICES DÉFINIES POSITIVES (Déf 5.3.1)   [p. 62|cours/sm302/07sm3022223chapter5td5|4]\n\nUne matrice symétrique A ∈ Mₙ(ℝ) est :\n· semi-définie positive (SDP)  si  ∀x, xᵀAx ≥ 0\n· définie positive (DP)        si  ∀x ≠ 0, xᵀAx > 0\n\n■ MINEURS PRINCIPAUX (Déf 5.3.2)   [p. 63|cours/sm302/07sm3022223chapter5td5|5]\n\nPour A = {aᵢⱼ} ∈ Mₙ(ℝ), les mineurs principaux sont les sous-matrices\n« en haut à gauche » :\n\n   A₁ = (a₁₁)\n   A₂ = [ a₁₁ a₁₂ ; a₂₁ a₂₂ ]\n   ... jusqu'à Aₙ = A\n\nCritère : A est définie positive ⟺ tous les déterminants det(Aₖ) > 0.\n\n■ ENSEMBLE CONVEXE (Déf 5.4.1)   [p. 64|cours/sm302/07sm3022223chapter5td5|6]\n\nΩ ⊂ ℝⁿ est convexe si ∀(M,N) ∈ Ω², le segment [MN] ⊂ Ω.\n\nExemples : dans ℝ², les disques et rectangles sont convexes.\nDans ℝ³, une sphère (pleine) et un plan sont convexes.\n\n■ FONCTION CONVEXE — PLUSIEURS VARIABLES (Déf 5.4.2)\n\nSoit f : Ω → ℝ avec Ω ouvert.\n1. f est convexe si ∀(x,y) ∈ Ω², ∀λ ∈ [0,1] :\n      f(λx + (1−λ)y) ≤ λf(x) + (1−λ)f(y)\n2. Si −f est convexe, alors f est concave.\n\n■ MATRICE HESSIENNE (Déf 5.4.3)   [p. 66|cours/sm302/07sm3022223chapter5td5|8]\n\nSoit f : Ω → ℝ de classe C². La matrice hessienne de f en a est la matrice\ndes dérivées partielles secondes :\n\n   H_f(a) = [ ∂²f/∂x²     ∂²f/∂x∂y ]\n            [ ∂²f/∂y∂x    ∂²f/∂y²  ]\n\nPar le théorème de Schwarz, cette matrice est SYMÉTRIQUE.\n\n▸ EXEMPLE\n   f(x,y) = x² + 3xy + y²\n\n   ∂f/∂x = 2x + 3y      ∂²f/∂x² = 2       ∂²f/∂x∂y = 3\n   ∂f/∂y = 3x + 2y      ∂²f/∂y² = 2\n\n   H_f = [ 2  3 ]\n         [ 3  2 ]\n\nMineurs : det(A₁) = 2 > 0, det(A₂) = 4 − 9 = −5 < 0\n→ H_f n'est PAS définie positive : f n'est pas convexe.\n\n■ CRITÈRE DE CONVEXITÉ PAR LA HESSIENNE\n\n   H_f semi-définie positive sur Ω  ⟺  f convexe sur Ω\n   H_f semi-définie négative sur Ω  ⟺  f concave sur Ω",
+"files": [],
+"createdAt": 1784803203928
+},
+{
+"id": "n1784803203929",
+"topicId": "t_sm302",
+"type": "cours",
+"title": "Ch.6 — Extrema",
+"content": "■ DÉFINITIONS (Déf 6.2.1)   [p. 70|cours/sm302/09sm3022223chapter6td6|2]\n\nSoit f : Ω ⊂ ℝⁿ → ℝ et a ∈ Ω.\n\n1. f admet un maximum (resp. minimum) LOCAL en a si\n      ∃r > 0, ∀x ∈ Ω ∩ B(a,r),  f(x) ≤ f(a)   (resp. f(x) ≥ f(a))\n\n2. f admet un maximum (resp. minimum) GLOBAL (ou absolu) en a si\n      ∀x ∈ Ω,  f(x) ≤ f(a)   (resp. f(x) ≥ f(a))\n\n3. Quand f admet un minimum ou un maximum en a, on dit que f admet un\n   EXTREMUM en a.\n\n■ CONDITION NÉCESSAIRE (Th 6.2.1)   [p. 70|cours/sm302/09sm3022223chapter6td6|2]\n\nf peut avoir un extremum local ou global en a ∈ Ω SEULEMENT si a est :\n\n1. un POINT CRITIQUE de f, c'est-à-dire un point où toutes les dérivées\n   partielles s'annulent :\n      ∀i = 1,...,n,  ∂f/∂xᵢ (a) = 0\n2. ou un point où f n'est pas différentiable\n3. ou un point de la FRONTIÈRE du domaine\n\n⚠ C'est une condition NÉCESSAIRE, pas suffisante. Un point critique peut\ntrès bien ne pas être un extremum (point-selle).\n\n■ CONDITION SUFFISANTE D'EXISTENCE (Th 6.2.2)   [p. 71|cours/sm302/09sm3022223chapter6td6|3]\n\nSi f est continue sur un domaine FERMÉ et BORNÉ de ℝⁿ, alors f atteint\neffectivement un maximum global et un minimum global sur ce domaine.\n\n■ TEST DE LA DÉRIVÉE SECONDE (Th 6.3.1)   [p. 73|cours/sm302/09sm3022223chapter6td6|5]\n\nSoit a un point critique intérieur, f de classe C², et H_f(a) la hessienne.\n\n   H_f(a) définie positive       →  MINIMUM local en a\n   H_f(a) définie négative       →  MAXIMUM local en a\n   H_f(a) ni l'un ni l'autre     →  POINT-SELLE (pas d'extremum)\n\n▸ EXEMPLE COMPLET\n   f(x,y) = x³ + y³ − 3xy\n\nÉTAPE 1 — points critiques\n   ∂f/∂x = 3x² − 3y = 0  →  y = x²\n   ∂f/∂y = 3y² − 3x = 0  →  x = y²\n   En substituant : x = x⁴ → x(x³−1) = 0 → x = 0 ou x = 1\n   Points critiques : (0,0) et (1,1)\n\nÉTAPE 2 — dérivées secondes\n   r = 6x,  s = −3,  t = 6y\n\nÉTAPE 3 — discriminant\n   En (0,0) : Δ = 0 − 9 = −9 < 0        →  POINT-SELLE\n   En (1,1) : Δ = 36 − 9 = 27 > 0, r = 6 > 0  →  MINIMUM local\n\n■ CAS DE DEUX VARIABLES (Th 6.3.2)   [p. 73|cours/sm302/09sm3022223chapter6td6|5]\n\nPour (a,b) point critique, on pose :\n\n   r = ∂²f/∂x²(a,b)    s = ∂²f/∂x∂y(a,b)    t = ∂²f/∂y²(a,b)\n\n   Discriminant :  Δ = rt − s²  =  det H_f(a,b)\n\n   Δ > 0  et  r > 0   →  MINIMUM local\n   Δ > 0  et  r < 0   →  MAXIMUM local\n   Δ < 0              →  POINT-SELLE\n   Δ = 0              →  CAS DOUTEUX, le test ne conclut pas\n\n■ CAS CONVEXE / CONCAVE (Th 6.3.3)   [p. 74|cours/sm302/09sm3022223chapter6td6|6]\n\nSoit Ω convexe ouvert, f de classe C¹ sur Ω.\n\n1. Si f est (strictement) convexe : f admet un minimum (strict) global en a\n   SI ET SEULEMENT SI a est un point critique.\n2. Si f est (strictement) concave : idem pour le maximum global.\n\n→ C'est très puissant : pour une fonction convexe, tout point critique\nest automatiquement un minimum GLOBAL. Pas besoin du test de dérivée seconde.",
+"files": [],
+"createdAt": 1784803203929
+},
+{
+"id": "n1784803203930",
+"topicId": "t_sm302",
+"type": "formules",
+"title": "Dérivées partielles et gradient",
+"content": "■ DÉRIVÉES PARTIELLES\n\n   ∂f/∂x  :  on dérive en x, on traite y comme une CONSTANTE\n   ∂f/∂y  :  on dérive en y, on traite x comme une CONSTANTE\n\n■ THÉORÈME DE SCHWARZ\n\n   ∂²f/∂x∂y = ∂²f/∂y∂x        (si dérivées secondes continues)\n\n▸ EXEMPLE — vérification\n   f(x,y) = x³y²\n\n   ∂f/∂x = 3x²y²   →   ∂²f/∂y∂x = 6x²y\n   ∂f/∂y = 2x³y    →   ∂²f/∂x∂y = 6x²y\n\nLes deux dérivées croisées coïncident, conformément au théorème.\n\n■ RÈGLE DE LA CHAÎNE\n\nCas 1 — x et y dépendent de t :\n\n   df/dt = (∂f/∂x)(dx/dt) + (∂f/∂y)(dy/dt)\n\nCas 2 — x et y dépendent de u et v :\n\n   ∂f/∂u = (∂f/∂x)(∂x/∂u) + (∂f/∂y)(∂y/∂u)\n   ∂f/∂v = (∂f/∂x)(∂x/∂v) + (∂f/∂y)(∂y/∂v)\n\n■ GRADIENT\n\n   grad f = ( ∂f/∂x , ∂f/∂y )              en dimension 2\n   grad f = ( ∂f/∂x₁ , ... , ∂f/∂xₙ )      en dimension n\n\nPropriétés :\n· Direction de plus forte croissance de f\n· Orthogonal aux courbes de niveau\n· ‖grad f‖ = taux de croissance maximal\n\n▸ EXEMPLE\n   f(x,y) = x² + y²\n\n   grad f = (2x, 2y)\n\nAu point (1,1) : grad f = (2,2), dirigé selon la bissectrice,\nc'est-à-dire radialement vers l'extérieur.\n\nLes courbes de niveau sont les cercles x² + y² = k.\nLe gradient (radial) est bien ORTHOGONAL à ces cercles.\n\n■ HESSIENNE\n\n   H_f = [ ∂²f/∂x²     ∂²f/∂x∂y ]\n         [ ∂²f/∂y∂x    ∂²f/∂y²  ]\n\nSymétrique par Schwarz.\n\n■ CHAÎNE D'IMPLICATIONS\n\n   f de classe C¹  ⟹  f différentiable  ⟹  f continue\n\n⚠ Les réciproques sont FAUSSES. En particulier, l'existence des dérivées\npartielles seule N'IMPLIQUE PAS la différentiabilité.",
+"files": [],
+"createdAt": 1784803203930
+},
+{
+"id": "n1784803203931",
+"topicId": "t_sm302",
+"type": "formules",
+"title": "Intégrales doubles et triples",
+"content": "■ FUBINI SUR UN RECTANGLE\n\n   ∬_R f dx dy = ∫ₐᵇ ( ∫_c^d f dy ) dx = ∫_c^d ( ∫ₐᵇ f dx ) dy\n\nSur un rectangle, l'ordre est libre.\n\n■ FUBINI SUR UN DOMAINE BORNÉ\n\nDomaine décrit en y = f(x) :\n   Ω = { a ≤ x ≤ b ,  φ₁(x) ≤ y ≤ φ₂(x) }\n\n   ∬_Ω f dx dy = ∫ₐᵇ ( ∫_{φ₁(x)}^{φ₂(x)} f(x,y) dy ) dx\n\nDomaine décrit en x = g(y) :\n   Ω = { c ≤ y ≤ d ,  ψ₁(y) ≤ x ≤ ψ₂(y) }\n\n   ∬_Ω f dx dy = ∫_c^d ( ∫_{ψ₁(y)}^{ψ₂(y)} f(x,y) dx ) dy\n\n⚠ Les bornes INTÉRIEURES peuvent dépendre de la variable extérieure.\nL'inverse est impossible.\n\n▸ EXEMPLE\nDomaine Ω : le triangle 0 ≤ x ≤ 1, 0 ≤ y ≤ x\n\n   ∬_Ω y dx dy = ∫₀¹ ( ∫₀^x y dy ) dx\n               = ∫₀¹ [y²/2]₀^x dx\n               = ∫₀¹ x²/2 dx = 1/6\n\n⚠ Ici l'ordre est imposé : les bornes de y dépendent de x,\ndonc on intègre y en premier.\n\n■ CHANGEMENT DE VARIABLES\n\n   ∬_Ω f(x,y) dx dy = ∬_{Ω'} f(x(u,v), y(u,v)) · |J| du dv\n\nJacobien :\n\n   J = det [ ∂x/∂u   ∂x/∂v ]\n           [ ∂y/∂u   ∂y/∂v ]\n\n▸ EXEMPLE — passage en polaires\n   ∬_D (x² + y²) dx dy   sur le disque D de rayon 2\n\nEn cartésiennes, ce calcul est pénible. En polaires :\n   x² + y² = r²,  dx dy = r dr dθ\n   D devient : 0 ≤ r ≤ 2, 0 ≤ θ ≤ 2π\n\n   ∬ r² · r dr dθ = ∫₀^{2π} dθ · ∫₀² r³ dr\n                  = 2π × [r⁴/4]₀² = 2π × 4 = 8π\n\n⚠ Sans le facteur r du jacobien, on aurait trouvé 2π × 8/3 : faux.\n\n■ COORDONNÉES POLAIRES\n\n   x = r cos θ        r ≥ 0\n   y = r sin θ        θ ∈ [0, 2π]\n   |J| = r\n\n   ∬ f(x,y) dx dy = ∬ f(r cos θ, r sin θ) · r dr dθ\n\n⚠ Ne JAMAIS oublier le facteur r.\n\n■ COORDONNÉES CYLINDRIQUES (dim 3)\n\n   x = r cos θ ,  y = r sin θ ,  z = z\n   |J| = r\n\n   ∭ f dx dy dz = ∭ f · r dr dθ dz\n\n■ COORDONNÉES SPHÉRIQUES (dim 3)\n\n   x = r sin φ cos θ\n   y = r sin φ sin θ\n   z = r cos φ\n   |J| = r² sin φ\n\n   ∭ f dx dy dz = ∭ f · r² sin φ dr dφ dθ\n\n■ INTÉGRALE TRIPLE SUR DOMAINE BORNÉ\n\n   Ω = { (x,y) ∈ D ,  φ₁(x,y) ≤ z ≤ φ₂(x,y) }\n\n   ∭_Ω f = ∬_D ( ∫_{φ₁(x,y)}^{φ₂(x,y)} f dz ) dx dy\n\noù D est la projection de Ω sur le plan xy.",
+"files": [],
+"createdAt": 1784803203931
+},
+{
+"id": "n1784803203932",
+"topicId": "t_sm302",
+"type": "formules",
+"title": "Extrema — méthode complète",
+"content": "■ MÉTHODE EN 3 ÉTAPES\n\nÉTAPE 1 — Trouver les points critiques\n   Résoudre le système :\n      ∂f/∂x = 0\n      ∂f/∂y = 0\n\nÉTAPE 2 — Calculer la hessienne en chaque point critique\n      r = ∂²f/∂x²      s = ∂²f/∂x∂y      t = ∂²f/∂y²\n\nÉTAPE 3 — Appliquer le test du discriminant\n\n■ TEST DU DISCRIMINANT (2 variables)\n\n   Δ = rt − s²  =  det H_f\n\n   ┌─────────────────┬──────────────────────────┐\n   │  Δ > 0, r > 0   │  MINIMUM local           │\n   │  Δ > 0, r < 0   │  MAXIMUM local           │\n   │  Δ < 0          │  POINT-SELLE             │\n   │  Δ = 0          │  cas douteux (non conclu)│\n   └─────────────────┴──────────────────────────┘\n\n■ TEST GÉNÉRAL (n variables)\n\n   H_f(a) définie positive   →  minimum local\n   H_f(a) définie négative   →  maximum local\n   sinon                     →  point-selle\n\nCritère de définie positive : tous les mineurs principaux det(Aₖ) > 0.\nCritère de définie négative : les signes de det(Aₖ) alternent, en commençant\npar det(A₁) < 0.\n\n■ CAS CONVEXE — LE RACCOURCI\n\n   f convexe sur un convexe ouvert  ⟹  tout point critique est\n                                        un MINIMUM GLOBAL\n\n   f concave                        ⟹  tout point critique est\n                                        un MAXIMUM GLOBAL\n\n→ Pas besoin du test de la dérivée seconde dans ce cas.\n\n■ CONVEXITÉ PAR LA HESSIENNE\n\n   H_f semi-définie positive sur Ω  ⟺  f convexe\n   H_f semi-définie négative sur Ω  ⟺  f concave\n\n■ EXISTENCE GARANTIE\n\nSi f est continue sur un domaine FERMÉ et BORNÉ, alors f atteint son\nmaximum et son minimum globaux.\n\n⚠ Ne pas oublier d'examiner aussi :\n· les points où f n'est pas différentiable\n· les points de la FRONTIÈRE du domaine\nLe test du discriminant ne s'applique qu'aux points critiques INTÉRIEURS.",
+"files": [],
+"createdAt": 1784803203932
+},
+{
+"id": "n1784803203933",
+"topicId": "t_sm302",
+"type": "résumés",
+"title": "Pièges et points de vigilance",
+"content": "■ LIMITES : L'ERREUR CLASSIQUE\n\nEn dimension 1, on approche un point par la gauche ou la droite : 2 chemins.\nEn dimension 2, il existe une INFINITÉ de chemins d'approche.\n\n→ Pour prouver qu'une limite N'EXISTE PAS : trouver deux chemins donnant\n  des valeurs différentes (souvent y = 0, x = 0, puis y = mx ou y = x²).\n\n⚠ Trouver que deux chemins donnent la même valeur NE PROUVE PAS que\nla limite existe. Il faut alors majorer, passer en polaires, ou encadrer.\n\n■ DÉRIVÉES PARTIELLES ≠ DIFFÉRENTIABILITÉ\n\nEn dimension 1 : dérivable ⟺ différentiable.\nEn dimension supérieure, c'est FAUX.\n\n   ∂f/∂x et ∂f/∂y existent      ⇏  f différentiable\n   ∂f/∂x et ∂f/∂y CONTINUES     ⟹  f différentiable\n\n→ Il faut la continuité des dérivées partielles (classe C¹).\n\n■ ORDRE D'INTÉGRATION\n\nSur un RECTANGLE : l'ordre est libre.\nSur un domaine quelconque : l'ordre est CONTRAINT.\n\n⚠ Les bornes intérieures peuvent dépendre de la variable extérieure,\njamais l'inverse. Si les bornes de x dépendent de y, il faut intégrer x\nen PREMIER.\n\nAstuce : si l'intégrale est impossible dans un sens, essayer d'INVERSER\nl'ordre en redécrivant le domaine.\n\n■ LE FACTEUR JACOBIEN\n\n⚠ L'oubli du jacobien est l'erreur la plus fréquente des changements\nde variables.\n\n   Polaires        →  facteur  r\n   Cylindriques    →  facteur  r\n   Sphériques      →  facteur  r² sin φ\n\n■ POINT CRITIQUE ≠ EXTREMUM\n\nUn point critique est seulement un CANDIDAT.\nIl peut être un minimum, un maximum, ou un point-selle.\n\n→ Toujours appliquer le test du discriminant après avoir trouvé\n  les points critiques.\n\n■ Δ = 0 : LE CAS DOUTEUX\n\nQuand Δ = rt − s² = 0, le test NE CONCLUT PAS.\nIl faut étudier la fonction directement au voisinage du point\n(changement de variables, étude du signe de f(x,y) − f(a,b)).\n\n■ NE PAS OUBLIER LA FRONTIÈRE\n\nLe test de la dérivée seconde ne vaut que pour les points critiques\nINTÉRIEURS. Sur un domaine fermé borné, l'extremum global peut se\ntrouver sur la FRONTIÈRE, où le gradient ne s'annule pas forcément.\n\n■ THÉORÈME DE SCHWARZ — CONDITION\n\nL'égalité ∂²f/∂x∂y = ∂²f/∂y∂x n'est garantie que si les dérivées\nsecondes sont CONTINUES. Sans cette hypothèse, il existe des\ncontre-exemples.\n▸ EXEMPLE — vérification\n   f(x,y) = x³y²\n\n   ∂f/∂x = 3x²y²   →   ∂²f/∂y∂x = 6x²y\n   ∂f/∂y = 2x³y    →   ∂²f/∂x∂y = 6x²y\n\nLes deux dérivées croisées coïncident, conformément au théorème.\n",
+"files": [],
+"createdAt": 1784803203933
+},
+{
+"id": "n1784803203934",
+"topicId": "t_sm302",
+"type": "résumés",
+"title": "Mémo — plan du cours SM302",
+"content": "════════════════ CHAPITRE 1 — FONCTIONS À PLUSIEURS VARIABLES ════════════════\n\nDomaine de définition D_f ⊂ ℝⁿ\nGraphe = surface dans ℝⁿ⁺¹\nCourbes de niveau : f(x,y) = k  →  lignes de même hauteur\n\n\n════════════════ CHAPITRE 2 — TOPOLOGIE, LIMITES, CONTINUITÉ ════════════════\n\nVoisinage      B(a,r) = { x / d(x,a) < r }\nOuvert         contient un voisinage de chacun de ses points\nFermé          complémentaire d'un ouvert\nLimite         unique quand elle existe → tester plusieurs chemins\nContinuité     lim f(x,y) = f(a₁,a₂)\n\n\n════════════════ CHAPITRE 3 — DÉRIVÉES PARTIELLES ════════════════\n\n∂f/∂x          dériver en x, y constante\nSchwarz        ∂²f/∂x∂y = ∂²f/∂y∂x   (si continues)\nChaîne         df/dt = (∂f/∂x)(dx/dt) + (∂f/∂y)(dy/dt)\nGradient       grad f = (∂f/∂x, ∂f/∂y)  →  ⊥ courbes de niveau\nC¹ ⟹ différentiable ⟹ continue\n\n\n════════════════ CHAPITRE 4 — INTÉGRALES MULTIPLES ════════════════\n\nFubini         intégrales emboîtées\nRectangle      ordre libre\nDomaine borné  ordre contraint par les bornes\nJacobien       |J| = det de la matrice des dérivées\nPolaires       x = r cos θ, y = r sin θ, |J| = r\nSphériques     |J| = r² sin φ\n\n\n════════════════ CHAPITRE 5 — CONVEXITÉ ════════════════\n\nf convexe      f(λx + (1−λ)y) ≤ λf(x) + (1−λ)f(y)\nEnsemble convexe : ∀(M,N), [MN] ⊂ Ω\nHessienne      matrice des dérivées secondes (symétrique)\nH_f SDP  ⟺  f convexe\nMineurs principaux : det(Aₖ) > 0  ⟺  définie positive\n\n\n════════════════ CHAPITRE 6 — EXTREMA ════════════════\n\nPoint critique     grad f = 0\nΔ = rt − s²        discriminant\nΔ>0, r>0  → min    Δ>0, r<0  → max\nΔ<0       → selle  Δ=0       → douteux\nf convexe  ⟹  point critique = minimum GLOBAL\n\n\n════════════════ MÉTHODE TYPE EXAMEN ════════════════\n\nRECHERCHE D'EXTREMA\n  1. Calculer ∂f/∂x et ∂f/∂y\n  2. Résoudre le système { ∂f/∂x = 0 ; ∂f/∂y = 0 }\n  3. Calculer r, s, t en chaque point critique\n  4. Δ = rt − s², conclure selon le tableau\n  5. Vérifier la frontière si le domaine est fermé borné\n\nINTÉGRALE DOUBLE\n  1. Dessiner le domaine Ω\n  2. Choisir l'ordre d'intégration (ou changer de variables)\n  3. Écrire les bornes : extérieures constantes, intérieures variables\n  4. Si polaires : ne pas oublier le facteur r\n  5. Calculer de l'intérieur vers l'extérieur\n\nÉTUDE DE LIMITE\n  1. Tester les chemins x=0, y=0, y=mx, y=x²\n  2. Si valeurs différentes → la limite n'existe pas\n  3. Si identiques → passer en polaires et majorer",
+"files": [],
+"createdAt": 1784803203934
+},
+{
+"id": "n1784803542878",
+"topicId": "t_te302",
+"type": "cours",
+"title": "Ch.1 — Les bascules",
+"content": "■ DÉFINITION   [Chap1, p. 2|cours/te302/te302-chap1-cours-sn2024|2]\n\nLes bascules sont les composants élémentaires de la logique séquentielle.\n\nUne bascule est un circuit logique capable de MAINTENIR ses sorties malgré\nles changements de valeurs d'entrées : elle comporte un état « mémoire ».\n\nC'est ce qui distingue la logique séquentielle de la logique combinatoire :\nen combinatoire, la sortie ne dépend que des entrées actuelles ; en\nséquentiel, elle dépend aussi de l'état précédent.\n\n■ LES DEUX GRANDES FAMILLES   [Chap1, p. 2|cours/te302/te302-chap1-cours-sn2024|2]\n\n1. BASCULES ASYNCHRONES\n   Les sorties sont fonctions des entrées et de leurs états précédents.\n   Pas d'horloge : le changement est immédiat.\n\n2. BASCULES SYNCHRONES\n   Les sorties sont aussi fonctions des entrées et des états précédents,\n   mais leur réponse est SYNCHRONISÉE par une horloge.\n\n■ TYPES DE SYNCHRONISATION   [Chap1, p. 2|cours/te302/te302-chap1-cours-sn2024|2]\n\nPour les bascules synchrones, l'horloge peut être :\n\n· Active sur NIVEAU (1 ou 0) — « level-triggered »\n  La bascule est transparente tant que le niveau est actif.\n\n· Active sur FRONT (montant ou descendant) — « edge-triggered »\n  Le changement ne se produit qu'à l'instant précis du front.\n\n· Active sur IMPULSION\n  Le premier front d'horloge synchronise les entrées, le second\n  synchronise les sorties.\n  Exemple : bascules Maître-Esclave, JK pulse-triggered.\n\n■ BASCULE RS ASYNCHRONE   [Chap1, p. 3|cours/te302/te302-chap1-cours-sn2024|3]\n\nC'est la bascule la plus simple, base de toutes les autres.\n\n· Entrée R (Reset), active à R = 1 : remise à zéro de la sortie\n· Entrée S (Set), active à S = 1 : remise à 1 de la sortie\n\n⚠ L'état R = S = 1 est INTERDIT : il conduit à un état indéterminé,\ncar on demande simultanément de mettre à 0 et à 1.\n\n▸ EXEMPLE — anti-rebond de bouton\nUn bouton mécanique « rebondit » : il produit plusieurs impulsions\nparasites en une seule pression.\n\nUne bascule RS mémorise le premier contact et ignore les suivants :\n   premier appui → S = 1 → Q passe à 1 et Y RESTE\n   les rebonds suivants ne changent plus rien\n\nC'est l'usage historique le plus courant de la bascule RS.\n\n■ POURQUOI PLUSIEURS TYPES\n\nChaque type de bascule résout un problème du précédent :\n· RS : simple, mais a un état interdit\n· D : supprime l'état interdit (une seule entrée de donnée)\n· JK : lève l'ambiguïté du RS, l'état « interdit » devient une bascule d'état\n· T : dérivée du JK, sert au comptage (toggle)",
+"files": [],
+"createdAt": 1784803542878
+},
+{
+"id": "n1784803542879",
+"topicId": "t_te302",
+"type": "cours",
+"title": "Ch.2 — Les compteurs",
+"content": "■ DÉFINITION   [Chap1, p. 2|cours/te302/te302-chap1-cours-sn2024|2]\n\nUn compteur est un circuit séquentiel permettant d'établir une correspondance\nUNIVOQUE entre le nombre d'impulsions appliquées sur son entrée d'horloge (clk)\net l'état de la sortie.\n\nImplémentation matérielle : association de bascules à déclenchement sur front.\nLes sorties Qᵢ des bascules définissent l'état du comptage.\n\n■ CAPACITÉ   [Chap2, p. 2|cours/te302/te302-chap2-cours-sn2024|2]\n\nUn compteur à N bascules donne au plus 2^N combinaisons de sortie\npour un compteur à cycle complet.\n\n   Comptage de 0 à 2^N − 1 maximum\n\n▸ EXEMPLE\nCombien de bascules pour compter les secondes d'une minute (0 à 59) ?\n\n   Il faut 60 états  →  2^N ≥ 60  →  N = 6  (2⁶ = 64 ≥ 60)\n\nC'est un compteur modulo 60, donc à cycle INCOMPLET :\nil utilise 60 des 64 combinaisons possibles.\n\n■ CYCLE COMPLET vs CYCLE INCOMPLET   [Chap2, p. 2|cours/te302/te302-chap2-cours-sn2024|2]\n\nCOMPTEUR À CYCLE COMPLET\n· Compteur binaire sur N bits, N bascules\n· Énumération des 2^N états dans l'ordre incrémental de 0 à 2^N − 1\n· C'est un compteur modulo M = 2^N, noté #2^N\n\nCOMPTEUR À CYCLE INCOMPLET\n· Compteur binaire de N bits, N bascules\n· Énumération de M états (avec M < 2^N) dans un ordre QUELCONQUE\n· C'est un compteur modulo M, noté #M\n\n→ Le cycle incomplet permet par exemple de compter de 0 à 9 (décimal)\navec 4 bascules, au lieu d'aller jusqu'à 15.\n\n■ ASYNCHRONE vs SYNCHRONE   [Chap2, p. 2|cours/te302/te302-chap2-cours-sn2024|2]\n\nCOMPTEUR ASYNCHRONE\n· L'horloge de chaque bascule est calculée en fonction de l'état\n  des bascules précédentes\n· Les bascules basculent « en cascade », l'une après l'autre\n· Plus simple à câbler\n⚠ Inconvénient : temps de propagation cumulé, ce qui crée des états\n  transitoires parasites et limite la fréquence de fonctionnement.\n\nCOMPTEUR SYNCHRONE\n· Toutes les bascules partagent LA MÊME horloge\n· Tous les changements sont simultanés\n· Plus rapide et sans état transitoire\n⚠ Inconvénient : logique combinatoire supplémentaire pour calculer\n  les entrées de chaque bascule.\n▸ EXEMPLE — l'état transitoire parasite\nCompteur asynchrone 3 bits passant de 3 (011) à 4 (100).\n\nLes bascules ne basculent pas exactement en même temps :\n   011  →  010  →  000  →  100\n          (transitoires, quelques ns)\n\nUn circuit qui lirait la sortie pendant cette fenêtre verrait\nbrièvement 010 puis 000 — des valeurs qui n'existent pas\nlogiquement dans le comptage.\n\n→ C'est pourquoi on préfère le synchrone dès que la fréquence monte.\n",
+"files": [],
+"createdAt": 1784803542879
+},
+{
+"id": "n1784803542880",
+"topicId": "t_te302",
+"type": "cours",
+"title": "Ch.3 — Les registres",
+"content": "■ DÉFINITION   [Chap1, p. 2|cours/te302/te302-chap1-cours-sn2024|2]\n\nUn registre de longueur N est constitué de N bascules synchronisées\nsur la MÊME horloge.\n\nLe nombre de bascules détermine la taille du mot binaire à stocker :\nici N bits. On parle aussi de PROFONDEUR du registre.\n\nC'est l'espace de stockage le plus proche et interne aux microprocesseurs.\n\n■ FONCTIONS D'UN REGISTRE   [Chap3, p. 2|cours/te302/te302-chap3-cours-sn2024|2]\n\n1. MÉMORISATION\n   Stocker un mot de N bits pour les traitements ou calculs intermédiaires\n   réalisés par le microprocesseur.\n\n2. TRANSFERT SÉRIE\n   Transfert de données bit par bit sur une même sortie\n   (décalage à droite ou décalage à gauche).\n\n3. TRANSFERT PARALLÈLE\n   Transfert de mots de N bits sur N sorties simultanément.\n\n4. ROTATION\n   Rebouclage de la sortie série sur l'entrée série : les bits tournent\n   en boucle dans le registre.\n\n■ DÉCALAGE À DROITE — PRINCIPE   [Chap3, p. 2|cours/te302/te302-chap3-cours-sn2024|2]\n\n· Les N bascules sont synchronisées sur la même horloge\n· Entrée du registre = entrée de donnée D₀ de la bascule de gauche\n· Sortie du registre = sortie Q_{N−1} de la bascule de droite\n· Par construction : Dᵢ = Q_{i−1}, sauf pour D₀\n· État initial : Qᵢ = Dᵢ\n\n→ À chaque front d'horloge, chaque bit se déplace d'une case vers la droite.\n\n▸ EXEMPLE\nRegistre 4 bits contenant 1011, entrée série = 0.\n\n   État initial :  1011\n   Front 1      :  0101   (le 1 de droite est sorti)\n   Front 2      :  0010\n   Front 3      :  0001\n   Front 4      :  0000\n\nEn valeur décimale : 11 → 5 → 2 → 1 → 0\nChaque décalage à droite divise par 2 (division entière).\n\n■ LES 4 CONFIGURATIONS CLASSIQUES\n\n   ┌──────────────────┬─────────────────────────────────────┐\n   │  Entrée / Sortie │  Usage typique                      │\n   ├──────────────────┼─────────────────────────────────────┤\n   │  Série / Série   │  ligne à retard, transmission       │\n   │  Série / //      │  réception série → traitement //    │\n   │  // / Série      │  émission : // → ligne série        │\n   │  // / //         │  mémorisation simple                │\n   └──────────────────┴─────────────────────────────────────┘\n\n■ APPLICATION : MULTIPLICATION / DIVISION\n\nUn décalage à gauche d'un rang multiplie la valeur binaire par 2.\nUn décalage à droite d'un rang la divise par 2.\n\n→ C'est pourquoi les registres à décalage sont au cœur des unités\narithmétiques.",
+"files": [],
+"createdAt": 1784803542880
+},
+{
+"id": "n1784803542881",
+"topicId": "t_te302",
+"type": "cours",
+"title": "Ch.4 — Les machines à états",
+"content": "■ DÉFINITION   [Chap1, p. 2|cours/te302/te302-chap1-cours-sn2024|2]\n\nUne machine à états finie est avant tout un MODÈLE MATHÉMATIQUE de\nséquencement ayant un nombre fini d'états.\n\nPropriétés fondamentales :\n· À un moment donné, elle ne peut être que dans un SEUL état à la fois\n· L'état dans lequel elle se trouve est appelé état COURANT\n· Le passage d'un état à un autre est activé par un événement ou une condition\n· Ce passage est appelé TRANSITION\n\nUn automate (machine à états) est défini par l'ensemble de ses états\net l'ensemble de ses transitions.\n\n■ LES DEUX MODÈLES   [Chap4, p. 2|cours/te302/te302-chap4-cours-sn2024|2]\n\nMACHINE DE MOORE\n· Les sorties ne dépendent QUE de l'état courant\n· La mémorisation des états est synchrone (sur un front d'horloge)\n· L'état futur est calculé à partir des entrées et de l'état présent\n· Les sorties sont SYNCHRONES\n\nMACHINE DE MEALY\n· Les sorties dépendent de l'état courant ET des entrées\n· La mémorisation des états est synchrone (sur un front d'horloge)\n· L'état futur est calculé à partir des entrées et de l'état présent\n· Les sorties sont ASYNCHRONES\n\n▸ EXEMPLE — détecteur de séquence « 11 »\n\nMACHINE DE MOORE (3 états)\n   S0 : rien reçu           → sortie 0\n   S1 : un « 1 » reçu       → sortie 0\n   S2 : deux « 1 » reçus    → sortie 1\n   La sortie ne dépend que de l'état.\n\nMACHINE DE MEALY (2 états)\n   S0 : rien reçu\n   S1 : un « 1 » reçu\n   Transition S1 --(entrée=1)--> S1 avec SORTIE 1\n   La sortie dépend de l'état ET de l'entrée.\n\n→ Mealy économise un état, mais sa sortie change dès l'entrée,\nsans attendre le front d'horloge.\n\n■ COMPARAISON\n\n   ┌────────────────┬──────────────────┬──────────────────┐\n   │                │  MOORE           │  MEALY           │\n   ├────────────────┼──────────────────┼──────────────────┤\n   │  Sorties       │  état seul       │  état + entrées  │\n   │  Synchronisme  │  synchrones      │  asynchrones     │\n   │  Nb d'états    │  souvent plus    │  souvent moins   │\n   │  Réactivité    │  1 cycle de délai│  immédiate       │\n   └────────────────┴──────────────────┴──────────────────┘\n\n→ Moore est plus sûr (sorties stables, pas de glitch).\n→ Mealy réagit plus vite et demande généralement moins d'états.\n\n■ STRUCTURE MATÉRIELLE   [Chap4, p. 2|cours/te302/te302-chap4-cours-sn2024|2]\n\nUne machine à états se décompose toujours en trois blocs :\n\n   1. COMBINATOIRE DES ENTRÉES  → calcule l'état futur\n   2. MÉMORISATION DES ÉTATS    → bascules synchronisées sur l'horloge\n   3. COMBINATOIRE DES SORTIES  → calcule les sorties\n\nEn Mealy, le bloc 3 reçoit aussi directement les entrées.\nEn Moore, le bloc 3 ne reçoit que l'état courant.\n\n■ MÉTHODE DE CONCEPTION\n\n1. Identifier les états nécessaires et les nommer\n2. Dessiner le graphe d'états (états + transitions + conditions)\n3. Établir la table de transition (état présent → état futur)\n4. Coder les états en binaire (combien de bascules ?)\n5. Établir les équations logiques de chaque bascule\n6. Établir les équations des sorties\n7. Câbler",
+"files": [],
+"createdAt": 1784803542881
+},
+{
+"id": "n1784803542882",
+"topicId": "t_te302",
+"type": "formules",
+"title": "Mémo — bascules et compteurs",
+"content": "■ TABLE DE VÉRITÉ — BASCULE RS\n\n   ┌─────┬─────┬───────────────┐\n   │  S  │  R  │  Q(t+1)       │\n   ├─────┼─────┼───────────────┤\n   │  0  │  0  │  Q(t)  mémoire│\n   │  0  │  1  │  0     reset  │\n   │  1  │  0  │  1     set    │\n   │  1  │  1  │  INTERDIT     │\n   └─────┴─────┴───────────────┘\n\n■ BASCULE D\n\n   Q(t+1) = D\n\nUne seule entrée : pas d'état interdit. Sert à mémoriser un bit.\n\n■ BASCULE JK\n\n   ┌─────┬─────┬───────────────────┐\n   │  J  │  K  │  Q(t+1)           │\n   ├─────┼─────┼───────────────────┤\n   │  0  │  0  │  Q(t)    mémoire  │\n   │  0  │  1  │  0       reset    │\n   │  1  │  0  │  1       set      │\n   │  1  │  1  │  Q(t)    toggle   │\n   └─────┴─────┴───────────────────┘\n\nL'état J=K=1 n'est plus interdit : il inverse la sortie.\n\n■ BASCULE T (toggle)\n\n   T = 0  →  Q(t+1) = Q(t)      mémoire\n   T = 1  →  Q(t+1) = Q(t)      inversion\n\nC'est un JK avec J = K = T. Base des compteurs.\n\n■ CAPACITÉ D'UN COMPTEUR\n\n   N bascules  →  2^N états maximum\n   Comptage de 0 à 2^N − 1\n\n   Nombre de bascules nécessaires pour compter modulo M :\n      N = ⌈log₂(M)⌉\n\nExemples :\n   modulo 10 (décimal)  →  N = 4 bascules (2⁴ = 16 ≥ 10)\n   modulo 8             →  N = 3 bascules (cycle complet)\n   modulo 100           →  N = 7 bascules\n\n▸ EXEMPLE\nCombien de bascules pour compter les secondes d'une minute (0 à 59) ?\n\n   Il faut 60 états  →  2^N ≥ 60  →  N = 6  (2⁶ = 64 ≥ 60)\n\nC'est un compteur modulo 60, donc à cycle INCOMPLET :\nil utilise 60 des 64 combinaisons possibles.\n\n■ REGISTRE — EFFET DU DÉCALAGE\n\n   Décalage à GAUCHE d'un rang   →  valeur × 2\n   Décalage à DROITE d'un rang   →  valeur ÷ 2\n\n■ ASYNCHRONE vs SYNCHRONE — RÉCAPITULATIF\n\n   ┌──────────────┬─────────────────┬──────────────────┐\n   │              │  ASYNCHRONE     │  SYNCHRONE       │\n   ├──────────────┼─────────────────┼──────────────────┤\n   │  Horloge     │  en cascade     │  commune à tous  │\n   │  Vitesse     │  limitée        │  élevée          │\n   │  Câblage     │  simple         │  + combinatoire  │\n   │  Parasites   │  états          │  aucun           │\n   │              │  transitoires   │                  │\n   └──────────────┴─────────────────┴──────────────────┘\n▸ EXEMPLE — l'état transitoire parasite\nCompteur asynchrone 3 bits passant de 3 (011) à 4 (100).\n\nLes bascules ne basculent pas exactement en même temps :\n   011  →  010  →  000  →  100\n          (transitoires, quelques ns)\n\nUn circuit qui lirait la sortie pendant cette fenêtre verrait\nbrièvement 010 puis 000 — des valeurs qui n'existent pas\nlogiquement dans le comptage.\n\n→ C'est pourquoi on préfère le synchrone dès que la fréquence monte.\n",
+"files": [],
+"createdAt": 1784803542882
+},
+{
+"id": "n1784803542883",
+"topicId": "t_sp301",
+"type": "cours",
+"title": "Systèmes de coordonnées",
+"content": "■ POURQUOI TROIS SYSTÈMES\n\nLe choix du système de coordonnées dépend de la SYMÉTRIE du problème.\nBien le choisir simplifie énormément les calculs d'intégrales et de champs.\n\n   Symétrie plane        →  cartésiennes\n   Symétrie cylindrique  →  cylindriques\n   Symétrie sphérique    →  sphériques\n\n■ COORDONNÉES CARTÉSIENNES (x, y, z)   [Chapitre 2 Systèmes de c, p. 2|cours/sp301/chapitre-2-syst-mes-de-coordonn-es|2]\n\nTrois translations :\n· selon Ox\n· selon Oy\n· selon Oz\n\nÉlément de volume :   dV = dx · dy · dz\nÉlément de longueur : dl = dx·ex + dy·ey + dz·ez\n\nUsage : problèmes à symétrie plane, plans infinis, condensateurs plans.\n\n■ COORDONNÉES CYLINDRIQUES (r, θ, z)   [Chapitre 2 Systèmes de c, p. 3|cours/sp301/chapitre-2-syst-mes-de-coordonn-es|3]\n\nRelations avec les cartésiennes :\n\n   x = r cos θ\n   y = r sin θ\n   z = z\n\navec r ≥ 0 la distance à l'axe Oz, et θ ∈ [0, 2π] l'angle polaire.\n\nÉlément de volume :  dV = r · dr · dθ · dz\n\n⚠ Le facteur r est essentiel dans toute intégration.\n\nUsage : fils infinis, câbles coaxiaux, solénoïdes, tout ce qui a un axe.\n\n▸ EXEMPLE — quand les choisir\nChamp créé par un fil rectiligne infini.\n\nLe problème est invariant par rotation autour du fil et par\ntranslation le long du fil. Le champ ne dépend donc QUE de r.\n\nEn cartésiennes il faudrait gérer x et y séparément ;\nen cylindriques, une seule variable suffit : B = B(r).\n\n■ COORDONNÉES SPHÉRIQUES (r, θ, φ)   [Chapitre 2 Systèmes de c, p. 5|cours/sp301/chapitre-2-syst-mes-de-coordonn-es|5]\n\nRelations avec les cartésiennes :\n\n   x = r sin θ cos φ\n   y = r sin θ sin φ\n   z = r cos θ\n\navec r ≥ 0 la distance à l'origine, θ ∈ [0, π] l'angle polaire\n(depuis l'axe Oz) et φ ∈ [0, 2π] l'angle azimutal.\n\nÉlément de volume :  dV = r² sin θ · dr · dθ · dφ\n\nUsage : charges ponctuelles, sphères chargées, tout ce qui rayonne\ndepuis un centre.\n\n▸ EXEMPLE\nVolume d'une sphère de rayon R par intégration :\n\n   V = ∭ r² sin θ dr dθ dφ\n     = ∫₀^{2π}dφ · ∫₀^{π} sin θ dθ · ∫₀^R r² dr\n     = 2π × 2 × R³/3\n     = 4πR³/3   ✓\n\n■ RÉFLEXE MÉTHODE\n\nAvant tout calcul de champ :\n1. Identifier les symétries de la distribution de charges/courants\n2. En déduire la direction du champ et les variables dont il dépend\n3. Choisir le système de coordonnées adapté\n4. Choisir une surface de Gauss ou un contour d'Ampère cohérent\n\nC'est cette étape qui transforme un calcul impossible en calcul trivial.",
+"files": [],
+"createdAt": 1784803542883
+},
+{
+"id": "n1784803542884",
+"topicId": "t_sp301",
+"type": "cours",
+"title": "Magnétostatique — le champ magnétique",
+"content": "■ SOURCES DU CHAMP MAGNÉTIQUE   [Chap3 1, p. 2|cours/sp301/sp301-20242025-chap3-1|2]\n\nTrois sources principales :\n\n1. LES AIMANTS\n   L'action magnétique exercée est plus importante au niveau des pôles.\n2. LES COURANTS\n   Ce sont des charges mobiles qui créent le champ.\n3. LA TERRE\n   Champ magnétique terrestre.\n\n■ EXPÉRIENCE D'OERSTED   [Chap3 1, p. 2|cours/sp301/sp301-20242025-chap3-1|2]\n\nMise en évidence historique : une aiguille aimantée placée près d'un fil\nparcouru par un courant DÉVIE.\n\n→ Conclusion fondamentale : un courant électrique crée un champ magnétique.\nC'est le lien entre électricité et magnétisme.\n\n■ TOPOGRAPHIE — LIGNES DE CHAMP   [Chap3 1, p. 2|cours/sp301/sp301-20242025-chap3-1|2]\n\nLes lignes de champ magnétique sont tangentes en tout point au vecteur B.\n\nPropriétés :\n· Elles se REFERMENT toujours sur elles-mêmes (pas de début ni de fin)\n· Elles ne se croisent jamais\n· Leur densité indique l'intensité du champ\n\n⚠ C'est LA différence majeure avec le champ électrique : les lignes de E\npartent des charges + et arrivent aux charges −. Les lignes de B sont\ntoujours FERMÉES, car il n'existe pas de monopôle magnétique.\n\nCas particuliers :\n· Aimant droit : les lignes sortent du pôle Nord, entrent au pôle Sud\n· Lignes parallèles : champ uniforme\n\n■ CHAMP CRÉÉ PAR UNE CHARGE MOBILE   [Chap3 1, p. 2|cours/sp301/sp301-20242025-chap3-1|2]\n\nUne charge q se déplaçant à la vitesse v crée en un point M un champ :\n\n   B = (µ₀/4π) · q · (v ∧ u) / r²\n\noù u est le vecteur unitaire dirigé vers M et r la distance.\n\n■ LOI DE BIOT ET SAVART   [Chap3 1, p. 2|cours/sp301/sp301-20242025-chap3-1|2]\n\nPour un circuit filiforme parcouru par un courant I, le champ élémentaire\ncréé par un élément de longueur dl est :\n\n   dB = (µ₀/4π) · I · (dl ∧ u) / r²\n\nLe champ total s'obtient par intégration sur tout le circuit :\n\n   B = (µ₀/4π) · I · ∫ (dl ∧ u) / r²\n\n▸ EXEMPLE — fil rectiligne infini\nEn intégrant la loi de Biot et Savart le long d'un fil infini\nparcouru par un courant I, on obtient à la distance r :\n\n   B = µ₀I / (2πr)\n\nLes lignes de champ sont des CERCLES centrés sur le fil,\ndans le plan perpendiculaire (règle de la main droite).\n\nApplication numérique : I = 10 A, r = 5 cm\n   B = (4π×10⁻⁷ × 10) / (2π × 0.05) = 4×10⁻⁵ T = 40 µT\n(à comparer au champ terrestre, environ 50 µT)\n\n■ FLUX DU CHAMP MAGNÉTIQUE   [Chap3 1, p. 2|cours/sp301/sp301-20242025-chap3-1|2]\n\n   Φ = ∬_S B · dS\n\nPropriété fondamentale — le flux à travers toute surface FERMÉE est nul :\n\n   ∯ B · dS = 0\n\n→ C'est l'expression de l'absence de monopôle magnétique.\nCe qui entre ressort forcément.\n\n■ TUBE DE FLUX   [Chap3 1, p. 2|cours/sp301/sp301-20242025-chap3-1|2]\n\nEnsemble des lignes de champ s'appuyant sur un contour fermé.\nLe flux se conserve le long d'un tube de flux.\n\n■ CIRCULATION ET THÉORÈME D'AMPÈRE   [Chap3 1, p. 2|cours/sp301/sp301-20242025-chap3-1|2]\n\nLa circulation de B le long d'un contour fermé C vaut :\n\n   ∮_C B · dl = µ₀ · I_enlacé\n\noù I_enlacé est la somme algébrique des courants traversant\nla surface s'appuyant sur C.\n\n→ C'est l'analogue magnétique du théorème de Gauss.\nIl permet de calculer B directement quand la symétrie est suffisante.\n\n▸ EXEMPLE — retrouver le champ du fil infini\n\n1. Symétrie : B est orthoradial, ne dépend que de r\n2. Contour : un cercle de rayon r centré sur le fil\n   → B est constant et parallèle à dl le long du contour\n3. Circulation : ∮ B·dl = B × 2πr\n4. Courant enlacé : I\n5. Ampère : B × 2πr = µ₀I  →  B = µ₀I / (2πr)\n\n→ Trois lignes, là où Biot et Savart demandait une intégrale.\nC'est tout l'intérêt du théorème d'Ampère.\n\n■ MÉTHODE — CALCUL DE B PAR AMPÈRE\n\n1. Analyser les symétries → direction de B, variables dont il dépend\n2. Choisir un contour d'Ampère adapté (où B est constant et parallèle à dl)\n3. Calculer la circulation ∮ B · dl = B × (longueur du contour)\n4. Dénombrer les courants enlacés\n5. Égaler et isoler B",
+"files": [],
+"createdAt": 1784803542884
+},
+{
+"id": "n1784803542885",
+"topicId": "t_sp301",
+"type": "formules",
+"title": "Formulaire électromagnétisme",
+"content": "■ SYSTÈMES DE COORDONNÉES\n\nCARTÉSIENNES (x, y, z)\n   dV = dx dy dz\n\nCYLINDRIQUES (r, θ, z)\n   x = r cos θ ,  y = r sin θ ,  z = z\n   dV = r dr dθ dz\n\nSPHÉRIQUES (r, θ, φ)\n   x = r sin θ cos φ\n   y = r sin θ sin φ\n   z = r cos θ\n   dV = r² sin θ dr dθ dφ\n\n■ CHAMP MAGNÉTIQUE — CHARGE MOBILE\n\n   B = (µ₀/4π) · q (v ∧ u) / r²\n\n■ LOI DE BIOT ET SAVART   [Chap3 1, p. 2|cours/sp301/sp301-20242025-chap3-1|2]\n\n   dB = (µ₀/4π) · I (dl ∧ u) / r²\n\n   B = (µ₀/4π) · I ∫ (dl ∧ u) / r²\n\n▸ EXEMPLE — fil rectiligne infini\nEn intégrant la loi de Biot et Savart le long d'un fil infini\nparcouru par un courant I, on obtient à la distance r :\n\n   B = µ₀I / (2πr)\n\nLes lignes de champ sont des CERCLES centrés sur le fil,\ndans le plan perpendiculaire (règle de la main droite).\n\nApplication numérique : I = 10 A, r = 5 cm\n   B = (4π×10⁻⁷ × 10) / (2π × 0.05) = 4×10⁻⁵ T = 40 µT\n(à comparer au champ terrestre, environ 50 µT)\n\n■ FLUX MAGNÉTIQUE\n\n   Φ = ∬_S B · dS\n\n   ∯ B · dS = 0        (surface fermée — toujours nul)\n\n■ THÉORÈME D'AMPÈRE\n\n   ∮_C B · dl = µ₀ · I_enlacé\n\n■ CAS CLASSIQUES À CONNAÎTRE\n\nFIL RECTILIGNE INFINI, courant I, à distance r :\n\n   B = µ₀ I / (2π r)          lignes de champ circulaires\n\nSOLÉNOÏDE INFINI, n spires par mètre :\n\n   B = µ₀ n I                 uniforme à l'intérieur, nul à l'extérieur\n\nSPIRE CIRCULAIRE de rayon R, sur l'axe à distance z :\n\n   B = µ₀ I R² / (2 (R² + z²)^{3/2})\n\n   Au centre (z = 0) :  B = µ₀ I / (2R)\n\n■ CONSTANTE\n\n   µ₀ = 4π × 10⁻⁷  H/m       perméabilité du vide\n\n■ COMPARAISON E / B — LE TABLEAU CLÉ\n\n   ┌──────────────────┬─────────────────┬──────────────────┐\n   │                  │  ÉLECTRIQUE E   │  MAGNÉTIQUE B    │\n   ├──────────────────┼─────────────────┼──────────────────┤\n   │  Source          │  charges        │  courants        │\n   │  Lignes de champ │  ouvertes       │  FERMÉES         │\n   │  Flux fermé      │  Q_int/ε₀       │  toujours 0      │\n   │  Théorème        │  Gauss          │  Ampère          │\n   │  Monopôle        │  oui (charge)   │  n'existe pas    │\n   └──────────────────┴─────────────────┴──────────────────┘",
+"files": [],
+"createdAt": 1784803542885
+},
+{
+"id": "n1784803542886",
+"topicId": "t_phys_moderne",
+"type": "cours",
+"title": "Ch.1 — Relativité galiléenne et ses limites",
+"content": "■ LE PROBLÈME HISTORIQUE   [Chap.1, p. 3|cours/physmod/cours-chapitre-1|3]\n\nAu début du XXᵉ siècle, la physique mécanique et l'électromagnétisme\ns'étaient développés INDÉPENDAMMENT — sans relation entre eux.\n\nLes physiciens étaient confrontés à des problèmes fondamentaux :\n\n· La deuxième loi de Newton est bien établie à basse vitesse,\n  MAIS elle ne donne pas de résultats corrects à haute vitesse (v ≈ c).\n\n■ RÉFÉRENTIEL INERTIEL\n\nUn référentiel d'inertie (ou galiléen) est un référentiel dans lequel\nle principe d'inertie est vérifié : un corps isolé garde une vitesse\nconstante.\n\nDeux référentiels inertiels sont en translation uniforme l'un\npar rapport à l'autre.\n\n■ TRANSFORMATION GALILÉENNE   [Chap.1, p. 2|cours/physmod/cours-chapitre-1|2]\n\nPour deux référentiels R et R' en translation à vitesse v selon Ox :\n\n   x' = x − v t\n   y' = y\n   z' = z\n   t' = t\n\n⚠ Le point crucial : en mécanique classique, le TEMPS EST ABSOLU (t' = t).\nC'est précisément cette hypothèse que la relativité va détruire.\n\nComposition des vitesses (galiléenne) :\n\n   u' = u − v\n\n▸ EXEMPLE\nUn train roule à 30 m/s. Un passager marche à 2 m/s vers l'avant.\n\nPour un observateur au sol :  u = 30 + 2 = 32 m/s\n\nCela fonctionne parfaitement à ces vitesses. Le problème apparaît\nsi le passager allume une lampe : la galiléenne prédirait\nc + 30 m/s pour la lumière, ce que l'expérience contredit.\n\n■ LES LIMITES — CE QUI NE MARCHE PAS\n\nL'ABERRATION STELLAIRE\nLe déplacement apparent des étoiles selon la position de la Terre\nsur son orbite pose problème dans le cadre galiléen.\n\nL'ÉLECTROMAGNÉTISME\nLes équations de Maxwell prédisent que la lumière se propage à la\nvitesse c — mais dans quel référentiel ? La transformation galiléenne\nimposerait c ± v selon le référentiel, ce qui contredit l'expérience.\n\n→ C'est cette contradiction qui va mener Einstein à reformuler\nentièrement la cinématique.",
+"files": [],
+"createdAt": 1784803542886
+},
+{
+"id": "n1784803542887",
+"topicId": "t_phys_moderne",
+"type": "cours",
+"title": "Ch.2 — Relativité restreinte",
+"content": "■ LES DEUX POSTULATS D'EINSTEIN   [Chap.2, p. 3|cours/physmod/cours-chapitre-2|3]\n\nPOSTULAT I — Le principe de relativité\n   Toutes les lois de la physique sont valables dans TOUS\n   les référentiels d'inertie.\n\n   (Rappel : référentiels d'inertie = référentiels se déplaçant avec\n   un mouvement de translation uniforme les uns par rapport aux autres.)\n\nPOSTULAT II — La constance de la vitesse de la lumière\n   La vitesse de la lumière dans le vide est LA MÊME dans tous les\n   référentiels d'inertie. Elle ne dépend ni du mouvement de la source,\n   ni de celui de l'observateur.\n\n→ Le second postulat est révolutionnaire : il contredit frontalement\nla composition galiléenne des vitesses.\n\n■ CONSÉQUENCE : LE TEMPS N'EST PLUS ABSOLU\n\nSi c est la même pour tous, alors les mesures de temps et de longueur\ndoivent VARIER d'un référentiel à l'autre. C'est le prix à payer.\n\n■ TRANSFORMATIONS DE LORENTZ   [Chap.2, p. 2|cours/physmod/cours-chapitre-2|2]\n\nElles remplacent les transformations galiléennes :\n\n   x' = γ (x − v t)\n   y' = y\n   z' = z\n   t' = γ (t − v x / c²)\n\navec le facteur de Lorentz :\n\n   γ = 1 / √(1 − v²/c²)\n\n⚠ Noter que t' dépend maintenant de x : le temps et l'espace sont MÉLANGÉS.\n\nQuand v ≪ c, γ → 1 et on retrouve les transformations galiléennes.\nLa mécanique classique est donc un cas limite de la relativité.\n\n■ DILATATION DES DURÉES\n\nUne durée propre Δt₀ mesurée dans le référentiel où l'événement est\nimmobile devient, vue depuis un autre référentiel :\n\n   Δt = γ · Δt₀\n\n→ Les horloges en mouvement battent PLUS LENTEMENT.\n\n▸ EXEMPLE — les muons atmosphériques\nLes muons créés dans la haute atmosphère ont une durée de vie\npropre de 2.2 µs et voyagent à v = 0.999c.\n\nSans relativité : distance parcourue = 2.2×10⁻⁶ × 3×10⁸ ≈ 660 m\n→ ils ne devraient JAMAIS atteindre le sol (15 km plus bas).\n\nAvec dilatation : γ = 1/√(1−0.999²) ≈ 22.4\n   Δt = 22.4 × 2.2 µs ≈ 49 µs\n   distance ≈ 14.8 km  →  ils atteignent bien le sol  ✓\n\nC'est une confirmation expérimentale directe de la relativité.\n\n■ CONTRACTION DES LONGUEURS\n\nUne longueur propre L₀ mesurée dans le référentiel où l'objet est\nimmobile devient, vue depuis un autre référentiel :\n\n   L = L₀ / γ\n\n→ Les objets en mouvement sont CONTRACTÉS dans le sens du déplacement.\n\n▸ EXEMPLE\nUne règle de 1 m défile à v = 0.8c.\n\n   γ = 1/√(1 − 0.64) = 1/0.6 ≈ 1.67\n   L = L₀/γ = 1/1.67 ≈ 0.60 m\n\nL'observateur immobile mesure 60 cm.\nPour un observateur voyageant avec la règle, elle fait toujours 1 m.\n\n■ RELATIVITÉ DE LA SIMULTANÉITÉ\n\nDeux événements simultanés dans un référentiel ne le sont généralement\nPAS dans un autre référentiel en mouvement.\n\n→ La notion de « en même temps » perd son caractère absolu.\n\n■ COMPOSITION RELATIVISTE DES VITESSES\n\n   u' = (u − v) / (1 − u v / c²)\n\n⚠ Cette formule garantit que si u = c, alors u' = c quel que soit v.\nLa vitesse de la lumière est bien indépassable et invariante.",
+"files": [],
+"createdAt": 1784803542887
+},
+{
+"id": "n1784803542888",
+"topicId": "t_phys_moderne",
+"type": "cours",
+"title": "Ch.3 — Dynamique relativiste",
+"content": "■ LA MASSE N'EST PLUS ABSOLUE   [Chap.3, p. 2|cours/physmod/cours-chapitre-3|2]\n\nDans la mécanique classique, la masse est constante, c'est-à-dire ABSOLUE.\n\nConsidérons deux observateurs qui observent chacun, dans leur référentiel,\nune collision élastique entre deux particules (avec conservation de la\nquantité de mouvement et de l'énergie cinétique).\n\n→ L'analyse montre que la conservation ne peut être maintenue dans les\ndeux référentiels que si la masse dépend de la vitesse.\n\n■ MASSE RELATIVISTE\n\n   m = γ · m₀ = m₀ / √(1 − v²/c²)\n\noù m₀ est la MASSE AU REPOS (masse propre), invariante.\n\n→ Quand v → c, γ → ∞ et la masse tend vers l'infini.\nC'est pourquoi aucun objet massif ne peut atteindre la vitesse c :\nil faudrait une énergie infinie.\n\n■ QUANTITÉ DE MOUVEMENT RELATIVISTE\n\n   p = γ m₀ v = m₀ v / √(1 − v²/c²)\n\nÀ basse vitesse, γ ≈ 1 et on retrouve p = m₀ v.\n\n■ ÉNERGIE RELATIVISTE TOTALE   [Chap.3, p. 2|cours/physmod/cours-chapitre-3|2]\n\n   E = γ m₀ c²\n\n■ ÉNERGIE AU REPOS\n\nPour v = 0, γ = 1 :\n\n   E₀ = m₀ c²\n\nC'est la célèbre relation d'Einstein : la masse est une forme d'énergie.\n\n▸ EXEMPLE — l'énergie contenue dans 1 gramme\n\n   E₀ = m₀c² = 0.001 × (3×10⁸)² = 9×10¹³ J\n\nC'est l'équivalent d'environ 21 kilotonnes de TNT,\nsoit l'ordre de grandeur de la bombe d'Hiroshima —\npour un seul gramme de matière.\n\n■ ÉNERGIE CINÉTIQUE RELATIVISTE\n\n   E_c = E − E₀ = (γ − 1) m₀ c²\n\n⚠ Ce n'est PAS ½mv². On retrouve toutefois ½m₀v² comme approximation\nquand v ≪ c (développement limité de γ).\n\n■ RELATION ÉNERGIE — IMPULSION\n\n   E² = p² c² + m₀² c⁴\n\nC'est la relation fondamentale de la dynamique relativiste.\n\nCas particulier — le PHOTON (m₀ = 0) :\n\n   E = p c\n\n→ Un photon a une quantité de mouvement bien qu'il n'ait pas de masse.",
+"files": [],
+"createdAt": 1784803542888
+},
+{
+"id": "n1784803542889",
+"topicId": "t_phys_moderne",
+"type": "cours",
+"title": "Ch.4 — Onde et matière",
+"content": "■ LE CONTEXTE\n\nLa lumière se comporte comme une onde. L'aspect ondulatoire a été observé\ndans l'expérience des franges d'interférence de Young.\n\nÀ la fin du XIXᵉ siècle, James Maxwell définit la lumière comme une\nonde électromagnétique.\n\nMais plusieurs expériences vont mettre en échec cette description\npurement ondulatoire.\n\n■ LES ÉCHECS DE LA PHYSIQUE CLASSIQUE   [p. -19|cours/physmod/cours-chapitre-4|2]\n\n1. SPECTRES DES ATOMES (spectres discrets)\n   Les atomes n'émettent que certaines longueurs d'onde précises,\n   et non un spectre continu. La physique classique ne l'explique pas.\n\n2. LE CORPS NOIR\n   La théorie classique prédit une divergence de l'énergie rayonnée\n   aux courtes longueurs d'onde (la « catastrophe ultraviolette »),\n   ce que l'expérience contredit.\n   → Planck résout le problème en postulant que l'énergie est ÉCHANGÉE\n     par quanta : E = h ν\n\n3. L'EFFET PHOTOÉLECTRIQUE\n   Un métal éclairé émet des électrons, mais seulement si la fréquence\n   dépasse un seuil — l'intensité lumineuse n'y change rien.\n   → Inexplicable par une onde continue.\n   → Einstein : la lumière est constituée de PHOTONS d'énergie E = h ν\n\n4. L'EFFET COMPTON\n   Un photon diffusé par un électron change de longueur d'onde,\n   exactement comme lors d'un choc entre deux particules.\n   → Confirme que le photon possède une quantité de mouvement.\n\n■ DUALITÉ ONDE-PARTICULE   [p. -19|cours/physmod/cours-chapitre-4|2]\n\nConclusion : la lumière est à la fois onde ET particule, selon\nl'expérience réalisée.\n\nDe Broglie généralise : toute particule matérielle possède aussi\nun caractère ondulatoire.\n\n▸ EXEMPLE — pourquoi on ne voit pas les effets quantiques\n\nÉlectron à 10⁶ m/s :\n   λ = h/(mv) = 6.63×10⁻³⁴ / (9.11×10⁻³¹ × 10⁶) ≈ 0.73 nm\n   → comparable à la taille d'un atome : effets bien visibles.\n\nBalle de tennis (58 g) à 30 m/s :\n   λ = 6.63×10⁻³⁴ / (0.058 × 30) ≈ 3.8×10⁻³⁴ m\n   → 10¹⁹ fois plus petit qu'un noyau : totalement indétectable.\n\nC'est pourquoi la mécanique classique suffit à notre échelle.\n\n■ RELATIONS FONDAMENTALES\n\nPour le photon :\n\n   E = h ν = h c / λ\n   p = h / λ\n\nLongueur d'onde de De Broglie, pour toute particule :\n\n   λ = h / p = h / (m v)\n\n→ Pour un objet macroscopique, λ est si petite qu'elle est indétectable.\nC'est pourquoi on ne voit pas les effets quantiques à notre échelle.\n\n■ CONSTANTE DE PLANCK\n\n   h = 6.626 × 10⁻³⁴  J·s\n   ℏ = h / 2π ≈ 1.055 × 10⁻³⁴  J·s",
+"files": [],
+"createdAt": 1784803542889
+},
+{
+"id": "n1784803542890",
+"topicId": "t_phys_moderne",
+"type": "cours",
+"title": "Ch.5 — Introduction à la mécanique quantique",
+"content": "■ PAQUET D'ONDES   [Chap.5, p. 2|cours/physmod/cours-chapitre-5|2]\n\nUne particule libre n'est pas décrite par une onde plane infinie\n(qui serait délocalisée partout), mais par un PAQUET D'ONDES :\nune superposition d'ondes de fréquences voisines.\n\nLe paquet d'ondes est localisé dans une région de l'espace, ce qui\npermet de décrire une particule ayant une position approximative.\n\n■ INTERPRÉTATION STATISTIQUE   [Chap.5, p. 2|cours/physmod/cours-chapitre-5|2]\n\nLa fonction d'onde ψ(x,t) n'a pas de sens physique direct.\nC'est son MODULE AU CARRÉ qui en a un :\n\n   |ψ(x,t)|²  =  densité de probabilité de présence\n\nLa probabilité de trouver la particule entre x et x + dx vaut |ψ|² dx.\n\nCondition de normalisation :\n\n   ∫ |ψ|² dx = 1\n\n→ La particule est quelque part avec certitude.\n\n⚠ Changement de paradigme : on ne peut plus prédire la position d'une\nparticule, seulement la PROBABILITÉ de l'y trouver.\n\n■ PRINCIPE D'INCERTITUDE DE HEISENBERG   [Chap.5, p. 2|cours/physmod/cours-chapitre-5|2]\n\nIl est impossible de connaître simultanément avec une précision arbitraire\nla position et la quantité de mouvement d'une particule :\n\n   Δx · Δp ≥ ℏ/2\n\nRelation analogue pour l'énergie et le temps :\n\n   ΔE · Δt ≥ ℏ/2\n\n⚠ Ce n'est PAS une limite de nos instruments de mesure : c'est une\npropriété fondamentale de la nature. Plus on localise une particule\n(Δx petit), plus sa quantité de mouvement est indéterminée (Δp grand).\n\nLien avec le paquet d'ondes : un paquet étroit en position nécessite\nune large gamme de fréquences, donc une grande incertitude sur p.\n\n▸ EXEMPLE\nUn électron confiné dans un atome (Δx ≈ 10⁻¹⁰ m).\n\n   Δp ≥ ℏ/(2Δx) = 1.055×10⁻³⁴ / (2×10⁻¹⁰) ≈ 5.3×10⁻²⁵ kg·m/s\n   Δv = Δp/m ≈ 5.8×10⁵ m/s\n\n→ L'incertitude sur la vitesse est de l'ordre de 580 km/s.\nOn ne peut donc pas parler de « trajectoire » de l'électron\nautour du noyau : la notion perd son sens.\n\n■ ÉQUATION DE SCHRÖDINGER   [Chap.5, p. 2|cours/physmod/cours-chapitre-5|2]\n\nC'est l'équation fondamentale de la mécanique quantique — l'équivalent\nde la seconde loi de Newton pour le monde quantique.\n\nForme dépendante du temps :\n\n   i ℏ ∂ψ/∂t = − (ℏ²/2m) ∂²ψ/∂x² + V(x) ψ\n\nForme indépendante du temps (états stationnaires) :\n\n   − (ℏ²/2m) d²ψ/dx² + V(x) ψ = E ψ\n\noù V(x) est l'énergie potentielle et E l'énergie totale.\n\n■ CONSÉQUENCE : LA QUANTIFICATION\n\nPour une particule confinée (puits de potentiel), les solutions de\nl'équation de Schrödinger n'existent que pour certaines valeurs\nDISCRÈTES de l'énergie.\n\n→ C'est l'origine de la quantification des niveaux d'énergie,\net donc des spectres atomiques discrets observés au chapitre 4.\n\nLa boucle est bouclée : le problème initial trouve sa solution.",
+"files": [],
+"createdAt": 1784803542890
+},
+{
+"id": "n1784803542891",
+"topicId": "t_phys_moderne",
+"type": "formules",
+"title": "Formulaire relativité et quantique",
+"content": "■ FACTEUR DE LORENTZ\n\n   γ = 1 / √(1 − v²/c²)          γ ≥ 1 toujours\n\n   v ≪ c  →  γ ≈ 1     (retour à la mécanique classique)\n   v → c  →  γ → ∞\n\n■ TRANSFORMATIONS DE LORENTZ   [Chap.2, p. 2|cours/physmod/cours-chapitre-2|2]\n\n   x' = γ (x − v t)\n   t' = γ (t − v x / c²)\n   y' = y ,  z' = z\n\n■ DILATATION DES DURÉES\n\n   Δt = γ · Δt₀              Δt₀ = durée propre\n\n▸ EXEMPLE — les muons atmosphériques\nLes muons créés dans la haute atmosphère ont une durée de vie\npropre de 2.2 µs et voyagent à v = 0.999c.\n\nSans relativité : distance parcourue = 2.2×10⁻⁶ × 3×10⁸ ≈ 660 m\n→ ils ne devraient JAMAIS atteindre le sol (15 km plus bas).\n\nAvec dilatation : γ = 1/√(1−0.999²) ≈ 22.4\n   Δt = 22.4 × 2.2 µs ≈ 49 µs\n   distance ≈ 14.8 km  →  ils atteignent bien le sol  ✓\n\nC'est une confirmation expérimentale directe de la relativité.\n\n■ CONTRACTION DES LONGUEURS\n\n   L = L₀ / γ                L₀ = longueur propre\n\n⚠ Attention au sens : le temps se DILATE (× γ),\nla longueur se CONTRACTE (÷ γ).\n\n▸ EXEMPLE\nUne règle de 1 m défile à v = 0.8c.\n\n   γ = 1/√(1 − 0.64) = 1/0.6 ≈ 1.67\n   L = L₀/γ = 1/1.67 ≈ 0.60 m\n\nL'observateur immobile mesure 60 cm.\nPour un observateur voyageant avec la règle, elle fait toujours 1 m.\n\n■ COMPOSITION DES VITESSES\n\n   u' = (u − v) / (1 − u v / c²)\n\n■ DYNAMIQUE RELATIVISTE\n\n   m = γ m₀                       masse relativiste\n   p = γ m₀ v                     quantité de mouvement\n   E = γ m₀ c²                    énergie totale\n   E₀ = m₀ c²                     énergie au repos\n   E_c = (γ − 1) m₀ c²            énergie cinétique\n\n   E² = p² c² + m₀² c⁴            relation énergie-impulsion\n\nPhoton (m₀ = 0) :   E = p c\n\n■ QUANTIQUE — RELATIONS DE BASE\n\n   E = h ν = h c / λ              énergie d'un photon\n   p = h / λ                      impulsion d'un photon\n   λ = h / p = h / (m v)          longueur d'onde de De Broglie\n\n■ HEISENBERG\n\n   Δx · Δp ≥ ℏ/2\n   ΔE · Δt ≥ ℏ/2\n\n■ FONCTION D'ONDE\n\n   |ψ(x,t)|²  =  densité de probabilité de présence\n   ∫ |ψ|² dx = 1                  normalisation\n\n■ ÉQUATION DE SCHRÖDINGER   [Chap.5, p. 2|cours/physmod/cours-chapitre-5|2]\n\nDépendante du temps :\n   i ℏ ∂ψ/∂t = − (ℏ²/2m) ∂²ψ/∂x² + V ψ\n\nStationnaire :\n   − (ℏ²/2m) d²ψ/dx² + V ψ = E ψ\n\n■ CONSTANTES\n\n   c  = 2.998 × 10⁸  m/s          vitesse de la lumière\n   h  = 6.626 × 10⁻³⁴  J·s        constante de Planck\n   ℏ  = 1.055 × 10⁻³⁴  J·s        h/2π\n   e  = 1.602 × 10⁻¹⁹  C          charge élémentaire\n   mₑ = 9.109 × 10⁻³¹  kg         masse de l'électron\n\n   1 eV = 1.602 × 10⁻¹⁹  J",
+"files": [],
+"createdAt": 1784803542891
+},
+{
+"id": "n1784803542892",
+"topicId": "t_ti301",
+"type": "cours",
+"title": "Ch.1 — Objectifs et types abstraits",
+"content": "■ OBJECTIFS DU MODULE   [CM1, p. 2|cours/ti301/cm1|2]\n\n· Maîtriser les types abstraits\n· Expliquer les caractéristiques, avantages et inconvénients de chaque\n  structure de données\n· Choisir la structure la plus adaptée à la résolution du problème\n· Optimiser les algorithmes pour traiter les données efficacement\n· Implémenter en C les structures classiques : listes chaînées avancées,\n  piles, files, arbres binaires de recherche, AVL\n\n■ ORGANISATION\n\n   6 CM de 2h (12h)\n   6 séances de TD (12h)\n   6 séances de TP (12h)\n   3 séances de projet (7h)\n\nLangage utilisé en TD / TP / Projet : le langage C.\n\n■ TYPE ABSTRAIT — LE CONCEPT CLÉ\n\nUn type abstrait de données (TAD) définit :\n· un ENSEMBLE de valeurs\n· un ensemble d'OPÉRATIONS sur ces valeurs\n\n...sans dire COMMENT c'est implémenté.\n\n→ C'est la séparation entre l'INTERFACE (ce que la structure fait)\net l'IMPLÉMENTATION (comment elle le fait).\n\nExemple : une pile est définie par ses opérations (empiler, dépiler,\nsommet, est_vide). Qu'elle soit implémentée avec un tableau ou une liste\nchaînée ne change rien pour celui qui l'utilise.\n\n■ POURQUOI C'EST IMPORTANT\n\nLe choix de la structure détermine la COMPLEXITÉ des opérations.\nUn mauvais choix peut transformer un algorithme en O(1) en un\nalgorithme en O(n).\n\n→ Toute la matière consiste à savoir quelle structure choisir\npour quel problème.",
+"files": [],
+"createdAt": 1784803542892
+},
+{
+"id": "n1784803542893",
+"topicId": "t_ti301",
+"type": "cours",
+"title": "Ch.2 — Listes chaînées avancées",
+"content": "■ RAPPEL — POINTEURS ET LISTES\n\nDans une liste chaînée simple (LSC), chaque cellule contient une donnée\net un pointeur vers la cellule suivante. La dernière pointe vers NULL.\n\nObjectifs de ce chapitre :\n· Comprendre le rôle des pointeurs dans les listes\n· Visualiser et appliquer les insertions de cellule dans des cas particuliers\n· Garder la cohérence des listes avancées\n\n■ LISTE AVEC POINTEUR DE TÊTE ET DE QUEUE (liste HT)   [p. -5|cours/ti301/cm2|3]\n\nPrincipe : repérer immédiatement la dernière cellule plutôt que de\nparcourir toute la liste.\n\n   Avantage : pouvoir ajouter en FIN de liste facilement.\n\n   Ajout en fin sans pointeur de queue : O(n) — il faut tout parcourir\n   Ajout en fin avec pointeur de queue  : O(1) — accès direct\n\n⚠ Contrainte : il faut penser à mettre à jour le pointeur de queue\nlors de chaque insertion ou suppression en fin.\n\n▸ EXEMPLE — le gain concret\nAjouter 1000 éléments en fin de liste :\n\n   Sans pointeur de queue : 1 + 2 + ... + 1000 ≈ 500 000 parcours\n   Avec pointeur de queue : 1000 opérations\n\n→ Facteur 500 sur cet exemple. L'écart grandit avec la taille.\n\n■ LISTE CIRCULAIRE   [p. -5|cours/ti301/cm2|3]\n\nLa dernière cellule pointe sur la première.\n\n   Avantage : parcourir la liste de manière circulaire, pour représenter\n   des phénomènes cycliques.\n\nExemples d'usage : tour de jeu entre joueurs, ordonnancement round-robin,\nbuffer circulaire.\n\n⚠ Piège : sans condition d'arrêt explicite, un parcours boucle à l'infini.\nIl faut mémoriser le point de départ.\n\n▸ EXEMPLE — tour de jeu\n4 joueurs autour d'une table. Une liste circulaire permet de passer\nau joueur suivant sans jamais tester « suis-je à la fin ? » :\n\n   courant = courant->suivant;   // revient tout seul au premier\n\n⚠ Piège : un parcours doit mémoriser le point de départ,\nsinon la boucle est infinie.\n   depart = courant;\n   do { traiter(courant); courant = courant->suivant; }\n   while (courant != depart);\n\n■ LISTE DOUBLEMENT CHAÎNÉE   [p. -5|cours/ti301/cm2|3]\n\nChaque cellule pointe vers la suivante ET la précédente.\n\n   Avantage : on peut la parcourir dans les DEUX SENS, ce qui simplifie\n   les traitements.\n\n   Inconvénient : oblige à bien « raccrocher » les cellules — chaque\n   insertion ou suppression demande de mettre à jour deux pointeurs\n   au lieu d'un.\n\n■ RÉCAPITULATIF DES VARIANTES\n\n   ┌──────────────────────┬──────────────────────────────────┐\n   │  Variante            │  Ce qu'elle apporte              │\n   ├──────────────────────┼──────────────────────────────────┤\n   │  LSC simple          │  base, insertion tête O(1)       │\n   │  Tête + queue (HT)   │  insertion fin O(1)              │\n   │  Circulaire          │  parcours cyclique               │\n   │  Doublement chaînée  │  parcours bidirectionnel         │\n   └──────────────────────┴──────────────────────────────────┘\n\n■ RÈGLE D'OR DES INSERTIONS\n\nToujours raccrocher les pointeurs dans le BON ORDRE :\nd'abord faire pointer la nouvelle cellule vers la suite,\nensuite seulement modifier le pointeur précédent.\n\nDans l'ordre inverse, on perd le reste de la liste.",
+"files": [],
+"createdAt": 1784803542893
+},
+{
+"id": "n1784803542894",
+"topicId": "t_ti301",
+"type": "cours",
+"title": "Ch.3 — Piles et files",
+"content": "■ OBJECTIFS\n\n· Définir pile et file comme des types ABSTRAITS\n· Définir les opérations élémentaires pour pile et file\n· Implémenter pile et file à partir de tableaux, LSC et listes HT\n· Expliquer la meilleure implémentation en termes de performance\n\nPrérequis : savoir implémenter les LSC, les listes HT et les tableaux,\nréaliser des chaînages en tête et en queue, justifier la complexité.\n\n■ LA PILE (stack) — LIFO   [CM3, p. 1|cours/ti301/cm3|1]\n\nPrincipe : je dépose au-dessus, je retire au-dessus.\n\n   IN  →  ┌───┐\n          │ 3 │  ← dernier entré, premier sorti\n          │ 2 │\n          │ 1 │\n          └───┘\n   OUT ←  par le haut également\n\nLIFO = Last In, First Out (dernier arrivé, premier sorti)\n\nOpérations élémentaires :\n· empiler (push)     : ajouter au sommet\n· dépiler (pop)      : retirer du sommet\n· sommet (top/peek)  : consulter sans retirer\n· est_vide           : tester si la pile est vide\n\nAnalogie : une pile d'assiettes.\n\n▸ EXEMPLE — vérifier des parenthèses\nExpression : ( a + [ b × c ] )\n\n   (  → empiler '('\n   [  → empiler '['\n   ]  → dépiler : on sort '[' → correspond  ✓\n   )  → dépiler : on sort '(' → correspond  ✓\n   Pile vide à la fin → expression bien parenthésée\n\nSi la pile n'est pas vide à la fin, ou si un dépilement ne\ncorrespond pas, l'expression est mal formée.\n\n■ LA FILE (queue) — FIFO\n\nPrincipe : j'entre par un bout, je sors par l'autre.\n\n   IN  →  [ 1 ][ 2 ][ 3 ]  →  OUT\n\nFIFO = First In, First Out (premier arrivé, premier sorti)\n\nOpérations élémentaires :\n· enfiler (enqueue)  : ajouter en queue\n· défiler (dequeue)  : retirer en tête\n· tête (front)       : consulter sans retirer\n· est_vide           : tester si la file est vide\n\nAnalogie : une file d'attente à la caisse.\n\n▸ EXEMPLE — file d'impression\nTrois documents envoyés dans l'ordre A, B, C.\n\n   enfiler(A), enfiler(B), enfiler(C)   →  [A][B][C]\n   defiler() → A imprimé                →  [B][C]\n   defiler() → B imprimé                →  [C]\n\nLe premier arrivé est le premier servi : c'est le comportement\nattendu d'une imprimante partagée.\n\n■ IMPLÉMENTATIONS POSSIBLES\n\nPAR TABLEAU\n   + accès direct, simple\n   − taille fixe, risque de débordement\n   − pour la file : décalages coûteux (sauf tableau circulaire)\n\nPAR LISTE CHAÎNÉE SIMPLE (LSC)\n   + taille dynamique\n   + pile : parfait (tout se fait en tête, O(1))\n   − file : le défilement en fin coûte O(n)\n\nPAR LISTE HT (tête + queue)\n   + file : enfiler ET défiler en O(1)\n   → c'est la meilleure implémentation pour une file\n\n■ LE BON CHOIX\n\n   ┌──────────┬────────────────────────────────────┐\n   │  PILE    │  LSC (tout en tête, O(1))          │\n   │  FILE    │  Liste HT (tête + queue, O(1))     │\n   └──────────┴────────────────────────────────────┘\n\n■ USAGES TYPIQUES\n\nPILE   : évaluation d'expressions, retour en arrière (undo),\n         appels de fonctions, parcours en profondeur (DFS)\n\nFILE   : gestion de tâches, tampon d'impression,\n         parcours en largeur (BFS)",
+"files": [],
+"createdAt": 1784803542894
+},
+{
+"id": "n1784803542895",
+"topicId": "t_ti301",
+"type": "cours",
+"title": "Ch.4 — Arbres binaires",
+"content": "■ OBJECTIFS\n\n· Définir le type t_node, utiliser le type t_node *\n· Définir le type t_tree\n· Implémenter les algorithmes classiques d'arbres de manière RÉCURSIVE\n· Parcours en largeur et en profondeur d'arbres\n\nPrérequis : maîtriser les structures et les pointeurs, savoir représenter\nvisuellement des structures de données, implémentation des piles et files.\n\n■ ANALOGIE AVEC LES LISTES   [CM1, p. 2|cours/ti301/cm1|2]\n\nLes structures d'arbres sont assez similaires aux listes :\n\n   Dans une LISTE, chaque élément (t_cell) pointe vers la cellule suivante.\n   Dans un ARBRE BINAIRE, chaque élément (t_node) pointe vers DEUX autres\n   nœuds.\n\n→ Un arbre binaire est une généralisation de la liste : au lieu d'un\nsuccesseur, chaque nœud en a deux.\n\n■ VOCABULAIRE\n\n· RACINE      : le nœud de départ, sans parent\n· FEUILLE     : nœud sans enfant\n· NŒUD INTERNE: nœud ayant au moins un enfant\n· HAUTEUR     : longueur du plus long chemin de la racine à une feuille\n· PROFONDEUR  : distance d'un nœud à la racine\n· SOUS-ARBRE  : arbre formé par un nœud et tous ses descendants\n\n■ POURQUOI LA RÉCURSIVITÉ\n\nUn arbre est une structure RÉCURSIVE par nature :\nun arbre est soit vide, soit un nœud ayant deux sous-arbres.\n\n→ Presque tous les algorithmes sur les arbres s'écrivent naturellement\nde manière récursive, en traitant le nœud courant puis en s'appelant\nsur les deux sous-arbres.\n\nSchéma type :\n\n   traiter(arbre) :\n      si arbre est vide → cas de base, retourner\n      traiter le nœud courant\n      traiter(sous-arbre gauche)\n      traiter(sous-arbre droit)\n\n■ PARCOURS EN PROFONDEUR (DFS)   [AVLequilibrage139, p. 2|cours/ti301/avlequilibrage139|2]\n\nOn descend au maximum avant de remonter. Trois variantes selon le moment\noù l'on traite le nœud courant :\n\nPRÉFIXE (préordre)  : nœud → gauche → droite\nINFIXE (inordre)    : gauche → nœud → droite\nPOSTFIXE (postordre): gauche → droite → nœud\n\nImplémentation : récursivité naturelle, ou pile explicite.\n\n▸ EXEMPLE — sur l'arbre\n\n           4\n          / \\\n         2   6\n        / \\ / \\\n       1  3 5  7\n\n   Préfixe  (N-G-D) :  4 2 1 3 6 5 7\n   Infixe   (G-N-D) :  1 2 3 4 5 6 7   ← trié !\n   Postfixe (G-D-N) :  1 3 2 5 7 6 4\n\nLe parcours infixe d'un ABR donne toujours les valeurs\ndans l'ordre croissant. C'est la propriété la plus utile.\n\n■ PARCOURS EN LARGEUR (BFS)\n\nOn traite tous les nœuds d'un niveau avant de passer au suivant.\n\nImplémentation : nécessite une FILE.\n   1. Enfiler la racine\n   2. Tant que la file n'est pas vide :\n      - défiler un nœud, le traiter\n      - enfiler ses deux enfants (s'ils existent)\n\n⚠ C'est le seul parcours qui ne s'écrit PAS naturellement en récursif.\nC'est là qu'on réutilise la file du chapitre précédent.\n\n▸ EXEMPLE — sur le même arbre\n\n           4\n          / \\\n         2   6\n        / \\ / \\\n       1  3 5  7\n\n   Parcours BFS :  4 | 2 6 | 1 3 5 7\n                   (niveau 0, niveau 1, niveau 2)\n\nDéroulé de la file :\n   [4]        → sortir 4, enfiler 2 et 6\n   [2,6]      → sortir 2, enfiler 1 et 3\n   [6,1,3]    → sortir 6, enfiler 5 et 7\n   [1,3,5,7]  → sortir les feuilles une à une\n\n■ ARBRE BINAIRE DE RECHERCHE (ABR)   [AVLequilibrage139, p. 7|cours/ti301/avlequilibrage139|7]\n\nPropriété fondamentale : pour tout nœud,\n· toutes les valeurs du sous-arbre GAUCHE sont INFÉRIEURES\n· toutes les valeurs du sous-arbre DROIT sont SUPÉRIEURES\n\n→ Conséquence : le parcours INFIXE d'un ABR donne les valeurs TRIÉES.\n\nRecherche, insertion, suppression : O(h) où h est la hauteur.\n\n⚠ Le problème : si l'arbre est déséquilibré (inséré dans l'ordre croissant),\nil dégénère en liste et h = n. La recherche devient O(n).\n\n→ C'est exactement ce que les arbres AVL viennent corriger.\n▸ EXEMPLE — le problème du déséquilibre\n\nInsertion de 1,2,3,4,5 dans cet ordre :\n\n   1\n    \\\n     2\n      \\\n       3\n        \\\n         4\n          \\\n           5\n\nL'arbre a DÉGÉNÉRÉ en liste chaînée. Rechercher 5 demande\n5 comparaisons au lieu de 3 dans un arbre équilibré.\n\nAvec n = 1000 éléments triés : 1000 comparaisons au lieu de 10.\n→ C'est exactement ce que les AVL corrigent.\n",
+"files": [],
+"createdAt": 1784803542895
+},
+{
+"id": "n1784803542896",
+"topicId": "t_ti301",
+"type": "cours",
+"title": "Ch.5 — Arbres AVL et équilibrage",
+"content": "■ LE PROBLÈME À RÉSOUDRE\n\nUn arbre binaire de recherche offre des opérations en O(h),\noù h est la hauteur.\n\n· Arbre ÉQUILIBRÉ    :  h ≈ log₂(n)   →  opérations en O(log n)\n· Arbre DÉGÉNÉRÉ     :  h = n         →  opérations en O(n)\n\nLe pire cas arrive facilement : insérer des valeurs déjà triées produit\nune simple liste chaînée.\n\n→ Il faut un mécanisme qui maintient l'arbre équilibré automatiquement.\n\n■ ARBRE AVL — DÉFINITION   [AVLequilibrage139, p. 7|cours/ti301/avlequilibrage139|7]\n\nUn arbre AVL est un arbre binaire de recherche dans lequel, pour CHAQUE\nnœud, les hauteurs des deux sous-arbres diffèrent d'au plus 1.\n\n■ FACTEUR D'ÉQUILIBRE   [AVLequilibrage139, p. 18|cours/ti301/avlequilibrage139|18]\n\nPour chaque nœud :\n\n   FE = hauteur(sous-arbre droit) − hauteur(sous-arbre gauche)\n\n   FE ∈ { −1, 0, +1 }   →  le nœud est équilibré\n   |FE| ≥ 2             →  déséquilibre, rotation nécessaire\n\n■ LES ROTATIONS\n\nQuand une insertion ou une suppression crée un déséquilibre,\non rétablit l'équilibre par ROTATION. Quatre cas :\n\nROTATION SIMPLE À DROITE (cas gauche-gauche)\n   Déséquilibre à gauche, causé par le sous-arbre gauche du fils gauche.\n\nROTATION SIMPLE À GAUCHE (cas droite-droite)\n   Symétrique du précédent.\n\nROTATION DOUBLE GAUCHE-DROITE (cas gauche-droite)\n   Déséquilibre à gauche, causé par le sous-arbre DROIT du fils gauche.\n   → rotation gauche sur le fils, puis rotation droite sur le nœud.\n\nROTATION DOUBLE DROITE-GAUCHE (cas droite-gauche)\n   Symétrique du précédent.\n\n▸ EXEMPLE — rotation simple à droite\nInsertion de 3, puis 2, puis 1 :\n\n      3              3                2\n                    /                / \\\n       →           2        →       1   3\n                  /\n                 1\n   équilibré   FE = −2         équilibré\n               déséquilibre    après rotation\n               gauche-gauche   simple à droite\n\nLe nœud 2 devient la racine, 3 devient son fils droit.\nL'arbre retrouve une hauteur de 2 au lieu de 3.\n\n■ COMMENT CHOISIR LA ROTATION\n\n   ┌──────────────────┬─────────────────────────────┐\n   │  Déséquilibre    │  Rotation à appliquer       │\n   ├──────────────────┼─────────────────────────────┤\n   │  Gauche-Gauche   │  simple à droite            │\n   │  Droite-Droite   │  simple à gauche            │\n   │  Gauche-Droite   │  double gauche-droite       │\n   │  Droite-Gauche   │  double droite-gauche       │\n   └──────────────────┴─────────────────────────────┘\n\nMéthode : regarder le signe du FE du nœud déséquilibré, puis celui\nde son fils du côté le plus lourd. Si les signes sont identiques →\nrotation simple. S'ils sont opposés → rotation double.\n\n■ GARANTIE DE PERFORMANCE\n\nUn arbre AVL de n nœuds a une hauteur h ≈ 1.44 · log₂(n).\n\n→ Recherche, insertion, suppression garanties en O(log n),\nmême dans le pire cas.\n\nC'est le gain fondamental par rapport à l'ABR simple.",
+"files": [],
+"createdAt": 1784803542896
+},
+{
+"id": "n1784803542897",
+"topicId": "t_ti301",
+"type": "formules",
+"title": "Complexités — tableau de référence",
+"content": "■ LISTES\n\n   ┌────────────────────────┬──────────┬──────────┬──────────┐\n   │  Opération             │  Tableau │   LSC    │ Liste HT │\n   ├────────────────────────┼──────────┼──────────┼──────────┤\n   │  Accès i-ème élément   │   O(1)   │   O(n)   │   O(n)   │\n   │  Insertion en tête     │   O(n)   │   O(1)   │   O(1)   │\n   │  Insertion en fin      │   O(1)*  │   O(n)   │   O(1)   │\n   │  Suppression en tête   │   O(n)   │   O(1)   │   O(1)   │\n   │  Suppression en fin    │   O(1)   │   O(n)   │   O(n)** │\n   │  Recherche             │   O(n)   │   O(n)   │   O(n)   │\n   └────────────────────────┴──────────┴──────────┴──────────┘\n\n   *  si la place est disponible\n   ** il faut retrouver l'avant-dernier (sauf si doublement chaînée)\n\n■ PILES ET FILES\n\n   ┌──────────────┬─────────────────────┬──────────┐\n   │  Structure   │  Opération          │  Coût    │\n   ├──────────────┼─────────────────────┼──────────┤\n   │  PILE (LSC)  │  empiler / dépiler  │   O(1)   │\n   │  FILE (HT)   │  enfiler / défiler  │   O(1)   │\n   │  FILE (LSC)  │  défiler            │   O(n)   │\n   └──────────────┴─────────────────────┴──────────┘\n\n■ ARBRES\n\n   ┌──────────────────┬────────────┬────────────┬────────────┐\n   │  Opération       │  ABR moyen │  ABR pire  │    AVL     │\n   ├──────────────────┼────────────┼────────────┼────────────┤\n   │  Recherche       │  O(log n)  │    O(n)    │  O(log n)  │\n   │  Insertion       │  O(log n)  │    O(n)    │  O(log n)  │\n   │  Suppression     │  O(log n)  │    O(n)    │  O(log n)  │\n   │  Parcours complet│    O(n)    │    O(n)    │    O(n)    │\n   └──────────────────┴────────────┴────────────┴────────────┘\n\n■ HAUTEUR D'UN ARBRE\n\n   Arbre parfaitement équilibré :  h = ⌊log₂(n)⌋\n   Arbre AVL                    :  h ≈ 1.44 · log₂(n)\n   Arbre dégénéré (liste)       :  h = n − 1\n\n■ FACTEUR D'ÉQUILIBRE AVL\n\n   FE = hauteur(droit) − hauteur(gauche)\n\n   FE ∈ {−1, 0, +1}   →  équilibré\n   |FE| ≥ 2           →  rotation nécessaire\n\n■ PARCOURS D'ARBRE — QUAND UTILISER QUOI\n\n   ┌───────────────┬────────────────────────────────────────┐\n   │  Parcours     │  Usage typique                         │\n   ├───────────────┼────────────────────────────────────────┤\n   │  Préfixe      │  copier un arbre, sérialiser           │\n   │  Infixe       │  obtenir les valeurs TRIÉES (ABR)      │\n   │  Postfixe     │  libérer la mémoire, calculer hauteur  │\n   │  Largeur (BFS)│  parcours par niveau, plus court chemin│\n   └───────────────┴────────────────────────────────────────┘\n\nOutils nécessaires :\n   DFS (profondeur)  →  récursivité ou PILE\n   BFS (largeur)     →  FILE obligatoirement",
+"files": [],
+"createdAt": 1784803542897
+},
+{
+"id": "n1784803542898",
+"topicId": "t_reseaux",
+"type": "cours",
+"title": "Modèles OSI et TCP/IP",
+"content": "■ POURQUOI UN MODÈLE EN COUCHES\n\nUn réseau est un système complexe. Le découper en couches permet :\n· de séparer les responsabilités\n· de remplacer une couche sans toucher aux autres\n· de faire dialoguer des équipements hétérogènes\n\nChaque couche rend un service à la couche supérieure et utilise\nles services de la couche inférieure.\n\n■ LE MODÈLE OSI — 7 COUCHES   [Introduction, p. 1|cours/reseaux/introduction|1]\n\n   ┌────┬──────────────────┬─────────────────────────────────┐\n   │  7 │  Application     │  services réseau aux programmes │\n   │  6 │  Présentation    │  format, chiffrement, encodage  │\n   │  5 │  Session         │  ouverture/fermeture de dialogue│\n   │  4 │  Transport       │  fiabilité, segmentation (TCP)  │\n   │  3 │  Réseau          │  adressage logique, routage (IP)│\n   │  2 │  Liaison         │  adressage physique (MAC), trame│\n   │  1 │  Physique        │  signaux, câbles, bits          │\n   └────┴──────────────────┴─────────────────────────────────┘\n\nMoyen mnémotechnique (de 1 à 7) :\n   Physique, Liaison, Réseau, Transport, Session, Présentation, Application\n\n■ ENCAPSULATION\n\nQuand une donnée descend les couches, chaque couche ajoute son en-tête :\n\n   Application  →  Données\n   Transport    →  [en-tête TCP][Données]           = segment\n   Réseau       →  [en-tête IP][segment]            = paquet\n   Liaison      →  [en-tête MAC][paquet][FCS]       = trame\n   Physique     →  bits transmis\n\nÀ la réception, chaque couche retire son en-tête (décapsulation).\n\n▸ EXEMPLE — envoi d'une requête web\n\n   Application  :  GET /index.html\n   Transport    :  [TCP port 80][GET /index.html]\n   Réseau       :  [IP 192.168.1.10 → 93.184.216.34][segment]\n   Liaison      :  [MAC source → MAC passerelle][paquet][FCS]\n   Physique     :  0101110010...\n\nÀ chaque routeur traversé, l'en-tête MAC est REFAIT (couche 2),\nmais l'en-tête IP reste identique de bout en bout (couche 3).\n\n■ UNITÉS DE DONNÉES PAR COUCHE\n\n   Couche 4 (Transport) :  segment (TCP) / datagramme (UDP)\n   Couche 3 (Réseau)    :  paquet\n   Couche 2 (Liaison)   :  trame\n   Couche 1 (Physique)  :  bit\n\n■ LE MODÈLE TCP/IP — 4 COUCHES   [Introduction, p. 1|cours/reseaux/introduction|1]\n\nC'est le modèle réellement utilisé sur Internet.\n\n   ┌──────────────────────┬──────────────────────────┐\n   │  TCP/IP              │  Correspondance OSI      │\n   ├──────────────────────┼──────────────────────────┤\n   │  Application         │  couches 5, 6, 7         │\n   │  Transport           │  couche 4                │\n   │  Internet            │  couche 3                │\n   │  Accès réseau        │  couches 1 et 2          │\n   └──────────────────────┴──────────────────────────┘\n\n■ ÉQUIPEMENTS ET COUCHES\n\n   Couche 1  :  répéteur, concentrateur (hub), câble\n   Couche 2  :  commutateur (switch), pont\n   Couche 3  :  routeur\n   Couche 4+ :  pare-feu applicatif, proxy\n\n→ Retenir : un SWITCH travaille en couche 2 (adresses MAC),\nun ROUTEUR en couche 3 (adresses IP). C'est la distinction la\nplus importante du cours.",
+"files": [],
+"createdAt": 1784803542898
+},
+{
+"id": "n1784803542899",
+"topicId": "t_reseaux",
+"type": "cours",
+"title": "Adressage IP et sous-réseautage",
+"content": "■ RÔLE DE L'ADRESSAGE IP   [Adressage IP, p. 4|cours/reseaux/osi-couche-3-adressage-ip|4]\n\nL'adressage IP est un élément fondamental pour permettre aux appareils\nde communiquer sur un réseau.\n\nChaque machine connectée à Internet ou à un réseau utilise une adresse IP\n(Internet Protocol) UNIQUE qui permet de l'identifier.\n\n■ IPV4 ET IPV6   [Adressage IP, p. 4|cours/reseaux/osi-couche-3-adressage-ip|4]\n\nIPv4 : format d'adresse sur 32 BITS, représenté sous forme de quatre\n       nombres décimaux séparés par des points.\n       Exemple : 192.168.0.1\n\nIPv6 : format d'adresse sur 128 BITS, représenté sous forme de groupes\n       de chiffres hexadécimaux séparés par des deux-points.\n       Exemple : 2001:0db8:85a3:0000:0000:8a2e:0370:7334\n\nCe cours se concentre sur IPv4.\n\n■ STRUCTURE D'UNE ADRESSE IPV4\n\nUne adresse IPv4 se décompose en deux parties :\n\n   [  PARTIE RÉSEAU  |  PARTIE HÔTE  ]\n\n· La partie réseau identifie le réseau auquel appartient la machine\n· La partie hôte identifie la machine dans ce réseau\n\nC'est le MASQUE de sous-réseau qui indique où passe la frontière.\n\n■ LES CLASSES D'ADRESSES   [Adressage IP, p. 2|cours/reseaux/osi-couche-3-adressage-ip|2]\n\n   ┌────────┬──────────────────┬──────────────┬───────────────┐\n   │ Classe │  Plage           │  Masque par  │  Nb d'hôtes   │\n   │        │                  │  défaut      │               │\n   ├────────┼──────────────────┼──────────────┼───────────────┤\n   │   A    │  1.x.x.x         │  /8          │  ~16 millions │\n   │        │  à 126.x.x.x     │  255.0.0.0   │               │\n   │   B    │  128.x.x.x       │  /16         │  ~65 000      │\n   │        │  à 191.x.x.x     │  255.255.0.0 │               │\n   │   C    │  192.x.x.x       │  /24         │  254          │\n   │        │  à 223.x.x.x     │ 255.255.255.0│               │\n   │   D    │  224 à 239       │  multicast   │      —        │\n   │   E    │  240 à 255       │  réservé     │      —        │\n   └────────┴──────────────────┴──────────────┴───────────────┘\n\n▸ EXEMPLE\n   10.0.0.5        → premier octet 10   → classe A (privée)\n   172.20.1.1      → premier octet 172  → classe B (privée)\n   192.168.1.10    → premier octet 192  → classe C (privée)\n   93.184.216.34   → premier octet 93   → classe A (publique)\n\n■ ADRESSES PUBLIQUES ET PRIVÉES   [Adressage IP, p. 2|cours/reseaux/osi-couche-3-adressage-ip|2]\n\nLes adresses PRIVÉES ne sont pas routables sur Internet.\nElles sont réservées aux réseaux locaux :\n\n   10.0.0.0     à  10.255.255.255      (classe A)\n   172.16.0.0   à  172.31.255.255      (classe B)\n   192.168.0.0  à  192.168.255.255     (classe C)\n\nToutes les autres sont PUBLIQUES et uniques mondialement.\n\n■ NOTATION CIDR   [Adressage IP, p. 2|cours/reseaux/osi-couche-3-adressage-ip|2]\n\nCIDR (Classless Inter-Domain Routing) note le masque par le nombre\nde bits à 1 :\n\n   192.168.1.0/24   →  masque 255.255.255.0\n   10.0.0.0/8       →  masque 255.0.0.0\n   172.16.0.0/16    →  masque 255.255.0.0\n\n→ CIDR permet de s'affranchir des classes et de découper librement.\n\n▸ EXEMPLE — lire un masque\n   192.168.1.0/24\n\n   /24 signifie : 24 bits à 1, puis 8 bits à 0\n   11111111.11111111.11111111.00000000\n   =  255.255.255.0\n\n   → 8 bits pour les hôtes → 2⁸ = 256 adresses → 254 utilisables\n\n■ ADRESSES PARTICULIÈRES D'UN SOUS-RÉSEAU\n\nDans tout sous-réseau, deux adresses ne sont JAMAIS attribuables :\n\n· ADRESSE DE RÉSEAU     : tous les bits d'hôte à 0\n· ADRESSE DE BROADCAST  : tous les bits d'hôte à 1\n\n⚠ C'est pourquoi le nombre d'hôtes utilisables est toujours 2^n − 2.\n\n■ SOUS-RÉSEAUTAGE (subnetting)   [Adressage IP, p. 2|cours/reseaux/osi-couche-3-adressage-ip|2]\n\nPrincipe : emprunter des bits à la partie hôte pour créer des\nsous-réseaux plus petits.\n\nIntérêt :\n· limiter les domaines de broadcast\n· organiser le réseau logiquement (par service, par étage)\n· économiser les adresses\n▸ EXEMPLE COMPLET\nUne entreprise a 192.168.10.0/24 et veut 4 services isolés.\n\n1. Sous-réseaux voulus : 4  →  2ⁿ ≥ 4  →  n = 2 bits empruntés\n2. Nouveau masque : /24 + 2 = /26\n3. Taille de bloc : 2^(32−26) = 64 adresses\n\n   ┌──────────────────┬──────────────┬──────────────┬─────────┐\n   │  Sous-réseau     │  Plage utile │  Broadcast   │ Service │\n   ├──────────────────┼──────────────┼──────────────┼─────────┤\n   │ 192.168.10.0/26  │  .1  à  .62  │  .63         │ Compta  │\n   │ 192.168.10.64/26 │  .65 à .126  │  .127        │ RH      │\n   │ 192.168.10.128/26│  .129 à .190 │  .191        │ Tech    │\n   │ 192.168.10.192/26│  .193 à .254 │  .255        │ Direction│\n   └──────────────────┴──────────────┴──────────────┴─────────┘\n\nChaque service dispose de 62 adresses utilisables.\n",
+"files": [],
+"createdAt": 1784803542899
+},
+{
+"id": "n1784803542900",
+"topicId": "t_reseaux",
+"type": "cours",
+"title": "Routage et VLANs",
+"content": "■ LE ROUTAGE — PRINCIPE   [VLANs, p. 2|cours/reseaux/les-vlans-un-retour-a-la-couche-2-du-mode-le|2]\n\nLe routage est la fonction de la couche 3 : acheminer un paquet depuis\nson réseau source jusqu'à son réseau destination, à travers un ou\nplusieurs routeurs intermédiaires.\n\nChaque routeur consulte sa TABLE DE ROUTAGE pour décider vers quelle\ninterface envoyer le paquet.\n\n■ TABLE DE ROUTAGE\n\nChaque entrée contient au minimum :\n· le réseau de destination (avec son masque)\n· la passerelle (next hop) ou l'interface de sortie\n· une métrique (coût de la route)\n\nLa règle de sélection : le routeur choisit l'entrée dont le préfixe\ncorrespond le plus précisément à l'adresse de destination.\nC'est la règle du PLUS LONG PRÉFIXE.\n\n▸ EXEMPLE — règle du plus long préfixe\nTable d'un routeur :\n\n   Destination        Passerelle\n   0.0.0.0/0          10.0.0.1      (route par défaut)\n   192.168.0.0/16     10.0.0.2\n   192.168.10.0/24    10.0.0.3\n\nPaquet vers 192.168.10.5 :\n   les trois entrées correspondent, mais /24 est le préfixe\n   le PLUS LONG  →  le paquet part vers 10.0.0.3\n\nPaquet vers 192.168.99.5 :\n   seules /0 et /16 correspondent  →  vers 10.0.0.2\n\n■ ROUTAGE STATIQUE vs DYNAMIQUE\n\nROUTAGE STATIQUE\n   Les routes sont configurées manuellement par l'administrateur.\n   + simple, prévisible, aucun trafic de contrôle\n   − ne s'adapte pas aux pannes, ingérable sur un grand réseau\n\nROUTAGE DYNAMIQUE\n   Les routeurs échangent des informations via un PROTOCOLE de routage\n   et construisent leurs tables automatiquement.\n   + s'adapte aux pannes et aux changements de topologie\n   − consomme de la bande passante et des ressources\n\n■ FAMILLES DE PROTOCOLES DE ROUTAGE\n\nVECTEUR DE DISTANCE (ex. RIP)\n   Chaque routeur annonce à ses voisins les réseaux qu'il connaît\n   et à quelle distance. Simple mais convergence lente.\n\nÉTAT DE LIENS (ex. OSPF)\n   Chaque routeur connaît la topologie complète et calcule\n   lui-même les plus courts chemins. Plus rapide et plus scalable.\n\n■ LES VLANS — RETOUR À LA COUCHE 2   [VLANs, p. 1|cours/reseaux/les-vlans-un-retour-a-la-couche-2-du-mode-le|1]\n\nUn VLAN (Virtual LAN) permet de segmenter LOGIQUEMENT un réseau\nphysique unique en plusieurs réseaux distincts.\n\nIntérêts :\n· Séparer les flux sans multiplier les équipements\n· Limiter les domaines de broadcast\n· Isoler des groupes d'utilisateurs (services, invités)\n· Améliorer la sécurité\n\n■ FONCTIONNEMENT\n\nChaque port d'un switch est assigné à un VLAN.\nDeux machines sur des VLANs différents ne peuvent pas communiquer\ndirectement, MÊME si elles sont branchées sur le même switch.\n\n→ Pour les faire communiquer, il faut passer par un ROUTEUR\n(ou un switch de niveau 3). C'est le routage inter-VLAN.\n\n■ PORTS ACCESS ET TRUNK   [VLANs, p. 13|cours/reseaux/les-vlans-un-retour-a-la-couche-2-du-mode-le|13]\n\nPORT ACCESS\n   Appartient à un seul VLAN. Relie un poste de travail.\n   Les trames ne sont pas étiquetées.\n\nPORT TRUNK\n   Transporte plusieurs VLANs entre deux switches.\n   Les trames sont ÉTIQUETÉES avec l'identifiant du VLAN\n   (norme 802.1Q).\n\n⚠ Sans trunk, il faudrait un câble physique par VLAN entre chaque\npaire de switches. Le trunk est ce qui rend les VLANs praticables.\n▸ EXEMPLE\nDeux switches, deux VLANs (10 = Compta, 20 = Tech).\n\n   Switch A                        Switch B\n   port 1 (access VLAN 10) ─ PC1\n   port 2 (access VLAN 20) ─ PC2\n   port 24 (TRUNK) ═══════════════ port 24 (TRUNK)\n                                   port 1 (access VLAN 10) ─ PC3\n                                   port 2 (access VLAN 20) ─ PC4\n\nPC1 et PC3 (VLAN 10) communiquent à travers le trunk.\nPC1 et PC2 ne communiquent PAS, malgré le même switch,\ncar ils sont dans des VLANs différents. Il faudrait un routeur.\n",
+"files": [],
+"createdAt": 1784803542900
+},
+{
+"id": "n1784803542901",
+"topicId": "t_reseaux",
+"type": "formules",
+"title": "Calculs réseau — méthode et repères",
+"content": "■ CONVERSION BINAIRE — DÉCIMAL\n\nPoids des bits dans un octet :\n\n   128   64   32   16    8    4    2    1\n\nExemple : 11000000 = 128 + 64 = 192\n\n■ MASQUES CIDR — TABLE DE RÉFÉRENCE\n\n   ┌───────┬──────────────────┬─────────────┬──────────────┐\n   │ CIDR  │  Masque décimal  │  Nb adresses│  Hôtes utiles│\n   ├───────┼──────────────────┼─────────────┼──────────────┤\n   │  /24  │  255.255.255.0   │     256     │     254      │\n   │  /25  │  255.255.255.128 │     128     │     126      │\n   │  /26  │  255.255.255.192 │      64     │      62      │\n   │  /27  │  255.255.255.224 │      32     │      30      │\n   │  /28  │  255.255.255.240 │      16     │      14      │\n   │  /29  │  255.255.255.248 │       8     │       6      │\n   │  /30  │  255.255.255.252 │       4     │       2      │\n   └───────┴──────────────────┴─────────────┴──────────────┘\n\n■ FORMULES CLÉS\n\n   Nombre d'adresses totales  =  2^(32 − CIDR)\n   Nombre d'hôtes utilisables =  2^(32 − CIDR) − 2\n\n   Nombre de sous-réseaux     =  2^(bits empruntés)\n\n⚠ Le « − 2 » correspond à l'adresse de réseau et à l'adresse\nde broadcast, jamais attribuables à une machine.\n\n■ MÉTHODE — TROUVER LE SOUS-RÉSEAU D'UNE IP\n\nExemple : 192.168.1.130 /26\n\n1. Nombre d'adresses par bloc : 2^(32−26) = 2^6 = 64\n2. Les blocs commencent donc à : 0, 64, 128, 192\n3. 130 tombe dans le bloc commençant à 128\n4. Résultat :\n      Adresse de réseau   : 192.168.1.128\n      Première adresse    : 192.168.1.129\n      Dernière adresse    : 192.168.1.190\n      Broadcast           : 192.168.1.191\n\n■ MÉTHODE — DÉCOUPER UN RÉSEAU\n\nBesoin : 4 sous-réseaux dans 192.168.1.0/24\n\n1. Bits à emprunter : 2^n ≥ 4  →  n = 2\n2. Nouveau masque : /24 + 2 = /26\n3. Taille de chaque bloc : 2^(32−26) = 64 adresses\n4. Les 4 sous-réseaux :\n      192.168.1.0/26     →  .1    à  .62    (broadcast .63)\n      192.168.1.64/26    →  .65   à  .126   (broadcast .127)\n      192.168.1.128/26   →  .129  à  .190   (broadcast .191)\n      192.168.1.192/26   →  .193  à  .254   (broadcast .255)\n\n■ PLAGES PRIVÉES À CONNAÎTRE\n\n   10.0.0.0/8         →  10.0.0.0     à  10.255.255.255\n   172.16.0.0/12      →  172.16.0.0   à  172.31.255.255\n   192.168.0.0/16     →  192.168.0.0  à  192.168.255.255\n\n■ ADRESSES SPÉCIALES\n\n   127.0.0.1        loopback (la machine elle-même)\n   0.0.0.0          route par défaut / adresse indéterminée\n   255.255.255.255  broadcast limité\n   169.254.x.x      APIPA (auto-configuration en cas d'échec DHCP)",
+"files": [],
+"createdAt": 1784803542901
+},
+{
+"id": "n1784803542902",
+"topicId": "t_reseaux",
+"type": "résumés",
+"title": "Mémo réseaux — l'essentiel",
+"content": "════════════════ LES 7 COUCHES OSI ════════════════\n\n   7  Application    ← services aux applications\n   6  Présentation   ← format, chiffrement\n   5  Session        ← dialogue\n   4  Transport      ← TCP / UDP, fiabilité\n   3  Réseau         ← IP, routage\n   2  Liaison        ← MAC, switch, trames\n   1  Physique       ← câbles, signaux, bits\n\n\n════════════════ ÉQUIPEMENT ↔ COUCHE ════════════════\n\n   Hub / répéteur    →  couche 1\n   Switch            →  couche 2  (adresses MAC)\n   Routeur           →  couche 3  (adresses IP)\n\n\n════════════════ UNITÉS DE DONNÉES ════════════════\n\n   Couche 4  →  segment\n   Couche 3  →  paquet\n   Couche 2  →  trame\n   Couche 1  →  bit\n\n\n════════════════ TCP vs UDP ════════════════\n\n   ┌────────────────┬──────────────┬──────────────┐\n   │                │     TCP      │     UDP      │\n   ├────────────────┼──────────────┼──────────────┤\n   │  Connexion     │  oui         │  non         │\n   │  Fiabilité     │  garantie    │  aucune      │\n   │  Ordre         │  préservé    │  non garanti │\n   │  Vitesse       │  plus lent   │  rapide      │\n   │  Usage         │  web, mail   │  streaming,  │\n   │                │  transfert   │  DNS, jeux   │\n   └────────────────┴──────────────┴──────────────┘\n\n\n════════════════ CALCULS À MAÎTRISER ════════════════\n\n   Adresses totales   =  2^(32 − CIDR)\n   Hôtes utilisables  =  2^(32 − CIDR) − 2\n   Sous-réseaux       =  2^(bits empruntés)\n\n   /24 → 254 hôtes     /26 → 62 hôtes\n   /25 → 126 hôtes     /27 → 30 hôtes\n\n\n════════════════ RÉFLEXES D'EXAMEN ════════════════\n\nTROUVER LE RÉSEAU D'UNE IP\n   1. Taille du bloc = 2^(32−CIDR)\n   2. Trouver le multiple de cette taille juste en dessous\n   3. Réseau = ce multiple ; broadcast = suivant − 1\n\nDÉCOUPER UN RÉSEAU\n   1. Bits à emprunter : 2^n ≥ nombre de sous-réseaux voulus\n   2. Nouveau CIDR = ancien + n\n   3. Taille de bloc = 2^(32 − nouveau CIDR)\n\n⚠ Toujours retirer 2 adresses (réseau + broadcast)\n\n\n════════════════ VLANS ════════════════\n\n   Port ACCESS  →  un seul VLAN, vers un poste, non étiqueté\n   Port TRUNK   →  plusieurs VLANs, entre switches, étiqueté 802.1Q\n\n   Deux VLANs différents ne communiquent QUE via un routeur\n   (routage inter-VLAN), même sur le même switch physique.",
+"files": [],
+"createdAt": 1784803542902
+}
+];
+
+let state = {
+  subjects: [], topics: [], notes: [],
+  activeTopic: null, activeTab: 'cours', openSubjects: {},
+};
+let pendingFiles = [];
+let editingNoteId = null;
+let readerNoteId = null;
+let currentModalTab = 'cours';
+let topicModalSubject = null;
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  STORAGE
+// ═══════════════════════════════════════════════════════════════════════════
+
+function save() {
+  localStorage.setItem('efrei-wiki', JSON.stringify({
+    subjects: state.subjects, topics: state.topics, notes: state.notes,
+    openSubjects: state.openSubjects,
+  }));
+}
+
+function load() {
+  try {
+    const raw = localStorage.getItem('efrei-wiki');
+    if (raw) {
+      const d = JSON.parse(raw);
+      state.subjects = d.subjects || DEFAULT_SUBJECTS.slice();
+      state.topics = d.topics || [];
+      state.notes = d.notes || [];
+      state.openSubjects = d.openSubjects || {};
+    } else {
+      state.subjects = DEFAULT_SUBJECTS.slice();
+      state.topics = [];
+      state.notes = [];
+      state.openSubjects = { s1: true };
+    }
+  } catch {
+    state.subjects = DEFAULT_SUBJECTS.slice();
+    state.topics = [];
+    state.notes = [];
+    state.openSubjects = { s1: true };
+  }
+  ensureSeed();
+}
+
+// Garantit que les cours pré-chargés sont toujours présents, même si une
+// ancienne sauvegarde existe déjà dans le navigateur.
+function ensureSeed() {
+  // 1. Les matières par défaut doivent exister
+  DEFAULT_SUBJECTS.forEach(ds => {
+    if (!state.subjects.some(s => s.id === ds.id)) state.subjects.push({ ...ds });
+  });
+
+  // 2. Les sous-matières par défaut doivent exister
+  DEFAULT_TOPICS.forEach(dt => {
+    if (!state.topics.some(t => t.id === dt.id)) state.topics.push({ ...dt });
+  });
+
+  // 3. Migration : anciennes notes rattachées à une matière (subjectId)
+  //    au lieu d'une sous-matière (topicId)
+  state.notes.forEach(n => {
+    if (!n.topicId && n.subjectId) {
+      n.topicId = n.subjectId === 's1' ? 't_proba' : null;
+      delete n.subjectId;
+    }
+  });
+  state.notes = state.notes.filter(n => n.topicId);
+
+  // 4. Réinjecter les cours manquants (comparaison sur sous-matière + type + titre)
+  let added = 0;
+  SEED_NOTES.forEach(sn => {
+    const exists = state.notes.some(n =>
+      n.topicId === sn.topicId && n.type === sn.type && n.title === sn.title
+    );
+    if (!exists) { state.notes.push({ ...sn, files: [] }); added++; }
+  });
+
+  if (!Object.keys(state.openSubjects).length) state.openSubjects = { s1: true };
+  save();
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  SIDEBAR
+// ═══════════════════════════════════════════════════════════════════════════
+
+function renderSidebar() {
+  const list = document.getElementById('subjects-list');
+  list.innerHTML = '';
+  state.subjects.forEach(s => {
+    const topics = state.topics.filter(t => t.subjectId === s.id);
+    const total = state.notes.filter(n => topics.some(t => t.id === n.topicId)).length;
+    const isOpen = !!state.openSubjects[s.id];
+
+    const block = document.createElement('div');
+    block.className = 'subject-block' + (isOpen ? ' open' : '');
+
+    const row = document.createElement('div');
+    row.className = 'subject-row';
+    row.innerHTML =
+      '<span class="subject-caret">\u25B6</span>' +
+      '<span class="subject-emoji">' + s.emoji + '</span>' +
+      '<span class="subject-name">' + escHtml(s.name) + '</span>' +
+      (total > 0 ? '<span class="subject-total">' + total + '</span>' : '');
+    row.onclick = () => toggleSubject(s.id);
+    block.appendChild(row);
+
+    const topicsWrap = document.createElement('div');
+    topicsWrap.className = 'topics';
+    topics.forEach(t => {
+      const count = state.notes.filter(n => n.topicId === t.id).length;
+      const tr = document.createElement('div');
+      tr.className = 'topic-row' + (state.activeTopic === t.id ? ' active' : '');
+      tr.innerHTML =
+        '<span class="topic-name">' + escHtml(t.name) + '</span>' +
+        (count > 0 ? '<span class="topic-count">' + count + '</span>' : '');
+      tr.onclick = (e) => { e.stopPropagation(); selectTopic(t.id); };
+      topicsWrap.appendChild(tr);
+    });
+    const add = document.createElement('div');
+    add.className = 'topic-add';
+    add.textContent = '+ sous-matière';
+    add.onclick = (e) => { e.stopPropagation(); openTopicModal(s.id); };
+    topicsWrap.appendChild(add);
+
+    block.appendChild(topicsWrap);
+    list.appendChild(block);
+  });
+}
+
+function toggleSubject(id) {
+  state.openSubjects[id] = !state.openSubjects[id];
+  save();
+  renderSidebar();
+}
+
+function selectTopic(id) {
+  state.activeTopic = id;
+  state.activeTab = 'cours';
+  const topic = state.topics.find(t => t.id === id);
+  if (topic) state.openSubjects[topic.subjectId] = true;
+  renderSidebar();
+  renderTopicView();
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  VUE SOUS-MATIÈRE
+// ═══════════════════════════════════════════════════════════════════════════
+
+function renderTopicView() {
+  const topic = state.topics.find(t => t.id === state.activeTopic);
+  if (!topic) return;
+  const subject = state.subjects.find(s => s.id === topic.subjectId);
+
+  document.getElementById('welcome').style.display = 'none';
+  const tv = document.getElementById('topic-view');
+  tv.style.display = 'flex';
+
+  document.getElementById('topic-breadcrumb').innerHTML =
+    '<span>' + (subject ? subject.emoji + ' ' + escHtml(subject.name) : '') + '</span>' +
+    '<span class="bc-sep">/</span>';
+  document.getElementById('view-name').textContent = topic.name;
+
+  document.querySelectorAll('.tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.tab === state.activeTab);
+  });
+  TABS.forEach(tab => {
+    const el = document.getElementById('tab-' + tab);
+    el.classList.toggle('active', tab === state.activeTab);
+    if (tab === state.activeTab) {
+      if (tab === 'poly') renderPoly(el); else renderNotes(el, tab);
+    }
+  });
+}
+
+function switchTab(tab, el) {
+  state.activeTab = tab;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  TABS.forEach(t => {
+    const c = document.getElementById('tab-' + t);
+    c.classList.toggle('active', t === tab);
+    if (t === tab) {
+      if (t === 'poly') renderPoly(c); else renderNotes(c, t);
+    }
+  });
+}
+
+// Liste des documents source de la sous-matière courante
+async function renderPoly(container) {
+  container.innerHTML =
+    '<div class="section-header"><div class="section-title">Documents du cours</div></div>' +
+    '<div class="empty-state">Chargement…</div>';
+  const idx = await loadPageIndex();
+  const docs = (idx && idx[state.activeTopic]) || [];
+
+  let html = '<div class="section-header"><div class="section-title">Documents du cours</div></div>';
+  if (!docs.length) {
+    html += '<div class="empty-state">Aucun document source pour cette sous-matière.'
+          + (idx === false
+              ? '<br><span style="font-size:12.5px">Le dossier <code>cours/</code> n\'est pas accessible — '
+                + 'ouvre le site via une URL (GitHub Pages) plutôt qu\'en double-clic.</span>'
+              : '')
+          + '</div>';
+    container.innerHTML = html;
+    return;
+  }
+  html += '<div class="doc-grid">';
+  docs.forEach(d => {
+    const first = d.pages.length ? d.pages[0] : null;
+    const range = d.pages.length
+      ? (d.pages[0].p != null
+          ? 'p. ' + d.pages[0].p + ' – ' + d.pages[d.pages.length - 1].p
+          : d.pages.length + ' pages')
+      : '';
+    html += '<div class="doc-card" onclick="openPage(\'' + d.dir + '\','
+          + (first ? first.n : 1) + ')">'
+          + '<div class="doc-icon">' + (d.kind === 'text' ? '\u2630' : '\u25A4') + '</div>'
+          + '<div class="doc-info">'
+          + '<div class="doc-name">' + escHtml(d.name) + '</div>'
+          + '<div class="doc-meta">' + d.pages.length + ' pages'
+          + (range ? '  \u00B7  ' + range : '') + '</div>'
+          + '</div></div>';
+  });
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+function renderNotes(container, tab) {
+  const notes = state.notes.filter(n => n.topicId === state.activeTopic && n.type === tab);
+  const label = tab.charAt(0).toUpperCase() + tab.slice(1);
+  container.innerHTML =
+    '<div class="section-header">' +
+      '<div class="section-title">' + label + '</div>' +
+      '<button class="btn-new" onclick="openNoteModal(\'' + tab + '\')">+ Nouveau</button>' +
+    '</div>';
+  if (notes.length === 0) {
+    container.innerHTML += '<div class="empty-state">Aucun contenu dans « ' + label + ' » pour l\'instant.<br>Clique sur « + Nouveau » pour commencer.</div>';
+    return;
+  }
+  const grid = document.createElement('div');
+  grid.className = 'cards-grid';
+  notes.forEach(n => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    const preview = n.content ? stripPreview(n.content) : (n.files && n.files.length ? n.files.length + ' fichier(s)' : '—');
+    const dateStr = new Date(n.createdAt).toLocaleDateString('fr-FR', { day:'numeric', month:'short' });
+    card.innerHTML =
+      '<button class="card-del" onclick="deleteNote(event,\'' + n.id + '\')">&times;</button>' +
+      '<div class="card-title">' + escHtml(n.title) + '</div>' +
+      '<div class="card-preview">' + escHtml(preview) + '</div>' +
+      '<div class="card-meta">' +
+        '<span class="card-type">' + n.type + '</span>' +
+        '<span>' + dateStr + '</span>' +
+        (n.files && n.files.length ? '<span>&#128206; ' + n.files.length + '</span>' : '') +
+      '</div>';
+    card.onclick = (e) => { if (!e.target.classList.contains('card-del')) openReader(n.id); };
+    grid.appendChild(card);
+  });
+  container.appendChild(grid);
+}
+
+function stripPreview(content) {
+  return content.split('\n')
+    .map(l => l.trim())
+    .filter(l => l && !/^[\u25A0\u26A0]/.test(l) && !/^[\u2500-\u257F=_]{3,}/.test(l))
+    .join(' ').slice(0, 120);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  MODAL NOTE
+// ═══════════════════════════════════════════════════════════════════════════
+
+function openNoteModal(tab, noteId) {
+  if (!state.activeTopic) { toast('Choisis d\'abord une sous-matière'); return; }
+  currentModalTab = tab;
+  editingNoteId = noteId || null;
+  pendingFiles = [];
+  document.getElementById('note-modal-title').textContent = noteId ? 'Modifier la note' : 'Nouvelle note';
+  if (noteId) {
+    const n = state.notes.find(x => x.id === noteId);
+    document.getElementById('note-title').value = n.title;
+    document.getElementById('note-content').value = n.content || '';
+    pendingFiles = n.files ? n.files.slice() : [];
+  } else {
+    document.getElementById('note-title').value = '';
+    document.getElementById('note-content').value = '';
+  }
+  renderFileList();
+  openModal('note-modal');
+}
+
+function saveNote() {
+  const title = document.getElementById('note-title').value.trim();
+  if (!title) { toast('Ajoute un titre'); return; }
+  const content = document.getElementById('note-content').value;
+  if (editingNoteId) {
+    const n = state.notes.find(x => x.id === editingNoteId);
+    n.title = title; n.content = content; n.files = pendingFiles.slice(); n.updatedAt = Date.now();
+  } else {
+    state.notes.push({
+      id: 'n' + Date.now(),
+      topicId: state.activeTopic,
+      type: currentModalTab,
+      title, content, files: pendingFiles.slice(), createdAt: Date.now(),
+    });
+  }
+  save();
+  closeModal('note-modal');
+  renderTopicView();
+  renderSidebar();
+  toast('Enregistré \u2713');
+}
+
+function deleteNote(e, id) {
+  e.stopPropagation();
+  state.notes = state.notes.filter(n => n.id !== id);
+  save();
+  renderTopicView();
+  renderSidebar();
+}
+
+// ─── FICHIERS ───
+document.getElementById('file-input').addEventListener('change', function() {
+  Array.from(this.files).forEach(file => {
+    const reader = new FileReader();
+    reader.onload = (e) => { pendingFiles.push({ name: file.name, type: file.type, data: e.target.result }); renderFileList(); };
+    reader.readAsDataURL(file);
+  });
+  this.value = '';
+});
+
+function renderFileList() {
+  const list = document.getElementById('file-list');
+  list.innerHTML = '';
+  pendingFiles.forEach((f, i) => {
+    const item = document.createElement('div');
+    item.className = 'file-item';
+    item.innerHTML = '<span class="file-item-name">&#128196; ' + escHtml(f.name) + '</span>' +
+      '<button class="file-item-del" onclick="removeFile(' + i + ')">&times;</button>';
+    list.appendChild(item);
+  });
+}
+function removeFile(i) { pendingFiles.splice(i, 1); renderFileList(); }
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  LECTEUR
+// ═══════════════════════════════════════════════════════════════════════════
+
+function openReader(id) {
+  readerNoteId = id;
+  const n = state.notes.find(x => x.id === id);
+  const topic = state.topics.find(t => t.id === n.topicId);
+  const subject = topic ? state.subjects.find(s => s.id === topic.subjectId) : null;
+  const date = new Date(n.createdAt).toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' });
+
+  document.getElementById('reader-crumb').textContent =
+    (subject ? subject.name + ' / ' : '') + (topic ? topic.name : '');
+  document.getElementById('reader-title').textContent = n.title;
+  document.getElementById('reader-meta').innerHTML =
+    '<span class="card-type">' + n.type + '</span><span>' + date + '</span>';
+  document.getElementById('reader-content').innerHTML = renderContent(n.content || '');
+
+  const filesDiv = document.getElementById('reader-files');
+  const filesList = document.getElementById('reader-files-list');
+  if (n.files && n.files.length > 0) {
+    filesDiv.style.display = 'block';
+    filesList.innerHTML = '';
+    n.files.forEach(f => {
+      const item = document.createElement('div');
+      item.className = 'reader-file-item';
+      item.innerHTML = '&#128196; ' + escHtml(f.name);
+      item.onclick = () => downloadFile(f);
+      filesList.appendChild(item);
+    });
+  } else { filesDiv.style.display = 'none'; }
+  openModal('reader-modal');
+  document.querySelector('#reader-modal .reader-body').scrollTop = 0;
+}
+
+function openEditFromReader() {
+  closeModal('reader-modal');
+  const n = state.notes.find(x => x.id === readerNoteId);
+  openNoteModal(n.type, readerNoteId);
+}
+
+function downloadFile(f) {
+  const a = document.createElement('a');
+  a.href = f.data; a.download = f.name; a.click();
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  RENDU DU CONTENU  (prose lisible / formules monospace / tableaux intacts)
+// ═══════════════════════════════════════════════════════════════════════════
+
+function isTechnical(line) {
+  const t = line.trim();
+  if (!t) return false;
+  if (/[\u250C\u2510\u2514\u2518\u2500\u2502\u251C\u2524\u252C\u2534\u253C\u2550\u2551\u2554\u2557\u255A\u255D]/.test(t)) return true;
+  if (/^[·\u22C6*]?\s*[\u2500=_]{4,}/.test(t)) return true;
+  if (/\s{2,}\S/.test(t) && /^\s{2,}/.test(line) && t.length > 12) return true;
+
+  const words = t.match(/[A-Za-zÀ-ÿ]{2,}/g) || [];
+  const liaisons = /\b(si|est|sont|dans|pour|avec|que|qui|une|des|les|par|sur|donc|alors|on |le |la |ce |cette|tout|toute|plus|ainsi|c'est|d'un|d'une|leur|il |elle|nous|comme|entre|chaque|peut|doit|faut|voir|note|soit|soient)\b/gi;
+  const nbLiaisons = (t.match(liaisons) || []).length;
+  if (words.length >= 7 && nbLiaisons >= 2) return false;
+  if (/[a-zà-ÿ]{3,}\.$/.test(t) && words.length >= 5) return false;
+
+  const isIndented = /^\s{2,}/.test(line);
+  // Une ligne NON indentée qui se termine par un point est une phrase,
+  // même courte et même si elle contient des symboles mathématiques.
+  if (!isIndented && /[.!?]$/.test(t) && words.length >= 2) return false;
+  const hasMath = /[\u2211\u222B\u220F\u221A\u2264\u2265\u2260\u2248\u27F9\u27FA\u2208\u2209\u2282\u2283\u222A\u2229\u2205\u00B5\u03C3\u03BB\u03C1\u03A6\u03A9\u203E\u22C3\u22C2]/.test(t)
+             || /[\u2070\u00B9\u00B2\u00B3\u2074\u2075\u2076\u2077\u2078\u2079\u207F\u1D4F\u1D63\u1D62\u2C7C\u2080\u2081\u2082\u2099]/.test(t)
+             || /\b(P|E|V|F|f|Cov|\u03C1|\u03C3|\u03A6)\s*\(/.test(t)
+             || /[=\u223C~]/.test(t);
+  if (isIndented && hasMath && words.length <= 12) return true;
+  if (!isIndented && hasMath && words.length <= 4 && t.length <= 60) return true;
+  return false;
+}
+
+function renderContent(raw) {
+  const lines = raw.split('\n');
+  // Zones d'exemple : de la ligne « ▸ LABEL » jusqu'au prochain ■ ou ▸
+  const inEx = new Array(lines.length).fill(false);
+  for (let i = 0; i < lines.length; i++) {
+    if (!/^\u25B8/.test(lines[i].trim())) continue;
+    inEx[i] = true;
+    let j = i + 1;
+    while (j < lines.length) {
+      const tj = lines[j].trim();
+      if (/^[\u25A0\u25B8]/.test(tj)) break;
+      inEx[j] = true; j++;
+    }
+  }
+
+  let out = '';
+  let buf = [];
+  let exOpen = false;
+
+  const flushCode = () => {
+    if (!buf.length) return;
+    while (buf.length && !buf[0].trim()) buf.shift();
+    while (buf.length && !buf[buf.length-1].trim()) buf.pop();
+    if (buf.length) out += '<div class="rc-code">' + escHtml(buf.join('\n')) + '</div>';
+    buf = [];
+  };
+
+  const closeEx = () => {
+    if (exOpen) { flushCode(); out += '</div>'; exOpen = false; }
+  };
+
+  // Zones de tableau : gardées d'un seul tenant
+  const inTable = new Array(lines.length).fill(false);
+  const isSep = (s) => /[\u2500\u2550\u250C\u2510\u2514\u2518\u2502\u251C\u2524\u252C\u2534\u253C\u2554\u2557\u255A\u255D]/.test(s) || /^\s*[\u2500=_]{6,}\s*$/.test(s);
+  for (let i = 0; i < lines.length; i++) {
+    if (!isSep(lines[i])) continue;
+    inTable[i] = true;
+    let j = i + 1, blanks = 0;
+    while (j < lines.length) {
+      const tj = lines[j].trim();
+      if (!tj) { blanks++; if (blanks > 1) break; j++; continue; }
+      if (/^\u25A0/.test(tj)) break;
+      if (isSep(lines[j]) || /\s{2,}\S/.test(lines[j]) || tj.length < 30) { blanks = 0; inTable[j] = true; j++; continue; }
+      break;
+    }
+    let k = i - 1;
+    while (k >= 0) {
+      const tk = lines[k].trim();
+      if (!tk) break;
+      if (/^\u25A0/.test(tk)) break;
+      if (isSep(lines[k]) || /\s{2,}\S/.test(lines[k])) { inTable[k] = true; k--; continue; }
+      break;
+    }
+  }
+
+  // Cohésion : des lignes indentées voisines forment un bloc visuel.
+  // Si la majorité d'un groupe est technique, tout le groupe l'est —
+  // sinon une ligne un peu plus longue casserait l'alignement des colonnes.
+  const indented = new Array(lines.length).fill(false);
+  for (let i = 0; i < lines.length; i++) {
+    if (inTable[i] || !lines[i].trim()) continue;
+    if (!/^\s{2,}/.test(lines[i])) continue;
+    if (indented[i]) continue;
+    const grp = [i];
+    let j = i + 1;
+    while (j < lines.length) {
+      const tj = lines[j].trim();
+      if (!tj) { j++; continue; }
+      if (inTable[j] || !/^\s{2,}/.test(lines[j])) break;
+      if (/^[\u25A0\u26A0]/.test(tj)) break;
+      grp.push(j); j++;
+    }
+    if (grp.length < 2) continue;
+    const nbTech = grp.filter(k => isTechnical(lines[k])).length;
+    if (nbTech >= grp.length / 2) grp.forEach(k => { indented[k] = true; });
+  }
+
+  const marker = (s) => {
+    const t = s.trim();
+    if (/^[·\u22C6]\s/.test(t)) return 'bullet';
+    if (/^\d+[.)]\s/.test(t)) return 'num';
+    if (/^[a-z][.)]\s/.test(t)) return 'alpha';
+    return null;
+  };
+
+  // Groupes de liste homogènes
+  const groupMode = new Array(lines.length).fill(null);
+  for (let i = 0; i < lines.length; i++) {
+    if (inTable[i]) continue;
+    const m = marker(lines[i]);
+    if (!m || groupMode[i] !== null) continue;
+    const idx = [i]; const cont = [];
+    let j = i + 1;
+    while (j < lines.length) {
+      const tj = lines[j].trim();
+      if (!tj) { j++; continue; }
+      if (inTable[j]) break;
+      if (marker(lines[j]) === m) { idx.push(j); j++; continue; }
+      if (/^\s{2,}/.test(lines[j])) { cont.push(j); j++; continue; }
+      break;
+    }
+    if (idx.length < 2) continue;
+    const nbTech = idx.filter(k => isTechnical(lines[k])).length;
+    const mode = nbTech > idx.length / 2 ? 'code' : 'text';
+    idx.forEach(k => { groupMode[k] = mode; });
+    cont.forEach(k => { groupMode[k] = mode === 'code' ? 'code' : 'cont'; });
+  }
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const t = line.trim();
+
+    if (/^\u25A0/.test(t)) {
+      flushCode(); closeEx();
+      let head = t.replace(/^\u25A0\s*/, '');
+      let refHtml = '';
+      const m = head.match(/^(.*?)\s*\[([^\]]+)\]\s*$/);
+      if (m) {
+        head = m[1].trim();
+        const parts = m[2].split('|');
+        if (parts.length === 3) {
+          refHtml = '<span class="rc-ref rc-ref-link" onclick="openPage(\''
+                  + parts[1] + '\',' + parts[2] + ')" title="Voir la page du cours">'
+                  + escHtml(parts[0]) + '</span>';
+        } else {
+          refHtml = '<span class="rc-ref">' + escHtml(m[2]) + '</span>';
+        }
+      }
+      out += '<div class="rc-h"><span>' + escHtml(head) + '</span>' + refHtml + '</div>';
+      continue;
+    }
+
+    // Début d'un bloc exemple
+    if (/^\u25B8/.test(t)) {
+      flushCode(); closeEx();
+      out += '<div class="rc-ex"><div class="rc-ex-label">'
+           + escHtml(t.replace(/^\u25B8\s*/, '')) + '</div>';
+      exOpen = true;
+      continue;
+    }
+
+    if (/^\u26A0/.test(t)) { flushCode(); out += '<div class="rc-warn">' + escHtml(t) + '</div>'; continue; }
+
+    if (!t) {
+      if (buf.length) {
+        const nextIdx = lines.findIndex((l, k) => k > i && l.trim());
+        if (nextIdx > -1 && (inTable[nextIdx] || indented[nextIdx] || groupMode[nextIdx] === 'code'
+            || (groupMode[nextIdx] === null && isTechnical(lines[nextIdx])))) { buf.push(''); continue; }
+        flushCode();
+      }
+      continue;
+    }
+
+    if (inTable[i]) { buf.push(line); continue; }
+    if (indented[i]) { buf.push(line); continue; }
+
+    const gm = groupMode[i];
+    if (gm === 'code') { buf.push(line); continue; }
+    if (gm === 'text') { flushCode(); out += '<div class="rc-li">' + escHtml(t.replace(/^[·\u22C6]\s*/, '')) + '</div>'; continue; }
+    if (gm === 'cont') { flushCode(); out += '<div class="rc-li rc-cont">' + escHtml(t) + '</div>'; continue; }
+
+    if (isTechnical(line)) { buf.push(line); continue; }
+
+    flushCode();
+    if (/^[·\u22C6]/.test(t)) out += '<div class="rc-li">' + escHtml(t.replace(/^[·\u22C6]\s*/, '')) + '</div>';
+    else out += '<div class="rc-p">' + escHtml(t) + '</div>';
+  }
+  flushCode();
+  closeEx();
+  return out;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  MODAL MATIÈRE / SOUS-MATIÈRE
+// ═══════════════════════════════════════════════════════════════════════════
+
+function openSubjectModal() {
+  document.getElementById('subject-name-input').value = '';
+  document.getElementById('subject-emoji-input').value = '';
+  openModal('subject-modal');
+}
+function saveSubject() {
+  const name = document.getElementById('subject-name-input').value.trim();
+  const emoji = document.getElementById('subject-emoji-input').value.trim() || '\uD83D\uDCD6';
+  if (!name) { toast('Ajoute un nom'); return; }
+  const id = 's' + Date.now();
+  state.subjects.push({ id, name, emoji });
+  state.openSubjects[id] = true;
+  save(); closeModal('subject-modal'); renderSidebar(); toast('Matière créée \u2713');
+}
+
+function openTopicModal(subjectId) {
+  topicModalSubject = subjectId;
+  const s = state.subjects.find(x => x.id === subjectId);
+  document.getElementById('topic-modal-title').textContent = 'Nouvelle sous-matière — ' + (s ? s.name : '');
+  document.getElementById('topic-name-input').value = '';
+  openModal('topic-modal');
+}
+function saveTopic() {
+  const name = document.getElementById('topic-name-input').value.trim();
+  if (!name) { toast('Ajoute un nom'); return; }
+  const id = 't' + Date.now();
+  state.topics.push({ id, subjectId: topicModalSubject, name });
+  state.openSubjects[topicModalSubject] = true;
+  save(); closeModal('topic-modal'); renderSidebar();
+  selectTopic(id);
+  toast('Sous-matière créée \u2713');
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  RECHERCHE
+// ═══════════════════════════════════════════════════════════════════════════
+
+const searchInput = document.getElementById('search-input');
+const searchResults = document.getElementById('search-results');
+
+searchInput.addEventListener('input', function() {
+  const q = this.value.trim().toLowerCase();
+  if (!q) { searchResults.style.display = 'none'; return; }
+  const results = state.notes.filter(n =>
+    n.title.toLowerCase().includes(q) || (n.content || '').toLowerCase().includes(q)
+  ).slice(0, 10);
+  if (results.length === 0) {
+    searchResults.innerHTML = '<div class="search-result-item"><div class="res-title" style="color:var(--text-muted)">Aucun résultat</div></div>';
+  } else {
+    searchResults.innerHTML = results.map(n => {
+      const topic = state.topics.find(t => t.id === n.topicId);
+      const subject = topic ? state.subjects.find(s => s.id === topic.subjectId) : null;
+      const path = (subject ? subject.emoji + ' ' + subject.name + ' / ' : '') + (topic ? topic.name : '');
+      return '<div class="search-result-item" onclick="searchSelect(\'' + n.id + '\')">' +
+        '<div class="res-title">' + escHtml(n.title) + '</div>' +
+        '<div class="res-meta">' + escHtml(path) + ' &middot; ' + n.type + '</div></div>';
+    }).join('');
+  }
+  searchResults.style.display = 'block';
+});
+
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.search-wrap')) searchResults.style.display = 'none';
+});
+
+function searchSelect(id) {
+  const n = state.notes.find(x => x.id === id);
+  searchInput.value = '';
+  searchResults.style.display = 'none';
+  selectTopic(n.topicId);
+  state.activeTab = n.type;
+  renderTopicView();
+  setTimeout(() => openReader(id), 60);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  VISIONNEUSE DE PAGES DE COURS
+// ═══════════════════════════════════════════════════════════════════════════
+
+let PAGEIDX = null;      // index.json, chargé à la demande
+let viewer = { dir: null, n: 1, pages: [], doc: '' };
+
+async function loadPageIndex() {
+  if (PAGEIDX) return PAGEIDX;
+  try {
+    const r = await fetch('cours/index.json');
+    if (!r.ok) throw new Error('http ' + r.status);
+    PAGEIDX = await r.json();
+  } catch (e) {
+    PAGEIDX = false;
+  }
+  return PAGEIDX;
+}
+
+async function openPage(dir, n) {
+  const idx = await loadPageIndex();
+  let doc = null;
+  if (idx) {
+    for (const topic in idx) {
+      const d = idx[topic].find(x => x.dir === dir);
+      if (d) { doc = d; break; }
+    }
+  }
+  viewer = {
+    dir: dir, n: n, doc: doc ? doc.name : dir.split('/').pop(),
+    kind: doc ? (doc.kind || 'image') : (dir.indexOf('/proba/') > -1 ? 'text' : 'image'),
+    pages: doc ? doc.pages : [{ n: n, p: null }],
+  };
+  renderViewer();
+  openModal('page-modal');
+}
+
+async function renderViewer() {
+  const { dir, n, pages, doc, kind } = viewer;
+  const cur = pages.find(p => p.n === n);
+  const label = cur && cur.p != null ? 'p. ' + cur.p : 'page ' + n;
+  const pos = pages.findIndex(p => p.n === n);
+
+  document.getElementById('page-doc').textContent = doc;
+  document.getElementById('page-label').textContent =
+    label + (pages.length > 1 ? '   (' + (pos + 1) + ' / ' + pages.length + ')' : '');
+  document.getElementById('page-prev').disabled = pos <= 0;
+  document.getElementById('page-next').disabled = pos < 0 || pos >= pages.length - 1;
+
+  const img = document.getElementById('page-img');
+  const txt = document.getElementById('page-text');
+  const err = document.getElementById('page-error');
+  err.style.display = 'none';
+
+  if (kind === 'text') {
+    img.style.display = 'none';
+    txt.style.display = 'block';
+    txt.innerHTML = '<div class="page-text-load">Chargement…</div>';
+    try {
+      const r = await fetch(dir + '/' + n + '.txt');
+      if (!r.ok) throw new Error('http ' + r.status);
+      const body = await r.text();
+      txt.innerHTML = renderContent(body);
+    } catch (e) {
+      txt.style.display = 'none';
+      err.style.display = 'block';
+    }
+  } else {
+    txt.style.display = 'none';
+    img.style.display = 'block';
+    img.src = dir + '/' + n + '.jpg';
+  }
+  document.querySelector('#page-modal .page-body').scrollTop = 0;
+}
+
+function pageStep(d) {
+  const pos = viewer.pages.findIndex(p => p.n === viewer.n);
+  const next = pos + d;
+  if (next < 0 || next >= viewer.pages.length) return;
+  viewer.n = viewer.pages[next].n;
+  renderViewer();
+}
+
+function pageImgError() {
+  document.getElementById('page-img').style.display = 'none';
+  document.getElementById('page-error').style.display = 'block';
+}
+function pageImgOk() {
+  document.getElementById('page-img').style.display = 'block';
+  document.getElementById('page-error').style.display = 'none';
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  IMPORT / EXPORT
+// ═══════════════════════════════════════════════════════════════════════════
+
+document.getElementById('import-input').addEventListener('change', function() {
+  const file = this.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const d = JSON.parse(e.target.result);
+      const incoming = Array.isArray(d) ? d : (d.notes || []);
+      if (d.subjects) d.subjects.forEach(s => { if (!state.subjects.some(x => x.id === s.id || x.name === s.name)) state.subjects.push(s); });
+      if (d.topics) d.topics.forEach(t => { if (!state.topics.some(x => x.id === t.id)) state.topics.push(t); });
+      let added = 0;
+      incoming.forEach(n => {
+        const dup = state.notes.some(x => x.topicId === n.topicId && x.type === n.type && x.title === n.title);
+        if (!dup && n.topicId) {
+          state.notes.push({
+            id: n.id || ('n' + Date.now() + Math.random().toString(36).slice(2,6)),
+            topicId: n.topicId, type: n.type, title: n.title,
+            content: n.content || '', files: n.files || [], createdAt: n.createdAt || Date.now(),
+          });
+          added++;
+        }
+      });
+      save(); renderSidebar(); if (state.activeTopic) renderTopicView();
+      toast(added ? added + ' note(s) importée(s) \u2713' : 'Déjà à jour');
+    } catch (err) { toast('Fichier invalide'); }
+  };
+  reader.readAsText(file);
+  this.value = '';
+});
+
+function exportData() {
+  const blob = new Blob([JSON.stringify({
+    subjects: state.subjects, topics: state.topics, notes: state.notes,
+  }, null, 1)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'efrei-wiki-' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  UTILS
+// ═══════════════════════════════════════════════════════════════════════════
+
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+function escHtml(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('open'); });
+});
+document.addEventListener('keydown', e => {
+  const pm = document.getElementById('page-modal');
+  if (pm && pm.classList.contains('open')) {
+    if (e.key === 'ArrowLeft')  { pageStep(-1); return; }
+    if (e.key === 'ArrowRight') { pageStep(1);  return; }
+  }
+  if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(o => o.classList.remove('open'));
+});
+
+// ─── INIT ───
+load();
+renderSidebar();
+// Ouvre la première sous-matière qui a du contenu
+(function() {
+  const first = state.topics.find(t => state.notes.some(n => n.topicId === t.id));
+  if (first) selectTopic(first.id);
+})();
+</script>
+</body>
+</html>

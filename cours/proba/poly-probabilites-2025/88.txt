@@ -1,0 +1,35 @@
+Exercice 3.18 [**] Un secrétaire très occupé
+Un secrétaire effectue n appels téléphoniques vers n personnes (n est un entier supérieur à 2).
+Ces appels sont indépendants les uns des autres et, pour chaque appel, la probabilité d’obtenir le
+correspondant demandé est de p ∈]0;1[. On note q = 1− p. Le lendemain, le secrétaire renouvelle
+l’opération, dans les mêmes conditions, avec les correspondants qu’il n’a pas réussi à joindre le jour
+précédent. Et ainsi de suite.
+On note X1 la variable aléatoire égale au nombre de correspondants obtenus le premier jour, X2 le
+nombre de correspondants obtenus le deuxième jour, X3 le troisième jour, etc.
+a) Quelle est la loi de X1 ?
+b) Pour k ∈[0;n] et j ∈ N, calculez la probabilité conditionnelle P(X2 = j |X1 = k).
+c) Soit N2 = X1 + X2 la variable aléatoire égale au nombre de correspondants obtenus à la
+fin des deux premiers jours. Démontrez que N2 suit une loi binomiale de paramètres n et
+p(2− p).
+d) Soit T la variable aléatoire égale au nombre total d’appels téléphoniques nécessaires pour
+obtenir les n correspondants. Déterminez E(T) et V(T).
+e) Soit l un entier supérieur ou égal à 2 et Nl =
+l
+∑
+i=1
+Xi. Déterminez la loi de Nl
+.
+Exercice 3.19 [**]
+Soit X une variable aléatoire discrète telle que X ∼ B(n, p). Chaque résultat de X est affiché sur
+un compteur détraqué : si X n’est pas nul, le compteur affiche la bonne valeur ; si X est nul, il affiche
+au hasard une valeur comprise entre 1 et n. On note Y la variable aléatoire correspondant à la valeur
+affichée par le compteur. Trouvez la loi de Y et son espérance.
+Exercice 3.20 [*]
+Un magasin est en rupture de stock d’un produit A, 3 semaines en moyenne, par an. Et 2 semaines
+en moyenne d’un produit B. Les approvisionnements se font toutes les semaines et sont indépendants.
+Appelons :
+⋆ X le nombre de ruptures de stock du produit A, sur un an,
+⋆ Y le nombre de ruptures de stock du produit B, sur un an,
+⋆ Z le nombre de ruptures de stock d’un produit A ou B, sur un an.
+On suppose que la variable aléatoire X suit une loi de Poisson de paramètre 3 et Y suit une loi de
+Poisson de paramètre 2.

@@ -1,0 +1,56 @@
+⋆ Dans le cas où X(Ω) est un ensemble infini dénombrable, l’espérance peut ne pas exister car
+rien n’empêche que la série ∑
+x∈X(Ω)
+xP(X = x) soit divergente.
+Prenez l’exemple d’un jeu où l’on jette une pièce jusqu’à ce que l’on tombe sur pile et le joueur
+gagne 2
+n
+euros où n est le nombre de lancers effectués. Soit X la variable aléatoire représentant
+le gain du joueur. Alors, le gain moyen d’un joueur est donné par
++∞
+∑
+n=1
+2
+nP(X = 2n
+) =
++∞
+∑
+n=1
+2
+n
+1
+2
+n
+= ∞.
+Proposition 3.3
+L’espérance est une application linéaire sur l’espace vectoriel ℓ1(Ω).
+Autrement dit, soient X et Y deux variables aléatoires discrètes sur Ω pour lesquelles l’espérance
+existe, et soient α,β ∈ R. Alors, on a
+E(αX +βY) = αE(X) +βE(Y).
+Théorème 3.4 : Théorème du transfert (version discrète)
+Soit X ∈ ℓ1(Ω) une variable aléatoire discrète, soit g une fonction réelle définie sur X(Ω). Alors,
+si l’espérance de Y = g(X) existe, on a
+E(g(X)) = ∑
+x∈X(Ω)
+g(x)P(X = x).
+Démonstration. La preuve est tout simplement l’idée que l’on doit regrouper ensemble les différentes
+valeurs de X ayant la même valeur y j = g(x) :
+∑
+i
+g(xi)P(X = xi) = ∑
+j
+∑
+xi|g(xi)=y j
+g(xi)P(X = xi)
+= ∑
+j
+y j ∑
+xi|g(xi)=y j
+P(X = xi)
+= ∑
+j
+y jP(g(X) = y j)
+= E(g(X)).
+♦Exemple : Reprenons l’exemple page 58. Nous avons maintenant deux façons de calculer E(X
+2
+).

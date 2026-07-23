@@ -1,0 +1,10 @@
+2.4 Acquis d’apprentissage
+À la fin de ce chapitre, vous devrez être en mesure de :
+⋆ Calculer la probabilité de E sachant F, pour E, F deux évènements quelconques.
+⋆ Interpréter les probabilités conditionnelles en termes d’arbres.
+⋆ Utiliser des tableaux de contingence pour calculer des probabilités conditionnelles.
+⋆ Reconnaître si E et F sont deux évènements indépendants.
+⋆ Reconnaître un système complet d’évènements.
+⋆ Utiliser la formule de multiplication pour calculer la probabilité P(E ∩F).
+⋆ Reconnaître dans quelles situations utiliser la formule des probabilités totales.
+⋆ Utiliser la formule de Bayes.

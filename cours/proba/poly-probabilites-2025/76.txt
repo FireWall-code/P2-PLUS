@@ -1,0 +1,32 @@
+Proposition 3.15 : Somme de variables aléatoires indépendantes binomiales
+Soient X et Y deux variables aléatoires discrètes indépendantes telles que X ∼ B(n, p) et
+Y ∼ B(m, p). Alors, on a X +Y ∼ B(n+m, p).
+Démonstration. Si l’on reprend le point de vue de la preuve précédente, ce résultat est presque évident.
+En effet, X est la somme de n variables suivant une loi de Bernoulli de paramètre p et Y est la somme de
+m variables suivant une loi de Bernoulli de paramètre p, donc il est clair que X +Y est bien la somme
+de n+m variables suivant une loi de Bernoulli de paramètre p : on enrichit simplement l’expérience
+de n tirages par m tirages supplémentaires.
+Point historique #2 (L’expérience de Bernoulli et la loi binomiale)
+Le cadre conceptuel fourni par l’expérience de Bernoulli et la loi binomiale joue un rôle central
+dans le développement des probabilités du 19esiècle. Il fut introduit en 1713 par Jakob Bernoulli
+dans son œuvre posthume Ars Conjectandi.
+En particulier, il y prouva le premier théorème mathématiquement intéressant en probabilités
+(qu’il appela le “théorème d’or”) :
+Théorème d’or de Bernoulli
+Soit Sn le nombre de victoires dans les n répétitions identiques du jeu dont la
+probabilité de victoire est p. Alors
+∀ε > 0, lim
+n→+∞
+P
+
+|
+Sn
+n
+− p| < ε
+
+= 1.
+(En mots : la probabilité de victoire correspond, sur le long terme, à la
+fréquence des victoires.)
+Le problème mathématique principal du 19esiècle en théorie des probabilités va être d’affiner
+et étendre ce théorème, grâce en particulier aux travaux de Abraham De Moivre, Pierre-Simon
+Laplace et Pafnouti Tchebychev.

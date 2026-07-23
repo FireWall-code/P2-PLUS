@@ -1,0 +1,40 @@
+Dans le référentiel de la particule X, on ne peut pas savoir à l’avance dans quelle direction
+sera émise la particule α mais toutes les directions sont équiprobables. À deux dimensions, on
+modélise la probabilité d’émission de la particule d’hélium entre 0 et θ par une variable aléatoire
+Θ dont la densité de probabilité est
+f(θ) =
+
+
+
+1
+2π
+si θ ∈ [0,2π[
+0 sinon.
+Proposition 4.2
+Soit a ∈ R et X une variable aléatoire continue. Alors, on a P(X = a) = 0.
+Démonstration. Puisque X est continue, on a
+P(X = a) = Z a
+a
+f(x)dx = 0.
+Remarque : Conséquence non triviale de ce résultat qui semble anodin : pour une variable continue,
+X(Ω) doit être indénombrable (sinon on aurait ∑
+x∈X(Ω)
+P(X = x) = ∑
+x∈X(Ω)
+0 = 0, ce qui est absurde) et
+donc l’univers Ω lui-même est indénombrable! Mais nous ferons l’autruche, ignorant les subtilités
+des univers indénombrables (voir section 1.4), car en pratique nous considérerons toujours des sousensembles B ⊂ R qui sont des intervalles ou réunions d’intervalles.
+Définition 4.2 (Fonction de répartition)
+On appelle fonction de répartition de la variable aléatoire X, que l’on note FX(x) (ou F(x) si la
+variable aléatoire est évidente), la fonction définie pour tout réel x ∈ R par
+F(x) = P(X ≤ x).
+♦Exemple : En suivant l’exemple de la durée de vie d’un ordinateur modélisé par une variable aléatoire
+T dont la densité de probabilité est
+f(t) =
+
+
+
+1
+1000 e
+−t/1000 si t ≥ 0
+0 sinon,

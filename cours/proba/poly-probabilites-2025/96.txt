@@ -1,0 +1,27 @@
+on a
+F(t) =
+
+
+
+0 si t ≤ 0
+1−e
+−t/1000 si t ≥ 0.
+Ici, la fonction de répartition F indique la probabilité qu’à l’instant t l’ordinateur ne marche plus.
+Graphiquement, cela donne :
+Remarque : C’est la même définition que pour les variables aléatoires discrètes. Cela dit, comme on le
+verra, la fonction de répartition est un objet crucial dans les calculs des variables aléatoires continues
+alors que FX n’est pas vraiment utile dans le cas discret.
+Proposition 4.3 : Propriétés de la fonction de répartition
+Soit X une variable aléatoire continue et notons F sa fonction de répartition. Alors :
+⋆ F est continue.
+⋆ F est croissante.
+⋆ lim
+x→−∞
+F(x) = 0.
+⋆ lim
+x→+∞
+F(x) = 1.
+⋆ ∀(a,b) ∈ R
+2
+, P(a ≤ X ≤ b) = F(b)−F(a).
+Démonstration. Les propriétés découlent directement de la définition.

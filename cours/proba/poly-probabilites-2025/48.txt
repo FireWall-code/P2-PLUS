@@ -1,0 +1,30 @@
+♦ Exercice 2.14 [*] Un problème de diagnostic
+Si une personne est porteuse de la maladie M, un test de laboratoire a une efficacité de 95% pour le
+détecter. Cependant, ce même test présente 1% de “faux-positifs” : parmi les personnes non-porteuses
+de la maladie qui font le test, 1% auront un résultat positif. Sachant que 0.05% de la population est
+porteuse de la maladie, quelle est la probabilité que je sois porteur si mon test a été positif ?
+Exercice 2.15 [**]
+Au cours d’une épidémie, 20% des personnes vaccinées et 60% des personnes non vaccinées sont
+malades. Parmi les malades, la proportion de personnes vaccinées vaut 10%.
+a) Déterminer la proportion de malades.
+b) Et la proportion de vaccinés.
+Exercice 2.16 [*]
+Cet exercice est tiré de S. Ross, A first course in Probability, p. 82-83.
+Dans une clinique psychiatrique, les assistants sont si occupés que, en moyenne, seulement 60%
+des nouveaux patients potentiels qui téléphonent peuvent parler immédiatement à un assistant social
+lorsqu’ils appellent. Aux 40% restants, on leur demande de laisser leur numéro de téléphone : 75%
+des fois, les assistants les rappellent le jour-même et 25% des fois ils sont rappelés le lendemain.
+L’expérience montre que la probabilité que l’appelant se rende effectivement à la clinique est de 0.8
+s’il arrive à parler immédiatement à un assistant, de 0.6 s’il est rappelé le jour-même et 0.4 s’il est
+rappelé le lendemain.
+a) Quel pourcentage des appelants se rend effectivement à la clinique ?
+b) Quel pourcentage des patients qui se sont rendus à la clinique ont dû être rappelés ?
+♦ Exercice 2.17 [*]
+Une compagnie d’assurance automobile a classé ses assurés en trois classes d’âges :
+⋆ moins de 25 ans,
+⋆ de 25 ans à 50 ans,
+⋆ plus de 50 ans.
+Le tableau ci-dessous fournit deux informations :
+⋆ La proportion d’assurés appartenant à chaque classe,
+⋆ La probabilité qu’un assuré d’une classe donnée déclare au moins un accident au cours de
+l’année.

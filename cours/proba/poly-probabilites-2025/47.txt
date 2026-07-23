@@ -1,0 +1,40 @@
+Exercice 2.12 [**] Information d’un évènement sur un autre
+Cet exercice est tiré de S. Ross, A first course in Probability, p. 107.
+Soient E et F deux évènements possibles dans Ω. F est dit “posséder une information négative” sur
+E, noté F ↘ E, si P(E|F) ≤ P(E). (Autrement dit : la réalisation de F diminue la probabilité de la
+réalisation de E.)
+a) Dans le dessin suivant, tracer un ensemble F qui satisfait à la propriété F ↘ E.
+Pour chacune des affirmations suivantes, prouver si elles sont vraies ou fausses (vous pouvez vous
+appuyer sur des dessins) :
+b) F ↘ E =⇒ E ↘ F.
+c) F ↘ E et E ↘ G =⇒ F ↘ G.
+d) F ↘ E et G ↘ E =⇒ F ∩G ↘ E.
+Mêmes questions pour la relation F ↗ E (F “possède une information positive” sur E) définie par
+P(E|F) ≥ P(E).
+Exercice 2.13 [***] Indicatrice d’Euler
+D’après un sujet de Mines-Ponts.
+Soit n = p
+α1
+1 ×...× p
+αr
+r un entier naturel non nul, décomposé en produit de facteurs premiers. On
+note ϕ(n) (et on appelle fonction indicatrice d’Euler) le nombre d’entiers compris entre 1 et n qui sont
+premiers avec n.
+On se propose de démontrer que
+ϕ(n) = n
+
+1−
+1
+p1
+
+×...×
+
+1−
+1
+pr
+
+Soit Ω = [[1;n]], muni de la probabilité uniforme.
+a) Si d est un diviseur de n, on note Dd l’ensemble des multiples de d dans Ω.
+Calculer P(Dd).
+b) Montrer que Dp1,Dp2,...,Dprsont mutuellement indépendants.
+c) En déduire la formule pour ϕ(n).

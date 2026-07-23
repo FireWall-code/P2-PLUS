@@ -1,0 +1,35 @@
+Définition 4.4 (Couple de variables aléatoires conjointement continues)
+Deux variables aléatoires X et Y sont conjointement continues s’il existe une fonction
+fX,Y : R
+2 −→ R telle que
+⋆ fX,Y ≥ 0
+⋆ ∀C ⊂ R
+2
+,P
+
+(X,Y) ∈ C
+
+=
+ZZ
+C
+fX,Y (x, y)dxdy.
+fX,Y est appelée la densité de probabilité conjointe de X et Y.
+♦Exemple : Un enfant fait tomber un ballon dans une mare parfaitement circulaire de rayon R. Ce
+ballon flotte sur la surface de la mare et bouge au gré des aléas météorologiques (pluie, vent). L’enfant
+revient le jour d’après pour voir s’il peut récupérer son ballon. Sachant que l’enfant pourra attraper le
+ballon s’il est à une distance inférieure à r < R du bord de la mare et supposant qu’à ce moment-là
+toutes les positions sur la surface de la mare sont équiprobables, calculer la probabilité que l’enfant
+puisse récupérer son ballon.
+On note (x, y) la position du ballon sur la mare et X et Y les variables aléatoires associées.
+FIGURE 4.3 – Un ballon rouge flotte sur une mare circulaire de rayon R et peut se trouver,
+après un certain temps, n’importe où sur cette mare.
+X et Y sont conjointement continues et l’on a
+fX,Y (x, y) =
+
+
+
+1
+πR2
+si x
+2 +y2 ≤ R2
+0 sinon.

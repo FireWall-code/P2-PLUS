@@ -1,0 +1,38 @@
+FIGURE 2.3 – Illustration de la formule des probabilités totales : la surface de E est la somme
+des surfaces intersectant les différentes régions Ai.
+200ième, 50% de chances si elle est entre le 201-ième et le 400-ième étudiant et 10% de chances si
+elle est plus bas dans le classement. De plus, on suppose que toutes les places du classement sont
+équiprobables pour un étudiant rentrant en L1 (il y a 600 étudiants en L3) et que 20% des étudiants
+rentrant en L1 quittent l’école avant de valider la L3. Quelle est la probabilité pour que cette nouvelle
+étudiante atteigne son objectif ?
+Introduisons les évènements
+A : “être parmi les 50 meilleurs étudiants”,
+B : “être entre le 51eet 200e”,
+C : “être entre le 201eet 400e”,
+D : “être en-dessous de la 400eplace”,
+F : “quitter l’école avant la fin de la troisième année”,
+M : “intégrer la majeure cybersécurité”.
+Les cinq premiers évènements forment un système complet d’évènements. Par exemple, on a
+P(A) = P(A∩F) = P(A|F)P(F) = 0.8×
+50
+600
+.
+Ainsi, la probabilité que l’on cherche est donnée par :
+P(M) = P(M|A)P(A) +P(M|B)P(B) +P(M|C)P(C) +P(M|D)P(D) +P(M|F)P(F)
+= 0.8×
+50
+600
++0.8×0.8×
+150
+600
++0.5×0.8×
+200
+600
++0.1×0.8×
+200
+600
++0×0.2
+=
+29
+75
+≈ 0.39.

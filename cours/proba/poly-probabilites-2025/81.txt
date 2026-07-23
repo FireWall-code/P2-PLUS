@@ -1,0 +1,14 @@
+FIGURE 3.9 – Siméon Denis Poisson (1781-1840).
+3.6 Acquis d’apprentissage
+À la fin de ce chapitre, vous devrez être en mesure de :
+⋆ Déterminer la loi de probabilité d’une variable aléatoire discrète.
+⋆ Déterminer la loi de probabilité d’une nouvelle variable Y exprimée en fonction d’une variable
+X dont on connaît la loi de probabilité.
+⋆ Calculer l’espérance, la variance et l’écart-type d’une variable aléatoire discrète.
+⋆ Déterminer la loi de probabilité conjointe de deux variables aléatoires discrètes.
+⋆ Déterminer si deux variables aléatoires discrètes sont indépendantes.
+⋆ Calculer la covariance et le coefficient de corrélation entre deux variables aléatoires discrètes.
+⋆ Reconnaître les situations où l’on doit utiliser les lois uniforme, binomiale, binomiale négative
+ou de Poisson.
+⋆ Connaître les caractéristiques principales des lois uniforme, binomiale, binomiale négative et de
+Poisson.

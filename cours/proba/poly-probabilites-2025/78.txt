@@ -1,0 +1,38 @@
+Proposition 3.16 : Espérance et variance de la loi binomiale négative
+Si X ∼ BN (r, p), alors E(X) = r
+p
+et V(X) = r(1− p)
+p
+2
+.
+Démonstration. Voir exercice 3.29.
+3.5.5 Loi de Poisson
+On termine avec une loi un peu à part des autres et qui est principalement associée aux évènements
+rares comme les accidents, les désintégrations radioactives, les défauts de crédits, etc. On verra qu’elle
+est dans tous ces cas une excellente approximation de la loi binomiale.
+Définition 3.18 (Loi de Poisson)
+Soient X une variable aléatoire discrète et λ ∈ R
++. On dit que X suit une loi de Poisson de
+paramètre λ, noté X ∼ P(λ), si X(Ω) = N et ∀k ∈ N,
+P(X = k) = e
+−λ λ
+k
+k!
+.
+FIGURE 3.7 – Représentation de la loi de Poisson pour λ = 30.
+Remarque : On vérifie bien que
++∞
+∑
+k=0
+P(X = k) = e
+−λ
++∞
+∑
+k=0
+λ
+k
+k!
+= e
+−λ
+e
+λ = 1.

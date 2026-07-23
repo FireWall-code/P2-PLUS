@@ -1,0 +1,30 @@
+Exercice 2.20 [**] Un jeu de dés
+On dispose d’une pièce de monnaie et de deux dés A et B. Le dé A a quatre faces rouges et deux
+faces noires et le dé B a deux faces rouges et quatre noires. On lance la pièce de monnaie au début du
+jeu : si on obtient face, on lance le dé A indéfiniment, sinon on utilise le dé B.
+a) Calculer la probabilité d’avoir rouge au n-ième jet de dé.
+b) Sachant que rouge est sorti aux deux premiers coups, quelle est la probabilité d’avoir encore
+rouge au troisième ?
+c) Si le rouge est sorti aux n premiers coups, quelle est la probabilité d’avoir encore rouge au
+(n+1)-ième lancer ?
+d) Si le rouge est sorti aux n premiers coups, quelle est la probabilité d’avoir tiré face avec la
+pièce de monnaie au début du jeu ?
+Exercice 2.21 [***] Le problème des rencontres
+N personnes déposent au vestiaire leur chapeau. Suite à une panne d’électricité, chaque personne
+reprend du vestiaire un chapeau de façon aléatoire.
+a) Quelle est la probabilité que toutes les personnes reprennent leur propre chapeau ?
+b) Quelle est la probabilité qu’au moins une des personnes ne reprenne pas son propre chapeau ?
+c) Quelle est la probabilité qu’aucune personne reprenne son propre chapeau ?
+Aide : utilisez pour cela la formule de Poincaré et la définition des coefficients binomiaux.
+d) Quelle est la limite de cette dernière probabilité lorsque N tend vers l’infini ?
+Exercice 2.22 [*] Les chats de Schrödinger
+Considérons l’expérience de pensée suivante : on place 20 chats dans des boîtes individuelles. Par
+ailleurs,
+⋆ 10 boîtes sont vides.
+⋆ 5 boîtes contiennent 3g d’arsenic.
+⋆ 5 boîtes contiennent 10g d’arsenic.
+Au bout d’une heure, la probabilité qu’un chat soit encore en vie dans la boîte est égale à 1 si la boîte
+est vide ; 0,6 si la boîte contient 3g d’arsenic ; 0,2 si la boîte contient 10g d’arsenic. On choisit une des
+20 boîtes au hasard.
+a) Quelle est la probabilité que le chat qui s’y trouve soit encore en vie au bout d’une heure ?
+b) Le chat est en vie. Quelle est la probabilité que la boîte ait été vide quand on l’y a placé ?

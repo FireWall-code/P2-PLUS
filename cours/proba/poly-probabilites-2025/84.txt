@@ -1,0 +1,26 @@
+♦ Exercice 3.7 [*]
+Soient X et Y deux variables aléatoires discrètes dont la loi de probabilité conjointe est donnée
+ci-dessous :
+Y = 2 Y = 4 Y = 5
+X = 1 2c c c
+X = 2 4c 2c 3c
+X = 3 6c 3c 2c
+a) Trouver la valeur de la constante c.
+b) Calculer P(X ≤ 2,Y ≤ 4).
+c) Calculer P(Y = 2
+
+X = 1).
+d) Les deux variables sont-elles indépendantes ?
+♦ Exercice 3.8 [*] Couples
+Soit une urne contenant une boule blanche, une boule verte et une boule rouge. On extrait successivement les trois boules de l’urne. On note X le rang d’apparition de la boule blanche et Y le rang
+d’apparition de la boule rouge. On représente la loi conjointe de X et Y sous la forme d’un tableau :
+X = 1 X = 2 X = 3
+Y = 1
+Y = 2
+Y = 3
+Ω est l’ensemble des anagrammes du mot RBV.
+a) Calculer Card(Ω).
+b) Remplir le tableau de la loi conjointe.
+c) Déterminer les lois de probabilité de X et Y. Sont-elles indépendantes ?
+d) Calculer l’espérance et la variance de X et Y.
+e) Calculer Cov(X,Y) puis ρ(X,Y).

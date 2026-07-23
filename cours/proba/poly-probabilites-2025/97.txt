@@ -1,0 +1,23 @@
+FIGURE 4.2 – Lien entre densité de probabilité et fonction de répartition. Le graphe du bas
+montre le graphe de la densité de probabilité (en rouge). L’aire sous la courbe correspond à la
+valeur de la fonction de répartition (graphe du haut).
+Théorème 4.4 : Lien entre la fonction de répartition et la densité de probabilité
+Soit X une variable aléatoire continue et notons f sa densité de probabilité et F sa fonction de
+répartition. Alors,
+⋆ F(x) = Z x
+−∞
+f(t)dt.
+⋆ f est la dérivée de F
+1
+.
+⋆ F est l’unique primitive de f continue telle que lim
+x→+∞
+F(x) = 1 et lim
+x→−∞
+F(x) = 0.
+Démonstration. Le théorème découle directement de la définition.
+Tout ce qui précède montre que tous les calculs de probabilités liés à X sont complètement déterminés
+dès que l’on connaît la fonction de répartition F ou la densité de probabilité f .
+1. De la même façon que f peut ne pas être continue en certains points isolés, F peut parfois ne pas être dérivable (voir
+l’exemple ci-dessus de la distribution exponentielle en t = 0. Mais cela ne pose aucun problème car la valeur de la densité
+de probabilité peut être modifiée en des points isolés sans impact.

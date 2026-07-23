@@ -1,0 +1,33 @@
+Exercice 3.11 [**]
+Supposons que, dans une certaine communauté, 15% des couples n’ont pas d’enfants, 20% ont un
+enfant, 35% ont deux enfants et 30% ont trois enfants. On tire un couple au hasard et on note G le
+nombre de garçons de cette famille et F le nombre de filles. On suppose que la naissance d’un garçon
+ou d’une fille est équiprobable.
+a) Donner la loi de probabilité conjointe de F et G.
+b) Ces deux variables aléatoires sont-elles indépendantes ?
+c) Calculer le coefficient de corrélation ρ(F,G) et commentez le résultat.
+♦ Exercice 3.12 [*]
+Pour chacun des couples de variables aléatoires ci-dessous, donner, sans calculs, la valeur du
+coefficient de corrélation linéaire ρ(X,Y). Justifiez votre réponse.
+a) X est le nombre de garçons dans une famille de trois enfants choisie au hasard et Y est le
+nombre de filles dans cette même famille.
+b) X est le nombre de garçons dans une famille de trois enfants choisie au hasard et Y est le
+nombre de filles dans une autre famille de trois enfants choisie au hasard.
+♦ Exercice 3.13 [*] Un examen important
+Un étudiant s’apprête à passer un examen écrit très important et est préoccupé par la possibilité de ne
+pas être en forme le jour J à cause du stress. Il estime que, dans sa forme normale, il a une probabilité
+de 0.8 de réussir un exercice donné alors que, s’il n’est pas en forme, cette probabilité chute à 0.4. De
+plus, il estime qu’il est deux fois plus probable qu’il ne soit pas en forme le jour de l’examen. Sachant
+que pour valider l’examen l’étudiant doit réussir plus de la moitié des exercices, vaut-il mieux pour
+l’étudiant avoir un examen avec 3 ou 5 exercices ?
+♦ Exercice 3.14 [*]
+Deux joueurs A et B tirent sur une cible. La probabilité que A atteigne la cible est 1
+4
+et, pour B, elle
+est de 1
+3
+. Les différents tirs sont indépendants les uns des autres.
+a) A et B tirent chacun trois fois. Quelle est la probabilité que la cible soit atteinte exactement
+deux fois ?
+b) A et B tirent chacun une fois, la cible est atteinte une et une seule fois. Quelle est la probabilité
+que ce soit A qui a atteint la cible ?

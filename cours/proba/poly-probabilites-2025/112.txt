@@ -1,0 +1,21 @@
+répartition de la loi normale centrée réduite.
+Définition 4.12 (Fonction de répartition de la loi normale centrée réduite)
+On note Φ la fonction de répartition de la loi normale centrée réduite. Autrement dit, on a
+∀x ∈ R,Φ(x) = P(X ≤ x) = 1
+√
+2π
+Z x
+−∞
+e
+−t
+2/2
+dt.
+Proposition 4.13 : Propriétés de la fonction de répartition Φ
+Soient X ∼ N (0,1), Φ la fonction de répartition de X et a ≤ b ∈ R. On a
+⋆ P(a ≤ X ≤ b) = Φ(b)−Φ(a),
+⋆ P(X ≥ a) = P(X ≤ −a) = 1−Φ(a),
+⋆ Φ(−a) = 1−Φ(a).
+Démonstration. Le mieux est d’avoir en tête les dessins suivants :
+FIGURE 4.9 – Les égalités P(X ≥ a) = P(X ≤ −a) (à gauche) et
+P(X ≥ a) +Φ(a) = 1 (à droite).
+(Les graphiques ont été générés avec a = 0.88.)

@@ -1,0 +1,44 @@
+a) Trouver la probabilité qu’une page de texte mathématique contienne au moins une coquille.
+b) Trouver la probabilité qu’une page de texte philosophique contienne au plus deux coquilles.
+c) On ouvre une page du livre au hasard et l’on constate que cette page contient exactement
+une coquille. Trouver la probabilité qu’il s’agisse d’une page de texte mathématique.
+d) On note X la variable aléatoire qui compte le nombre de coquilles dans le livre entier. Donner
+l’espérance et la variance de X.
+Exercice 3.23 [**]
+Un serrurier (à jeun) tente d’ouvrir une porte à l’aide d’un trousseau de 10 clefs différentes, dont
+une seule ouvre la porte. On suppose qu’il ne réessaie pas deux fois la même clef, et soit X la variable
+aléatoire représentant le nombre d’essais nécessaires pour ouvrir la porte.
+a) Donner la loi de probabilité de X. Comment s’appelle-t-elle ?
+b) Calculer l’espérance de X.
+(On rappelle que
+n
+∑
+k=1
+k =
+n(n+1)
+2
+.)
+c) Calculer la variance de X.
+(On rappelle que
+n
+∑
+k=1
+k
+2 =
+n(n+1)(2n+1)
+6
+.)
+Le serrurier est maintenant ivre et oublie immédiatement quelle clef il vient d’essayer avant d’en tester
+une nouvelle. Soit Y la variable aléatoire représentant le nombre d’essais nécessaires pour ouvrir la
+porte.
+d) Donner la probabilité qu’il ouvre la porte au premier essai.
+e) Donner la probabilité qu’il ouvre la porte au cinquième essai.
+f) Donner la loi de probabilité de Y. Comment s’appelle-t-elle ?
+g) Quelle est la probabilité qu’il fasse au moins 100 essais ?
+h) Quelle est la probabilité qu’il n’ouvre jamais la porte ?
+Exercice 3.24 [**] La politique de surréservation
+Selon les statistiques d’une compagnie aérienne, une personne ayant réservé une place dans un vol
+donné a une probabilité de 5% de ne pas se présenter le jour du vol. Par conséquent, la compagnie
+a une politique de surréservation (“overbooking”) : pour un vol de 50 places, la compagnie vend 52
+billets. Quelle est la probabilité que toutes les personnes se présentant le jour du vol puissent s’asseoir
+dans l’avion ?

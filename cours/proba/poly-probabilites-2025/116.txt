@@ -1,0 +1,30 @@
+FIGURE 4.11 – Comparaison de la loi binomiale et de la loi normale pour différentes valeurs
+de n et p. Même pour des petites valeurs de n, l’approximation est déjà bonne.
+Proposition 4.16 : Combinaison linéaire de lois normales
+Soient X,Y deux variables aléatoires suivant des lois normales. Alors, toute combinaison linéaire
+de X et Y suit aussi une loi normale.
+Plus précisément, supposons que X ∼ N (µ1,σ
+2
+1
+) et Y ∼ N (µ2,σ
+2
+2
+) et considérons
+Z = aX +bY avec a,b ∈ R :
+⋆ Si X et Y indépendantes, alors Z ∼ N (aµ1 +bµ2,a
+2σ2
+1 +b
+2σ2
+2
+).
+⋆ Si X et Y non-indépendantes, alors Z ∼ N (aµ1 +bµ2,a
+2σ2
+1 +b
+2σ2
+2 +2abCov(X,Y)).
+Démonstration. Pour le cas des variables indépendantes, voir l’exercice 4.26. Le deuxième cas est
+admis.
+♦Exemple : On note X la taille d’un homme dans la population française et Y la taille d’une femme
+dans la population française. Sachant que l’on a X ∼ N (176,64) et Y ∼ N (164,49), quelle est la
+probabilité que, si l’on sélectionne au hasard un homme et une femme, la femme soit plus grande que
+l’homme ?

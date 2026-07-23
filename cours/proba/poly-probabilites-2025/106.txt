@@ -1,0 +1,52 @@
+Définition 4.8 (Moment d’ordre n)
+Soient X une variable aléatoire continue ou discrète et n ∈ N. On appelle moment d’ordre n, si
+elle existe, la quantité
+mn(X) = E(X
+n
+).
+On appelle moment centré d’ordre n, si elle existe, la quantité
+µn(X) = E ((X −E(X))n).
+Remarque : Aide-mémoire
+Les formules usuelles “discret/continu” se retrouvent avec la transformation suivante :
+Discret ←→ Continu
+xi ←→ x
+P(X = xi) ←→ f(x)dx
+∑ ←→ Z
+Discret Continu
+Espérance : E(X) ∑xiP(X = xi)
+Z +∞
+−∞
+x f(x)dx
+Moment d’ordre 2 : E(X
+2
+) ∑x
+2
+i P(X = xi)
+Z
+x
+2
+f(x)dx
+Moment d’ordre k : E(X
+k
+) ∑x
+k
+i P(X = xi)
+Z
+x
+k
+f(x)dx
+Fonction de répartition : F(t) = P(X ≤ t) ∑
+xi≤t
+P(X = xi)
+Z
+x≤t
+f(x)dx
+P(a ≤ X ≤ b) ∑
+a≤xi≤b
+P(X = xi)
+Z
+a≤x≤b
+f(x)dx
+Évidemment, cela reste un aide-mémoire. Et bien des choses fonctionnent différemment, comme
+par exemple, la probabilité en une valeur donnée dans le cadre continu qui est toujours nulle, ce qui
+n’est pas vrai dans le cadre discret.

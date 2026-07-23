@@ -1,0 +1,11 @@
+Remarque : D’un point de vue purement structurel, il n’y a donc rien qui distingue l’intersection de
+l’union. Cela implique, en particulier, que toute formule générale utilisant les symboles ∩ et ∪ sera
+aussi vraie sous l’échange ∩ ←→ ∪ et Ω ←→ ∅. Un exemple est la formule suivante :
+Proposition 1.2 : Lois de De Morgan
+Soient E,F ⊂ Ω. On a
+E ∪F = E ∩F et E ∩F = E ∪F.
+En mots : la négation d’une conjonction est la disjonction des négations et vice-versa.
+FIGURE 1.4 – Illustration de l’égalité E ∩F = E ∪F.
+Définition 1.4 (évènements incompatibles)
+Soient E,F ⊂ Ω deux évènements. On dit que E et F sont incompatibles si leur réalisation
+conjointe est impossible : E ∩F = ∅.

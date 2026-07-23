@@ -1,0 +1,30 @@
+contient environ 2500 caractères, la variable aléatoire X qui compte le nombre de coquilles
+(avant relecture !) est telle que X ∼ B(2500,
+1
+100 ).
+⋆ Les surfaces terrestre et marine se comportent comme des corps noirs et émettent des rayonnements (i.e, des photons) infrarouges en direction de l’espace. Mais chacun de ces photons a une
+probabilité p = 0.95 d’être absorbé par l’atmosphère (c’est ce que l’on appelle l’effet de serre).
+Si l’on note X le nombre de ces photons absorbés par seconde, alors on a X ∼ B(N, p) où N est
+le nombre moyen de photons émis par la surface terrestre en une seconde.
+Remarque : La loi binomiale est associée à des tirages successifs avec remise, mais on considère
+souvent que, si la taille n de l’échantillon à tirer est petite par rapport à la taille de la population N, un
+tirage simultané de l’échantillon est assimilable avec n tirages successifs avec remise.
+Par exemple : on considère la population française (N = 67,75×106), et on s’intéresse à la maladie
+du VIH (170 000 personnes atteintes). On prend un échantillon aléatoire de n = 1000 personnes (tirage
+simultané) et on appelle X le nombre de malades dans l’échantillon. Puisque n/N = 0.000015 est petit
+devant 1, on considère que X suit une loi binomiale de paramètres n et p =
+0.17
+67.75 ≈ 0.002, autrement
+dit on assimile le tirage simultané à un tirage successif avec remise.
+Proposition 3.14 : Espérance et variance de la loi binomiale
+Si X ∼ B(n, p), alors E(X) = np et V(X) = np(1− p).
+Démonstration. Deux façons de faire la preuve : soit en faisant les calculs directement (ce serait un
+bon exercice du cours d’Analyse SM201), soit (point de vue bien plus fécond) en voyant X comme
+une somme de variables aléatoires indépendantes X1,X2,...,Xn qui suivent chacune la même loi de
+Bernoulli de paramètre p. Ainsi, puisque l’espérance est linéaire
+E(X) = E(X1 +...+Xn) = E(X1) +...+E(Xn) = nE(X1) = np.
+De même, puisque l’on a V(X +Y) = V(X) +V(Y) si X,Y sont indépendantes,
+V(X) = nV(X1) = np(1− p).
+Remarque : Si l’on tire de manière indépendante 200 fois sur une cible, et qu’à chaque fois on a une
+probabilité de 30% de la toucher, alors instantanément nous affirmons qu’on touche 60 fois la cible, en
+moyenne. Donc intuitivement, et sans connaître la formule, on a fait le calcul np de l’espérance.

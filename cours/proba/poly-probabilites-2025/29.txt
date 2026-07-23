@@ -1,0 +1,20 @@
+Exercice 1.12 [**]
+L’école I-FREE propose à ses étudiants de deuxième année trois cours optionnels : A, B et C. Ces
+cours sont ouverts aux 400 étudiants de deuxième année. On dispose des informations suivantes :
+⋆ 112 étudiants sont inscrits dans le cours A.
+⋆ 104 étudiants sont inscrits dans le cours B.
+⋆ 64 étudiants sont inscrits dans le cours C.
+⋆ 48 étudiants sont inscrits dans les cours A et B.
+⋆ 16 étudiants sont inscrits dans les cours A et C.
+⋆ 24 étudiants sont inscrits dans les cours B et C.
+⋆ 8 étudiants sont inscrits dans les trois cours.
+On choisit un étudiant au hasard, calculer la probabilité que :
+a) cet étudiant ne soit inscrit dans aucun des trois cours.
+b) cet étudiant soit inscrit dans exactement un des trois cours.
+Exercice 1.13 [***] Le problème des anniversaires
+On considère un groupe de n ≥ 2 personnes et l’évènement E =“il y a au moins deux personnes
+dans le groupe avec la même date d’anniversaire”.
+a) Trouver P(E) (on exclura le 29 février et on supposera que le jour de naissance d’une
+personne peut être n’importe quel jour de l’année avec la même probabilité).
+b) Trouver la taille minimale d’un groupe de personnes pour avoir P(E) ≥ 0.5.
+c) Évaluer P(E) pour n = 50.

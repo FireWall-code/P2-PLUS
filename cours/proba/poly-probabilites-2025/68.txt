@@ -1,0 +1,28 @@
+Proposition 3.9 : Variance de X +Y
+Soient X,Y ∈ ℓ2(Ω) deux variables aléatoires discrètes. Alors, on a
+V(X +Y) = V(X) +V(Y) +2Cov(X,Y).
+Démonstration. Voir exercice 3.6.
+Proposition 3.10 : Propriétés de la covariance
+La covariance est une application symétrique et bilinéaire.
+Autrement dit : ∀X,Y,Z ∈ ℓ2(Ω),∀α,β ∈ R
+Cov(X,Y) = Cov(Y,X)
+Cov(αX +βY,Z) = αCov(X,Z) +βCov(Y,Z)
+Cov(X,αY +βZ) = αCov(X,Y) +βCov(X,Z)
+Démonstration. La symétrie se constate directement dans la définition de la covariance.
+Si l’on montre la linéarité par rapport à la première variable, la symétrie force la linéarité par rapport à
+la deuxième variable.
+Enfin, la linéarité par rapport à la première variable est une conséquence de la linéarité de l’espérance :
+Cov(αX +βY,Z) = E ((αX +βY)Z)−E(αX +βY)E(Z)
+= αE(XZ) +βE(Y Z)−αE(X)E(Z)−βE(Y)E(Z)
+= αCov(X,Z) +βCov(Y,Z).
+Pour l’instant, nous avons vu que si la covariance est non nulle, alors les variables X et Y ne sont
+pas indépendantes. Mais nous n’avons pas discuté du sens de la valeur trouvée : qu’apprend-on sur le
+lien entre X et Y si l’on trouve que Cov(X,Y) = 12 ou Cov(X,Y) = −3 ?
+En réalité, pour rendre cette discussion précise, nous devons introduire une nouvelle quantité :
+Définition 3.13 (Coefficient de corrélation entre X et Y)
+Soient X,Y ∈ ℓ2(Ω) deux variables aléatoires discrètes telles que leurs variances sont non nulles
+(i.e. les variables ne sont pas des constantes). On appelle coefficient de corrélation entre X et Y
+la quantité :
+ρ(X,Y) = Cov(X,Y)
+σ(X)σ(Y)
+.

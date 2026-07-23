@@ -1,0 +1,9 @@
+FIGURE 1.5 – Deux évènements incompatibles.
+Définition 1.5 (Système complet d’évènements)
+Soit A = {A1,...,An} une famille d’évènements possibles de Ω. On dit que A est un système
+complet d’évènements si les évènements satisfont les deux propriétés suivantes :
+1. [
+1≤i≤n
+Ai = Ω (les évènements couvrent tout ce qui est possible),
+2. ∀1 ≤ i, j ≤ n, i ̸= j =⇒ Ai ∩Aj = ∅ (les évènements sont deux à deux incompatibles).
+FIGURE 1.6 – Exemple d’un système complet d’évènements.

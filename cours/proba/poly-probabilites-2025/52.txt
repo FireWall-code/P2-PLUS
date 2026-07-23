@@ -1,0 +1,54 @@
+Exercice 2.25 [***] Matrices de probabilités
+Une particule se déplace à chaque seconde d’un sommet à l’autre du triangle ABC selon le protocole
+suivant :
+⋆ Lorsqu’à un instant donné, elle se situe en A, elle se fixe à l’instant suivant en B avec la probabilité
+0,75 et en C avec la probabilité 0,25.
+⋆ Lorsqu’à un instant donné, elle se situe en B, elle se fixe à l’instant suivant en A avec la probabilité
+0,75 et en C avec la probabilité 0,25.
+⋆ Lorsqu’à un instant donné, elle se situe en C, elle ira systématiquement en B à l’instant suivant.
+On désigne par an, bn et cn les probabilités qu’à l’instant n, la particule se situe en A, B ou C.
+a) Déterminer des relations de récurrence entre an+1, bn+1, cn+1 et an, bn, cn.
+b) En déduire l’existence d’une matrice carrée d’ordre 3, notée M telle que
+
+
+an+1
+bn+1
+cn+1
+
+ = M
+
+
+an
+bn
+cn
+
+.
+c) Montrer maintenant que l’on a
+
+
+an
+bn
+cn
+
+ = Mn
+
+
+a0
+b0
+c0
+
+.
+d) Soit P la matrice
+
+
+12 3 1
+16 −1 −1
+7 −2 0
+
+. Montrer que P est inversible.
+e) Calculer P
+−1 × M × P. Que pouvez-vous en dire sur M, en vous servant de votre cours
+d’algèbre linéaire de première année ?
+f) En déduire les limites quand n tend vers l’infini des probabilités an, bn, cn.
+
+II

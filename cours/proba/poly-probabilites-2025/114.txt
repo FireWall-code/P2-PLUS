@@ -1,0 +1,4 @@
+FIGURE 4.10 – Table des valeurs de la fonction Φ. Elle donne les valeurs, avec cinq chiffres
+significatifs, de Φ(z) pour z compris entre 0 et 3 et définies à deux décimales près. Par exemple,
+Φ(1.73) se trouve à la quatrième colonne de la ligne +1.7 : on lit Φ(1.73) = 0.95818.
+Cette table a été générée par le site www.ztable.net.

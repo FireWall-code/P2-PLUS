@@ -1,0 +1,35 @@
+♦Exemple : Voici une compilation des conclusions de plusieurs études 1sur l’efficacité des doses de
+vaccinations Pfizer contre la COVID. On note X le nombre de doses de vaccinations reçues par la
+personne et Y la variable binaire “donner positif à un test PCR dans une période de deux semaines” :
+X = 0 X = 1 X = 2 X = 3 P(Y = y)
+Y = 0 0.079 0.09 0.093 0.675 0.937
+Y = 1 0.021 0.01 0.007 0.025 0.063
+P(X = x) 0.10 0.10 0.10 0.70 1
+Calculons le coefficient de corrélation entre X et Y : d’abord, on a E(X) = 2.40 et σ(X) ≈ 1.02
+d’une part et E(Y) = 0.063 et σ(Y) ≈ 0.24 d’autre part. De plus, on a E(XY) = 0.099. Ainsi, on
+trouve, pour le coefficient de corrélation
+ρ(X,Y) = E(XY)−E(X)E(Y)
+σ(X)σ(Y)
+=
+0.099−2.40×0.063
+1.02×0.24
+≈ −0.21.
+Le signe de ρ(X,Y) montre que Y a tendance à diminuer lorsque l’on augmente le nombre de doses de
+vaccination. En effet :
+Théorème 3.11 : Signification du coefficient de corrélation
+Soient X,Y ∈ ℓ2(Ω) deux variables aléatoires discrètes de variance non nulle. On a
+−1 ≤ρ(X,Y) ≤ 1
+ρ(X,Y) = 1 ⇐⇒ Y = aX +b
+ρ(X,Y) = −1 ⇐⇒ Y = −aX +b où b ∈ R et a =
+σ(Y)
+σ(X)
+> 0.
+Démonstration. Voir exercice 3.30.
+Autrement dit, le coefficient de corrélation mesure le degré de linéarité entre X et Y :
+• Si ρ(X,Y) = 0, on dit que les variables aléatoires ne sont pas linéairement corrélées (ce qui est
+différent de dire qu’elles sont indépendantes).
+• Si ρ(X,Y) > 0, Y a tendance à augmenter si X augmente.
+• Si ρ(X,Y) < 0, Y a tendance à diminuer si X augmente.
+• Si |ρ(X,Y)| = 1, Y est une fonction linéaire de X.
+1. Il s’agit de l’expérience REACT-1 conduite par le gouvernement anglais en Juin-Juillet 2021 (voir ici) et les données
+du Maccabi Healthcare Services recueillies en 2020 et 2021 (voir ici).

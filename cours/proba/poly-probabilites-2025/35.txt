@@ -1,0 +1,19 @@
+Définition 2.2 (Couple d’évènements indépendants)
+Soient (Ω,P) un espace probabilisé et E et F deux évènements. On dit que E et F sont
+indépendants si
+P(E ∩F) = P(E)P(F).
+Si E et F sont des évènements possibles, ceci est équivalent à demander
+P(E|F) = P(E) ou P(F|E) = P(F).
+FIGURE 2.2 – E et F sont indépendants car les proportions ne changent pas lorsque l’on réduit
+l’univers à E ou à F : P(E) = P(E|F) = 1/3 et P(F) = P(F|E) = 1/2.
+Remarque : Sur cette figure, on peut s’amuser à modifier la croix centrale, c’est-à-dire à déplacer la
+barre centrale verticale, de gauche à droite, ou la barre centrale horizontale, de haut en bas. L’indépendance est alors conservée. Par contre, si une de ces deux barres s’incline, l’indépendance n’est plus
+vérifiée.
+Exemples :
+1. Les évènements E =“gagner au loto” et F =“porter des chaussettes bleues” sont indépendants.
+2. Les évènements E =“la monnaie est tombée du côté pile aux dix derniers lancers” et F =“la
+monnaie va tomber du côté pile au prochain lancer” sont indépendants.
+3. Les évènements E =“mesurer plus de deux mètres de haut” et F =“peser plus de 100kg” ne sont
+pas indépendants.
+4. Les évènements E =“il y a des nuages dans le ciel” et F =“il va pleuvoir dans les cinq minutes
+qui suivent” ne sont pas indépendants.

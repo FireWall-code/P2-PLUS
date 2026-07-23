@@ -1,0 +1,31 @@
+♦ Exercice 2.9 [*]
+Sur une série de 42 enfants hospitalisés dans un grand hôpital parisien, des anomalies à l’IRM sont
+constatées chez 16 des 20 malades qui vont développer des séquelles et chez 2 malades qui guériront
+sans séquelle.
+a) Remplir le tableau de contingence grâce aux données de l’énoncé.
+S : Séquelles S : Pas de séquelle Total
+A : IRM anormale
+N : IRM normale
+Total
+b) Calculer P(N|S), P(A|S) et P(S|A).
+c) Est-ce que A et S sont des évènements indépendants ?
+Exercice 2.10 [*]
+Dans un groupe de 9 personnes, on étudie deux évènements pour chaque personne de ce groupe :
+J =“la personne pratique le judo” et E= “la personne pratique les échecs”. On dresse alors le tableau
+des effectifs suivant :
+E E
+J 1 2
+J 2 4
+a) Remplir le tableau de probabilités suivant :
+E E
+J P(J ∩E) P(J ∩E)
+J P(J ∩E) P(J ∩E)
+b) Les évènements J et E sont-ils indépendants ?
+Exercice 2.11 [*]
+Dans la population des sujets qui développent une pathologie coronarienne, la proportion de fumeurs
+(plus de 10 cigarettes par jour) vaut 60%. De plus, une hypertension artérielle est présente chez 75%
+des fumeurs et chez 50% des non-fumeurs. Un sujet est tiré au sort dans la population.
+a) Quelle est la probabilité que le sujet soit hypertendu et fumeur ?
+b) Quelle est la probabilité que le sujet soit hypertendu ?
+c) Quelle est la probabilité que le sujet ne soit ni hypertendu ni fumeur ?
+d) Quelle est maintenant la probabilité qu’un sujet hypertendu soit fumeur ?

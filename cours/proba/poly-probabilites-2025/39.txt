@@ -1,0 +1,54 @@
+Théorème 2.6 : Formule de Bayes
+Soit A = {A1,...,An} un système complet d’évènements et E un évènement quelconque. Alors,
+on a
+P(Aj
+
+E) = P(E|Aj)P(Aj)
+n
+∑
+i=1
+P(E|Ai)P(Ai)
+.
+Démonstration. Il suffit de combiner la formule des probabilités totales et la définition des probabilités
+conditionnelles pour obtenir la formule de Bayes. En effet :
+P(Aj
+
+E) = P(Aj ∩E)
+P(E)
+=
+P(E
+
+Aj)P(Aj)
+P(E)
+=
+P(E
+
+Aj)P(Aj)
+n
+∑
+i=1
+P(E|Ai)P(Ai)
+.
+Remarque : Souvent, les évènements Aj sont pensés comme étant des “hypothèses” et dans ce cas la
+formule de Bayes nous montre comment modifier nos opinions sur ces hypothèses lorsqu’un évènement
+E se réalise (voir 2.3 pour plus de détails sur ce point de vue sur les probabilités comme mesure de
+confiance).
+♦Exemple : Un médecin est appelé pour voir un enfant malade. Le médecin dispose d’informations
+préalables selon lesquelles 90% des enfants malades dans ce quartier ont la grippe, tandis que les
+10% restants sont malades de la rougeole. Supposons pour simplifier qu’il n’y a pas d’autres maladies
+dans ce quartier. Un symptôme bien connu de la rougeole est une éruption cutanée. Supposons que
+la probabilité d’avoir une éruption cutanée si l’on a la rougeole est 0.95. Cependant, il arrive que
+des enfants atteints de grippe développent également des éruptions cutanées, et la probabilité d’avoir
+une éruption cutanée en cas de grippe est 0.1. En examinant l’enfant, le médecin trouve une éruption
+cutanée. Quelle est la probabilité que l’enfant ait la rougeole ?
+On pose les évènements
+G = “avoir la grippe”, R = “avoir la rougeole”, EC = “avoir une éruption cutanée”
+On cherche à calculer P(R|EC). Les évènements G et R forment un système complet d’évènements et,
+d’après la formule de Bayes, on a :
+P(R|EC) = P(EC|R)P(R)
+P(EC|R)P(R) +P(EC|G)P(G)
+=
+0.95×0.1
+0.95×0.1+0.1×0.9
+≈ 0.51.
+L’enfant a donc presque autant de chances d’avoir la rougeole que la grippe !

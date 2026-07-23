@@ -1,0 +1,43 @@
+3.5.2 Loi de Bernoulli
+L’expérience type d’une loi de Bernoulli est une expérience à deux issues, l’une représentant le
+“succès” et l’autre l’“échec”.
+Définition 3.15 (Loi de Bernoulli)
+Soient X une variable aléatoire discrète et p ∈]0,1[. On dit que X suit une loi de Bernoulli de
+paramètre p, noté X ∼ B(p), si
+X(Ω) = {0,1} et
+
+
+
+P(X = 1) = p
+P(X = 0) = 1− p.
+Exemples : Il y a une infinité d’exemples !
+⋆ On prend une personne de la population française au hasard et on regarde si elle est végétarienne
+(X = 1) ou non (X = 0). Alors, X ∼ B(0.02) (on estime qu’il y a 1.4 millions de végétariens en
+France.)
+⋆ On prend un jour de l’année dernière au hasard et on regarde si ce jour il a plu à Paris (X = 1)
+ou non (X = 0). Alors, X ∼ B(
+111
+365 ) (en moyenne, Paris connaît 111 jours de pluie par an).
+⋆ On tire un étudiant de L2 de l’EFREI au hasard et on regarde si c’est un homme X = 0 ou une
+femme X = 1. Alors X ∼ B(
+1
+5
+) (il y a 20% de filles en L2).
+Proposition 3.13 : Espérance et variance de la loi de Bernoulli
+Si X ∼ B(p), alors E(X) = p et V(X) = p(1− p).
+Démonstration. Il suffit de faire les calculs.
+3.5.3 Loi binomiale
+Soit n ∈ N
+∗
+. On répète n fois, de manière indépendante, une expérience de Bernoulli et l’on note X le
+nombre de succès obtenus. Par exemple, on prend n atomes de plutonium 240Pu et l’on compte combien
+se désintègrent dans les cinq minutes qui suivent (on sait que les désintégrations se comportent de
+manière indépendante).
+Déterminons la loi de probabilité de X. D’abord, on peut avoir de 0 à n succès, donc X(Ω) = [[0,n]].
+De plus, quand on a X = k succès parmi les n répétitions, on a aussi n−k échecs. Puisque chaque
+expérience est indépendante des autres, la probabilité d’avoir k succès et n−k échecs dans un certain
+ordre donné est p
+k
+(1− p)
+n−k
+(on suit les probabilités conditionnelles le long du chemin). Mais attention,

@@ -1,0 +1,41 @@
+Pour ces raisons, l’approche moderne préfère donner une définition axiomatique abstraite des
+probabilités et montrer ensuite que ces axiomes permettent de reconstruire notre intuition sur le sujet.
+Définition 1.6 (Fonction de probabilité)
+Soit Ω un univers fini ou dénombrable. On désigne par P(Ω) l’ensemble des parties de Ω.
+Une fonction de probabilité sur Ω est une fonction P : P(Ω) −→ R telle que :
+1. ∀E ⊂ Ω,0 ≤ P(E) ≤ 1.
+2. P(Ω) = 1.
+3. Additivité : pour toute suite (An)n∈N d’évènements deux à deux incompatibles, on a
+P
+ 
+[n
+i=0
+Ai
+!
+=
+n
+∑
+i=0
+P(Ai)
+On dit alors que le doublet (Ω, P) est un espace probabilisé, et pour tout évènement E ∈ P(Ω),
+on appelle probabilité de E le nombre P(E) ∈ [0,1].
+♦Exemples :
+i) Probabilité uniforme 4:
+Soient Ω un ensemble fini, E ∈ P(Ω) un évènement et P : P(Ω) −→ R la fonction définie par
+P(E) = card(E)
+card(Ω)
+(cas favorables sur cas possibles)
+Alors P est une fonction de probabilité sur Ω. Cette fonction de probabilité est appelée uniforme
+sur Ω puisque les évènements élémentaires sont tous équiprobables. Elle apparaît dans beaucoup
+de situations et, dans ce cas, les calculs de probabilités sont réduits à des calculs de dénombrement
+pour compter la cardinalité de divers ensembles.
+ii) Soit Ω = {ω1,ω2,...} un ensemble fini ou dénombrable. Alors, toute fonction p : Ω −→ [0,1]
+telle que ∑
+Ω
+p(ωi) = 1 définit une fonction de probabilité sur Ω par
+∀E ∈ P(Ω),P(E) = ∑
+x∈E
+p(x).
+Autrement dit, toute fonction de probabilité est complètement déterminée par une suite de
+nombres réels positifs dont la somme vaut 1.
+4. Cet exemple fait le lien entre l’approche axiomatique abstraite et l’intuition que nous avons des probabilités.

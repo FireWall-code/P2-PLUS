@@ -1,0 +1,21 @@
+Exemple : Soit X une variable aléatoire discrète donc le support est X(Ω) = {−1,0,1} et
+P(X = −1) = P(X = 0) = P(X = 1). Considérons de plus la variable aléatoire Y = X
+2
+. Les deux
+variables aléatoires sont clairement non-indépendantes mais le coefficient de corrélation va s’annuler car une augmentation de X peut mener, avec la même probabilité, à une augmentation ou une
+diminution de Y.
+Explicitement, le calcul de ρ(X,Y) donne :
+• E(X) = −
+1
+3 +
+1
+3 = 0,
+• E(XY) = −P(X = −1,Y = 1) +P(X = 1,Y = 1) = −
+1
+3 +
+1
+3 = 0,
+• Donc E(XY)−E(X)E(Y) = 0 et ρ(X,Y) = 0.
+FIGURE 3.4 – Exemples de nuages de points avec des coefficients de corrélation différents
+dans une représentation Y en fonction de X.
+Figure tirée de cette page Wikipédia.

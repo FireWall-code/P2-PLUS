@@ -1,0 +1,42 @@
+a) Quelle est la probabilité que le nombre de ruptures de stock du produit A soit strictement
+supérieur à 1 ?
+b) Quelle est la probabilité que, sur un an, il n’y ait aucune rupture de stock ?
+c) Quelle est la probabilité qu’il y ait au moins 2 ruptures de stock ?
+Exercice 3.21 [**] Pannes des Vélib’.
+Les vélos en libre-service Vélib’ ont principalement trois types de pannes : crevaison des pneus,
+déraillement de la chaîne et défaillance des freins. Durant la première année d’utilisation d’un Vélib’,
+on désigne par
+W = nombre de pannes dues aux pneus
+X = nombre de pannes dues à la chaîne
+Y = nombre de pannes dues aux freins
+Z = nombre de pannes quelconques
+On suppose que W, X et Y sont des variables indépendantes suivant des lois de Poisson de paramètres
+respectifs λW = 2,λX = 3,λY = 1.
+a) Calculer la probabilité qu’il y ait au moins une crevaison durant la première année.
+b) Calculer la probabilité qu’il n’y ait aucune panne due à la chaîne durant la première année.
+c) Calculer la probabilité qu’il y ait deux pannes dues aux pneus durant la première année.
+d) Calculer le nombre moyen de pannes durant la première année.
+e) Calculer la probabilité qu’il y ait au plus deux pannes pendant la première année.
+♦ Exercice 3.22 [**] (tiré du DE 2023-2024)
+Bertrand Russell (1872-1970) est un mathématicien et philosophe très important du vingtième siècle.
+Le tome VI de ses oeuvres complètes, publié par PergamonMedia, est un livre de 320 pages comportant
+200 pages de philosophie et 120 pages de mathématiques.
+On s’intéresse au nombre de coquilles (erreurs typographiques) dans ce livre. Le nombre d’erreurs
+dans chaque page est indépendant du nombre d’erreurs dans les autres pages du livre. On note XM
+le nombre de coquilles dans une page de texte mathématique et XP le nombre de coquilles dans une
+page de texte philosophique. D’après ses données, l’éditeur estime que XM et XP suivent des lois de
+Poisson :
+XM ∼ P(
+1
+10
+) et XP ∼ P(
+1
+30
+).
+On rappelle que pour une variable aléatoire X suivant une loi de Poisson de paramètre λ, on a
+P(X = k) = λ
+k
+k!
+e
+−λ
+.

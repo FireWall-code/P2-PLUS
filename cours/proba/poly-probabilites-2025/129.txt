@@ -1,0 +1,44 @@
+Exercice 4.26 [***] Preuve de la proposition 4.16
+Soient X,Y deux variables aléatoires continues et indépendantes. On note fX+Y , fX, fY ,FX+Y ,FX et
+FY les densités de probabilité et les fonctions de répartition des variables X +Y, X et Y.
+a) Soit a ∈ R. Prouver que si X ∼ N (µ1,σ
+2
+1
+), alors aX ∼ N (aµ1,a
+2σ2
+1
+).
+b) Prouver que l’on a, pour a ∈ R, FX+Y (a) = Z +∞
+−∞
+FX(a−y)fY (y)dy.
+c) En déduire que l’on a fX+Y (a) = Z +∞
+−∞
+fX(a−y)fY (y)dy.
+d) Conclure que si X ∼ N (µ1,σ
+2
+1
+) et Y ∼ N (µ2,σ
+2
+2
+), alors X +Y ∼ N (µ1 + µ2,σ
+2
+1 +σ
+2
+2
+).
+Enfin, en déduire la loi de distribution de aX +bY, avec a,b ∈ R.
+Exercice 4.27 [**] Mesure de la masse du boson de Higgs
+Le modèle standard des particules est une des plus belles constructions théoriques de la physique
+du 20ème siècle. En 1964, le physicien britannique Peter Higgs proposa l’existence d’une particule
+pas encore observée qui permettrait d’expliquer comment les autres particules acquièrent une masse.
+Cette particule fut découverte en 2012 par le LHC à Genève, ce qui valut le prix Nobel à Peter Higgs
+et François Englert.
+La masse d’une particule est mesurée en GeV/c
+2
+, avec 1GeV/c
+2 = 1.783×10−27kg. Dans l’expérience initiale de 2012, on a trouvé MH ∼ N (125.06,0.0841). Mais l’expérience a été refaite en 2016
+et les résultats ont donné MH ∼ N (125.46,0.0289)
+3
+. Si l’on combine ces deux résultats, quelle est
+la loi de probabilité de la masse du boson de Higgs ?
+3. Données extraites de ce rapport du CMS.

@@ -1,0 +1,43 @@
+⋆ Si Ω = {étudiants de l’EFREI en L3} et P est la probabilité uniforme sur Ω, alors la note de DE
+de probabilités est bien une fonction N : Ω −→ R dont le support est l’intervalle [0,20].
+⋆ Dans le jet d’une paire de dés, Ω = {1,2,3,4,5,6}
+2
+et la somme du résultat des deux dés est une
+fonction S : Ω −→ R dont le support est {2,3,4,...,12}.
+Définition 3.2 (Opérations sur les variables aléatoires)
+Soient (Ω,P) un espace probabilisé, X,Y deux variables aléatoires et λ ∈ R. Alors :
+1. R
+Ω est un espace vectoriel réel, i.e : X +Y et λ.X sont des variables aléatoires.
+2. Le produit X.Y est aussi une variable aléatoire.
+3. Soit f une fonction réelle définie sur X(Ω), alors la composée f(X) définie par
+Ω
+X
+−→ R
+f
+−→ R est aussi une variable aléatoire.
+Exemples :
+⋆ Pour les étudiants en L3 à l’EFREI, notez X la note au DE de probabilité et Y la note au CE de
+probabilité. Alors Z = 0.6X +0.4Y est une variable aléatoire (c’est la note finale du module de
+l’année dernière).
+⋆ Pour la population française, soit H la hauteur d’une personne, M le poids et f la fonction définie
+par f(x) = 1
+x
+2
+. Alors, IMC = P× f(H) = P
+H2
+est une variable aléatoire (c’est l’indice de masse
+corporelle).
+Définition 3.3 (Variable aléatoire discrète)
+Soient (Ω,P) un espace probabilisé et X une variable aléatoire. On dit que X est une variable
+aléatoire discrète si X(Ω) est un ensemble fini ou dénombrable.
+L’ensemble des variables aléatoires discrètes sur Ω est noté ℓ(Ω).
+Exemples :
+⋆ La variable aléatoire X = “note au DE de probabilités” peut être discrète ou pas en fonction de
+notre modèle. Si l’on considère que la note peut être n’importe quel réel dans l’intervalle [0,20],
+alors X n’est pas discrète. Si l’on est plus réaliste et l’on considère que la note est définie au
+demi-point près, on a X(Ω) = {0,0.5,1,1.5,2,...,19,19.5,20} et donc X est discrète.
+⋆ Même commentaire pour la variable aléatoire H =“hauteur d’une personne” qui peut être vue
+comme prenant n’importe quelle valeur dans l’intervalle [0,222] (hauteur mesurée en cm), ou
+bien on peut penser que la hauteur est définie au millimètre près (par exemple).
+⋆ La variable aléatoire S = “somme des deux dés” est discrète puisque les valeurs possibles sont
+les entiers compris entre 2 et 12.

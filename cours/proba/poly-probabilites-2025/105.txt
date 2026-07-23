@@ -1,0 +1,59 @@
+Définition 4.7 (Variance et écart-type d’une variable aléatoire continue)
+Soit X une variable aléatoire (continue ou discrète). On appelle variance de X, si elle existe, la
+quantité
+V(X) = E
+
+(X −E(X))2
+
+= E(X
+2
+)−E(X)
+2
+.
+De plus, on appelle écart-type de X la quantité σ(X) = p
+V(X).
+L’ensemble des variables aléatoires continues sur Ω pour lesquelles la variance existe est noté
+L2(Ω).
+Remarque : La définition et l’interprétation de la variance sont exactement les mêmes ici que dans le
+cas des variables aléatoires discrètes.
+♦Exemples :
+⋆ En continuant l’exemple précédent d’un nombre tiré au hasard dans l’intervalle [0,2]. On a
+clairement E(X) = 1 et donc V(X) = E(X
+2
+)−E(X)
+2 =
+1
+3
+et σ(X) = √
+1
+3
+≈ 0.58.
+⋆ Pour l’exemple de la durée de vie d’un ordinateur (pages 57, 61 et 61), on a
+E(T
+2
+) = 1
+1000 Z +∞
+0
+t
+2
+e
+−t/1000dt = 2
+Z +∞
+0
+te−t/1000dt = 2×1000Z +∞
+0
+e
+−t/1000dt = 2×(1000)2
+.
+(où l’on a effectué deux intégrations par parties). Ainsi, on a donc
+V(X) = E(X
+2
+)−E(X)
+2 = 2×(1000)2 −(1000)2 = 10002
+et
+σ(X) = 1000.
+Proposition 4.9
+Soient X ∈ L2(Ω) une variable aléatoire continue et a,b ∈ R. On a
+V(aX +b) = a
+2V(X).
+Démonstration. La preuve est exactement la même que celle de la proposition 3.5 (page 64).

@@ -1,0 +1,28 @@
+a) On pose Z = min(T1,T2). Exprimer la fonction de répartition de Z en fonction de celles de
+T1 et T2.
+b) En déduire que Z suit aussi une loi exponentielle de paramètre λ = 13/40.
+c) Trouver δT et ∆T.
+Aide : Pour ∆T , utiliser le fait que T1 +T2 = min(T1,T2) +max(T1,T2).
+Exercice 4.18 [**]
+Un pantalon est retenu par une paire de bretelles et une ceinture.
+La paire de bretelles et la ceinture ont des durées de vie données par des variables aléatoires continues
+T1 et T2 qui suivent une loi exponentielle de paramètres λ1 et λ2.
+On suppose que le pantalon est maintenu tant que l’un des deux accessoires au moins, bretelles ou
+ceinture, est fonctionnel. Soit T la variable aléatoire continue “durée de maintien du pantalon”.
+a) Donner les fonctions de répartition F1 et F2 de T1 et T2.
+b) Calculer P(T1 > 2t) pour t > 0.
+c) Calculer P(t < T2 < 2t) pour t > 0.
+d) Donner la fonction de répartition de T.
+e) En déduire la densité de probabilité de T.
+f) Donner les espérances E(T1),E(T2) et E(T).
+♦ Exercice 4.19 [**] Loi exponentielle et loi uniforme
+Soit X une variable aléatoire continue de loi uniforme sur [0,1]. Montrer que la variable aléatoire
+Y = −ln(X) suit une loi exponentielle.
+Exercice 4.20 [***]
+Soit n > 2 un entier et soient X1,X2,...,Xn n variables aléatoires continues et indépendantes telles
+que Xi ∼ U ([0,1]). On définit Z = max(X1,X2,...,Xn). Calculer l’espérance de Z.
+♦ Exercice 4.21 [*]
+Soit X une variable aléatoire suivant une loi normale de paramètres µ = 10 et σ = 2.
+a) Quelle est la valeur de P(X ≤ 15) ?
+b) Quelle est la valeur de P(|X| ≤ 8) ?
+c) Quelle est la valeur de P(8 ≤ X ≤ 15) ?

@@ -1,0 +1,29 @@
+Exercice 2.4 [**]
+Soient (Ω,P) un espace probabilisé et E,F ⊂ Ω. Démontrer que l’on a
+E et F indépendants ⇐⇒ P(E ∩F)×P(E ∩F) = P(E ∩F)×P(E ∩F).
+Exercice 2.5 [**] Indépendance
+Soit n ∈ N
+∗ un entier naturel non nul. On effectue n lancers indépendants d’une pièce pour laquelle
+la probabilité d’obtenir pile est p, avec p ∈]0;1[.
+On pose q = 1− p.
+a) Quelle est la probabilité d’obtenir au moins une fois pile ?
+b) Quelle est la probabilité qu’au cours de ces n lancers, face ne soit jamais suivie de pile.
+♦ Exercice 2.6 [**]
+A et B sont deux personnes qui jouent aux dés en jetant alternativement une paire de dés. Le premier
+des joueurs qui obtient un total de sept avec les deux dés est déclaré vainqueur. A commence à jouer.
+Calculer la probabilité que A soit vainqueur, puis que B soit vainqueur (on commencera par tracer
+un arbre donnant les déroulements possibles du jeu).
+Exercice 2.7 [**]
+Soient E et F deux évènements incompatibles d’une même expérience aléatoire. On note P(E) = a
+et P(F) = b et on suppose a+b ̸= 1. L’expérience aléatoire est répétée jusqu’à ce que l’un des deux
+évènements E ou F se réalise. Donner la probabilité que ce soit E qui se réalise en premier.
+Exercice 2.8 [***] Le jeu de craps
+Le craps est un jeu de dés solitaire où le joueur jette simultanément deux dés. Les règles sont les
+suivantes :
+Le joueur jette un premier lancer de dé :
+⋆ Si la somme des dés est 2,3 ou 12, alors le joueur perd.
+⋆ Si la somme des dés est 7 ou 11, alors le joueur gagne.
+Sinon, le joueur continue à jeter simultanément les deux dés jusqu’à tomber :
+⋆ soit sur 7, alors il perd.
+⋆ soit sur la somme obtenue au premier lancer, alors il gagne.
+Calculer la probabilité de victoire du joueur.

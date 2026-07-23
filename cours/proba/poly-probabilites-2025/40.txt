@@ -1,0 +1,10 @@
+Point historique #1 (Thomas Bayes et “sa” formule)
+Thomas Bayes (1701-1761) est un mathématicien britannique qui était destiné à l’oubli : ses
+travaux sur les probabilités furent publiés en 1761 après sa mort et trouvèrent très peu de lecteurs.
+Mais sa formule fut redécouverte en 1774 par le jeune et brillant mathématicien français PierreSimon Laplace. C’est Laplace qui lui donna le nom de “théorème de Bayes” en 1781 après la
+visite de Richard Price, ami de Bayes, qui lui apprit l’existence des travaux du mathématicien
+britannique.
+De plus, Laplace mit la formule de Bayes au centre d’une nouvelle interprétation des probabilités,
+appelée aujourd’hui Bayésienne même si rien ne montre que Thomas Bayes lui-même souscrivait
+à cette interprétation.
+FIGURE 2.4 – Thomas Bayes et Pierre-Simon Laplace.

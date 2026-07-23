@@ -1,0 +1,29 @@
+Proposition 3.6
+Soient X,Y ∈ ℓ2(Ω) deux variables aléatoires discrètes indépendantes. Alors
+V(X +Y) = V(X) +V(Y).
+Remarque : Attention ! La réciproque est fausse : il est possible d’avoir V(X +Y) = V(X)+V(Y) sans
+que les variables aléatoires soient indépendantes.
+Démonstration. Ce résultat est un corollaire du théorème 3.8 et la proposition 3.9 qui sont prouvés à
+l’exercice 3.6.
+Définition 3.10 (Variable aléatoire centrée réduite)
+Soit X une variable aléatoire.
+On dit que X est centrée si son espérance existe et E(X) = 0.
+On dit que X est réduite si sa variance existe et V(X) = 1.
+Proposition 3.7 : Variable centrée réduite associée à une variable quelconque
+Soit X ∈ ℓ2(Ω) une variable aléatoire telle que sa variance existe. Alors, la variable aléatoire
+Z =
+X −E(X)
+σ(X)
+est une variable aléatoire centrée réduite.
+Démonstration. Par linéarité de l’espérance, on a
+E(Z) = 1
+σ(X)
+(E(X)−E(X)) = 0.
+De plus, d’après la proposition 3.5, on a
+V(Z) = 1
+σ(X)
+2
+V(X −E(X)) = 1
+V(X)
+V(X) = 1.
+L’espérance et la variance sont deux quantités qui permettent de décrire grossièrement le comportement d’une variable aléatoire. Cette description peut être affinée en utilisant d’autres quantités :

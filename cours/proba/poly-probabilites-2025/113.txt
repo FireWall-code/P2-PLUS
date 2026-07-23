@@ -1,0 +1,98 @@
+Fiche méthode #4 (Calcul des probabilités d’une variable suivant une loi normale)
+Soient X ∼ N (µ,σ
+2
+) et I1,I2 deux intervalles de R. Pour calculer P(X ∈ I1
+
+X ∈ I2), on suit
+les étapes suivantes :
+a) Poser Z =
+X−µ
+σ
+. Ainsi, Z suit une loi normale centrée réduite : Z ∼ N (0,1).
+b) Exprimer les évènements {X ∈ I1} et {X ∈ I2} avec la nouvelle variable Z.
+c) Utiliser les propriétés de la proposition 4.13 pour exprimer la probabilité
+P(X ∈ I1
+
+X ∈ I2) = P(Z ∈ I3
+
+Z ∈ I4) en termes de la fonction Φ.
+d) Utiliser la table des valeurs de la fonction Φ (voir page suivante) pour trouver une valeur
+approchée de P(X ∈ I1
+
+X ∈ I2).
+♦Exemple : Soit X ∼ N (6,4). Calculer P
+
+|X −4| < 3
+
+X ≥ 2
+
+.
+a) On commence par poser Z =
+X−6
+2
+. Z suit alors une loi normale centrée réduite.
+b) De plus, on a
+|X −4| < 3 ⇐⇒ −3 < X −4 < 3 ⇐⇒ −
+5
+2
+< Z <
+1
+2
+et aussi
+X ≥ 2 ⇐⇒ Z ≥ −2.
+c) Ainsi, on a
+P
+
+|X −4| < 3
+
+X ≥ 2
+
+= P
+
+−
+5
+2
+< Z <
+1
+2
+
+Z ≥ −2
+
+=
+P
+
+{−5
+2 < Z <
+1
+2
+} ∩ {Z ≥ −2}
+
+P(Z ≥ −2)
+=
+P
+
+{−2 ≤ Z <
+1
+2
+}
+
+P(Z ≥ −2)
+=
+Φ(
+1
+2
+)−Φ(−2)
+1−Φ(−2)
+=
+Φ(
+1
+2
+) +Φ(2)−1
+Φ(2)
+d) En utilisant la table des valeurs de la fonction Φ, on trouve :
+P(|X −4| < 3
+
+X ≥ 2) ≈
+0.69146+0.97725−1
+0.97725
+≈ 0.68428.

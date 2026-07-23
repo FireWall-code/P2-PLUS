@@ -1,0 +1,48 @@
+Fiche méthode #3 (Loi de probabilité de densité de Y = g(X) dans le cas continu)
+Soit X une variable aléatoire continue de support X(Ω) et dont la loi de densité de probabilité
+ou la fonction de répartition est connue. Soit g une fonction réelle définie sur X(Ω) et Y = g(X)
+une nouvelle variable aléatoire. Pour trouver la densité de probabilité de Y :
+a) Déterminer le support Y(Ω).
+b) Exprimer l’évènement {Y ≤ a} en fonction de la variable aléatoire X.
+c) En déduire la fonction de répartition de Y.
+d) En déduire la densité de probabilité de Y.
+♦Exemple : Soit X une variable aléatoire continue dont la densité de probabilité est
+fX(x) =
+
+
+
+1−|x| si −1 ≤ x ≤ 1
+0 sinon.
+On cherche à trouver la densité de probabilité de Y =
+p
+|X|.
+a) D’abord, puisque X(Ω) = [−1,1], on a Y(Ω) = [0,1].
+b) Ensuite, soit a ∈ R. Pour exprimer l’évènement {Y ≤ a}, on distingue trois cas :
+⋆ Si a < 0, l’évènement {Y ≤ a} est l’évènement impossible.
+⋆ Si a > 1, l’évènement {Y ≤ a} est l’évènement certain.
+⋆ Si a ∈ [0,1], on a Y ≤ a ⇐⇒ p
+|X| ≤ a ⇐⇒ |X| ≤ a
+2 ⇐⇒ −a2 ≤ X ≤ a2
+.
+c) On a donc, pour la fonction de répartition de Y :
+⋆ Si a < 0, FY (a) = P(Y ≤ a) = 0.
+⋆ Si a > 1, FY (a) = P(Y ≤ a) = 1.
+⋆ Si a ∈ [0,1], on a
+FY (a) = P(Y ≤ a) = P(−a
+2 ≤ X ≤ a2
+)
+=
+Z a
+2
+−a
+2
+(1−|x|)dx
+= 2
+Z a
+2
+0
+(1−x)dx
+= 2a
+2 −a4
+.
+(On peut vérifier que l’on a bien F(0) = 0 et F(1) = 1.)

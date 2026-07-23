@@ -1,0 +1,74 @@
+On veut donc calculer P(Y > X) qui peut aussi s’écrire P(Y − X > 0). D’après la proposition
+précédente, on a Y − X ∼ N (−12,113). Pour calculer la probabilité recherchée, on suit la fiche
+méthode 4 (page 113) :
+a) On pose la variable centrée réduite Z =
+Y −X +12
+√
+113
+.
+b) Y −X > 0 ⇐⇒ Z >
+12
+√
+113
+.
+c) Donc P(Y > X) = P(Z >
+12
+√
+113
+) = 1−Φ(
+12
+√
+113
+)
+d) Puisque 12
+√
+113
+≈ 1.13, on a, d’après la table des valeurs de la fonction Φ (page 114) :
+P(Y > X) ≈ 1−Φ(1.13) ≈ 1−0.87076 ≈ 0.12924.
+Point historique #3 (La loi normale et le théorème central limite)
+La loi normale a été d’abord introduite (de façon un peu obscure) par Abraham de Moivre en
+1733 pour étudier la limite de lois binomiales. Mais c’est Pierre-Simon Laplace qui, dans son
+ouvrage Théorie analytique des probabilités de 1812, prouve une version améliorée du théorème
+d’or de Bernoulli (voir page 76) :
+∀x ∈ R, lim
+n→+∞
+P
+
+Sn −np
+√npq
+< x
+
+=
+1
+2π
+Z x
+−∞
+e
+−y
+2/2
+dy.
+Ce théorème montre que, pour des grands nombres, l’expérience (discrète) de Bernoulli peut
+être décrite par une fonction continue qui prendra de ce fait un rôle central dans la théorie :
+la loi normale ou loi Gaussienne (appelée ainsi pour l’utilisation ultérieure qu’en a fait le
+mathématicien allemand Carl Friedrich Gauss).
+Plus d’un demi-siècle plus tard (en 1887), l’école du mathématicien russe Pafnouti Tchebychev
+arrive à énoncer rigoureusement et prouver le théorème central limite, théorème qui généralise celui de Laplace, que Laplace avait suggéré sans arriver à le prouver et qui constitue
+probablement le résultat le plus important en théorie des probabilités :
+Théorème central limite Soit {Xn}n∈N une suite de variables aléatoires indépendantes
+et identiques, d’espérance µ et écart-type σ. Introduisons la moyenne Mn =
+X1+...+Xn
+n
+dont l’espérance est aussi µ et l’écart type est √
+σ
+n
+. Alors,
+lim
+n→+∞
+Mn − µ
+σ/
+√
+n
+∼ N (0,1).
+En d’autres mots, la loi normale est une bonne approximation de la moyenne de n’importe
+quelle expérience aléatoire qui se répète un grand nombre de fois! C’est la raison profonde
+qui explique l’omniprésence de cette loi.

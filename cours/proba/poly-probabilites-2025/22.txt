@@ -1,0 +1,38 @@
+l’est aussi et donc il y a un nombre indénombrable de classes d’équivalence. Construisons l’ensemble
+V en choisissant un élément de chaque classe d’équivalence 6.
+À partir de V, on peut définir d’autres ensembles similaires en en faisant des translations par un
+élément de B : pour b ∈ B, on définit
+Vb = {x⊕b
+
+ x ∈ V}.
+Les ensembles de Vitali ainsi définis vérifient les propriétés suivantes
+∀(b,b
+′
+) ∈ B2,b ̸= b
+′ =⇒ Vb ∩Vb
+′ = ∅
+[
+b∈B
+Vb = [0,1].
+Maintenant, utilisons ces ensembles pour prouver, par l’absurde, le théorème. Supposons qu’il
+existe une application µ : P([0,1]) −→ R
++ satisfaisant les propriétés d’additivité et invariance par
+translation. D’après la première propriété, on a
+µ([0,1]) = µ(
+[
+b∈B
+Vb) = ∑
+b∈B
+µ(Vb)
+et d’après la deuxième propriété, on a
+∀b ∈ B,µ(Vb) = µ(V).
+Donc, si µ(V) ̸= 0, on trouve µ([0,1]) = +∞ et si µ(V) = 0, on trouve µ([0,1]) = 0. Les deux options
+sont absurdes.
+Face à ce constat, l’attitude des probabilités modernes est d’accepter qu’il n’est pas possible
+d’attribuer une probabilité à tous les sous-ensembles de l’univers et restreindre la classe d’évènements
+ayant une probabilité bien définie. Borel et Lebesgue ont donc introduit la définition suivante pour
+clarifier comment choisir le type d’évènements acceptables.
+6. Pour les insatiables : cela veut dire que cette construction utilise l’axiome du choix, axiome ayant un statut très
+particulier dans les mathématiques. Voir la page Wikipédia. En réalité, le théorème lui-même dépend de l’axiome du choix.
+Le mathématicien américain Robert Solovay a démontré en 1970 que si l’on abandonne l’axiome du choix, il est possible
+de construire une probabilité uniforme qui prenne en compte tous les sous-ensembles de [0,1].

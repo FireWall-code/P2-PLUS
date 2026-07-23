@@ -1,0 +1,34 @@
+♦ Exercice 4.15 [**] Un fait surprenant
+Considérons les deux manipulations suivantes :
+♠ Choisissez de façon aléatoire un nombre réel dans l’intervalle [0,1] et calculez sa racine carrée.
+♣ Choisissez de façon aléatoire et indépendante deux nombres réels dans l’intervalle [0,1] et prenez
+le maximum.
+Il se trouve que, du point de vue des probabilités du résultat, ces deux opérations sont équivalentes!
+Nous allons le prouver dans cet exercice.
+a) Soit X une variable aléatoire continue telle que X ∼ U ([0,1]). Calculez la densité de
+probabilité de Y =
+√
+X.
+b) Soient X1 et X2 deux variables aléatoires continues et indépendantes telles que Xi ∼ U ([0,1]).
+Calculez la densité de probabilité de Z = max(X1,X2).
+c) Conclusion ?
+Exercice 4.16 [***] Variables aléatoires sans mémoire (Preuve de la proposition 4.12)
+On dit qu’une variable aléatoire T est sans mémoire si elle vérifie
+∀s ≥ 0,P(T ≥ t +s
+
+T ≥ t) = P(T ≥ s).
+a) Vérifier qu’une variable aléatoire suivant une loi exponentielle est sans mémoire.
+b) Réciproquement, on va démontrer que si T est une variable aléatoire continue sans mémoire,
+alors elle suit une loi exponentielle.
+i) Prouver que la fonction GT (t) = P(T ≥ t) satisfait
+∀t,s ≥ 0,GT (t +s) = GT (t)GT (s).
+ii) En déduire l’expression de GT puis celles de la fonction de répartition FT et de la
+densité de probabilité de T.
+♦ Exercice 4.17 [**] Minimum et maximum de deux lois exponentielles
+Cet exercice est tiré du cours donné par M. Ghassany à l’EFREI en 2022/2023.
+L’objectif de cet exercice est de résoudre le problème suivant : deux guichets sont ouverts à une
+banque. Le temps de service T1 au premier guichet (respectivement, T2 au deuxième guichet) suit une
+loi exponentielle de moyenne 5 minutes (respectivement 8 minutes). On suppose que les deux guichets
+sont indépendants. Deux clients rentrent simultanément, un choisit le guichet 1 et l’autre le guichet 2.
+On veut trouver le temps moyen δT au bout duquel sort le premier client et le temps moyen ∆T au
+bout duquel sort le dernier client.

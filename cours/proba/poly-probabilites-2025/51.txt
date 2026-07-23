@@ -1,0 +1,41 @@
+Exercice 2.23 [**] Une machine sans mémoire
+Soit une machine qui, à l’instant n∆t, est en panne ou en marche. On l’observe aux instants
+0,∆t,2∆t,3∆t,... On suppose que, si à un instant donné la machine marche, la probabilité que la
+machine soit en panne à l’instant d’après est a (avec 0 < a < 1). De même, si à un instant donné
+la machine est en panne, la probabilité que la machine marche à l’instant d’après est b. Calculer la
+probabilité que la machine soit en marche à n∆t et montrez que la machine tend à “oublier” dans quel
+état elle est partie.
+Exercice 2.24 [***] Suites de probabilités
+Au moment où chacun possède un tiers du marché de la téléphonie mobile, trois opérateurs A, B et
+C décident de mettre sur le marché un nouveau type de forfait annuel. À la fin de l’année, l’évolution
+des parts de marché se fait de la façon suivante :
+⋆ Les clients de la compagnie A se répartissent indifféremment entre A, B et C l’année suivante.
+⋆ Les clients de la compagnie B restent toujours fidèles à cette compagnie.
+⋆ Les clients de la compagnie C seront l’année suivante clients de A avec une probabilité 1
+12 , de B
+avec une probabilité 7
+12 et de C avec une probabilité 13
+.
+On note pour n ∈ N, an, bn et cn les probabilités pour qu’à l’issue de la n-ième année, un consommateur décide de s’abonner chez A, B ou C l’année suivante.
+a) Déterminer une relation de récurrence entre an, bn et cn et an+1, bn+1 et cn+1
+b) En déduire, l’expression de an, bn et cn en fonction de n. On fera apparaître des suites
+récurrentes linéaires d’ordre 2 et on utilisera le point méthode qui suit.
+c) Déterminer la limite de ces suites. Un opérateur tend-il vers une position de monopole ?
+Point méthode : Soit (un)n∈N une suite vérifiant : ∀n ∈ N, un+2 + aun+1 + bun = 0, avec a,b ∈ R
+deux constantes. Pour trouver la formule de un en fonction de n, on suit la méthode de l’équation
+caractéristique :
+i. On considère l’équation caractéristique X
+2 +aX +b = 0 dont on calcule les deux racines q1
+et q2 (éventuellement confondues).
+ii. ⋆ si q1 ̸= q2 , on a ∀n ∈ N, un = α.q
+n
+1 +β.q
+n
+2
+avec α et β deux constantes.
+⋆ si q1 = q2 = q , on a ∀n ∈ N, un = (α.n+β).q
+n
+avec α et β deux constantes.
+iii. On trouve les deux constantes α et β en utilisant les données du problème. Le plus souvent,
+il s’agit des conditions initiales u0 et u1 dont un système linéaire de deux équations à deux
+inconnues va fixer α et β.

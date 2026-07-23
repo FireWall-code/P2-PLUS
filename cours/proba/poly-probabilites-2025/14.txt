@@ -1,0 +1,31 @@
+Exemples :
+i) Dans l’expérience aléatoire “choisir au hasard une carte dans un paquet de 52 cartes”, les
+évènements suivants forment un système complet d’évènements :
+A1 = “la carte est une figure ou un As”,
+A2 = “la carte est comprise entre 7 et 10”,
+A3 = “la carte est comprise entre 2 et 6”.
+ii) Dans l’expérience aléatoire “choisir au hasard un mot du dictionnaire”, les évènements suivants
+forment un système complet d’évènements :
+A1 = “le mot commence par une voyelle”,
+A2 = “le mot commence par une consonne et apparaît avant le mot étudiant”,
+A3 = “le mot commence par une consonne et apparaît après le mot excellent”.
+iii) Dans l’expérience aléatoire “choisir au hasard un étudiant de l’EFREI”, les évènements suivants
+forment un système complet d’évènements :
+A1 = “l’étudiant est dans les programmes experts”,
+A2 = “l’étudiant est dans le cycle préparatoire du programme grande école”,
+A3 = “l’étudiant est en alternance dans le cycle ingénieur du programme grande école”,
+A4 = “l’étudiant est dans le cycle ingénieur du programme grande école sans alternance”.
+1.3 Fonction de probabilité
+On cherche maintenant à attribuer à chacun de ces évènements un nombre représentant le degré
+de confiance que l’on a en sa réalisation. On appelle ce nombre la probabilité de l’évènement. Il
+s’agit d’un réel avec l’interprétation que, plus la probabilité est grande, plus notre confiance dans la
+réalisation de l’évènement l’est aussi. Intuitivement, on identifie la probabilité d’un événement avec la
+fréquence asymptotique de réalisation de cet événement lorsque l’expérience est répétée infiniment
+souvent. Ainsi, en répétant N fois une expérience, dans les mêmes conditions, et en notant fN(A) la
+fréquence de réalisation de l’évènement A : P(A) = lim
+N−→∞
+fN(A)
+Plusieurs problèmes se posent alors avec cette approche fréquentiste :
+⋆ est-ce que la suite des fréquences fN(A) converge? En cas de convergence, la limite est-elle
+toujours la même ?
+⋆ comment interpréter les probabilités dans le cas d’expériences non renouvelables ?

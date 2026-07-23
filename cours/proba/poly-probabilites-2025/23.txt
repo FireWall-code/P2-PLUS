@@ -1,0 +1,34 @@
+Définition 1.8 (Tribu ou σ-algèbre)
+Soit Ω un ensemble. On appelle tribu ou σ-algèbre sur Ω une famille A de sous-ensembles de
+Ω telle que
+1. A est non vide : ∅ ∈ A ,
+2. A est stable par passage au complémentaire : A ∈ A =⇒ A ∈ A ,
+3. A est stable par union dénombrable : pour toute suite (An)n∈N de sous-ensembles dans
+A ,
+S
+n∈N An est à nouveau dans A .
+Exemples :
+⋆ L’ensemble des parties P(Ω) est toujours une tribu.
+⋆ On appelle tribu de Borel de l’ensemble [0,1] la plus petite tribu qui contient tous les intervalles
+du type [a,b] avec a,b ∈ [0,1]. C’est la tribu la plus souvent utilisée en probabilités. En particulier,
+cette tribu ne contient pas les ensembles de Vitali.
+On peut enfin donner la définition moderne qui est à la base de la théorie des probabilités, donnée
+par le mathématicien russe Andreï Kolmogorov dans les années 1930 :
+Définition 1.9 (Espace probabilisé)
+Un espace probabilisé est un triplet (Ω,F,P) où :
+⋆ l’univers Ω est un ensemble quelconque.
+⋆ l’ensemble des évènements F est une tribu sur Ω.
+⋆ la mesure de probabilité P est une application P : F −→ [0,1] telle que
+i) P(Ω) = 1.
+ii) pour toute suite (An)n∈N d’évènements deux à deux incompatibles, on a
+P
+ +
+[∞
+i=1
+Ai
+!
+=
++∞
+∑
+i=1
+P(Ai).

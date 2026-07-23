@@ -1,0 +1,58 @@
+Exercice 3.28 [***] Un péage
+N voitures s’approchent d’un péage d’autoroute comportant n guichets. Chaque conducteur choisit
+un guichet au hasard, de façon équiprobable et indépendamment des autres conducteurs. On note Xkla
+variable aléatoire comptant le nombre de conducteurs ayant choisi le guichet numéro k.
+a) Déterminer la loi, l’espérance et la variance de Xi.
+b) Calculer le coefficient de corrélation linéaire entre les variables Xi et Xj pour i ̸= j. Utiliser
+le cas n = 2 pour vérifier votre résultat.
+Exercice 3.29 [***] Preuve de la proposition 3.16
+Soit X ∼ BN (r, p) avec r ∈ N
+∗
+et p ∈]0,1[.
+a) Calculer E(X) et V(X) dans le cas r = 1.
+b) Pour r ̸= 1, expliquer pourquoi l’on peut écrire X = X1 +...+Xr avec les Xi ∼ BN (1, p)
+des variables indépendantes.
+c) Conclure.
+Exercice 3.30 [***] Preuve du théorème 3.11.
+Soient X,Y ∈ ℓ2(Ω) deux variables aléatoires discrètes.
+a) Utiliser le fait que V
+
+X
+σ(X) +
+Y
+σ(Y)
+
+≥ 0 pour en déduire que ρ(X,Y) ≥ −1.
+b) En considérant V
+
+X
+σ(X) −
+Y
+σ(Y)
+
+≥ 0, déduire que ρ(X,Y) ≤ 1.
+c) Enfin, prouver que Y = aX +b =⇒ |ρ(X,Y)| = 1 (où a,b ∈ R avec a ̸= 0).
+Exercice 3.31 [***] Preuve de la proposition 3.19
+Prouver que, si X ∼ P(λ), Y ∼ P(θ) et X et Y sont indépendantes, alors X +Y ∼ P(λ +θ).
+
+4. Variables aléatoires continues
+Jusqu’à présent, nous avons toujours considéré des variables aléatoires ayant un nombre fini ou
+dénombrable de valeurs possibles. Mais, souvent, une situation est modélisée par une variable aléatoire
+qui peut prendre n’importe quelle valeur dans un intervalle : le temps de désintégration d’un atome, la
+taille d’une goutte d’eau qui tombe du robinet, la distance à laquelle se trouve la galaxie la plus proche
+de la Terre dans une direction donnée, la direction dans laquelle pointe une toupie lorsqu’elle est enfin
+à l’arrêt après avoir tourné, etc.
+Lorsque c’est le cas, la situation change radicalement. Mathématiquement, on doit abandonner les
+sommes et les séries (monde du discret) et utiliser des intégrales (monde du continu). Conceptuellement,
+on doit abandonner la notion de probabilité en un point (puisque celle-ci est nulle) et introduire une
+“densité de probabilité” (tout à fait analogue à la densité de charge ou densité de masse en physique).
+4.1 Définitions de base
+Définition 4.1 (Variable aléatoire continue, densité de probabilité)
+Une variable aléatoire X est continue s’il existe une fonction f : R −→ R telle que :
+⋆ f ≥ 0
+⋆ ∀B ⊂ R, P(X ∈ B) = Z
+B
+f(x)dx.
+La fonction f est appelée fonction de densité de probabilité associée à la variable aléatoire X.
+L’ensemble des variables aléatoires continues sur Ω est noté L (Ω).
+93

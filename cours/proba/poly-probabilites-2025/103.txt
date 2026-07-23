@@ -1,0 +1,29 @@
+C’est bien une densité de probabilité puisque
+Z +∞
+−∞
+f(x)dx =
+1
+π
+[arctan(x)]+∞
+−∞ = 1.
+D’autre part, l’espérance de X est donnée par
+E(X) = Z +∞
+−∞
+x f(x)dx =
+Z +∞
+−∞
+x
+π(1+x
+2)
+dx
+et l’intégrale diverge puisque l’on a x f(x) ∼
++∞
+1
+πx
+.
+FIGURE 4.4 – Graphe de la densité de probabilité de la loi de Cauchy standard.
+Proposition 4.7
+L’espérance est une application linéaire sur l’espace vectoriel L1(Ω).
+Autrement dit, soient X et Y deux variables aléatoires continues sur Ω pour lesquelles l’espérance
+existe, et soient α,β ∈ R. Alors, on a
+E(αX +βY) = αE(X) +βE(Y).

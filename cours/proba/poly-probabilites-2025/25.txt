@@ -1,0 +1,35 @@
+1.6 Exercices
+♦= Exercice obligatoire.
+[*] = Application directe du cours : sert à vérifier que vous avez bien compris les notions et techniques de base.
+[**] = Demande plus de réflexion mais vous devez être capables de le résoudre et maîtriser les techniques utilisées dans cet
+exercice.
+[***] = Exercice difficile pour aller plus loin, découvrir de nouvelles idées ou techniques. Pour les plus motivés !
+Faire le point en autonomie : QCM sur les notions de base
+Soient A, B et C des évènements quelconques de Ω, l’ensemble de tous les résultats possibles d’une
+épreuve. On appelle A le complémentaire de A dans Ω.
+Parmi les propositions suivantes, trouvez les propositions vraies :
+Item Énoncé
+A P(Ω) = 1
+B P(A) < P(A)
+C Si A ⊂ B alors P(A) ≤ P(B)
+D Si A ⊂ B alors A∪B = B
+E A∪B ̸= B∪A
+F P(A∪B) ≤ P(A) +P(B)
+G P(A∪B) = P(A) +P(B) quand A∩B = ∅
+H P(A∪B∪C) = P(A) +P(B) +P(C)−P(A∩B∩C)
+I P(A∪B) +P(A∪B) = P(A)
+J P(A∩B) +P(A∩B)−P(B) = 0
+K (A∪B)∪C ̸= A∪(B∪C)
+♦ Exercice 1.1 [*]
+Soient E,F et G trois évènements. Exprimez les évènements suivants en fonction de E,F,G et les
+opérations élémentaires sur les ensembles :
+a) Seulement E se réalise.
+b) E et G se réalisent mais pas F.
+c) Au moins un des trois se réalise.
+d) Au moins deux des trois se réalisent.
+e) Les trois se réalisent.
+f) Aucun se réalise.
+g) Au plus un des trois se réalise.
+h) Au plus deux des trois se réalisent.
+i) Au plus trois des trois se réalisent.
+j) Exactement deux des trois se réalisent.

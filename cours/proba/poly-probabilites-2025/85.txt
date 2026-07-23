@@ -1,0 +1,35 @@
+Exercice 3.9 [*] Couples
+On considère deux variables aléatoires discrètes Θ et ϕ dont la loi de probabilité conjointe est
+donnée par
+Θ = −2 Θ = 0 Θ = 2
+ϕ = 1 0.03 0.01 0.06
+ϕ = 2 0.06 0.02 0.12
+ϕ = 3 0.12 0.04 0.24
+ϕ = 4 0.06 0.02 0.12
+ϕ = 5 0.03 0.01 0.06
+a) Calculer P(Θ = −2) et P(Θ = −2
+
+ϕ ≥ 3).
+b) Calculer l’espérance de Θ et l’espérance de ϕ.
+c) Combien vaut Cov(Θ,ϕ) ?
+♦ Exercice 3.10 [**] Couples et changement de variable
+On considère le couple de variables aléatoires (X,Y) de la loi conjointe définie par la table cidessous :
+Y = 0 Y = 1 Y = 2 Y = 3
+X = 1 0,1 0,05 0 0,05
+X = 2 0,2 0,1 0,1 0,2
+X = 3 0,1 0 0,05 0,05
+a) Vérifier la loi de (X,Y).
+b) Déterminer les lois de probabilité de X et Y. Sont-elles indépendantes? Sinon, comment
+pourriez-vous modifier trois cases pour rendre les deux lois indépendantes.
+Dans la suite, on ne modifie pas la table.
+c) Calculer l’espérance et la variance de X et Y.
+d) Calculer Cov(X,Y).
+e) Soit W = X
+2
+. Déterminer la loi de W.
+f) Soit Z = (X −2)
+2
+. Déterminer la loi de Z.
+g) Soit U = X.Y. Déterminer la loi de U.
+h) Soit V = min(X,Y). Déterminer la loi de V.
+i) Former la table conjointe de U et V.

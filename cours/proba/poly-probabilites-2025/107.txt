@@ -1,0 +1,48 @@
+4.4 Lois usuelles
+On va maintenant regarder certaines lois de probabilité de référence que l’on rencontre souvent.
+4.4.1 Loi uniforme
+Définition 4.9 (Loi uniforme)
+Soient X une variable aléatoire continue et a < b deux réels. On dit que X suit une loi uniforme
+sur [a,b], noté X ∼ U ([a,b]), si sa densité de probabilité est constante sur [a,b] et nulle ailleurs :
+f(x) =
+
+
+
+1
+b−a
+si x ∈ [a,b]
+0 sinon.
+FIGURE 4.5 – Densité de probabilité uniforme U ([a,b])
+♦Exemples :
+⋆ Relire l’exemple de la désintégration alpha (page 94).
+⋆ Supposons que le métro de la ligne 8 passe par la station Place d’Italie exactement toutes les six
+minutes entre 6h et 8h du matin les jours ouvrés. Un étudiant de l’EFREI qui se rend au campus
+de République arrive à la station de Place d’Italie à un moment donné uniformément distribué
+entre 7h et 7h30 du matin. Calculer la probabilité que l’étudiant attende moins de deux minutes
+pour prendre le métro à Place d’Italie.
+Soit T le moment d’arrivée de l’étudiant à Place d’Italie. On a T ∼ U (0,30) (où l’on a pris 7h
+comme temps 0). Soit E l’évènement “l’étudiant attend moins de 2 minutes”. On a
+E = {4 ≤ X ≤ 6} ∪ {10 ≤ X ≤ 12} ∪ {16 ≤ X ≤ 18} ∪ {22 ≤ X ≤ 24} ∪ {28 ≤ X ≤ 30}
+et donc, puisque les différents évènements sont incompatibles,
+P(E) = P(4 ≤ X ≤ 6) +P(10 ≤ X ≤ 12) +P(16 ≤ X ≤ 18) +P(22 ≤ X ≤ 24) +P(28 ≤ X ≤ 30)
+=
+1
+30 Z 6
+4
+dt +
+Z 12
+10
+dt +
+Z 18
+16
+dt +
+Z 24
+22
+dt +
+Z 30
+28
+dt
+=
+1
+3
+.

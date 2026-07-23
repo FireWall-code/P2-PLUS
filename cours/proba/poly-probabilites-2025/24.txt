@@ -1,0 +1,10 @@
+1.5 Acquis d’apprentissage
+À la fin de ce chapitre, vous devrez être en mesure de :
+⋆ Décrire les évènements élémentaires d’une expérience aléatoire.
+⋆ Décrire un évènement grâce aux évènements élémentaires et les opérations élémentaires sur les
+ensembles.
+⋆ Reconnaître si deux évènements sont incompatibles.
+⋆ Déterminer si une fonction est une fonction de probabilité.
+⋆ Calculer la probabilité d’un évènement en utilisant les propriétés des fonctions de probabilité.
+⋆ Utiliser la formule de Poincaré pour trois évènements.
+⋆ Avoir une intuition géométrique des propriétés des probabilités.

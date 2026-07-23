@@ -1,0 +1,37 @@
+Exercice 4.9 [**] Température d’un gaz
+On considère une boîte contenant N particules d’oxygène de masse m = 2,7.10−26kg. On suppose
+que la vitesse des particules est une variable aléatoire V qui suit la loi suivante
+f(v) =
+
+
+
+ce
+−
+|v−v0|
+v0 si v ≥ 0
+0 sinon.
+où c ∈ R et v0 = 800km/h
+a) Trouver la valeur de la constante c.
+b) Soit K =
+1
+2mV2
+l’énergie cinétique d’une particule. Sachant que la température du gaz
+T est liée à l’énergie cinétique moyenne des particules par l’équation kT = E(K) où
+k = 1,38.10−23J/K est la constante de Boltzmann, trouver la température du gaz.
+Exercice 4.10 [*]
+Une source lumineuse émet au point O de façon uniforme dans le plan −
+π
+2 < θ <
+π
+2
+. Calculer la
+densité de probabilité de la variable aléatoire Y égale à la valeur algébrique de O’A. On prendra la
+distance OO’ égale à un mètre.
+O O’
+A
+θ
+y
+Exercice 4.11 [*]
+Un faisceau cylindrique de particules de rayon a est dirigé vers une cible hémisphérique ABC de
+centre O. Soit f(r) la densité de probabilité uniforme sur [0,a] de la variable aléatoire continue R =
+“distance de la particule à l’axe OB.

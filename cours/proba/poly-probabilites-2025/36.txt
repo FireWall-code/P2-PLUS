@@ -1,0 +1,24 @@
+Proposition 2.4
+Soit (Ω,P) un espace probabilisé et E et F deux évènements. On a
+E et F indépendants ⇐⇒ E et F indépendants.
+Démonstration. Voir exercice 2.3.
+Pour des familles de plus de deux évènements, on pourrait s’attendre à ce que ce soit suffisant de
+regarder si tous les couples d’évènements sont indépendants. Mais l’exemple suivant montre que cela
+n’est pas le cas.
+♦Exemple : On jette deux dés non truqués. On considère les évènements suivants :
+E = la somme des dés est 7,
+F = le résultat du premier dé est 4,
+G = le résultat du deuxième dé est 3.
+On a
+P(E|F) = P(E|G) = P(F|G) = P(E) = P(F) = 1
+6
+donc (E,F) (E,G) et (F,G) sont trois couples d’évènements indépendants. Or, clairement, E et F ∩G
+ne sont pas indépendants puisque P(E|F ∩G) = 1.
+Cet exemple motive la définition suivante :
+Définition 2.3 (Triplet d’évènements indépendants)
+Soient (Ω,P) un espace probabilisé et E, F et G trois évènements. On dit que E,F et G sont
+indépendants si
+P(E ∩F) = P(E)P(F)
+P(E ∩G) = P(E)P(G)
+P(F ∩G) = P(F)P(G)
+P(E ∩F ∩G) = P(E)P(F)P(G).

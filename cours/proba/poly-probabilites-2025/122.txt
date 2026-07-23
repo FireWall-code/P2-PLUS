@@ -1,0 +1,60 @@
+♦ Exercice 4.5 [*]
+On considère une variable aléatoire continue Z dont la densité de probabilité est donnée par
+∀z ∈ R, fZ(z) =
+
+
+
+3
+8z
+4
+si z ∈]−∞,−1]∪[1,+∞[
+3
+8
+si z ∈]−1,1[
+a) Tracer le graphe de fZ et vérifier que fZ est bien une densité de probabilité.
+b) Calculer P(0 ≤ Z ≤ 4).
+c) Calculer E(Z) et V(Z).
+d) Déterminer la fonction de répartition de Z.
+♦ Exercice 4.6 [*]
+On considère la variable aléatoire continue X dont la densité de probabilité est définie par
+f(x) =
+
+
+
+k|x| si −
+1
+2 ≤ x ≤ 1
+0 sinon.
+a) Déterminer la valeur de k.
+b) Déterminer la densité de probabilité de Y =
+p
+|X|.
+♦ Exercice 4.7 [**]
+Une variable aléatoire continue X admet une densité de probabilité donnée par
+f(x) =
+
+
+
+kx2si x ∈ [−3,6]
+0 sinon.
+a) Déterminer la valeur de la constante k.
+b) Calculer les densités de probabilité des variables U =
+1
+3
+(12−X) et V = X
+2
+.
+c) Calculer l’espérance et la variance de X,U et V.
+Exercice 4.8 [*]
+Un joueur de fléchettes trouve que la distance R de l’impact de la fléchette au centre de la cible
+(de rayon a) suit une loi dont la densité de probabilité est f(r) = c
+
+1−
+r
+2
+a
+2
+
+où c est une constante.
+Calculer la probabilité de faire mouche dans un rayon b autour du centre de la cible (on fera l’hypothèse
+que la cible est toujours atteinte).

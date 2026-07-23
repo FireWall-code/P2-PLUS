@@ -1,0 +1,45 @@
+FIGURE 3.6 – La loi binomiale pour plusieurs valeurs de n et p. Dans chaque graphe, la valeur
+en abscisse est k et la valeur en ordonnée est P(X = k). Le script Matlab qui produit (par
+exemple) la troisième courbe est n=1000; p=0.5; x=450:550; y=binopdf(x,n,p);
+stem(x,y).
+Remarque : On peut vérifier que
+n
+∑
+k=0
+P(X = k) = 1. En effet, si l’on se rappelle de la formule du binôme
+de Newton
+(a+b)
+n =
+n
+∑
+k=0
+
+n
+k
+
+a
+k
+b
+n−k
+,
+on a
+n
+∑
+k=0
+P(X = k) =
+n
+∑
+k=0
+
+n
+k
+
+p
+k
+(1− p)
+n−k = (p+ (1− p))n = 1.
+Exemples :
+⋆ Lorsque je tape un symbole sur le clavier de mon ordinateur, il y a une probabilité de p =
+1
+100
+que je me trompe de touche. Si les frappes sont indépendantes et que cette page du polycopié

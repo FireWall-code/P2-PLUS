@@ -1,0 +1,14 @@
+4.5 Acquis d’apprentissage
+À la fin de ce chapitre, vous devrez être en mesure de :
+⋆ Reconnaître si une fonction est une densité de probabilité.
+⋆ Calculer la probabilité d’un évènement du type X ∈ B ⊂ R pour une variable aléatoire continue.
+⋆ Calculer la fonction de répartition d’une variable aléatoire continue.
+⋆ Déterminer la densité de probabilité d’une nouvelle variable Y exprimée en fonction d’une
+variable X dont on connaît la densité de probabilité.
+⋆ Calculer l’espérance, la variance et l’écart-type d’une variable aléatoire continue.
+⋆ Déterminer la densité de probabilité conjointe de deux variables aléatoires conjointement continues.
+⋆ Déterminer si deux variables aléatoires continues sont indépendantes.
+⋆ Connaître les caractéristiques principales des lois uniforme, exponentielle et normale.
+⋆ Comprendre le lien entre la loi normale, la loi binomiale et la loi de Poisson.
+⋆ Savoir utiliser la table des valeurs de la fonction Φ pour calculer des probabilités sur des variables
+aléatoires suivant des lois normales.

@@ -1,0 +1,44 @@
+2.2 Formule de Bayes
+L’objectif de la formule de Bayes est de nous permettre de passer de P(E|A) à P(A|E). Il y a
+beaucoup de situations où ce problème est de grand intérêt. Prenons un exemple concret simple de
+statistiques en Médecine, lorsque l’on compte suffisamment d’entrées de patients avec une certaine
+pathologie dans un service. On reçoit des patients malades et l’on peut aisément calculer la proportion
+de ceux qui sont, par exemple, vaccinés. On a donc deux évènements : malade M et vacciné V. Grâce
+à ce décompte, on accède à la proportion de vaccinés parmi les malades entrants, c’est-à-dire la
+probabilité P(V|M). Mais ce qui nous intéresse est de connaître la probabilité de tomber malade
+sachant que l’on est vacciné, c’est-à-dire P(M|V)
+1
+.
+Proposition 2.5 : Formule des probabilités totales
+Soient A = {A1,...,An} un système complet d’évènements et E un évènement quelconque.
+Alors, on a
+P(E) =
+n
+∑
+i=1
+P(E|Ai)P(Ai).
+Remarque : En particulier, on a, pour deux évènements possibles E et A :
+P(E) = P(E|A)P(A) +P(E|A)P(A).
+Démonstration. Puisque A est un système complet d’évènements, on a
+E =
+[
+1≤i≤n
+(E ∩Ai) et, pour k ̸= j,(E ∩Ak)∩(E ∩Aj) = ∅.
+Donc, on a bien
+P(E) =
+n
+∑
+i=1
+P(E ∩Ai) =
+n
+∑
+i=1
+P(E|Ai)P(Ai).
+♦Exemple : Une élève qui vient tout juste d’intégrer l’EFREI en première année veut évaluer ses
+chances de rentrer dans la majeure cybersécurité en première année de Master. Cela dépend, bien
+sûr, de son classement général à la fin de la troisième année de licence : elle est sûre d’intégrer cette
+majeure si elle est dans les 50 meilleurs étudiants, 80% de chances si elle est entre le 51-ième et le
+1. Mais attention, pour obtenir ce passage M à V, il y a tout un protocole issu des statistiques à respecter. Il faut d’abord
+s’assurer du tirage aléatoire des patients en entrée, ce qui n’est a priori pas le cas. Aussi pour prouver l’influence de tel ou
+tel évènement sur l’évènement M, comme une prise de médicaments par exemple, il faut se doter d’un protocole plus lourd
+appelé test en aveugle ou en double aveugle.

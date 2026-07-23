@@ -1,0 +1,44 @@
+Remarque : Une densité de probabilité n’est pas une probabilité! En particulier, rien n’interdit à la
+fonction f de prendre des valeurs supérieures à 1. En effet, ce ne sont pas les valeurs de f qu’il faut
+interpréter mais plutôt l’aire sous la courbe.
+FIGURE 4.1 – La fonction f définie par ∀x ∈ R, f(x) = e
+−x
+(1+e−x)
+2 est une densité de probabilité.
+La probabilité P(a ≤ X ≤ b) est l’aire sous la courbe sur l’intervalle [a,b].
+Proposition 4.1
+Soit X une variable aléatoire continue et notons f sa densité de probabilité. Alors :
+⋆ P(a ≤ X ≤ b) = Z b
+a
+f(x)dx.
+⋆
+Z +∞
+−∞
+f(x)dx = P(X ∈ R) = 1.
+Exemples :
+⋆ La durée de vie d’un ordinateur, en heures d’utilisation, peut être modélisée comme une variable
+aléatoire continue T dont la densité de probabilité est
+f(t) =
+
+
+
+1
+1000 e
+−t/1000 si t ≥ 0
+0 sinon.
+On peut vérifier en effet que Z +∞
+−∞
+f(t)dt = 1. Si l’on veut calculer la probabilité qu’un ordinateur
+fonctionne encore après 2000 heures d’utilisation, on calcule
+P(T ≥ 2000) = 1
+1000 Z +∞
+2000
+e
+−t/1000dt = e−2 ≈ 0.14.
+⋆ Dans le cas d’une désintégration alpha, un atome X émet une particule d’hélium (appelée
+particule α) et se transforme donc dans un atome Y plus léger :
+A
+ZX −→ A−4
+Z−2Y+
+4
+2He.

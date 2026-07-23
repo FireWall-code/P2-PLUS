@@ -1,0 +1,59 @@
+Exercice 1.7 [**] Inégalité de Bonferroni
+Soit Ω un ensemble.
+a) [∗] Soient E et F deux évènements de Ω. Démontrez que
+P(E ∩F) ≥ P(E) +P(F)−1.
+b) [∗∗] Pour n ∈ N
+∗
+, soient n évènements de Ω notés A1,...,An . Démontrer par récurrence que
+P(
+\n
+i=1
+Ai) ≥
+n
+∑
+i=1
+P(Ai)−(n−1).
+Exercice 1.8 [**] Inégalité de Boole
+Soit Ω un ensemble. Pour n ∈ N
+∗
+, soient n évènements de Ω notés A1,...,An.
+Démontrer par récurrence que :
+P
+ 
+[n
+i=1
+Ai
+!
+≤
+n
+∑
+i=1
+P(Ai).
+Exercice 1.9 [***] Formule de Poincaré
+Soit (Ω,P(Ω),P) un espace probabilisé fini, (Ai)1≤i≤n une famille finie quelconque d’évènements.
+Montrer par récurrence que :
+P
+ 
+[n
+i=1
+Ai
+!
+=
+n
+∑
+k=1
+ 
+(−1)
+k+1 ∑
+1≤i1<...<ik≤n
+P(Ai1 ∩...∩Aik)
+!
+♦ Exercice 1.10 [*]
+Soient E et F deux évènements. Notons G l’évènement “exactement l’un parmi E et F se réalise”.
+Prouver les égalités suivantes :
+a) P(G) = P(E) +P(F)−2P(E ∩F).
+b) P(E ∩F) = 1−P(E)−P(F) +P(E ∩F).
+Exercice 1.11 [***]
+Soit Ω un ensemble infini mais dénombrable et soit P une fonction de probabilité sur Ω.
+a) Prouver que P ne peut pas être telle que tous les éléments de Ω soient équiprobables.
+b) Est-il possible que tous les éléments aient une probabilité non nulle de se réaliser ?

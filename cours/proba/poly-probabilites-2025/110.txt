@@ -1,0 +1,43 @@
+Proposition 4.12 : La loi exponentielle est sans mémoire
+On dit qu’une variable aléatoire continue T est sans mémoire si elle vérifie
+∀s ≥ 0,P(T ≥ t +s
+
+T ≥ t) = P(T ≥ s).
+Alors, on a l’équivalence suivante :
+T est sans mémoire ⇐⇒ T suit une loi exponentielle.
+Démonstration. Voir exercice 4.16.
+Remarque : Il faut comprendre cette propriété simplement : considérons, par exemple, la probabilité
+qu’un composant électronique fonctionne au moins s jours. Cette probabilité s’écrit P(T ≥ s). Le
+lendemain, si le composant marche encore, c’est-à-dire “sachant qu’il a tenu au moins un jour” (T ≥ 1),
+cette première probabilité sera exactement la même : P(T ≥ 1+s
+
+T ≥ 1) = P(T ≥ s). En répétant
+le raisonnement, on se rend compte que, peu importe le nombre de jours écoulés, tous les jours, la
+probabilité que le composant tienne s jours de plus sera la même, jusqu’au moment où il ne fonctionnera
+plus.
+Exemple : Pour un noyau radioactif, le fait qu’il ne se soit pas encore désintégré (et donc qu’il se soit
+passé un certain temps sans s’être désintégré) n’a aucune influence sur les probabilités que le noyau se
+désintègre dans le futur.
+4.4.3 Loi normale
+De toutes les lois usuelles, la loi normale ou loi Gaussienne est de loin la plus importante. Cette
+loi est omniprésente dans la modélisation des phénomènes physiques : on l’utilise pour décrire, par
+exemple, la taille des étoiles dans une galaxie, la pression artérielle du corps humain, la taille d’un être
+humain, l’état fondamental de l’oscillateur harmonique quantique.
+Définition 4.11 (Loi normale ou Gaussienne)
+Soit X une variable aléatoire continue, (µ ×σ) ∈ R×R
++∗
+. On dit que X suit une loi normale
+de paramètres µ et σ, notée X ∼ N (µ,σ
+2
+), si sa densité de probabilité est donnée par
+f(x) = 1
+σ
+√
+2π
+e
+−
+(x−µ)
+2
+2σ2
+.
+En particulier, si X ∼ N (0,1), on dit que X suit une loi normale centrée réduite.

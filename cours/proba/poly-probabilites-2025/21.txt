@@ -1,0 +1,40 @@
+⋆ Additivité : pour toute suite (An)n∈N de sous-ensembles deux à deux disjoints, on a
+aire +
+[∞
+i=1
+Ai
+!
+=
++∞
+∑
+i=1
+aire (Ai)
+⋆ Invariance par translation : pour tout sous-ensemble E et tout vecteur (x, y) ∈ Ω,
+aire(E + (x, y)) = aire(E)
+(l’aire d’un sous-ensemble ne doit pas changer si on le déplace.)
+Mais l’étrange monde des ensembles indénombrables nous réserve une surprise :
+Théorème 1.7
+Il n’existe pas d’application non-nulle µ : P ([0,1]×[0,1]) −→ R
++ satisfaisant les propriétés
+d’additivité et d’invariance par translation.
+Autrement dit, il est impossible de définir une probabilité uniforme pour l’ensemble de tous les
+sous-ensembles d’un carré de R
+2
+.
+Démonstration. L’une des preuves les plus simples utilise les ensembles de Vitali, découverts par le
+mathématicien italien Giuseppe Vitali en 1905. Ce furent l’un des premiers exemples d’ensembles que
+l’“on ne peut pas mesurer”. Pour simplifier, nous allons faire la preuve en dimension 1 plutôt que 2.
+Commençons par définir ces ensembles de Vitali :
+Soit B l’ensemble de tous les nombres dans [0,1[ dont l’écriture binaire est finie. De plus, on définit
+sur [0,1] la relation d’équivalence
+x ∼ y ⇐⇒ ∃b ∈ B, x = y⊕b
+⇐⇒
+on peut passer de l’écriture binaire de x à celle de
+y en faisant un nombre fini de modifications.
+Par exemple, on a
+15/100 = 0.00100110011001100110011... et 65/100 = 0.10100110011001100110011...,
+donc 15/100 ∼ 65/100 puisque leurs écritures binaires ne diffèrent que par le premier chiffre. Par
+contre,
+10/100 = 0.000110011001100110011001100...
+et donc 15/100 ̸∼ 10/100 puisque leurs écritures binaires diffèrent dans tous les chiffres sauf les deux
+premiers. Maintenant, notons [x] la classe d’équivalence de x ∈ [0,1]. Puisque B est dénombrable, [x]

@@ -1,0 +1,31 @@
+4.6 Exercices
+♦= Exercice obligatoire.
+[*] = Application directe du cours : sert à vérifier que vous avez bien compris les notions et techniques de base.
+[**] = Demande plus de réflexion mais vous devez être capables de le résoudre et maîtriser les techniques utilisées dans cet
+exercice.
+[***] = Exercice difficile pour aller plus loin, découvrir de nouvelles idées ou techniques. Pour les plus motivés !
+Faire le point en autonomie : QCM sur les notions de base
+Soient Z une variable aléatoire suivant la loi normale centrée réduite et X une variable continue
+réelle quelconque.
+Item Énoncé
+A La formule Var(X) = E(X
+2
+)−E(X)
+2 ne s’applique pas pour les variables aléatoires continues.
+B Si f est la densité de probabilité de X, alors f est la dérivée de F la fonction de répartition de X.
+C L’espérance de X, si elle existe, s’écrit E(X) = ∑
++∞
+−∞ x f(x)dx.
+D La loi uniforme U ([a,b]) a pour espérance b−a.
+E La loi exponentielle est une loi dite "sans mémoire".
+F Si Z ∼ N (1,0) alors P(Z = 0) = 1
+2π
+.
+G Si Z ∼ N (1,0) alors P(Z < 1,26) est proche de 0,896.
+H Si Z ∼ N (1,0) alors la valeur de a telle que P(Z < a) = 0,367 est plus petite que −0,3.
+♦ Exercice 4.1 [*]
+Une variable aléatoire X admet une densité f , affine par intervalles, dont la représentation graphique
+est donnée ci-dessous.
+a) Quelle est la valeur de a = f(2) ?
+b) Calculer P(X = 1), P(X < 1), P(X < 2) et P(2 < X ≤ 6).
+c) Quelle est l’espérance de X ?

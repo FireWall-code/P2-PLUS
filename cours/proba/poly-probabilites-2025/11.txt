@@ -1,0 +1,36 @@
+Ces quatre opérations peuvent être vues d’un point de vue logique comme correspondant à des
+connecteurs mais aussi comme décrivant des réalisations d’évènements d’expériences aléatoires :
+Connecteurs
+logiques
+Opérations
+sur les ensembles
+Réalisation
+d’évènements
+ET Intersection E ∩F les deux évènements se réalisent
+OU Union E ∪F
+au moins un des deux
+évènements se réalise
+NON Complémentaire E E ne se réalise pas
+=⇒ Sous-ensemble E ⊂ F
+Chaque fois que E se réalise,
+F se réalise aussi
+Proposition 1.1 : Structure algébrique des opérations ensemblistes
+Les opérations élémentaires sur les ensembles vérifient les propriétés suivantes :
+1. Commutativité de ∪ et ∩ :
+∀(E,F) ⊂ Ω
+2
+, E ∪F = F ∪E et E ∩F = F ∩E.
+2. Associativité de ∪ et ∩ :
+∀(E,F,G) ⊂ Ω
+3
+, (E ∪F)∪G = E ∪(F ∪G) et (E ∩F)∩G = E ∩(F ∩G).
+3. Idempotence de ∪ et ∩ :
+∀E ⊂ Ω, E ∪E = E = E ∩E.
+4. ∅ est l’élément neutre de ∪ et Ω est l’élément neutre de ∩ :
+∀E ⊂ Ω, E ∪∅ = E = E ∩Ω.
+5. Ω est l’élément absorbant de ∪ et ∅ est l’élément absorbant de ∩ :
+∀E ⊂ Ω, E ∪Ω = Ω et E ∩∅ = ∅.
+6. Distributivité de ∪ sur ∩ et de ∩ sur ∪ :
+∀(E,F,G) ⊂ Ω
+3
+, (E ∩F)∪G = (E ∪G)∩(F ∪G) et (E ∪F)∩G = (E ∩G)∪(F ∩G).

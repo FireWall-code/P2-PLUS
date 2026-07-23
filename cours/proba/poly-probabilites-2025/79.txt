@@ -1,0 +1,108 @@
+Exemples : Voici plusieurs exemples de variables qui sont bien modélisées par des lois de Poisson.
+⋆ Le nombre de coquilles par page de ce polycopié après relecture.
+⋆ Le nombre de patients arrivant avec une fracture dans un hôpital un jour donné.
+⋆ Le nombre de personnes ayant plus de 100 ans dans une communauté donnée.
+⋆ Le nombre de vidéos sur YouTube dépassant le million de vues.
+⋆ Le nombre de connexions à un serveur web durant un intervalle de temps T.
+Proposition 3.17 : Espérance et variance de la loi de Poisson
+Si X ∼ P(λ), on a E(X) = V(X) = λ.
+Démonstration. On a
+E(X) =
++∞
+∑
+k=0
+kP(X = k) = e
+−λ
++∞
+∑
+k=0
+k
+λ
+k
+k!
+= e
+−λ
++∞
+∑
+k=1
+λ
+k
+(k −1)!
+= λe
+−λ
++∞
+∑
+K=0
+λ
+K
+K!
+= λ.
+De même,
+E(X
+2
+) =
++∞
+∑
+k=0
+k
+2P(X = k) = e−λ
++∞
+∑
+k=1
+k
+λ
+k
+(k −1)!
+= λe
+−λ
++∞
+∑
+K=0
+(K +1)
+λ
+K
+K!
+= λ
+ 
+E(X) +e
+−λ
++∞
+∑
+K=0
+λ
+K
+K!
+!
+= λ
+2 +λ
+et donc V(X) = E(X
+2
+)−E(X)
+2 = λ.
+La raison précise pour laquelle la loi de Poisson se révèle être pertinente dans autant de cas est
+donnée par le résultat suivant
+Théorème 3.18 : Lien entre la loi binomiale et la loi de Poisson
+Soit λ ∈ R
++. Dans le cas où n → +∞ (grand nombre de répétitions), p → 0 (l’évènement succès
+est rare) et np → λ (le nombre de succès moyen se maintient constant), on a
+lim
+n→+∞
+p→0
+np→λ
+B(n, p) = P(λ).
+Démonstration. Mathématiquement, le théorème limite de Poisson est donc
+lim
+n→+∞
+p→0
+np→λ
+
+n
+k
+
+p
+k
+(1− p)
+n−k = e−λ λ
+k
+k!
+.
