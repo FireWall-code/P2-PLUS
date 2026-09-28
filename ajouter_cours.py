@@ -81,6 +81,8 @@ title: {titre}
 
 {description}
 
+<div class="agenda-matiere" data-module="{code}"></div>
+
 <div class="grid cards" markdown>
 
 -   :material-school:{{ .lg .middle }} **Cours**

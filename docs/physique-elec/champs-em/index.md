@@ -6,6 +6,8 @@ title: Champs électromagnétiques
 
 Systèmes de coordonnées, électrostatique, magnétostatique.
 
+<div class="agenda-matiere" data-module="SP301P"></div>
+
 <div class="grid cards" markdown>
 
 -   :material-school:{ .lg .middle } **Cours**

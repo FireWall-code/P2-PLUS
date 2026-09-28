@@ -39,3 +39,21 @@ python ajouter_cours.py maths algebre-lineaire --titre "Algèbre linéaire" --co
 
 Chaque push sur `main` déclenche `.github/workflows/deploy.yml`, qui construit le
 site (`mkdocs build --strict`) et le publie sur GitHub Pages.
+
+## Agenda et comptes à rebours
+
+La page **Agenda** et l'encadré de chaque matière affichent le compte à rebours
+des CE / DE et le nombre de séances restantes. Les données viennent de
+`docs/data/calendrier.json`, généré par `outils/sync_calendrier.py` à partir du
+flux iCal de l'emploi du temps Efrei.
+
+- **Mise à jour automatique** : ajouter l'adresse iCal Efrei comme secret
+  `EFREI_ICS_URL` (Settings → Secrets and variables → Actions). Le workflow la
+  lit chaque nuit à 4 h UTC et à chaque push.
+- **Mise à jour manuelle** : `EFREI_ICS_URL="https://…" python outils/sync_calendrier.py`
+  (ou `--fichier emploi-du-temps.ics`), puis commit du JSON.
+- Une matière est suivie dès que sa page contient
+  `<div class="agenda-matiere" data-module="CODE"></div>` (ajouté
+  automatiquement par `ajouter_cours.py`).
+- Seuls le module, le type de séance, les horaires et les supports autorisés
+  sont publiés (pas de salles ni d'enseignants).

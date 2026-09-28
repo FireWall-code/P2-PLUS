@@ -80,3 +80,61 @@
 .md-typeset .arithmatex {
   overflow-x: auto;
 }
+
+/* ------------------------------------------------------------------ */
+/* Agenda : comptes à rebours (docs/javascripts/agenda.js)             */
+/* ------------------------------------------------------------------ */
+.agenda-carte {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 0.5rem 0;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-left: 4px solid var(--md-primary-fg-color);
+  border-radius: 0.2rem;
+  background: var(--md-default-bg-color);
+}
+.agenda-carte.bientot { border-left-color: #ff9100; }
+.agenda-carte.urgent  { border-left-color: #ff1744; }
+.agenda-carte.passe   { opacity: 0.5; }
+.agenda-type {
+  flex: 0 0 auto;
+  min-width: 2.4rem;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.2rem;
+  font-weight: 700;
+  text-align: center;
+  color: #fff;
+  background: var(--md-primary-fg-color);
+}
+.agenda-type.agenda-DE { background: #7c4dff; }
+.agenda-infos {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+.agenda-infos span:first-letter { text-transform: uppercase; }
+.agenda-supports {
+  color: var(--md-default-fg-color--light);
+  font-style: italic;
+}
+.agenda-supports::before { content: "Supports : "; }
+.agenda-reste {
+  flex: 0 0 auto;
+  font-family: var(--md-code-font-family);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-align: right;
+  white-space: nowrap;
+}
+.agenda-carte.urgent .agenda-reste { color: #ff1744; }
+.agenda-carte.bientot .agenda-reste { color: #ff9100; }
+.agenda-vide { color: var(--md-default-fg-color--light); font-style: italic; }
+.agenda-bloc .agenda-carte { margin: 0.6rem 0; }
+@media screen and (max-width: 30em) {
+  .agenda-carte { flex-wrap: wrap; }
+  .agenda-reste { width: 100%; text-align: left; }
+}

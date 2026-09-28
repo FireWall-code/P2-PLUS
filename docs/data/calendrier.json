@@ -1,0 +1,932 @@
+{
+ "maj": "2026-09-28T07:17:52Z",
+ "modules": {
+  "SM301P": {
+   "titre": "Probabilités",
+   "page": "maths/probabilites/"
+  },
+  "SM302P": {
+   "titre": "Fonctions de plusieurs variables",
+   "page": "maths/fonctions-plusieurs-variables/"
+  },
+  "SP301P": {
+   "titre": "Champs électromagnétiques",
+   "page": "physique-elec/champs-em/"
+  },
+  "SP303P": {
+   "titre": "Physique moderne",
+   "page": "physique-elec/physique-moderne/"
+  },
+  "TE302P": {
+   "titre": "Systèmes numériques",
+   "page": "physique-elec/systemes-numeriques/"
+  },
+  "TI301P": {
+   "titre": "Structures de données et programmation 2",
+   "page": "informatique/sdd-prog2/"
+  },
+  "TI305P": {
+   "titre": "Réseaux 1",
+   "page": "informatique/reseaux-1/"
+  },
+  "TI307P": {
+   "titre": "Introduction à Linux",
+   "page": "informatique/linux/"
+  }
+ },
+ "seances": [
+  {
+   "module": "SP301P",
+   "titre": "Champs électromagnétiques",
+   "type": "CTD",
+   "debut": "2026-09-21T07:10:00Z",
+   "fin": "2026-09-21T09:10:00Z"
+  },
+  {
+   "module": "SP303P",
+   "titre": "Physique moderne",
+   "type": "CTD",
+   "debut": "2026-09-21T09:30:00Z",
+   "fin": "2026-09-21T11:30:00Z"
+  },
+  {
+   "module": "TE302P",
+   "titre": "Systèmes numériques",
+   "type": "CTD",
+   "debut": "2026-09-22T07:10:00Z",
+   "fin": "2026-09-22T09:10:00Z"
+  },
+  {
+   "module": "TI301P",
+   "titre": "Structures de données et programmation 2",
+   "type": "TP",
+   "debut": "2026-09-22T11:50:00Z",
+   "fin": "2026-09-22T13:50:00Z"
+  },
+  {
+   "module": "SM302P",
+   "titre": "Fonctions de plusieurs variables",
+   "type": "CTD",
+   "debut": "2026-09-23T11:50:00Z",
+   "fin": "2026-09-23T15:50:00Z"
+  },
+  {
+   "module": "TE302P",
+   "titre": "Systèmes numériques",
+   "type": "CTD",
+   "debut": "2026-09-24T08:20:00Z",
+   "fin": "2026-09-24T10:20:00Z"
+  },
+  {
+   "module": "TI307P",
+   "titre": "Introduction à Linux",
+   "type": "CTP",
+   "debut": "2026-09-24T11:50:00Z",
+   "fin": "2026-09-24T14:50:00Z"
+  },
+  {
+   "module": "SP303P",
+   "titre": "Physique moderne",
+   "type": "CTD",
+   "debut": "2026-09-24T15:20:00Z",
+   "fin": "2026-09-24T17:20:00Z"
+  },
+  {
+   "module": "SM301P",
+   "titre": "Probabilités",
+   "type": "CTD",
+   "debut": "2026-09-28T06:00:00Z",
+   "fin": "2026-09-28T10:00:00Z"
+  },
+  {
+   "module": "TE302P",
+   "titre": "Systèmes numériques",
+   "type": "CTD",
+   "debut": "2026-09-28T11:50:00Z",
+   "fin": "2026-09-28T13:50:00Z"
+  },
+  {
+   "module": "TI301P",
+   "titre": "Structures de données et programmation 2",
+   "type": "CTD",
+   "debut": "2026-09-28T14:10:00Z",
+   "fin": "2026-09-28T16:10:00Z"
+  },
+  {
+   "module": "TI301P",
+   "titre": "Structures de données et programmation 2",
+   "type": "TP",
+   "debut": "2026-09-29T11:50:00Z",
+   "fin": "2026-09-29T14:50:00Z"
+  },
+  {
+   "module": "TE302P",
+   "titre": "Systèmes numériques",
+   "type": "TP",
+   "debut": "2026-09-29T15:20:00Z",
+   "fin": "2026-09-29T17:20:00Z"
+  },
+  {
+   "module": "SP301P",
+   "titre": "Champs électromagnétiques",
+   "type": "CTD",
+   "debut": "2026-09-30T11:50:00Z",
+   "fin": "2026-09-30T13:50:00Z"
+  },
+  {
+   "module": "SM302P",
+   "titre": "Fonctions de plusieurs variables",
+   "type": "CTD",
+   "debut": "2026-09-30T14:00:00Z",
+   "fin": "2026-09-30T16:00:00Z"
+  },
+  {
+   "module": "SP303P",
+   "titre": "Physique moderne",
+   "type": "CTD",
+   "debut": "2026-10-01T08:20:00Z",
+   "fin": "2026-10-01T10:20:00Z"
+  },
+  {
+   "module": "TI307P",
+   "titre": "Introduction à Linux",
+   "type": "CTP",
+   "debut": "2026-10-01T11:50:00Z",
+   "fin": "2026-10-01T13:50:00Z"
+  },
+  {
+   "module": "SP303P",
+   "titre": "Physique moderne",
+   "type": "CTD",
+   "debut": "2026-10-01T14:10:00Z",
+   "fin": "2026-10-01T17:10:00Z"
+  },
+  {
+   "module": "SM302P",
+   "titre": "Fonctions de plusieurs variables",
+   "type": "CTD",
+   "debut": "2026-10-02T06:00:00Z",
+   "fin": "2026-10-02T08:00:00Z"
+  },
+  {
+   "module": "TE302P",
+   "titre": "Systèmes numériques",
+   "type": "CTD",
+   "debut": "2026-10-02T08:20:00Z",
+   "fin": "2026-10-02T10:20:00Z"
+  },
+  {
+   "module": "TI301P",
+   "titre": "Structures de données et programmation 2",
+   "type": "CE",
+   "debut": "2026-10-03T11:50:00Z",
+   "fin": "2026-10-03T12:45:00Z",
+   "supports": "aucun support"
+  },
+  {
+   "module": "SP303P",
+   "titre": "Physique moderne",
+   "type": "CE",
+   "debut": "2026-10-03T13:10:00Z",
+   "fin": "2026-10-03T14:05:00Z",
+   "supports": "Calculatrice"
+  },
+  {
+   "module": "SP301P",
+   "titre": "Champs électromagnétiques",
+   "type": "CTD",
+   "debut": "2026-10-05T08:20:00Z",
+   "fin": "2026-10-05T10:20:00Z"
+  },
+  {
+   "module": "SP301P",
+   "titre": "Champs électromagnétiques",
+   "type": "CTD",
+   "debut": "2026-10-05T11:50:00Z",
+   "fin": "2026-10-05T13:50:00Z"
+  },
+  {
+   "module": "SM301P",
+   "titre": "Probabilités",
+   "type": "CTD",
+   "debut": "2026-10-06T11:50:00Z",
+   "fin": "2026-10-06T14:50:00Z"
+  },
+  {
+   "module": "SP303P",
+   "titre": "Physique moderne",
+   "type": "CTD",
+   "debut": "2026-10-06T15:20:00Z",
+   "fin": "2026-10-06T17:20:00Z"
+  },
+  {
+   "module": "SM302P",
+   "titre": "Fonctions de plusieurs variables",
+   "type": "CTD",
+   "debut": "2026-10-07T13:00:00Z",
+   "fin": "2026-10-07T16:00:00Z"
+  },
+  {
+   "module": "SM301P",
+   "titre": "Probabilités",
+   "type": "CTD",
+   "debut": "2026-10-08T11:50:00Z",
+   "fin": "2026-10-08T13:50:00Z"
+  },
+  {
+   "module": "TI301P",
+   "titre": "Structures de données et programmation 2",
+   "type": "TP",
+   "debut": "2026-10-08T14:10:00Z",
+   "fin": "2026-10-08T17:10:00Z"
+  },
+  {
+   "module": "SP303P",
+   "titre": "Physique moderne",
+   "type": "CTD",
+   "debut": "2026-10-09T06:00:00Z",
+   "fin": "2026-10-09T09:00:00Z"
+  },
+  {
+   "module": "TI301P",
+   "titre": "Structures de données et programmation 2",
+   "type": "CTD",
+   "debut": "2026-10-09T10:30:00Z",
+   "fin": "2026-10-09T14:30:00Z"
+  },
+  {
+   "module": "TI307P",
+   "titre": "Introduction à Linux",
+   "type": "DE",
+   "debut": "2026-10-10T06:00:00Z",
+   "fin": "2026-10-10T06:55:00Z",
+   "supports": "aucun support"
+  },
+  {
+   "module": "TE302P",
+   "titre": "Systèmes numériques",
+   "type": "CE",
+   "debut": "2026-10-10T07:10:00Z",
+   "fin": "2026-10-10T08:05:00Z",
+   "supports": "aucun support"
+  },
+  {
+   "module": "SP303P",
+   "titre": "Physique moderne",
+   "type": "CTD",
+   "debut": "2026-10-12T07:10:00Z",
+   "fin": "2026-10-12T10:10:00Z"
+  },
+  {
+   "module": "SP301P",
+   "titre": "Champs électromagnétiques",
+   "type": "CTD",
+   "debut": "2026-10-12T11:50:00Z",
+   "fin": "2026-10-12T13:50:00Z"
+  },
+  {
+   "module": "TE302P",
+   "titre": "Systèmes numériques",
+   "type": "CTD",
+   "debut": "2026-10-13T06:00:00Z",
+   "fin": "2026-10-13T09:00:00Z"
+  },
+  {
+   "module": "SM301P",
+   "titre": "Probabilités",
+   "type": "CTD",
+   "debut": "2026-10-13T11:50:00Z",
+   "fin": "2026-10-13T13:50:00Z"
+  },
+  {
+   "module": "TI301P",
+   "titre": "Structures de données et programmation 2",
+   "type": "TP",
+   "debut": "2026-10-13T14:10:00Z",
+   "fin": "2026-10-13T17:10:00Z"
+  },
+  {
+   "module": "SM302P",
+   "titre": "Fonctions de plusieurs variables",
+   "type": "CTD",
+   "debut": "2026-10-14T11:50:00Z",
+   "fin": "2026-10-14T13:50:00Z"
+  },
+  {
+   "module": "SM301P",
+   "titre": "Probabilités",
+   "type": "CE",
+   "debut": "2026-10-14T14:10:00Z",
+   "fin": "2026-10-14T15:05:00Z"
+  },
+  {
+   "module": "TI301P",
+   "titre": "Structures de données et programmation 2",
+   "type": "CTD",
+   "debut": "2026-10-15T06:00:00Z",
+   "fin": "2026-10-15T10:00:00Z"
+  },
+  {
+   "module": "SM301P",
+   "titre": "Probabilités",
+   "type": "CTD",
+   "debut": "2026-10-15T11:50:00Z",
+   "fin": "2026-10-15T13:50:00Z"
+  },
+  {
+   "module": "SM302P",
+   "titre": "Fonctions de plusieurs variables",
+   "type": "CTD",
+   "debut": "2026-10-16T08:20:00Z",
+   "fin": "2026-10-16T10:20:00Z"
+  },
+  {
+   "module": "SP303P",
+   "titre": "Physique moderne",
+   "type": "CTD",
+   "debut": "2026-10-16T11:50:00Z",
+   "fin": "2026-10-16T14:50:00Z"
+  },
+  {
+   "module": "SM301P",
+   "titre": "Probabilités",
+   "type": "CTD",
+   "debut": "2026-10-19T07:10:00Z",
+   "fin": "2026-10-19T09:10:00Z"
+  },
+  {
+   "module": "SP301P",
+   "titre": "Champs électromagnétiques",
+   "type": "CTD",
+   "debut": "2026-10-19T09:30:00Z",
+   "fin": "2026-10-19T11:30:00Z"
+  },
+  {
+   "module": "TE302P",
+   "titre": "Systèmes numériques",
+   "type": "CTD",
+   "debut": "2026-10-19T13:00:00Z",
+   "fin": "2026-10-19T15:00:00Z"
+  },
+  {
+   "module": "TE302P",
+   "titre": "Systèmes numériques",
+   "type": "TP",
+   "debut": "2026-10-19T15:10:00Z",
+   "fin": "2026-10-19T17:10:00Z"
+  },
+  {
+   "module": "TE302P",
+   "titre": "Systèmes numériques",
+   "type": "CTD",
+   "debut": "2026-10-20T06:00:00Z",
+   "fin": "2026-10-20T08:00:00Z"
+  },
+  {
+   "module": "SM301P",
+   "titre": "Probabilités",
+   "type": "CTD",
+   "debut": "2026-10-20T11:50:00Z",
+   "fin": "2026-10-20T13:50:00Z"
+  },
+  {
+   "module": "TI301P",
+   "titre": "Structures de données et programmation 2",
+   "type": "PRJ",
+   "debut": "2026-10-20T14:10:00Z",
+   "fin": "2026-10-20T17:10:00Z"
+  },
+  {
+   "module": "SM302P",
+   "titre": "Fonctions de plusieurs variables",
+   "type": "CTD",
+   "debut": "2026-10-21T13:00:00Z",
+   "fin": "2026-10-21T15:00:00Z"
+  },
+  {
+   "module": "SP303P",
+   "titre": "Physique moderne",
+   "type": "CTD",
+   "debut": "2026-10-22T13:00:00Z",
+   "fin": "2026-10-22T16:00:00Z"
+  },
+  {
+   "module": "SP303P",
+   "titre": "Physique moderne",
+   "type": "CTD",
+   "debut": "2026-10-23T06:00:00Z",
+   "fin": "2026-10-23T08:00:00Z"
+  },
+  {
+   "module": "SM302P",
+   "titre": "Fonctions de plusieurs variables",
+   "type": "CTD",
+   "debut": "2026-10-23T08:20:00Z",
+   "fin": "2026-10-23T10:20:00Z"
+  },
+  {
+   "module": "TI305P",
+   "titre": "Réseaux 1",
+   "type": "CTP",
+   "debut": "2026-10-23T11:50:00Z",
+   "fin": "2026-10-23T13:50:00Z"
+  },
+  {
+   "module": "SM302P",
+   "titre": "Fonctions de plusieurs variables",
+   "type": "CE",
+   "debut": "2026-10-24T08:20:00Z",
+   "fin": "2026-10-24T09:15:00Z"
+  },
+  {
+   "module": "FH301",
+   "titre": "Démocratie et Autorité",
+   "type": "CE",
+   "debut": "2026-10-24T09:30:00Z",
+   "fin": "2026-10-24T10:25:00Z"
+  },
+  {
+   "module": "SP301P",
+   "titre": "Champs électromagnétiques",
+   "type": "CTD",
+   "debut": "2026-11-02T07:00:00Z",
+   "fin": "2026-11-02T10:00:00Z"
+  },
+  {
+   "module": "TE302P",
+   "titre": "Systèmes numériques",
+   "type": "CTD",
+   "debut": "2026-11-02T11:30:00Z",
+   "fin": "2026-11-02T13:30:00Z"
+  },
+  {
+   "module": "SM301P",
+   "titre": "Probabilités",
+   "type": "CTD",
+   "debut": "2026-11-03T07:00:00Z",
+   "fin": "2026-11-03T11:00:00Z"
+  },
+  {
+   "module": "TE302P",
+   "titre": "Systèmes numériques",
+   "type": "CTD",
+   "debut": "2026-11-03T15:10:00Z",
+   "fin": "2026-11-03T17:10:00Z"
+  },
+  {
+   "module": "TI301P",
+   "titre": "Structures de données et programmation 2",
+   "type": "TP",
+   "debut": "2026-11-04T12:50:00Z",
+   "fin": "2026-11-04T13:50:00Z"
+  },
+  {
+   "module": "SM302P",
+   "titre": "Fonctions de plusieurs variables",
+   "type": "CTD",
+   "debut": "2026-11-04T14:00:00Z",
+   "fin": "2026-11-04T16:00:00Z"
+  },
+  {
+   "module": "SP303P",
+   "titre": "Physique moderne",
+   "type": "CTD",
+   "debut": "2026-11-05T12:50:00Z",
+   "fin": "2026-11-05T14:50:00Z"
+  },
+  {
+   "module": "SP303P",
+   "titre": "Physique moderne",
+   "type": "CTD",
+   "debut": "2026-11-06T07:00:00Z",
+   "fin": "2026-11-06T09:00:00Z"
+  },
+  {
+   "module": "SM302P",
+   "titre": "Fonctions de plusieurs variables",
+   "type": "CTD",
+   "debut": "2026-11-06T09:20:00Z",
+   "fin": "2026-11-06T11:20:00Z"
+  },
+  {
+   "module": "TI305P",
+   "titre": "Réseaux 1",
+   "type": "CTP",
+   "debut": "2026-11-06T12:50:00Z",
+   "fin": "2026-11-06T14:50:00Z"
+  },
+  {
+   "module": "SM301P",
+   "titre": "Probabilités",
+   "type": "CTD",
+   "debut": "2026-11-09T08:10:00Z",
+   "fin": "2026-11-09T10:10:00Z"
+  },
+  {
+   "module": "SP301P",
+   "titre": "Champs électromagnétiques",
+   "type": "CTD",
+   "debut": "2026-11-09T12:50:00Z",
+   "fin": "2026-11-09T14:50:00Z"
+  },
+  {
+   "module": "TI301P",
+   "titre": "Structures de données et programmation 2",
+   "type": "PRJ",
+   "debut": "2026-11-09T15:10:00Z",
+   "fin": "2026-11-09T18:10:00Z"
+  },
+  {
+   "module": "TI305P",
+   "titre": "Réseaux 1",
+   "type": "CTP",
+   "debut": "2026-11-10T09:20:00Z",
+   "fin": "2026-11-10T11:20:00Z"
+  },
+  {
+   "module": "SM301P",
+   "titre": "Probabilités",
+   "type": "CTD",
+   "debut": "2026-11-10T12:50:00Z",
+   "fin": "2026-11-10T14:50:00Z"
+  },
+  {
+   "module": "TE302P",
+   "titre": "Systèmes numériques",
+   "type": "TP",
+   "debut": "2026-11-10T15:10:00Z",
+   "fin": "2026-11-10T17:10:00Z"
+  },
+  {
+   "module": "SP301P",
+   "titre": "Champs électromagnétiques",
+   "type": "CE",
+   "debut": "2026-11-12T14:00:00Z",
+   "fin": "2026-11-12T14:55:00Z"
+  },
+  {
+   "module": "FL301",
+   "titre": "English 3 - Scientific and Technical English",
+   "type": "CE",
+   "debut": "2026-11-12T15:10:00Z",
+   "fin": "2026-11-12T16:05:00Z"
+  },
+  {
+   "module": "SM302P",
+   "titre": "Fonctions de plusieurs variables",
+   "type": "CTD",
+   "debut": "2026-11-13T07:00:00Z",
+   "fin": "2026-11-13T09:00:00Z"
+  },
+  {
+   "module": "SP303P",
+   "titre": "Physique moderne",
+   "type": "CTD",
+   "debut": "2026-11-13T09:20:00Z",
+   "fin": "2026-11-13T11:20:00Z"
+  },
+  {
+   "module": "TI305P",
+   "titre": "Réseaux 1",
+   "type": "CTP",
+   "debut": "2026-11-13T15:10:00Z",
+   "fin": "2026-11-13T17:10:00Z"
+  },
+  {
+   "module": "SM302P",
+   "titre": "Fonctions de plusieurs variables",
+   "type": "CTD",
+   "debut": "2026-11-14T07:00:00Z",
+   "fin": "2026-11-14T09:00:00Z"
+  },
+  {
+   "module": "SP301P",
+   "titre": "Champs électromagnétiques",
+   "type": "CTD",
+   "debut": "2026-11-14T09:20:00Z",
+   "fin": "2026-11-14T11:20:00Z"
+  },
+  {
+   "module": "TE302P",
+   "titre": "Systèmes numériques",
+   "type": "CTD",
+   "debut": "2026-11-16T07:00:00Z",
+   "fin": "2026-11-16T09:00:00Z"
+  },
+  {
+   "module": "SP301P",
+   "titre": "Champs électromagnétiques",
+   "type": "CTD",
+   "debut": "2026-11-16T09:20:00Z",
+   "fin": "2026-11-16T11:20:00Z"
+  },
+  {
+   "module": "SP301P",
+   "titre": "Champs électromagnétiques",
+   "type": "CTD",
+   "debut": "2026-11-16T12:50:00Z",
+   "fin": "2026-11-16T14:50:00Z"
+  },
+  {
+   "module": "SM301P",
+   "titre": "Probabilités",
+   "type": "CTD",
+   "debut": "2026-11-16T15:10:00Z",
+   "fin": "2026-11-16T18:10:00Z"
+  },
+  {
+   "module": "TI305P",
+   "titre": "Réseaux 1",
+   "type": "CTP",
+   "debut": "2026-11-17T09:20:00Z",
+   "fin": "2026-11-17T11:20:00Z"
+  },
+  {
+   "module": "SM302P",
+   "titre": "Fonctions de plusieurs variables",
+   "type": "CTD",
+   "debut": "2026-11-18T14:00:00Z",
+   "fin": "2026-11-18T17:00:00Z"
+  },
+  {
+   "module": "SM301P",
+   "titre": "Probabilités",
+   "type": "CTD",
+   "debut": "2026-11-19T12:50:00Z",
+   "fin": "2026-11-19T15:50:00Z"
+  },
+  {
+   "module": "SM302P",
+   "titre": "Fonctions de plusieurs variables",
+   "type": "CTD",
+   "debut": "2026-11-20T07:00:00Z",
+   "fin": "2026-11-20T09:00:00Z"
+  },
+  {
+   "module": "TI305P",
+   "titre": "Réseaux 1",
+   "type": "CTP",
+   "debut": "2026-11-20T15:10:00Z",
+   "fin": "2026-11-20T17:10:00Z"
+  },
+  {
+   "module": "SP303P",
+   "titre": "Physique moderne",
+   "type": "DE",
+   "debut": "2026-11-21T07:00:00Z",
+   "fin": "2026-11-21T08:50:00Z"
+  },
+  {
+   "module": "SM301P",
+   "titre": "Probabilités",
+   "type": "CTD",
+   "debut": "2026-11-23T07:00:00Z",
+   "fin": "2026-11-23T10:00:00Z"
+  },
+  {
+   "module": "SP301P",
+   "titre": "Champs électromagnétiques",
+   "type": "CTD",
+   "debut": "2026-11-23T10:30:00Z",
+   "fin": "2026-11-23T12:30:00Z"
+  },
+  {
+   "module": "TI301P",
+   "titre": "Structures de données et programmation 2",
+   "type": "PRJ",
+   "debut": "2026-11-24T08:10:00Z",
+   "fin": "2026-11-24T11:10:00Z"
+  },
+  {
+   "module": "SM301P",
+   "titre": "Probabilités",
+   "type": "CTD",
+   "debut": "2026-11-24T12:50:00Z",
+   "fin": "2026-11-24T14:50:00Z"
+  },
+  {
+   "module": "SP301P",
+   "titre": "Champs électromagnétiques",
+   "type": "CTD",
+   "debut": "2026-11-25T12:50:00Z",
+   "fin": "2026-11-25T14:50:00Z"
+  },
+  {
+   "module": "SM302P",
+   "titre": "Fonctions de plusieurs variables",
+   "type": "CTD",
+   "debut": "2026-11-25T15:00:00Z",
+   "fin": "2026-11-25T17:00:00Z"
+  },
+  {
+   "module": "TI305P",
+   "titre": "Réseaux 1",
+   "type": "CTP",
+   "debut": "2026-11-26T12:50:00Z",
+   "fin": "2026-11-26T14:50:00Z"
+  },
+  {
+   "module": "SM302P",
+   "titre": "Fonctions de plusieurs variables",
+   "type": "CTD",
+   "debut": "2026-11-27T07:00:00Z",
+   "fin": "2026-11-27T09:00:00Z"
+  },
+  {
+   "module": "TI305P",
+   "titre": "Réseaux 1",
+   "type": "CTP",
+   "debut": "2026-11-27T15:10:00Z",
+   "fin": "2026-11-27T17:10:00Z"
+  },
+  {
+   "module": "TI305P",
+   "titre": "Réseaux 1",
+   "type": "CTP",
+   "debut": "2026-11-30T08:10:00Z",
+   "fin": "2026-11-30T10:10:00Z"
+  },
+  {
+   "module": "SP301P",
+   "titre": "Champs électromagnétiques",
+   "type": "CTD",
+   "debut": "2026-11-30T10:30:00Z",
+   "fin": "2026-11-30T12:30:00Z"
+  },
+  {
+   "module": "TE302P",
+   "titre": "Systèmes numériques",
+   "type": "TP",
+   "debut": "2026-12-01T07:00:00Z",
+   "fin": "2026-12-01T09:00:00Z"
+  },
+  {
+   "module": "SM301P",
+   "titre": "Probabilités",
+   "type": "CTD",
+   "debut": "2026-12-01T12:50:00Z",
+   "fin": "2026-12-01T15:50:00Z"
+  },
+  {
+   "module": "SP301P",
+   "titre": "Champs électromagnétiques",
+   "type": "CTD",
+   "debut": "2026-12-02T12:50:00Z",
+   "fin": "2026-12-02T14:50:00Z"
+  },
+  {
+   "module": "SM302P",
+   "titre": "Fonctions de plusieurs variables",
+   "type": "CTD",
+   "debut": "2026-12-02T15:10:00Z",
+   "fin": "2026-12-02T16:10:00Z"
+  },
+  {
+   "module": "TI305P",
+   "titre": "Réseaux 1",
+   "type": "CTP",
+   "debut": "2026-12-03T07:00:00Z",
+   "fin": "2026-12-03T09:00:00Z"
+  },
+  {
+   "module": "SM301P",
+   "titre": "Probabilités",
+   "type": "CTD",
+   "debut": "2026-12-03T09:20:00Z",
+   "fin": "2026-12-03T12:20:00Z"
+  },
+  {
+   "module": "SM302P",
+   "titre": "Fonctions de plusieurs variables",
+   "type": "CTD",
+   "debut": "2026-12-04T07:00:00Z",
+   "fin": "2026-12-04T11:00:00Z"
+  },
+  {
+   "module": "TE302P",
+   "titre": "Systèmes numériques",
+   "type": "CTD",
+   "debut": "2026-12-04T15:10:00Z",
+   "fin": "2026-12-04T18:10:00Z"
+  },
+  {
+   "module": "TI305P",
+   "titre": "Réseaux 1",
+   "type": "CE",
+   "debut": "2026-12-05T16:10:00Z",
+   "fin": "2026-12-05T17:05:00Z"
+  },
+  {
+   "module": "SP301P",
+   "titre": "Champs électromagnétiques",
+   "type": "CTD",
+   "debut": "2026-12-07T07:00:00Z",
+   "fin": "2026-12-07T11:00:00Z"
+  },
+  {
+   "module": "SM301P",
+   "titre": "Probabilités",
+   "type": "CTD",
+   "debut": "2026-12-07T12:50:00Z",
+   "fin": "2026-12-07T15:50:00Z"
+  },
+  {
+   "module": "TI305P",
+   "titre": "Réseaux 1",
+   "type": "CTP",
+   "debut": "2026-12-08T09:20:00Z",
+   "fin": "2026-12-08T11:20:00Z"
+  },
+  {
+   "module": "SM301P",
+   "titre": "Probabilités",
+   "type": "CTD",
+   "debut": "2026-12-08T12:50:00Z",
+   "fin": "2026-12-08T15:50:00Z"
+  },
+  {
+   "module": "SM302P",
+   "titre": "Fonctions de plusieurs variables",
+   "type": "CTD",
+   "debut": "2026-12-09T14:00:00Z",
+   "fin": "2026-12-09T17:00:00Z"
+  },
+  {
+   "module": "SM301P",
+   "titre": "Probabilités",
+   "type": "CTD",
+   "debut": "2026-12-10T14:00:00Z",
+   "fin": "2026-12-10T18:00:00Z"
+  },
+  {
+   "module": "SM302P",
+   "titre": "Fonctions de plusieurs variables",
+   "type": "CTD",
+   "debut": "2026-12-11T07:00:00Z",
+   "fin": "2026-12-11T09:00:00Z"
+  },
+  {
+   "module": "TI305P",
+   "titre": "Réseaux 1",
+   "type": "CTP",
+   "debut": "2026-12-11T12:50:00Z",
+   "fin": "2026-12-11T14:50:00Z"
+  },
+  {
+   "module": "TI301P",
+   "titre": "Structures de données et programmation 2",
+   "type": "DE",
+   "debut": "2026-12-12T11:30:00Z",
+   "fin": "2026-12-12T13:20:00Z"
+  },
+  {
+   "module": "TI305P",
+   "titre": "Réseaux 1",
+   "type": "CTP",
+   "debut": "2026-12-14T12:50:00Z",
+   "fin": "2026-12-14T14:50:00Z"
+  },
+  {
+   "module": "SM301P",
+   "titre": "Probabilités",
+   "type": "PRJ",
+   "debut": "2026-12-15T12:50:00Z",
+   "fin": "2026-12-15T16:50:00Z"
+  },
+  {
+   "module": "TI305P",
+   "titre": "Réseaux 1",
+   "type": "CTP",
+   "debut": "2026-12-16T12:50:00Z",
+   "fin": "2026-12-16T14:50:00Z"
+  },
+  {
+   "module": "SM301P",
+   "titre": "Probabilités",
+   "type": "DE",
+   "debut": "2026-12-17T12:50:00Z",
+   "fin": "2026-12-17T14:40:00Z"
+  },
+  {
+   "module": "SM302P",
+   "titre": "Fonctions de plusieurs variables",
+   "type": "DE",
+   "debut": "2026-12-18T07:00:00Z",
+   "fin": "2026-12-18T08:50:00Z"
+  },
+  {
+   "module": "TI305P",
+   "titre": "Réseaux 1",
+   "type": "DE",
+   "debut": "2026-12-18T09:20:00Z",
+   "fin": "2026-12-18T11:10:00Z"
+  },
+  {
+   "module": "SP301P",
+   "titre": "Champs électromagnétiques",
+   "type": "DE",
+   "debut": "2026-12-18T12:50:00Z",
+   "fin": "2026-12-18T14:40:00Z"
+  }
+ ]
+}

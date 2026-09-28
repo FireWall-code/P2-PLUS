@@ -6,6 +6,8 @@ title: Réseaux 1
 
 Modèle OSI, adressage IP, routage, VLAN.
 
+<div class="agenda-matiere" data-module="TI305P"></div>
+
 <div class="grid cards" markdown>
 
 -   :material-school:{ .lg .middle } **Cours**

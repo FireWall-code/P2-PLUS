@@ -5,6 +5,9 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+  schedule:
+    # Chaque nuit à 4 h UTC : remet l'agenda à jour
+    - cron: "0 4 * * *"
 
 permissions:
   contents: read
@@ -18,6 +21,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      # Adresse iCal de l'emploi du temps Efrei (Settings → Secrets → Actions)
+      EFREI_ICS_URL: ${{ secrets.EFREI_ICS_URL }}
     steps:
       - uses: actions/checkout@v4
 
@@ -28,6 +34,11 @@ jobs:
 
       - name: Installer MkDocs
         run: pip install -r requirements.txt
+
+      - name: Synchroniser l'agenda Efrei
+        # Sans le secret EFREI_ICS_URL, on garde docs/data/calendrier.json tel quel
+        if: env.EFREI_ICS_URL != '' && github.event_name != 'pull_request'
+        run: python outils/sync_calendrier.py || echo "::warning::Synchronisation de l'agenda impossible, données précédentes conservées"
 
       - name: Construire le site
         run: mkdocs build --strict

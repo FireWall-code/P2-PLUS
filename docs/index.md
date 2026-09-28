@@ -11,6 +11,12 @@ Mes notes de cours, corrections de TD et fiches de révision, organisées par
 catégorie puis par matière. Utilise la recherche (++slash++) pour retrouver une
 notion, et le bouton :material-brightness-6: pour passer en mode sombre.
 
+## :material-timer-sand: Prochaines évaluations
+
+<div class="agenda-evaluations" data-limite="4"></div>
+
+[:octicons-arrow-right-24: Tout l'agenda](agenda.md)
+
 ## :material-sigma: Maths
 
 <div class="grid cards" markdown>
@@ -23,7 +29,7 @@ notion, et le bouton :material-brightness-6: pour passer en mode sombre.
 
     [:octicons-arrow-right-24: Réviser](maths/probabilites/index.md)
 
--   :material-function-variant:{ .lg .middle } **Fonctions de plusieurs variables** · `SM301P`
+-   :material-function-variant:{ .lg .middle } **Fonctions de plusieurs variables** · `SM302P`
 
     ---
 

@@ -6,6 +6,8 @@ title: Introduction à Linux
 
 Shell, système de fichiers, droits, processus, scripts Bash.
 
+<div class="agenda-matiere" data-module="TI307P"></div>
+
 <div class="grid cards" markdown>
 
 -   :material-school:{ .lg .middle } **Cours**
