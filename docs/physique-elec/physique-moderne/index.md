@@ -6,6 +6,8 @@ title: Physique moderne
 
 Relativité, dualité onde-corpuscule, introduction à la mécanique quantique.
 
+<div class="agenda-matiere" data-module="SP303P"></div>
+
 <div class="grid cards" markdown>
 
 -   :material-school:{ .lg .middle } **Cours**

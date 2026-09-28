@@ -6,6 +6,8 @@ title: Structures de données et programmation 2
 
 Listes chaînées, piles, files, arbres binaires, AVL, en C.
 
+<div class="agenda-matiere" data-module="TI301P"></div>
+
 <div class="grid cards" markdown>
 
 -   :material-school:{ .lg .middle } **Cours**

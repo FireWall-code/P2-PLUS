@@ -9,6 +9,8 @@ Le fil rouge du module : **passer d'un cahier des charges (une séquence, un
 comportement) à un circuit câblé**, puis vérifier son fonctionnement avec un
 chronogramme.
 
+<div class="agenda-matiere" data-module="TE302P"></div>
+
 <div class="grid cards" markdown>
 
 -   :material-school:{ .lg .middle } **Cours**

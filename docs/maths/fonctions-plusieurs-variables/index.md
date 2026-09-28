@@ -2,9 +2,11 @@
 title: Fonctions de plusieurs variables
 ---
 
-# Fonctions de plusieurs variables <small>`SM301P`</small>
+# Fonctions de plusieurs variables <small>`SM302P`</small>
 
 Limites, continuité, dérivées partielles, extrema et intégrales multiples.
+
+<div class="agenda-matiere" data-module="SM302P"></div>
 
 <div class="grid cards" markdown>
 
@@ -42,6 +44,6 @@ Limites, continuité, dérivées partielles, extrema et intégrales multiples.
 
 ## Infos pratiques
 
-- **Code** : `SM301P`
+- **Code** : `SM302P`
 - **Évaluation** : …
 - **Ressources officielles** : dans `pdf/` (local, non publié)

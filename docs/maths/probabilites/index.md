@@ -6,6 +6,8 @@ title: Probabilités
 
 Dénombrement, variables aléatoires discrètes et continues, lois usuelles.
 
+<div class="agenda-matiere" data-module="SM301P"></div>
+
 <div class="grid cards" markdown>
 
 -   :material-school:{ .lg .middle } **Cours**
