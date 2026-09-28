@@ -1,0 +1,16 @@
+# PDF officiels des profs : gardés en local, jamais publiés
+pdf/
+*.pdf
+
+# Site généré par `mkdocs build`
+site/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Divers
+.DS_Store
+.cache/

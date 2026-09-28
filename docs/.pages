@@ -1,0 +1,6 @@
+nav:
+  - Accueil: index.md
+  - maths
+  - physique-elec
+  - informatique
+  - ...
