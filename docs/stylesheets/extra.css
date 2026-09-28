@@ -138,3 +138,7 @@
   .agenda-carte { flex-wrap: wrap; }
   .agenda-reste { width: 100%; text-align: left; }
 }
+
+/* Le titre de l'en-tête est cliquable (docs/javascripts/titre-accueil.js) */
+.md-header__title[data-lien-accueil] { cursor: pointer; }
+.md-header__title[data-lien-accueil]:hover .md-header__topic:first-child { opacity: 0.8; }
