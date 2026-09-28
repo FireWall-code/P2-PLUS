@@ -1,1 +1,9 @@
 title: Cours
+nav:
+  - index.md
+  - chapitre-0-rappels.md
+  - chapitre-1-galilee.md
+  - chapitre-2-relativite-restreinte.md
+  - chapitre-3-dynamique-relativiste.md
+  - chapitre-4-onde-matiere.md
+  - chapitre-5-mecanique-quantique.md
