@@ -1,0 +1,8 @@
+title: Cours
+nav:
+  - index.md
+  - chapitre-0-introduction.md
+  - chapitre-1-bascules.md
+  - chapitre-2-registres.md
+  - chapitre-3-compteurs.md
+  - chapitre-4-machines-etats.md

@@ -1,0 +1,82 @@
+/* Admonitions personnalisées : !!! definition, theoreme, methode, piege */
+:root {
+  --md-admonition-icon--definition: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"/></svg>');
+  --md-admonition-icon--theoreme: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12 6.7 1.45 3.85L17.3 12l-3.85 1.45L12 17.3l-1.45-3.85L6.7 12l3.85-1.45zM12 1 9 9l-8 3 8 3 3 8 3-8 8-3-8-3z"/></svg>');
+  --md-admonition-icon--methode: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.54 22H10c-.25 0-.46-.18-.5-.42l-.37-2.65c-.63-.25-1.17-.59-1.69-.99l-2.49 1.01c-.22.08-.49 0-.61-.22l-2-3.46a.493.493 0 0 1 .12-.64l2.11-1.66L4.5 12l.07-1-2.11-1.63a.493.493 0 0 1-.12-.64l2-3.46c.12-.22.39-.31.61-.22l2.49 1c.52-.39 1.06-.73 1.69-.98l.37-2.65c.04-.24.25-.42.5-.42h4c.25 0 .46.18.5.42l.37 2.65c.63.25 1.17.59 1.69.98l2.49-1c.22-.09.49 0 .61.22l2 3.46c.13.22.07.49-.12.64L19.43 11l.07 1v.19c-.5-.12-1-.19-1.5-.19-.17 0-.34 0-.5.03 0-.62-.1-1.24-.3-1.83l2.11-1.55-.75-1.3-2.41 1.04a5.42 5.42 0 0 0-3.03-1.77L12.75 4h-1.5l-.37 2.61c-1.2.25-2.26.89-3.03 1.78L5.44 7.35l-.75 1.3L6.8 10.2a5.55 5.55 0 0 0 0 3.6l-2.12 1.56.75 1.3 2.43-1.04c.77.88 1.82 1.52 3.01 1.76l.37 2.62h1.11c.26.75.65 1.42 1.19 2m2.42-9.64c.04-.12.04-.24.04-.36 0-2.21-1.79-4-4-4s-4 1.79-4 4 1.79 4 4 4c.12 0 .24 0 .36-.04a6.05 6.05 0 0 1 3.6-3.6M12 14c-1.1 0-2-.89-2-2s.9-2 2-2 2 .9 2 2-.89 2-2 2m4 1v6l5-3z"/></svg>');
+  --md-admonition-icon--piege: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2.2 16.06 3.88 12 2.2 7.94l4.06-1.68L7.94 2.2 12 3.88l4.06-1.68 1.68 4.06 4.06 1.68L20.12 12l1.68 4.06-4.06 1.68-1.68 4.06L12 20.12 7.94 21.8l-1.68-4.06zM4.81 9l1.24 3-1.24 3 2.98 1.21L9 19.19l3-1.24 3 1.24 1.21-2.98L19.19 15l-1.24-3 1.24-3-2.98-1.21L15 4.81l-3 1.24-3-1.24-1.21 2.98zM11 15h2v2h-2zm0-8h2v6h-2z"/></svg>');
+}
+
+/* Définition */
+.md-typeset .admonition.definition,
+.md-typeset details.definition {
+  border-color: rgb(68, 138, 255);
+}
+.md-typeset .definition > .admonition-title,
+.md-typeset .definition > summary {
+  background-color: rgba(68, 138, 255, 0.1);
+}
+.md-typeset .definition > .admonition-title::before,
+.md-typeset .definition > summary::before {
+  background-color: rgb(68, 138, 255);
+  -webkit-mask-image: var(--md-admonition-icon--definition);
+          mask-image: var(--md-admonition-icon--definition);
+}
+
+/* Théorème */
+.md-typeset .admonition.theoreme,
+.md-typeset details.theoreme {
+  border-color: rgb(124, 77, 255);
+}
+.md-typeset .theoreme > .admonition-title,
+.md-typeset .theoreme > summary {
+  background-color: rgba(124, 77, 255, 0.1);
+}
+.md-typeset .theoreme > .admonition-title::before,
+.md-typeset .theoreme > summary::before {
+  background-color: rgb(124, 77, 255);
+  -webkit-mask-image: var(--md-admonition-icon--theoreme);
+          mask-image: var(--md-admonition-icon--theoreme);
+}
+
+/* Méthode */
+.md-typeset .admonition.methode,
+.md-typeset details.methode {
+  border-color: rgb(0, 191, 165);
+}
+.md-typeset .methode > .admonition-title,
+.md-typeset .methode > summary {
+  background-color: rgba(0, 191, 165, 0.1);
+}
+.md-typeset .methode > .admonition-title::before,
+.md-typeset .methode > summary::before {
+  background-color: rgb(0, 191, 165);
+  -webkit-mask-image: var(--md-admonition-icon--methode);
+          mask-image: var(--md-admonition-icon--methode);
+}
+
+/* Piège */
+.md-typeset .admonition.piege,
+.md-typeset details.piege {
+  border-color: rgb(255, 82, 82);
+}
+.md-typeset .piege > .admonition-title,
+.md-typeset .piege > summary {
+  background-color: rgba(255, 82, 82, 0.1);
+}
+.md-typeset .piege > .admonition-title::before,
+.md-typeset .piege > summary::before {
+  background-color: rgb(255, 82, 82);
+  -webkit-mask-image: var(--md-admonition-icon--piege);
+          mask-image: var(--md-admonition-icon--piege);
+}
+
+/* Code EFREI à côté du titre d'une matière */
+.md-typeset h1 small code {
+  font-size: 0.55em;
+  vertical-align: middle;
+}
+
+/* Les formules longues défilent au lieu de déborder */
+.md-typeset .arithmatex {
+  overflow-x: auto;
+}
