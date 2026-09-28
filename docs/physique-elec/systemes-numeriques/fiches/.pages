@@ -1,1 +1,7 @@
 title: Fiches
+nav:
+  - index.md
+  - fiche-bascules.md
+  - fiche-registres.md
+  - fiche-compteurs.md
+  - fiche-machines-etats.md
