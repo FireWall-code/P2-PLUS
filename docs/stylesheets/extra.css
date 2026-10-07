@@ -141,7 +141,8 @@
 
 /* Le titre de l'en-tête est cliquable (docs/javascripts/titre-accueil.js) */
 .md-header__title[data-lien-accueil] { cursor: pointer; }
-.md-header__title[data-lien-accueil]:hover .md-header__topic:first-child { opacity: 0.8; }
+.md-header__title[data-lien-accueil] .md-ellipsis { transition: color 0.15s ease; }
+.md-header__title[data-lien-accueil]:hover .md-ellipsis { color: var(--md-primary-fg-color); }
 
 /* ------------------------------------------------------------------ */
 /* Simulateur d'exercices (docs/javascripts/simulateur-proba.js)       */
