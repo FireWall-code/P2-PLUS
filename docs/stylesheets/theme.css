@@ -1,0 +1,241 @@
+/* ==================================================================== */
+/* Thème du site : couleurs, en-tête, typographie, cartes, tableaux      */
+/* ==================================================================== */
+
+/* ---------- Couleurs ---------- */
+:root,
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color: #4f46e5;
+  --md-primary-fg-color--light: #6366f1;
+  --md-primary-fg-color--dark: #4338ca;
+  --md-primary-bg-color: #ffffff;
+  --md-primary-bg-color--light: rgba(255, 255, 255, 0.7);
+  --md-accent-fg-color: #7c3aed;
+  --md-accent-fg-color--transparent: rgba(124, 58, 237, 0.1);
+
+  --site-surface: #ffffff;
+  --site-surface-2: #f6f7fb;
+  --site-border: #e5e7ef;
+  --site-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 24px -16px rgba(15, 23, 42, 0.25);
+  --site-shadow-hover: 0 2px 4px rgba(15, 23, 42, 0.06), 0 16px 32px -16px rgba(79, 70, 229, 0.35);
+  --site-radius: 12px;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-hue: 228;
+  --md-default-bg-color: #0e1016;
+  --md-default-bg-color--light: rgba(14, 16, 22, 0.54);
+  --md-default-fg-color: rgba(236, 238, 245, 0.92);
+  --md-default-fg-color--light: rgba(236, 238, 245, 0.62);
+  --md-default-fg-color--lighter: rgba(236, 238, 245, 0.32);
+  --md-default-fg-color--lightest: rgba(236, 238, 245, 0.1);
+  --md-code-bg-color: #161923;
+  --md-primary-fg-color: #818cf8;
+  --md-primary-fg-color--light: #a5b4fc;
+  --md-primary-fg-color--dark: #6366f1;
+  --md-accent-fg-color: #a78bfa;
+  --md-accent-fg-color--transparent: rgba(167, 139, 250, 0.12);
+  --md-typeset-a-color: #a5b4fc;
+  --md-footer-bg-color: #0b0d12;
+  --md-footer-bg-color--dark: #08090d;
+
+  --site-surface: #151821;
+  --site-surface-2: #11141b;
+  --site-border: #232734;
+  --site-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --site-shadow-hover: 0 12px 32px -16px rgba(129, 140, 248, 0.45);
+}
+
+/* ---------- En-tête et onglets : neutres, avec une simple bordure ---------- */
+.md-header,
+.md-tabs {
+  background-color: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+}
+.md-header {
+  box-shadow: none;
+  border-bottom: 1px solid var(--site-border);
+}
+.md-header[data-md-state="shadow"],
+.md-header--shadow {
+  box-shadow: 0 4px 16px -12px rgba(0, 0, 0, 0.4);
+}
+.md-header__title { font-weight: 700; letter-spacing: -0.01em; }
+.md-header__button.md-logo { color: var(--md-primary-fg-color); }
+.md-tabs { border-bottom: 1px solid var(--site-border); }
+.md-tabs__link { opacity: 0.75; font-weight: 500; }
+.md-tabs__link--active,
+.md-tabs__link:hover { opacity: 1; color: var(--md-primary-fg-color); }
+
+/* Barre de recherche sur fond neutre */
+.md-search__form {
+  background-color: var(--site-surface-2);
+  border: 1px solid var(--site-border);
+  border-radius: 8px;
+}
+.md-search__form:hover { background-color: var(--site-surface); }
+.md-search__input,
+.md-search__input::placeholder,
+.md-search__icon { color: var(--md-default-fg-color--light); }
+.md-search__input { color: var(--md-default-fg-color); }
+.md-source { color: var(--md-default-fg-color--light); }
+
+/* ---------- Typographie ---------- */
+.md-typeset { font-size: 0.78rem; line-height: 1.7; }
+.md-typeset h1 {
+  color: var(--md-default-fg-color);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  font-size: 1.9em;
+  margin-bottom: 0.6em;
+}
+.md-typeset h2 {
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  margin-top: 1.8em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--site-border);
+}
+.md-typeset h3 { font-weight: 650; }
+.md-typeset h1 small code {
+  font-size: 0.42em;
+  font-weight: 600;
+  padding: 0.25em 0.6em;
+  border-radius: 999px;
+  color: var(--md-primary-fg-color);
+  background: var(--md-accent-fg-color--transparent);
+  vertical-align: middle;
+}
+
+/* ---------- Menu de gauche ---------- */
+.md-nav { font-size: 0.72rem; }
+.md-nav__title { font-weight: 700; }
+.md-nav__link { border-radius: 6px; padding: 0.15em 0.4em; margin-left: -0.4em; }
+.md-nav__link:hover { background: var(--md-accent-fg-color--transparent); }
+.md-nav__link--active,
+.md-nav__item .md-nav__link--active {
+  color: var(--md-primary-fg-color);
+  font-weight: 600;
+  background: var(--md-accent-fg-color--transparent);
+}
+
+/* Fil d'Ariane (navigation.path) */
+.md-path { font-size: 0.68rem; }
+
+/* ---------- Cartes (grid cards) : arrondies, cliquables en entier ---------- */
+.md-typeset .grid { grid-gap: 0.8rem; }
+.md-typeset .grid.cards > ul > li,
+.md-typeset .grid > .card {
+  position: relative;
+  border: 1px solid var(--site-border);
+  border-radius: var(--site-radius);
+  background: var(--site-surface);
+  box-shadow: var(--site-shadow);
+  padding: 1rem 1.1rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.md-typeset .grid.cards > ul > li:hover,
+.md-typeset .grid > .card:hover {
+  border-color: var(--md-primary-fg-color);
+  box-shadow: var(--site-shadow-hover);
+  transform: translateY(-2px);
+}
+.md-typeset .grid.cards > ul > li > hr {
+  margin: 0.6rem 0;
+  border-bottom-color: var(--site-border);
+}
+.md-typeset .grid.cards > ul > li > p:first-child { font-size: 0.85rem; margin-top: 0; }
+.md-typeset .grid.cards .lg { color: var(--md-primary-fg-color); }
+.md-typeset .grid.cards > ul > li > p:last-child { margin-bottom: 0; }
+/* Le lien de la carte couvre toute la carte */
+.md-typeset .grid.cards > ul > li > p:last-child > a:only-child::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--site-radius);
+}
+
+/* ---------- Tableaux ---------- */
+.md-typeset table:not([class]) {
+  border: 1px solid var(--site-border);
+  border-radius: 10px;
+  box-shadow: none;
+  font-size: 0.72rem;
+}
+.md-typeset table:not([class]) th {
+  background: var(--site-surface-2);
+  font-weight: 650;
+}
+.md-typeset table:not([class]) td,
+.md-typeset table:not([class]) th { border-top-color: var(--site-border); }
+.md-typeset table:not([class]) tbody tr:hover { background: var(--md-accent-fg-color--transparent); }
+
+/* ---------- Encadrés ---------- */
+.md-typeset .admonition,
+.md-typeset details {
+  border-width: 1px;
+  border-left-width: 4px;
+  border-radius: 10px;
+  box-shadow: none;
+  font-size: 0.74rem;
+}
+.md-typeset .admonition-title,
+.md-typeset summary { font-weight: 650; }
+
+/* ---------- Boutons, code, pied de page ---------- */
+.md-typeset .md-button { border-radius: 8px; font-weight: 600; }
+.md-typeset code { border-radius: 5px; }
+.md-typeset pre > code { border-radius: 10px; }
+.md-footer-meta { background: var(--md-footer-bg-color--dark); }
+
+/* ---------- Accueil : bandeau d'introduction ---------- */
+.md-typeset .accueil-hero {
+  margin: 0 0 1.5rem;
+  padding: 1.6rem 1.8rem;
+  border-radius: 16px;
+  border: 1px solid var(--site-border);
+  background:
+    radial-gradient(120% 140% at 0% 0%, var(--md-accent-fg-color--transparent), transparent 60%),
+    var(--site-surface);
+}
+.md-typeset .accueil-hero h1 { margin: 0 0 0.3rem; }
+.md-typeset .accueil-hero p { margin: 0; color: var(--md-default-fg-color--light); max-width: 46rem; }
+
+/* ---------- Agenda : harmonisé avec le thème ---------- */
+.agenda-carte {
+  border: 1px solid var(--site-border);
+  border-left: 4px solid var(--site-border);
+  border-radius: 10px;
+  background: var(--site-surface);
+}
+.agenda-carte.bientot { border-left-color: #f59e0b; }
+.agenda-carte.urgent { border-left-color: #ef4444; }
+.agenda-type {
+  background: #4f46e5;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+}
+.agenda-type.agenda-DE { background: #7c3aed; }
+.agenda-infos a { font-weight: 650; }
+.agenda-carte.bientot .agenda-reste { color: #f59e0b; }
+.agenda-carte.urgent .agenda-reste { color: #ef4444; }
+
+/* Encadré agenda des pages matières : carte neutre au lieu de l'encadré cyan */
+.md-typeset .admonition.agenda-bloc {
+  border: 1px solid var(--site-border);
+  border-radius: var(--site-radius);
+  background: var(--site-surface-2);
+}
+.md-typeset .agenda-bloc > .admonition-title {
+  background: transparent;
+  color: var(--md-default-fg-color--light);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.66rem;
+}
+.md-typeset .agenda-bloc > .admonition-title::before {
+  background-color: var(--md-primary-fg-color);
+  -webkit-mask-image: var(--md-admonition-icon--abstract);
+          mask-image: var(--md-admonition-icon--abstract);
+}

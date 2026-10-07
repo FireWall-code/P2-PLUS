@@ -19,6 +19,9 @@ theme:
   language: fr
   icon:
     repo: fontawesome/brands/github
+  font:
+    text: Inter
+    code: JetBrains Mono
   palette:
     - media: "(prefers-color-scheme)"
       toggle:
@@ -26,23 +29,24 @@ theme:
         name: Passer en mode clair
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: indigo
-      accent: amber
+      primary: custom
+      accent: custom
       toggle:
-        icon: material/brightness-7
+        icon: material/weather-sunny
         name: Passer en mode sombre
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: indigo
-      accent: amber
+      primary: custom
+      accent: custom
       toggle:
-        icon: material/brightness-4
+        icon: material/weather-night
         name: Suivre le thème du système
   features:
     - navigation.instant
     - navigation.tracking
     - navigation.tabs
-    - navigation.sections
+    - navigation.path
+    - navigation.prune
     - navigation.indexes
     - navigation.top
     - navigation.footer
@@ -94,7 +98,9 @@ extra_javascript:
   - javascripts/mathjax.js
   - javascripts/agenda.js
   - javascripts/titre-accueil.js
+  - javascripts/menu.js
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 extra_css:
+  - stylesheets/theme.css
   - stylesheets/extra.css

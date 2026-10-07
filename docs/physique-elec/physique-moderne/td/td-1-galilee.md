@@ -27,7 +27,7 @@ G\,\frac{M_S\,m_T}{d^2} = m_T\,\frac{v_T^2}{d}
 M_S = \frac{v_T^2\,d}{G} = \frac{(3\times10^4)^2 \times 1{,}5\times10^{11}}{6{,}67\times10^{-11}} \approx 2{,}0 \times 10^{30}\ \text{kg}
 $$
 
-## 3. Train qui traverse une gare à $v_1$
+## 3. Train qui traverse une gare à v₁
 
 a. **Passager qui court à $v_2$** (sens du mouvement), parti de l'origine à $t = 0$ :
 
@@ -48,7 +48,7 @@ $$
 **Absurde** : cela montre les limites de Galilée. Le calcul relativiste est dans le
 [TD 2, ex. 1](td-2-lorentz.md#1-vitesse-relative-des-deux-electrons).
 
-## 5. Photon émis par un ion à $5\times10^4$ m/s — calcul classique
+## 5. Photon émis par un ion à 5×10⁴ m/s — calcul classique
 
 $$
 v = c + v_{ion} = 3\times10^8 + 5\times10^4 = 3{,}0005 \times 10^8\ \text{m/s} > c
