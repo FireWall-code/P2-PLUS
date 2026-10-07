@@ -210,13 +210,13 @@
 }
 .agenda-carte.bientot { border-left-color: #f59e0b; }
 .agenda-carte.urgent { border-left-color: #ef4444; }
-.agenda-type {
+.agenda-carte .agenda-type {
   background: #4f46e5;
   border-radius: 6px;
   font-size: 0.7rem;
   letter-spacing: 0.04em;
 }
-.agenda-type.agenda-DE { background: #7c3aed; }
+.agenda-carte .agenda-type.agenda-DE { background: #7c3aed; }
 .agenda-infos a { font-weight: 650; }
 .agenda-carte.bientot .agenda-reste { color: #f59e0b; }
 .agenda-carte.urgent .agenda-reste { color: #ef4444; }

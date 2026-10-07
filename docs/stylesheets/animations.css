@@ -1,0 +1,144 @@
+/* ==================================================================== */
+/* Animations (docs/javascripts/animations.js ajoute html.anim)          */
+/* Tout est désactivé si l'utilisateur préfère réduire les animations.   */
+/* ==================================================================== */
+
+@keyframes apparaitre {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes glisser-gauche {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes pulsation {
+  0%   { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.55); }
+  70%  { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+@keyframes degrade {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+  /* ---------- Arrivée de la page (aussi à chaque navigation instantanée) ---------- */
+  html.anim .md-content__inner > h1,
+  html.anim .md-content__inner > .md-path,
+  html.anim .md-content__inner > .accueil-hero {
+    animation: apparaitre 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  html.anim .md-content__inner > h1 + * { animation: apparaitre 0.5s 0.06s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+
+  /* ---------- Révélation au défilement (cartes, encadrés, tableaux, titres) ---------- */
+  html.anim .reveler {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.55s cubic-bezier(0.2, 0.7, 0.2, 1),
+                transform 0.55s cubic-bezier(0.2, 0.7, 0.2, 1);
+    transition-delay: var(--delai, 0s);
+  }
+  html.anim .reveler.visible { opacity: 1; transform: none; }
+
+  /* ---------- Bandeau d'accueil : dégradé qui respire ---------- */
+  .md-typeset .accueil-hero {
+    background:
+      linear-gradient(120deg, var(--md-accent-fg-color--transparent), transparent 40%, rgba(99, 102, 241, 0.08) 70%, transparent),
+      var(--site-surface);
+    background-size: 220% 220%, auto;
+    animation: degrade 14s ease-in-out infinite;
+  }
+
+  /* ---------- Cartes : relief + icône qui grossit ---------- */
+  .md-typeset .grid.cards > ul > li .lg {
+    display: inline-block;
+    transition: transform 0.25s cubic-bezier(0.3, 1.6, 0.5, 1);
+  }
+  .md-typeset .grid.cards > ul > li:hover .lg { transform: scale(1.18) rotate(-4deg); }
+  .md-typeset .grid.cards > ul > li > p:last-child .twemoji,
+  .md-typeset .grid.cards > ul > li > p:last-child svg {
+    transition: transform 0.2s ease;
+  }
+  .md-typeset .grid.cards > ul > li:hover > p:last-child svg { transform: translateX(4px); }
+
+  /* ---------- Liens : soulignement qui se dessine ---------- */
+  .md-typeset a:not(.md-button):not(.headerlink):not([class*="md-"]) {
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.25s ease, color 0.15s ease;
+  }
+  .md-typeset a:not(.md-button):not(.headerlink):not([class*="md-"]):hover { background-size: 100% 1px; }
+  .md-typeset .grid.cards a { background-image: none; }
+
+  /* ---------- Boutons ---------- */
+  .md-typeset .md-button { transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease; }
+  .md-typeset .md-button:hover { transform: translateY(-1px); box-shadow: var(--site-shadow-hover); }
+
+  /* ---------- Menu de gauche ---------- */
+  .md-nav__link { transition: color 0.15s ease, background-color 0.15s ease, transform 0.15s ease; }
+  .md-sidebar--primary .md-nav__link:hover { transform: translateX(3px); }
+  .md-nav__icon { transition: transform 0.25s ease; }
+  /* Sous-menus qui s'ouvrent en glissant */
+  .md-nav__toggle:checked ~ .md-nav > .md-nav__list > .md-nav__item,
+  .md-nav__item--active > .md-nav > .md-nav__list > .md-nav__item {
+    animation: glisser-gauche 0.3s ease both;
+  }
+  .md-nav__toggle:checked ~ .md-nav > .md-nav__list > .md-nav__item:nth-child(2),
+  .md-nav__item--active > .md-nav > .md-nav__list > .md-nav__item:nth-child(2) { animation-delay: 0.03s; }
+  .md-nav__toggle:checked ~ .md-nav > .md-nav__list > .md-nav__item:nth-child(3),
+  .md-nav__item--active > .md-nav > .md-nav__list > .md-nav__item:nth-child(3) { animation-delay: 0.06s; }
+  .md-nav__toggle:checked ~ .md-nav > .md-nav__list > .md-nav__item:nth-child(4),
+  .md-nav__item--active > .md-nav > .md-nav__list > .md-nav__item:nth-child(4) { animation-delay: 0.09s; }
+  .md-nav__toggle:checked ~ .md-nav > .md-nav__list > .md-nav__item:nth-child(n+5),
+  .md-nav__item--active > .md-nav > .md-nav__list > .md-nav__item:nth-child(n+5) { animation-delay: 0.12s; }
+  /* Barre d'accent de la matière ouverte qui se déploie */
+  @media screen and (min-width: 76.25em) {
+    .md-nav[data-md-level="1"] > .md-nav__list > .md-nav__item--active::before {
+      transform-origin: top;
+      animation: barre 0.4s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    }
+  }
+
+  /* ---------- Onglets : trait sous l'onglet actif ---------- */
+  .md-tabs__item { position: relative; }
+  .md-tabs__link { transition: color 0.2s ease, opacity 0.2s ease; }
+  .md-tabs__item::after {
+    content: "";
+    position: absolute;
+    left: 0.8rem;
+    right: 0.8rem;
+    bottom: 0;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--md-primary-fg-color);
+    transform: scaleX(0);
+    transition: transform 0.25s ease;
+  }
+  .md-tabs__item:hover::after { transform: scaleX(0.5); }
+  .md-tabs__item--active::after { transform: scaleX(1); }
+
+  /* ---------- Encadrés repliables : ouverture douce ---------- */
+  .md-typeset details[open] > :not(summary) { animation: apparaitre 0.3s ease both; }
+  .md-typeset details > summary::after { transition: transform 0.25s ease; }
+
+  /* ---------- Tableaux : ligne survolée ---------- */
+  .md-typeset table:not([class]) tbody tr { transition: background-color 0.15s ease; }
+
+  /* ---------- Agenda ---------- */
+  .agenda-carte { transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; }
+  .agenda-carte:hover { transform: translateY(-2px); box-shadow: var(--site-shadow-hover); }
+  .agenda-carte.urgent .agenda-type { animation: pulsation 1.8s ease-out infinite; }
+
+  /* ---------- Retour en haut ---------- */
+  .md-top { transition: transform 0.25s ease, opacity 0.25s ease, background-color 0.2s ease; }
+  .md-top:hover { transform: translate(-50%, -2px); }
+}
+
+@keyframes barre {
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
+}
