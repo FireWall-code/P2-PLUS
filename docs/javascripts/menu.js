@@ -24,6 +24,29 @@
     });
   }
 
-  if (typeof document$ !== "undefined") document$.subscribe(alleger);
-  else document.addEventListener("DOMContentLoaded", alleger);
+  // Matières : "Physique moderne (SP303P)" → nom + code en badge.
+  // Sections : data-section="cours|td|fiches|entrainement" pour l'icône.
+  const SECTIONS = { cours: "cours", td: "td", fiches: "fiches", "entraînement": "entrainement", entrainement: "entrainement", annales: "annales" };
+
+  function structurer() {
+    document.querySelectorAll('.md-nav[data-md-level="1"] > .md-nav__list > .md-nav__item').forEach((item) => {
+      const el = item.querySelector(":scope > .md-nav__link .md-ellipsis, :scope > .md-nav__container > .md-nav__link:first-child .md-ellipsis");
+      if (!el || el.querySelector(".nav-matiere")) return;
+      const m = el.textContent.trim().match(/^(.*?)\s*\(([A-Z]{2}\d{3}[A-Z]?)\)$/);
+      if (!m) return;
+      el.innerHTML = `<span class="nav-matiere"><span class="nav-matiere__nom"></span><span class="nav-matiere__code"></span></span>`;
+      el.querySelector(".nav-matiere__nom").textContent = m[1];
+      el.querySelector(".nav-matiere__code").textContent = m[2];
+    });
+    document.querySelectorAll('.md-nav[data-md-level="2"] > .md-nav__list > .md-nav__item').forEach((item) => {
+      const el = item.querySelector(":scope > .md-nav__link, :scope > .md-nav__container > .md-nav__link:first-child");
+      const cle = SECTIONS[el?.textContent.trim().toLowerCase()];
+      if (cle) item.dataset.section = cle;
+    });
+  }
+
+  function initialiser() { alleger(); structurer(); }
+
+  if (typeof document$ !== "undefined") document$.subscribe(initialiser);
+  else document.addEventListener("DOMContentLoaded", initialiser);
 })();
