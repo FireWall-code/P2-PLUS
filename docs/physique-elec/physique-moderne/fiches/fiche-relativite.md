@@ -100,7 +100,7 @@ $\ m_e c^2 = 0{,}511$ MeV. Une impulsion s'exprime en MeV/$c$.
     En relativité, $T = (\gamma - 1)\,m_0c^2$. La formule classique ne redevient
     valable que pour $v \ll c$.
 
-## Valeurs de $\gamma$ à connaître
+## Valeurs de γ à connaître
 
 | $\beta = v/c$ | 0,1 | 0,3 | 0,6 | 0,8 | 0,85 | 0,866 | 0,9 | 0,99 |
 |---------------|:---:|:---:|:---:|:---:|:----:|:-----:|:---:|:----:|

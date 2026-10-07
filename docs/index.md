@@ -5,11 +5,14 @@ hide:
   - toc
 ---
 
+<div class="accueil-hero" markdown>
+
 # Révisions EFREI — P2-PLUS
 
-Mes notes de cours, corrections de TD et fiches de révision, organisées par
-catégorie puis par matière. Utilise la recherche (++slash++) pour retrouver une
-notion, et le bouton :material-brightness-6: pour passer en mode sombre.
+Cours, corrections de TD et fiches de révision, matière par matière.
+Appuie sur ++slash++ pour chercher une notion.
+
+</div>
 
 ## :material-timer-sand: Prochaines évaluations
 

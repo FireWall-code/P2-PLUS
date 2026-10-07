@@ -73,7 +73,7 @@ Indépendante du temps (état stationnaire, $V$ indépendant de $t$) :
     C'est une équation **aux valeurs propres** : seules certaines énergies $E$ donnent une
     solution acceptable, donc **l'énergie est quantifiée** dès que la particule est confinée.
 
-## Potentiel constant $V_0$ : les 3 cas
+## Potentiel constant V₀ : les 3 cas
 
 On écrit $\Psi'' + \dfrac{2m(E - V_0)}{\hbar^2}\,\Psi = 0$.
 
