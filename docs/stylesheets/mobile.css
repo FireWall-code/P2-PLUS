@@ -1,0 +1,109 @@
+/* ==================================================================== */
+/* Mobile et tablette                                                    */
+/* ==================================================================== */
+
+/* ---------- Menu tiroir (mobile/tablette) : nom de matière + code ---------- */
+@media screen and (max-width: 76.234375em) {
+  .nav-matiere { display: flex; flex-direction: column; gap: 0.15rem; white-space: normal; }
+  .nav-matiere__nom { line-height: 1.3; }
+  .nav-matiere__code {
+    align-self: flex-start;
+    padding: 0.05rem 0.4rem;
+    border-radius: 999px;
+    font-family: var(--md-code-font-family);
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: var(--md-default-fg-color--light);
+    background: var(--md-default-fg-color--lightest);
+  }
+  /* Entrées du tiroir plus aérées et faciles à toucher */
+  .md-nav--primary .md-nav__link { padding-top: 0.55rem; padding-bottom: 0.55rem; }
+  .md-nav--primary .md-nav__item { border-top-color: var(--site-border); }
+  .md-nav--primary .md-nav__title { font-size: 0.8rem; }
+  .md-nav--primary .md-nav__item--active > .md-nav__link,
+  .md-nav--primary .md-nav__link--active { color: var(--md-primary-fg-color); }
+  [data-section] > .md-nav__link .md-ellipsis::before {
+    content: "";
+    display: inline-block;
+    width: 0.9rem;
+    height: 0.9rem;
+    margin-right: 0.5rem;
+    vertical-align: -0.15rem;
+    background-color: currentColor;
+    -webkit-mask: var(--nav-icone) center / contain no-repeat;
+            mask: var(--nav-icone) center / contain no-repeat;
+  }
+  [data-section="cours"] { --nav-icone: var(--nav-icone-cours); }
+  [data-section="td"] { --nav-icone: var(--nav-icone-td); }
+  [data-section="fiches"] { --nav-icone: var(--nav-icone-fiches); }
+  [data-section="entrainement"] { --nav-icone: var(--nav-icone-entrainement); }
+  [data-section="annales"] { --nav-icone: var(--nav-icone-annales); }
+}
+
+/* ---------- Téléphones ---------- */
+@media screen and (max-width: 44.984375em) {
+  /* Titres */
+  .md-typeset h1 { font-size: 1.55em; line-height: 1.25; }
+  .md-typeset h2 { font-size: 1.3em; margin-top: 1.4em; }
+  .md-typeset h3 { font-size: 1.1em; }
+  .md-header__title { font-size: 0.8rem; }
+
+  /* Fil d'Ariane : passe à la ligne au lieu d'être coupé */
+  .md-path { overflow: visible; }
+  .md-path__list { flex-wrap: wrap; row-gap: 0.2rem; white-space: normal; }
+
+  /* Bandeau d'accueil */
+  .md-typeset .accueil-hero { padding: 1.1rem 1.1rem 1.2rem; border-radius: 14px; }
+  .md-typeset .accueil-hero .md-button { display: block; text-align: center; }
+
+  /* Cartes plus compactes */
+  .md-typeset .grid.cards > ul > li,
+  .md-typeset .grid > .card { padding: 0.85rem 0.9rem; }
+
+  /* Encadrés */
+  .md-typeset .admonition,
+  .md-typeset details { margin-left: 0; margin-right: 0; }
+
+  /* Agenda : la date et le compte à rebours passent sous le titre */
+  .agenda-carte { gap: 0.6rem; padding: 0.6rem 0.7rem; }
+  .agenda-reste { font-size: 0.75rem; }
+  /* Tableau « Par matière » : on retire la colonne « Dernier cours » */
+  .agenda-tableau th:nth-child(4),
+  .agenda-tableau td:nth-child(4) { display: none; }
+  .agenda-tableau table { font-size: 0.66rem; }
+
+  /* Tableaux larges : ombre sur le bord pour montrer qu'on peut faire glisser */
+  .md-typeset__scrollwrap {
+    background:
+      linear-gradient(to right, var(--md-default-bg-color) 30%, transparent) left / 1.5rem 100% no-repeat local,
+      linear-gradient(to left, var(--md-default-bg-color) 30%, transparent) right / 1.5rem 100% no-repeat local,
+      radial-gradient(farthest-side at 0 50%, rgba(0, 0, 0, 0.25), transparent) left / 0.6rem 100% no-repeat scroll,
+      radial-gradient(farthest-side at 100% 50%, rgba(0, 0, 0, 0.25), transparent) right / 0.6rem 100% no-repeat scroll;
+  }
+  .md-typeset table:not([class]) { font-size: 0.68rem; }
+  .md-typeset table:not([class]) th,
+  .md-typeset table:not([class]) td { padding: 0.55em 0.8em; }
+
+  /* Formules longues : défilement horizontal propre au lieu de déborder de l'écran */
+  .md-typeset div.arithmatex { overflow-x: auto; overflow-y: hidden; padding-bottom: 0.2rem; }
+  .md-typeset div.arithmatex > mjx-container { min-width: 0 !important; }
+  .md-typeset span.arithmatex > mjx-container {
+    display: inline-block;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    vertical-align: middle;
+  }
+  /* Le contenu ne peut jamais élargir la page */
+  .md-content { overflow-x: clip; }
+}
+
+/* ---------- Écrans tactiles : pas d'effets de survol « collants » ---------- */
+@media (hover: none) {
+  .md-typeset .grid.cards > ul > li:hover,
+  .md-typeset .grid > .card:hover,
+  .agenda-carte:hover { transform: none; }
+  .md-typeset .grid.cards > ul > li:active,
+  .md-typeset .grid > .card:active { transform: scale(0.985); border-color: var(--md-primary-fg-color); }
+  .md-sidebar--primary .md-nav__link:hover { transform: none; }
+}
