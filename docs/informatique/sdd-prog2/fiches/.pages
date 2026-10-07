@@ -1,1 +1,9 @@
 title: Fiches
+nav:
+  - index.md
+  - fiche-de.md
+  - fiche-listes.md
+  - fiche-listes-avancees.md
+  - fiche-piles-files.md
+  - fiche-arbres.md
+  - fiche-avl.md

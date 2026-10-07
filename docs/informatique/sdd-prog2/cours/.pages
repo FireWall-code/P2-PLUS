@@ -1,1 +1,9 @@
 title: Cours
+nav:
+  - index.md
+  - chapitre-1-listes-simples.md
+  - bonnes-pratiques-c.md
+  - chapitre-2-listes-avancees.md
+  - chapitre-3-piles-files.md
+  - chapitre-4-arbres-binaires.md
+  - chapitre-5-abr-avl.md
