@@ -142,3 +142,125 @@
 /* Le titre de l'en-tête est cliquable (docs/javascripts/titre-accueil.js) */
 .md-header__title[data-lien-accueil] { cursor: pointer; }
 .md-header__title[data-lien-accueil]:hover .md-header__topic:first-child { opacity: 0.8; }
+
+/* ------------------------------------------------------------------ */
+/* Simulateur d'exercices (docs/javascripts/simulateur-proba.js)       */
+/* ------------------------------------------------------------------ */
+.simu-barre {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1rem;
+  margin-bottom: 0.8rem;
+}
+.simu-chips { display: flex; gap: 0.3rem; flex-wrap: wrap; }
+.simu-chips button {
+  padding: 0.25rem 0.75rem;
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: 1rem;
+  background: transparent;
+  color: var(--md-default-fg-color);
+  font: inherit;
+  font-size: 0.72rem;
+  cursor: pointer;
+}
+.simu-chips button:hover { border-color: var(--md-accent-fg-color); }
+.simu-chips button.actif {
+  background: var(--md-primary-fg-color);
+  border-color: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
+}
+.simu-type-label { font-size: 0.72rem; display: flex; align-items: center; gap: 0.4rem; flex: 0 1 auto; min-width: 0; }
+.simu-type {
+  min-width: 0;
+  max-width: 100%;
+  padding: 0.25rem 0.4rem;
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: 0.2rem;
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  font: inherit;
+}
+.simu-score {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.72rem;
+}
+.simu-serie { font-weight: 700; }
+.simu-raz {
+  border: none;
+  background: transparent;
+  color: var(--md-default-fg-color--light);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.simu-carte {
+  padding: 0.8rem 1rem 1rem;
+  border: 1px solid var(--site-border, var(--md-default-fg-color--lightest));
+  border-top: 3px solid var(--md-primary-fg-color);
+  border-radius: var(--site-radius, 0.2rem);
+  background: var(--site-surface, transparent);
+  box-shadow: var(--site-shadow, none);
+}
+.simu-entete {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.65rem;
+  color: var(--md-default-fg-color--light);
+}
+.simu-tag { text-transform: uppercase; letter-spacing: 0.04em; font-weight: 700; }
+.md-typeset .simu-titre { margin: 0.3rem 0 0.6rem; }
+.md-typeset .simu-questions { margin-left: 1.2rem; }
+.md-typeset .simu-questions li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.8rem;
+  margin-bottom: 0.5rem;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.2rem;
+}
+.simu-label { flex: 1 1 14rem; }
+.simu-input {
+  width: 9rem;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: 0.2rem;
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  font-family: var(--md-code-font-family);
+}
+.simu-input:focus { outline: 2px solid var(--md-accent-fg-color); outline-offset: 1px; }
+.simu-choix { display: flex; gap: 0.8rem; }
+.simu-choix label { cursor: pointer; }
+.simu-retour { min-width: 1.2rem; font-weight: 700; }
+.md-typeset .simu-questions li.simu-bon { background: rgba(0, 200, 83, 0.12); }
+.md-typeset .simu-questions li.simu-bon .simu-retour { color: #00a152; }
+.md-typeset .simu-questions li.simu-faux { background: rgba(255, 82, 82, 0.12); }
+.md-typeset .simu-questions li.simu-faux .simu-retour { color: #ff1744; }
+.simu-actions { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.6rem; }
+.md-typeset .simu-actions .md-button { margin: 0; padding: 0.35em 1em; font-size: 0.7rem; }
+.md-typeset .simu-actions .md-button:not(.md-button--primary):not(:hover):not(:focus) {
+  color: var(--md-typeset-a-color);
+  border-color: currentColor;
+}
+.simu-panneau {
+  overflow-x: auto;
+  margin-top: 0.8rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.2rem;
+  background: var(--md-code-bg-color);
+}
+.simu-indice { border-left: 3px solid var(--md-accent-fg-color); }
+.simu-correction { border-left: 3px solid rgb(0, 191, 165); }
+.md-typeset .simu-panneau table:not([class]) { font-size: 0.7rem; }
+.simu-aide { font-size: 0.65rem; color: var(--md-default-fg-color--light); }
+@media screen and (max-width: 30em) {
+  .simu-type-label { width: 100%; }
+  .simu-type { flex: 1 1 auto; }
+  .simu-score { margin-left: 0; width: 100%; }
+  .simu-input { flex: 1 1 auto; width: auto; min-width: 0; }
+}
