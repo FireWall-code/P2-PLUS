@@ -37,6 +37,14 @@ chronogramme.
 
     [:octicons-arrow-right-24: Fiches](fiches/index.md)
 
+-   :material-sine-wave:{ .lg .middle } **Entraînement**
+
+    ---
+
+    Exercices aléatoires corrigés : chronogrammes, table de transition, table des états.
+
+    [:octicons-arrow-right-24: S'entraîner](entrainement/index.md)
+
 </div>
 
 ## Plan du cours

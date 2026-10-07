@@ -1,0 +1,861 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entraînement bascules</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..800&family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout : feuille d'exercice une colonne, trois modes en onglets ; chronogramme et tableau partagent la même grille (une colonne = un front) */
+:root{
+  --paper:#f2f4f6; --card:#ffffff; --ink:#17202a; --muted:#5b6673; --line:#d4dbe2; --grid:#e9edf1;
+  --accent:#2347a6; --accent-soft:#e3e9f8; --warn:#b4235a; --warn-soft:#f8e3eb; --ok:#1d7a4f; --ok-soft:#dff2e8;
+  --f-display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --f-body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#11161c; --card:#182029; --ink:#e4e9ef; --muted:#9aa6b4; --line:#2c3743; --grid:#202a34;
+  --accent:#8eaaff; --accent-soft:#1e2a47; --warn:#ff7fa9; --warn-soft:#3a1d2a; --ok:#5fd19b; --ok-soft:#173527; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#11161c; --card:#182029; --ink:#e4e9ef; --muted:#9aa6b4; --line:#2c3743; --grid:#202a34;
+  --accent:#8eaaff; --accent-soft:#1e2a47; --warn:#ff7fa9; --warn-soft:#3a1d2a; --ok:#5fd19b; --ok-soft:#173527; color-scheme:dark}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html.embedded header{display:none}
+html.embedded body{padding-block:0 8px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5;padding-inline:16px;padding-block:0 48px}
+.wrap{max-width:860px;margin:0 auto}
+header{padding-block:24px 10px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--f-display);font-weight:800;font-stretch:78%;font-size:clamp(30px,7vw,42px);line-height:1.05;margin:6px 0 8px;text-wrap:balance}
+.lead{color:var(--muted);margin:0;max-width:64ch}
+
+.modes{display:flex;gap:0;margin-top:16px;border-bottom:2px solid var(--ink);overflow-x:auto;scrollbar-width:none}
+.modes button{flex:0 0 auto;font-family:var(--f-display);font-stretch:82%;font-weight:700;font-size:17px;padding:9px 14px 8px;border:0;background:none;color:var(--muted);cursor:pointer;border-bottom:4px solid transparent;margin-bottom:-2px}
+.modes button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.modes button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+
+.controls{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.controls .grp{display:contents}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--card)}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label{font-family:var(--f-display);font-stretch:85%;font-weight:600;font-size:15px;padding:6px 11px;cursor:pointer;border-right:1px solid var(--line);white-space:nowrap}
+.seg label:last-of-type{border-right:0}
+.seg input:checked+label{background:var(--accent);color:var(--card)}
+.seg input:focus-visible+label{outline:2px solid var(--accent);outline-offset:-2px}
+.ctl{display:inline-flex;align-items:center;gap:6px;font-size:14.5px}
+.ctl select{font:inherit;font-size:14px;padding:4px 6px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink)}
+.ctl input[type=checkbox]{width:17px;height:17px;accent-color:var(--accent)}
+.ctl.prio{font-weight:700;color:var(--warn)}
+.ctl.prio input{accent-color:var(--warn)}
+
+.sheet{background:var(--card);border:1px solid var(--line);border-radius:10px;margin-top:18px;padding:14px 0 16px}
+.statement{padding:0 16px}
+.statement h2{font-family:var(--f-display);font-weight:800;font-stretch:82%;font-size:24px;line-height:1.15;margin:0 0 4px;text-wrap:balance}
+.facts{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.fact{font-family:var(--f-mono);font-size:12.5px;padding:3px 8px;border-radius:5px;background:var(--grid)}
+.fact.k{background:var(--accent-soft);color:var(--accent)}
+.fact.w{background:var(--warn-soft);color:var(--warn)}
+.how{font-size:14.5px;color:var(--muted);margin:6px 0 0}
+.legend{font-family:var(--f-mono);font-size:12px;color:var(--muted);margin-top:6px}
+
+.board{overflow-x:auto;margin-top:12px;padding:0 16px 4px;-webkit-overflow-scrolling:touch}
+.inner{position:relative}
+svg{display:block}
+svg .lbl{font-family:var(--f-mono);font-size:12px;fill:var(--ink)}
+svg .num{font-family:var(--f-mono);font-size:10.5px;fill:var(--muted)}
+svg .mark{stroke:var(--line);stroke-width:1;stroke-dasharray:3 3}
+svg .clk{fill:none;stroke:var(--ink);stroke-width:1.6}
+svg .sig{fill:none;stroke:var(--muted);stroke-width:1.7;stroke-linejoin:round}
+svg .asy{fill:none;stroke:var(--warn);stroke-width:1.7}
+svg .arrow{fill:var(--ink)}
+svg .qline{fill:none;stroke:var(--accent);stroke-width:2.6;stroke-linecap:square}
+svg .qgiven{fill:none;stroke:var(--accent);stroke-width:2.2;stroke-linejoin:round}
+svg .qci{fill:none;stroke:var(--ink);stroke-width:2.2}
+svg .qunk{stroke:var(--muted);stroke-width:1.2;stroke-dasharray:2 4}
+svg .qmark{font-family:var(--f-mono);font-size:12px;fill:var(--muted);text-anchor:middle}
+svg .sol{fill:none;stroke:var(--ok);stroke-width:7;stroke-opacity:.35;stroke-linejoin:round}
+svg .hit{fill:transparent;cursor:pointer}
+svg .hit:hover{fill:var(--accent-soft);fill-opacity:.6}
+svg .bad{fill:var(--warn-soft)}
+svg .qband{fill:var(--grid)}
+svg .half{font-family:var(--f-mono);font-size:9px;fill:var(--muted)}
+
+.grow{display:grid;align-items:center;border-top:1px solid var(--line)}
+.grow .h{font-family:var(--f-mono);font-size:12.5px;padding:6px 0;color:var(--muted)}
+.grow .c{text-align:center;font-family:var(--f-mono);font-size:14px;padding:6px 2px;font-variant-numeric:tabular-nums}
+.grow .c.z,.xt td.z{color:var(--warn);font-weight:600}
+.grow.tbl .c{border-left:1px solid var(--grid)}
+.qbtns{display:flex;gap:4px;justify-content:center}
+.qbtns button{font-family:var(--f-mono);font-weight:600;font-size:14px;width:28px;height:30px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink);cursor:pointer}
+.qbtns button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--card)}
+.qbtns button:focus-visible,.grow select:focus-visible,.btn:focus-visible,.cyc:focus-visible,.qsel:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.qbtns button:disabled{cursor:default}
+.grow select{font-family:var(--f-mono);font-size:13px;width:62px;padding:4px 2px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink)}
+.c.ok,.xt td.ok{background:var(--ok-soft)}
+.c.err,.xt td.err{background:var(--warn-soft)}
+.res{display:block;font-size:11px;font-family:var(--f-mono);margin-top:2px;min-height:14px}
+.ok .res{color:var(--ok)} .err .res{color:var(--warn)}
+
+/* tableaux à compléter */
+.xt{overflow-x:auto;margin:12px 16px 0;border:1px solid var(--line);border-radius:8px}
+.xt table{border-collapse:collapse;font-variant-numeric:tabular-nums;min-width:100%}
+.xt th,.xt td{border-bottom:1px solid var(--line);border-left:1px solid var(--grid);padding:5px 6px;text-align:center;white-space:nowrap}
+.xt tr:last-child td{border-bottom:0}
+.xt th{font-family:var(--f-display);font-stretch:85%;font-weight:700;font-size:14px;background:var(--grid)}
+.xt th.grp{font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.xt th.sub{font-family:var(--f-mono);font-weight:600;font-size:12.5px}
+.xt td{font-family:var(--f-mono);font-size:14px}
+.xt td.given{color:var(--muted)}
+.xt td.sep,.xt th.sep{border-left:2px solid var(--line)}
+.cyc{font-family:var(--f-mono);font-weight:600;font-size:14px;width:32px;height:30px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink);cursor:pointer}
+.cyc.empty{color:var(--muted)}
+.cyc.x{color:var(--accent)}
+.cyc:disabled{cursor:default}
+.extra{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;padding:12px 16px 0;font-size:15px}
+.extra .q{display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap;padding:6px 8px;border-radius:8px}
+.extra .q.ok{background:var(--ok-soft)} .extra .q.err{background:var(--warn-soft)}
+.qsel{font-family:var(--f-mono);font-size:13.5px;padding:4px 4px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink)}
+.seqline{font-family:var(--f-mono);font-size:15px;margin:8px 0 0;overflow-x:auto;white-space:nowrap}
+
+.actions{display:flex;flex-wrap:wrap;gap:8px;padding:14px 16px 0}
+.btn{font-family:var(--f-display);font-stretch:88%;font-weight:700;font-size:15px;padding:9px 16px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.btn.main{background:var(--accent);border-color:var(--accent);color:var(--card)}
+
+.feedback{padding:12px 16px 0}
+.score{font-family:var(--f-display);font-stretch:85%;font-weight:800;font-size:22px}
+.score.perfect{color:var(--ok)}
+.expl{list-style:none;padding:0;margin:8px 0 0;display:grid;gap:4px}
+.expl li{font-size:14.5px;padding:6px 10px;border-radius:6px;background:var(--grid)}
+.expl li.err{background:var(--warn-soft)}
+.expl b{font-family:var(--f-mono);font-size:13px;margin-right:6px}
+.tally{font-family:var(--f-mono);font-size:12.5px;color:var(--muted);margin-top:10px}
+
+details.help{margin-top:16px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:0 16px}
+details.help summary{cursor:pointer;padding:12px 0;font-weight:700}
+.tt{overflow-x:auto;padding-bottom:14px;display:flex;flex-wrap:wrap;gap:16px}
+.tt>div{min-width:0}
+.tt h4{font-family:var(--f-display);font-stretch:85%;margin:0 0 4px;font-size:15px}
+.tt table{border-collapse:collapse;font-size:14px}
+.tt th,.tt td{padding:5px 12px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+.tt th{font-family:var(--f-display);font-stretch:85%;background:var(--grid)}
+.tt td{font-family:var(--f-mono)}
+.tt p{font-size:14px;color:var(--muted);margin:8px 0 0;flex-basis:100%}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">TE302 · Bascules · entraînement CE</div>
+  <h1>Entraînement aux bascules</h1>
+  <p class="lead">Un exercice tiré au hasard à chaque fois : chronogrammes, table de transition, table des états d'un compteur.</p>
+</header>
+
+<div class="modes" role="tablist" aria-label="Type d'exercice">
+  <button role="tab" id="m-chrono" aria-selected="true" data-mode="chrono">Chronogramme</button>
+  <button role="tab" id="m-tr" aria-selected="false" data-mode="tr">Table de transition</button>
+  <button role="tab" id="m-et" aria-selected="false" data-mode="et">Table des états</button>
+</div>
+
+<div class="controls" role="group" aria-label="Réglages">
+  <div class="grp" data-for="chrono">
+    <div class="seg" role="radiogroup" aria-label="Type de bascule">
+      <input type="radio" name="type-chrono" id="tc-rand" value="rand" checked><label for="tc-rand">Aléatoire</label>
+      <input type="radio" name="type-chrono" id="tc-rs" value="RS"><label for="tc-rs">RS</label>
+      <input type="radio" name="type-chrono" id="tc-d" value="D"><label for="tc-d">D</label>
+      <input type="radio" name="type-chrono" id="tc-jk" value="JK"><label for="tc-jk">JK</label>
+    </div>
+    <label class="ctl" for="chrono-n">Fronts <select id="chrono-n"><option>6</option><option selected>8</option><option>10</option></select></label>
+    <label class="ctl" for="opt-table"><input type="checkbox" id="opt-table" checked> Tableau des entrées</label>
+  </div>
+  <div class="grp" data-for="tr" hidden>
+    <div class="seg" role="radiogroup" aria-label="Type de bascule">
+      <input type="radio" name="type-tr" id="tt-rand" value="rand" checked><label for="tt-rand">Aléatoire</label>
+      <input type="radio" name="type-tr" id="tt-d" value="D"><label for="tt-d">D</label>
+      <input type="radio" name="type-tr" id="tt-jk" value="JK"><label for="tt-jk">JK</label>
+      <input type="radio" name="type-tr" id="tt-t" value="T"><label for="tt-t">JK (J = K)</label>
+    </div>
+    <label class="ctl" for="tr-n">Lignes <select id="tr-n"><option>6</option><option selected>8</option><option>10</option></select></label>
+  </div>
+  <div class="grp" data-for="et" hidden>
+    <div class="seg" role="radiogroup" aria-label="Type de bascule">
+      <input type="radio" name="type-et" id="te-rand" value="rand" checked><label for="te-rand">Aléatoire</label>
+      <input type="radio" name="type-et" id="te-d" value="D"><label for="te-d">D</label>
+      <input type="radio" name="type-et" id="te-jk" value="JK"><label for="te-jk">JK</label>
+      <input type="radio" name="type-et" id="te-t" value="T"><label for="te-t">JK (J = K)</label>
+    </div>
+    <label class="ctl" for="et-bits">Bascules <select id="et-bits"><option value="rand" selected>Aléatoire</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></label>
+    <label class="ctl" for="et-inputs"><input type="checkbox" id="et-inputs" checked> Colonnes d'entrées</label>
+  </div>
+  <label class="ctl prio" for="opt-async"><input type="checkbox" id="opt-async"> Entrées prioritaires ~PR / ~CLR</label>
+</div>
+
+<!-- ============ MODE CHRONOGRAMME ============ -->
+<section id="sec-chrono" class="sheet">
+  <div class="statement">
+    <h2 id="st-title">Bascule JK</h2>
+    <div class="facts" id="st-facts"></div>
+    <p class="how" id="st-how"></p>
+    <div class="legend" id="st-legend"></div>
+  </div>
+  <div class="board"><div class="inner" id="board"></div></div>
+  <div class="actions">
+    <button class="btn main" id="b-check" type="button">Vérifier</button>
+    <button class="btn" id="b-retry" type="button" hidden>Corriger mes erreurs</button>
+    <button class="btn" id="b-sol" type="button">Voir la solution</button>
+    <button class="btn" id="b-new" type="button">Nouvel exercice</button>
+  </div>
+  <div class="feedback" id="feedback" hidden><div class="score" id="score"></div><ol class="expl" id="expl"></ol></div>
+  <div class="feedback"><div class="tally" id="tally">Exercices vérifiés : 0 · sans faute : 0</div></div>
+</section>
+
+<!-- ============ MODE TABLE DE TRANSITION ============ -->
+<section id="sec-tr" class="sheet" hidden>
+  <div class="statement">
+    <h2 id="tr-title">Table de transition</h2>
+    <div class="facts" id="tr-facts"></div>
+    <p class="how" id="tr-how"></p>
+    <div class="legend">Clique sur une case pour faire défiler · → 0 → 1 → X (X = indifférent)</div>
+  </div>
+  <div class="board"><div class="inner" id="tr-chrono"></div></div>
+  <div class="xt" id="tr-table"></div>
+  <div class="actions">
+    <button class="btn main" id="tr-check" type="button">Vérifier</button>
+    <button class="btn" id="tr-retry" type="button" hidden>Corriger mes erreurs</button>
+    <button class="btn" id="tr-sol" type="button">Voir la solution</button>
+    <button class="btn" id="tr-new" type="button">Nouvel exercice</button>
+  </div>
+  <div class="feedback" id="tr-feedback" hidden><div class="score" id="tr-score"></div><ol class="expl" id="tr-expl"></ol></div>
+  <div class="feedback"><div class="tally" id="tr-tally">Exercices vérifiés : 0 · sans faute : 0</div></div>
+</section>
+
+<!-- ============ MODE TABLE DES ÉTATS ============ -->
+<section id="sec-et" class="sheet" hidden>
+  <div class="statement">
+    <h2 id="et-title">Table des états</h2>
+    <div class="facts" id="et-facts"></div>
+    <div class="seqline" id="et-seq"></div>
+    <p class="how" id="et-how"></p>
+    <div class="legend">Clique sur une case pour faire défiler · → 0 → 1 (→ X pour les entrées)</div>
+  </div>
+  <div class="extra" id="et-extra"></div>
+  <div class="xt" id="et-table"></div>
+  <div class="actions">
+    <button class="btn main" id="et-check" type="button">Vérifier</button>
+    <button class="btn" id="et-retry" type="button" hidden>Corriger mes erreurs</button>
+    <button class="btn" id="et-sol" type="button">Voir la solution</button>
+    <button class="btn" id="et-new" type="button">Nouvel exercice</button>
+  </div>
+  <div class="feedback" id="et-feedback" hidden><div class="score" id="et-score"></div><ol class="expl" id="et-expl"></ol></div>
+  <div class="feedback"><div class="tally" id="et-tally">Exercices vérifiés : 0 · sans faute : 0</div></div>
+</section>
+
+<details class="help">
+  <summary>Rappel : tables de vérité et de transition</summary>
+  <div class="tt" id="tt"></div>
+</details>
+</div>
+
+<script>
+(function(){
+  function $(id){return document.getElementById(id)}
+  function rnd(n){return Math.floor(Math.random()*n)}
+  function pick(a){return a[rnd(a.length)]}
+  function shuffle(a){for(var i=a.length-1;i>0;i--){var j=rnd(i+1),t=a[i];a[i]=a[j];a[j]=t}return a}
+  function radio(name){return document.querySelector('input[name="'+name+'"]:checked').value}
+  function asyncOn(){return $('opt-async').checked}
+  function bin(v,n){var s=v.toString(2);while(s.length<n)s='0'+s;return s}
+  function setTally(id,t){$(id).textContent='Exercices vérifiés : '+t.done+' · sans faute : '+t.perfect}
+
+  var LABEL=56, COL=72, ROWH=34, TOP=22;
+  function fx(i){return LABEL+COL/2+i*COL}
+  function path(ev,base,xEnd){
+    var y=function(v){return v?base+6:base+26};
+    ev=ev.slice().sort(function(a,b){return a[0]-b[0]});
+    var d='M'+ev[0][0]+','+y(ev[0][1]);
+    for(var i=1;i<ev.length;i++) d+=' H'+ev[i][0].toFixed(1)+' V'+y(ev[i][1]);
+    return d+' H'+xEnd;
+  }
+  function clockRow(edge,N,base,xEnd){
+    var up=edge==='up', ev=[[LABEL,up?0:1]], o='', i;
+    for(i=0;i<N;i++){ ev.push([fx(i),up?1:0]); ev.push([fx(i)+COL/2,up?0:1]); }
+    o+='<path class="clk" d="'+path(ev,base,xEnd)+'"/>';
+    for(i=0;i<N;i++){ var cx=fx(i), cy=base+16; o+= up ? '<path class="arrow" d="M'+(cx-4)+','+(cy+3)+' L'+cx+','+(cy-4)+' L'+(cx+4)+','+(cy+3)+'Z"/>' : '<path class="arrow" d="M'+(cx-4)+','+(cy-3)+' L'+cx+','+(cy+4)+' L'+(cx+4)+','+(cy-3)+'Z"/>'; }
+    return o;
+  }
+  function asyncRow(key,steps,base,xEnd){
+    var ev=[[LABEL,1]];
+    steps.forEach(function(s,i){ if(s.as===key){ ev.push([fx(i)-COL*.22,0]); ev.push([fx(i)+COL*.28,1]); } });
+    return '<path class="asy" d="'+path(ev,base,xEnd)+'"/>';
+  }
+  function asyncPlan(N){
+    var plan=[],i; for(i=0;i<N;i++) plan.push(null);
+    var cnt=1+rnd(2), g=0;
+    while(cnt>0&&g++<60){ i=rnd(N); if(plan[i]||plan[i-1]||plan[i+1]) continue; plan[i]=pick(['PRE','CLR']); cnt--; }
+    return plan;
+  }
+  /* table de transition : Q(t) -> Q(t+1) => entrées */
+  function excite(type,a,b){
+    if(type==='JK') return a===0 ? [String(b),'X'] : ['X',String(1-b)];
+    if(type==='D') return [String(b)];
+    return [String(a===b?0:1)]; // J = K
+  }
+  function exciteWhy(type,a,b){
+    if(type==='JK'){
+      if(a===0&&b===0) return 'Mémoire (J=0, K=0) ou Reset (J=0, K=1) : J = 0, K = X';
+      if(a===0&&b===1) return 'Set (J=1, K=0) ou Toggle (J=1, K=1) : J = 1, K = X';
+      if(a===1&&b===0) return 'Reset (J=0, K=1) ou Toggle (J=1, K=1) : J = X, K = 1';
+      return 'Mémoire (J=0, K=0) ou Set (J=1, K=0) : J = X, K = 0';
+    }
+    if(type==='D') return 'D recopie l\'état voulu : D = '+b;
+    return a===b ? 'Q ne change pas : mémoire, J = K = 0' : 'Q change : toggle, J = K = 1';
+  }
+
+  /* =================================================================== */
+  /* MODE 1 : CHRONOGRAMME                                               */
+  /* =================================================================== */
+  var FN={M:'Mémoire',S:'Set (mise à 1)',R:'Reset (mise à 0)',T:'Toggle (inversion)',C:'Copie',NU:'Non utilisé',PRE:'Forçage à 1 par ~PR',CLR:'Forçage à 0 par ~CLR'};
+  var CH={st:null,tally:{done:0,perfect:0}};
+
+  function fnOptions(s){
+    var o = s.type==='RS' ? ['M','S','R','NU'] : s.type==='D' ? ['M','C','T'] : ['M','S','R','T'];
+    if(s.async) o=o.concat(['PRE','CLR']);
+    return o;
+  }
+
+  function chGenerate(){
+    var sel=radio('type-chrono'), type=sel==='rand'?pick(['RS','D','JK','JK']):sel;
+    var async=asyncOn()&&type!=='RS', N=+$('chrono-n').value;
+    var s={type:type,N:N,async:async,edge:pick(['up','down']),nand:type==='RS'&&Math.random()<.5};
+    s.inputs = type==='RS' ? (s.nand?['~S','~R']:['S','R']) : type==='D' ? ['D'] : ['J','K'];
+    for(var tries=0;tries<400;tries++){
+      var ci=rnd(2), q=ci, steps=[], i, plan=async?asyncPlan(N):[];
+      var nuUsed=false, prevFn=null;
+      for(i=0;i<N;i++){
+        var stp={inp:{},as:plan[i]||null,prev:q};
+        if(type==='RS'){
+          var f;
+          if(prevFn==='NU') f=pick(['S','R']);
+          else { f=pick(['S','S','R','R','M','M','NU']); if(f==='NU'&&nuUsed) f=pick(['S','R','M']); }
+          if(f==='NU') nuUsed=true;
+          var map = s.nand ? {S:[0,1],R:[1,0],M:[1,1],NU:[0,0]} : {S:[1,0],R:[0,1],M:[0,0],NU:[1,1]};
+          stp.inp[s.inputs[0]]=map[f][0]; stp.inp[s.inputs[1]]=map[f][1];
+          q = f==='S'?1 : f==='R'?0 : f==='NU'?(s.nand?1:0) : q;
+          stp.fn=f;
+        } else if(type==='D'){
+          var d=rnd(2); stp.inp.D=d;
+          if(stp.as){ q=stp.as==='PRE'?1:0; stp.fn=stp.as; } else { q=d; stp.fn='C'; }
+        } else {
+          var j=rnd(2),k=rnd(2); stp.inp.J=j; stp.inp.K=k;
+          if(stp.as){ q=stp.as==='PRE'?1:0; stp.fn=stp.as; }
+          else { stp.fn = j===0&&k===0?'M' : j===0?'R' : k===0?'S' : 'T'; q = stp.fn==='M'?q : stp.fn==='R'?0 : stp.fn==='S'?1 : 1-q; }
+        }
+        if(async){ stp.inp['~PR']=stp.as==='PRE'?0:1; stp.inp['~CLR']=stp.as==='CLR'?0:1; }
+        stp.q=q; prevFn=stp.fn; steps.push(stp);
+      }
+      var changes=0, fns={};
+      steps.forEach(function(x){ if(x.q!==x.prev) changes++; fns[x.fn]=1; });
+      var ok = changes>=Math.ceil(N/3);
+      if(type==='JK') ok = ok && ['M','S','R','T'].filter(function(f){return fns[f]}).length>=3 && fns.T;
+      if(type==='RS') ok = ok && fns.S && fns.R && fns.M;
+      if(async) ok = ok && steps.some(function(x){return x.as && x.q!==x.prev});
+      if(ok){ s.ci=ci; s.steps=steps; break; }
+    }
+    s.ans=s.steps.map(function(){return {q:null,fn:''}});
+    s.checked=false; s.revealed=false;
+    return s;
+  }
+
+  function chSvg(s){
+    var N=s.N, xEnd=fx(N-1)+COL, W=xEnd+6, rows=[], i;
+    var clocked=s.type!=='RS';
+    if(clocked) rows.push({name:'CLK',kind:'clk'});
+    s.inputs.forEach(function(n){rows.push({name:n,kind:'in'})});
+    if(s.async){ rows.push({name:'~PR',kind:'as'}); rows.push({name:'~CLR',kind:'as'}); }
+    rows.push({name:'Q',kind:'q'});
+    var H=TOP+rows.length*ROWH+4;
+    var o='<svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Chronogramme de l\'exercice">';
+    var qBase=TOP+(rows.length-1)*ROWH;
+    o+='<rect class="qband" x="'+LABEL+'" y="'+(qBase+1)+'" width="'+(xEnd-LABEL)+'" height="'+(ROWH-2)+'" rx="4"/>';
+    if(s.checked) for(i=0;i<N;i++){ var a=s.ans[i], x=s.steps[i]; if(a.q!==x.q||a.fn!==x.fn) o+='<rect class="bad" x="'+fx(i)+'" y="'+(qBase+1)+'" width="'+COL+'" height="'+(ROWH-2)+'"/>'; }
+    for(i=0;i<N;i++){
+      o+='<line class="mark" x1="'+fx(i)+'" y1="'+(TOP-6)+'" x2="'+fx(i)+'" y2="'+(H-2)+'"/>';
+      o+='<text class="num" x="'+fx(i)+'" y="'+(TOP-9)+'" text-anchor="middle">'+(clocked?'':'t')+(i+1)+'</text>';
+    }
+    rows.forEach(function(r,ri){
+      var base=TOP+ri*ROWH;
+      o+='<text class="lbl" x="2" y="'+(base+20)+'">'+r.name+'</text>';
+      if(r.kind==='clk') o+=clockRow(s.edge,N,base,xEnd);
+      else if(r.kind==='in'){
+        var ev;
+        if(clocked){ ev=[[LABEL,s.steps[0].inp[r.name]]]; for(i=1;i<N;i++) ev.push([fx(i)-COL/2,s.steps[i].inp[r.name]]); }
+        else { ev=[[LABEL,s.nand?1:0]]; for(i=0;i<N;i++) ev.push([fx(i),s.steps[i].inp[r.name]]); }
+        o+='<path class="sig" d="'+path(ev,base,xEnd)+'"/>';
+      } else if(r.kind==='as') o+=asyncRow(r.name==='~PR'?'PRE':'CLR',s.steps,base,xEnd);
+      else {
+        var yv=function(v){return v?base+6:base+26};
+        if(s.checked){
+          var sev=[[LABEL,s.ci]];
+          for(i=0;i<N;i++) sev.push([s.steps[i].as?fx(i)-COL*.22:fx(i), s.steps[i].q]);
+          o+='<path class="sol" d="'+path(sev,base,xEnd)+'"/>';
+        }
+        o+='<path class="qci" d="M'+LABEL+','+yv(s.ci)+' H'+fx(0)+'"/>';
+        o+='<text class="half" x="'+(LABEL+3)+'" y="'+(base+(s.ci?22:14))+'">CI</text>';
+        var prev=s.ci;
+        for(i=0;i<N;i++){
+          var v=s.ans[i].q, x0=fx(i), x1=i+1<N?fx(i+1):xEnd;
+          if(v===null){
+            o+='<line class="qunk" x1="'+(x0+3)+'" y1="'+(base+16)+'" x2="'+(x1-3)+'" y2="'+(base+16)+'"/>';
+            o+='<text class="qmark" x="'+((x0+x1)/2)+'" y="'+(base+13)+'">?</text>';
+          } else {
+            var d='M'+x0+','+yv(v)+' H'+x1;
+            if(prev!==null&&prev!==v) d='M'+x0+','+yv(prev)+' V'+yv(v)+' H'+x1;
+            o+='<path class="qline" d="'+d+'"/>';
+          }
+          prev=v;
+        }
+        if(!s.checked) for(i=0;i<N;i++){
+          var xa=fx(i), xb=i+1<N?fx(i+1):xEnd;
+          o+='<rect class="hit" data-i="'+i+'" x="'+xa+'" y="'+base+'" width="'+(xb-xa)+'" height="'+ROWH+'"><title>Front '+(i+1)+' : clique en haut pour 1, en bas pour 0</title></rect>';
+        }
+      }
+    });
+    return o+'</svg>';
+  }
+
+  function chGrid(s){
+    var cols=(LABEL+COL/2)+'px repeat('+s.N+','+COL+'px)', o='', i;
+    var tblRows=s.inputs.slice(); if(s.async) tblRows=tblRows.concat(['~PR','~CLR']);
+    if($('opt-table').checked) tblRows.forEach(function(n){
+      o+='<div class="grow tbl" style="grid-template-columns:'+cols+'"><div class="h">'+n+(s.type==='RS'?'':' au front')+'</div>';
+      for(i=0;i<s.N;i++){ var v=s.steps[i].inp[n], z=(n.charAt(0)==='~'&&v===0); o+='<div class="c'+(z?' z':'')+'">'+v+'</div>'; }
+      o+='</div>';
+    });
+    o+='<div class="grow" style="grid-template-columns:'+cols+'"><div class="h">Q après</div>';
+    for(i=0;i<s.N;i++){
+      var a=s.ans[i], cls='';
+      if(s.checked) cls=a.q===s.steps[i].q?' ok':' err';
+      o+='<div class="c'+cls+'"><div class="qbtns">'+
+        '<button type="button" data-q="1" data-i="'+i+'" aria-label="Front '+(i+1)+', Q = 1" aria-pressed="'+(a.q===1)+'"'+(s.checked?' disabled':'')+'>1</button>'+
+        '<button type="button" data-q="0" data-i="'+i+'" aria-label="Front '+(i+1)+', Q = 0" aria-pressed="'+(a.q===0)+'"'+(s.checked?' disabled':'')+'>0</button></div>'+
+        (s.checked?(a.q!==s.steps[i].q?'<span class="res">→ '+s.steps[i].q+'</span>':'<span class="res">✓</span>'):'')+'</div>';
+    }
+    o+='</div><div class="grow" style="grid-template-columns:'+cols+'"><div class="h">Fonction</div>';
+    var fo=fnOptions(s);
+    for(i=0;i<s.N;i++){
+      var b=s.ans[i], c2='';
+      if(s.checked) c2=b.fn===s.steps[i].fn?' ok':' err';
+      o+='<div class="c'+c2+'"><select id="fn-'+i+'" data-i="'+i+'" aria-label="Fonction au front '+(i+1)+'"'+(s.checked?' disabled':'')+'><option value="">—</option>';
+      fo.forEach(function(f){ o+='<option value="'+f+'"'+(b.fn===f?' selected':'')+'>'+f+'</option>'; });
+      o+='</select>'+(s.checked?(b.fn!==s.steps[i].fn?'<span class="res">→ '+s.steps[i].fn+'</span>':'<span class="res">✓</span>'):'')+'</div>';
+    }
+    return o+'</div>';
+  }
+
+  function chStatement(s){
+    $('st-title').textContent={RS:'Bascule RS asynchrone',D:'Bascule D',JK:'Bascule JK'}[s.type];
+    var f=[];
+    if(s.type==='RS') f.push(['k',s.nand?'Portes NAND · entrées actives à 0':'Portes NOR · entrées actives à 1']);
+    else f.push(['k','Active sur front '+(s.edge==='up'?'montant ↑':'descendant ↓')]);
+    f.push(['','CI : Q = '+s.ci]);
+    if(s.async) f.push(['w','~PR, ~CLR actives à 0, prioritaires']);
+    if(asyncOn()&&s.type==='RS') f.push(['','La RS n\'a pas d\'entrées prioritaires']);
+    $('st-facts').innerHTML=f.map(function(x){return '<span class="fact '+x[0]+'">'+x[1]+'</span>'}).join('');
+    $('st-how').textContent = s.type==='RS'
+      ? 'Pas d\'horloge : à chaque instant t, Q réagit tout de suite aux nouvelles entrées. Clique en haut (1) ou en bas (0) dans la ligne Q, ou utilise les boutons, puis choisis la fonction.'
+      : 'Pour chaque front actif (trait pointillé), regarde les entrées juste avant le front. Clique en haut (1) ou en bas (0) dans la ligne Q, ou utilise les boutons, puis choisis la fonction.';
+    $('st-legend').textContent=fnOptions(s).map(function(k){return k+' = '+FN[k]}).join(' · ');
+  }
+
+  function chExplain(s,i){
+    var x=s.steps[i], p=x.prev, q=x.q, e;
+    if(x.as) return (x.as==='CLR'?'~CLR = 0 : entrée prioritaire, Q forcé à 0':'~PR = 0 : entrée prioritaire, Q forcé à 1')+(s.type==='JK'?' (J et K ignorés).':' (D ignorée).');
+    if(s.type==='D') return 'D = '+x.inp.D+' → Copie : Q prend '+q+(p===q?' (Q ne change pas, mais c\'est bien une copie).':'.');
+    var ins=s.inputs.map(function(n){return n+' = '+x.inp[n]}).join(', ');
+    if(x.fn==='M') e='Mémoire : Q reste à '+q;
+    else if(x.fn==='S') e='Set : Q '+(p===1?'reste':'passe')+' à 1';
+    else if(x.fn==='R') e='Reset : Q '+(p===0?'reste':'passe')+' à 0';
+    else if(x.fn==='T') e='Toggle : Q s\'inverse, '+p+' → '+q;
+    else e='Non utilisé : Q = Q̄ = '+q+', état interdit';
+    return ins+' → '+e+'.';
+  }
+  function chPerfect(s){ return s.steps.every(function(x,i){return s.ans[i].q===x.q&&s.ans[i].fn===x.fn}); }
+
+  function chRender(){
+    var s=CH.st;
+    $('board').innerHTML=chSvg(s)+chGrid(s);
+    $('b-check').hidden=s.checked;
+    $('b-retry').hidden=!s.checked||s.revealed||chPerfect(s);
+    $('b-sol').hidden=s.checked&&(s.revealed||chPerfect(s));
+    if(!s.checked){ $('feedback').hidden=true; return; }
+    $('feedback').hidden=false;
+    var nq=0,nf=0;
+    s.steps.forEach(function(x,i){ if(s.ans[i].q===x.q) nq++; if(s.ans[i].fn===x.fn) nf++; });
+    var sc=$('score');
+    if(s.revealed){ sc.className='score'; sc.textContent='Solution affichée'; }
+    else { sc.className='score'+(chPerfect(s)?' perfect':''); sc.textContent=chPerfect(s)?'Sans faute, '+s.N+'/'+s.N+' !':'Q : '+nq+'/'+s.N+' · Fonctions : '+nf+'/'+s.N; }
+    $('expl').innerHTML=s.steps.map(function(x,i){
+      var bad=!s.revealed&&(s.ans[i].q!==x.q||s.ans[i].fn!==x.fn);
+      return '<li class="'+(bad?'err':'')+'"><b>'+(s.type==='RS'?'t':'F')+(i+1)+'</b>'+chExplain(s,i)+'</li>';
+    }).join('');
+  }
+  function chNew(){ CH.st=chGenerate(); chStatement(CH.st); chRender(); }
+
+  $('board').addEventListener('click',function(e){
+    var s=CH.st; if(s.checked) return;
+    var t=e.target;
+    if(t.classList&&t.classList.contains('hit')){
+      var r=t.getBoundingClientRect(), i=+t.getAttribute('data-i');
+      s.ans[i].q = (e.clientY-r.top) < r.height/2 ? 1 : 0; chRender(); return;
+    }
+    var b=t.closest&&t.closest('button[data-q]');
+    if(b){ var j=+b.getAttribute('data-i'), v=+b.getAttribute('data-q'); s.ans[j].q = s.ans[j].q===v?null:v; chRender(); var nb=document.querySelector('#board button[data-i="'+j+'"][data-q="'+v+'"]'); if(nb) nb.focus(); }
+  });
+  $('board').addEventListener('change',function(e){
+    var t=e.target; if(t.tagName==='SELECT'){ CH.st.ans[+t.getAttribute('data-i')].fn=t.value; var id=t.id; chRender(); var n=$(id); if(n) n.focus(); }
+  });
+  $('b-check').addEventListener('click',function(){ var s=CH.st; s.checked=true; CH.tally.done++; if(chPerfect(s)) CH.tally.perfect++; setTally('tally',CH.tally); chRender(); });
+  $('b-retry').addEventListener('click',function(){ var s=CH.st; s.steps.forEach(function(x,i){ if(s.ans[i].q!==x.q) s.ans[i].q=null; if(s.ans[i].fn!==x.fn) s.ans[i].fn=''; }); s.checked=false; chRender(); });
+  $('b-sol').addEventListener('click',function(){ var s=CH.st; s.ans=s.steps.map(function(x){return {q:x.q,fn:x.fn}}); s.checked=true; s.revealed=true; chRender(); });
+  $('b-new').addEventListener('click',chNew);
+
+  /* =================================================================== */
+  /* Cases à faire défiler (tables)                                      */
+  /* =================================================================== */
+  function cycCell(val,cycle,key,checked,expect,label){
+    var v=val||'', cls='cyc'+(v===''?' empty':'')+(v==='X'?' x':'');
+    var td='', tdc='';
+    if(checked) tdc = v===expect?' ok':' err';
+    td='<td class="'+tdc.trim()+'"><button type="button" class="'+cls+'" data-key="'+key+'" data-cycle="'+cycle+'" aria-label="'+label+' : '+(v||'vide')+'"'+(checked?' disabled':'')+'>'+(v||'·')+'</button>';
+    if(checked) td+= v===expect ? '<span class="res">✓</span>' : '<span class="res">→ '+expect+'</span>';
+    return td+'</td>';
+  }
+  function nextVal(v,cycle){ var seq=[''].concat(cycle.split('')); return seq[(seq.indexOf(v||'')+1)%seq.length]; }
+
+  /* =================================================================== */
+  /* MODE 2 : TABLE DE TRANSITION                                        */
+  /* =================================================================== */
+  var TR={st:null,tally:{done:0,perfect:0}};
+  var INPUTS={JK:['J','K'],D:['D'],T:['J = K']};
+  var TYPENAME={JK:'Bascule JK',D:'Bascule D',T:'Bascule JK montée avec J = K'};
+
+  function trGenerate(){
+    var sel=radio('type-tr'), type=sel==='rand'?pick(['D','JK','JK','T']):sel, R=+$('tr-n').value, async=asyncOn();
+    var s={type:type,R:R,async:async,inputs:INPUTS[type]};
+    for(var tries=0;tries<500;tries++){
+      var plan=async?asyncPlan(R):[], qs=[rnd(2)], rows=[], i, seen={};
+      for(i=0;i<R;i++){ var as=plan[i]||null, nx= as ? (as==='PRE'?1:0) : rnd(2); qs.push(nx); rows.push({qt:qs[i],qn:nx,as:as}); if(!as) seen[qs[i]+''+nx]=1; }
+      var nf=rows.filter(function(r){return !r.as}).length, need = nf>=5?4:3;
+      var ok = Object.keys(seen).length>=need;
+      if(async) ok = ok && rows.some(function(r){return r.as && r.qt!==r.qn});
+      if(ok){ s.rows=rows; s.qs=qs; break; }
+    }
+    s.rows.forEach(function(r){ r.exp = r.as ? s.inputs.map(function(){return 'X'}) : excite(type,r.qt,r.qn); });
+    s.ans=s.rows.map(function(){return s.inputs.map(function(){return ''})});
+    s.checked=false; s.revealed=false;
+    return s;
+  }
+
+  function trSvg(s){
+    var N=s.R, xEnd=fx(N-1)+COL, W=xEnd+6, rows=['CLK'], i;
+    if(s.async){ rows.push('~PR'); rows.push('~CLR'); }
+    rows.push('Q');
+    var H=TOP+rows.length*ROWH+4;
+    var o='<svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Évolution de Q à obtenir">';
+    for(i=0;i<N;i++){
+      o+='<line class="mark" x1="'+fx(i)+'" y1="'+(TOP-6)+'" x2="'+fx(i)+'" y2="'+(H-2)+'"/>';
+      o+='<text class="num" x="'+fx(i)+'" y="'+(TOP-9)+'" text-anchor="middle">'+(i+1)+'</text>';
+    }
+    rows.forEach(function(n,ri){
+      var base=TOP+ri*ROWH;
+      o+='<text class="lbl" x="2" y="'+(base+20)+'">'+n+'</text>';
+      if(n==='CLK') o+=clockRow('up',N,base,xEnd);
+      else if(n==='~PR') o+=asyncRow('PRE',s.rows,base,xEnd);
+      else if(n==='~CLR') o+=asyncRow('CLR',s.rows,base,xEnd);
+      else {
+        var ev=[[LABEL,s.qs[0]]];
+        s.rows.forEach(function(r,k){ ev.push([r.as?fx(k)-COL*.22:fx(k), r.qn]); });
+        o+='<path class="qgiven" d="'+path(ev,base,xEnd)+'"/>';
+      }
+    });
+    return o+'</svg>';
+  }
+
+  function trTable(s){
+    var o='<table><thead><tr><th>Front</th><th class="sep">Q(t)</th><th>Q(t+1)</th>';
+    if(s.async) o+='<th class="sep">~PR</th><th>~CLR</th>';
+    s.inputs.forEach(function(n,k){ o+='<th'+(k===0?' class="sep"':'')+'>'+n+'</th>'; });
+    o+='</tr></thead><tbody>';
+    s.rows.forEach(function(r,i){
+      o+='<tr><td class="given">'+(i+1)+'</td><td class="sep">'+r.qt+'</td><td>'+r.qn+'</td>';
+      if(s.async){ var p=r.as==='PRE'?0:1, c=r.as==='CLR'?0:1; o+='<td class="sep'+(p===0?' z':'')+'">'+p+'</td><td'+(c===0?' class="z"':'')+'>'+c+'</td>'; }
+      s.inputs.forEach(function(n,k){
+        var cell=cycCell(s.ans[i][k],'01X',i+','+k,s.checked,r.exp[k],'Ligne '+(i+1)+', '+n);
+        if(k===0) cell=cell.replace('<td class="','<td class="sep ');
+        o+=cell;
+      });
+      o+='</tr>';
+    });
+    return o+'</tbody></table>';
+  }
+
+  function trPerfect(s){ return s.rows.every(function(r,i){ return r.exp.every(function(e,k){return s.ans[i][k]===e}) }); }
+  function trRender(){
+    var s=TR.st;
+    $('tr-chrono').innerHTML=trSvg(s);
+    $('tr-table').innerHTML=trTable(s);
+    $('tr-check').hidden=s.checked;
+    $('tr-retry').hidden=!s.checked||s.revealed||trPerfect(s);
+    $('tr-sol').hidden=s.checked&&(s.revealed||trPerfect(s));
+    if(!s.checked){ $('tr-feedback').hidden=true; return; }
+    $('tr-feedback').hidden=false;
+    var tot=0,good=0;
+    s.rows.forEach(function(r,i){ r.exp.forEach(function(e,k){ tot++; if(s.ans[i][k]===e) good++; }); });
+    var sc=$('tr-score');
+    if(s.revealed){ sc.className='score'; sc.textContent='Solution affichée'; }
+    else { sc.className='score'+(good===tot?' perfect':''); sc.textContent=good===tot?'Sans faute, '+tot+'/'+tot+' !':'Cases justes : '+good+'/'+tot; }
+    $('tr-expl').innerHTML=s.rows.map(function(r,i){
+      var bad=!s.revealed&&r.exp.some(function(e,k){return s.ans[i][k]!==e});
+      var t = r.as ? (r.as==='CLR'?'~CLR = 0 force Q à 0':'~PR = 0 force Q à 1')+' : les entrées synchrones sont ignorées, donc '+s.inputs.join(' et ')+' = X.'
+                   : 'Q : '+r.qt+' → '+r.qn+'. '+exciteWhy(s.type,r.qt,r.qn)+'.';
+      return '<li class="'+(bad?'err':'')+'"><b>F'+(i+1)+'</b>'+t+'</li>';
+    }).join('');
+  }
+  function trStatement(s){
+    $('tr-title').textContent=TYPENAME[s.type];
+    var f=[['k','Active sur front montant ↑'],['','Q donné, entrées à trouver']];
+    if(s.async) f.push(['w','~PR, ~CLR actives à 0, prioritaires']);
+    $('tr-facts').innerHTML=f.map(function(x){return '<span class="fact '+x[0]+'">'+x[1]+'</span>'}).join('');
+    $('tr-how').textContent='On veut obtenir l\'évolution de Q dessinée ci-dessous. Avec la table de transition, trouve pour chaque front les valeurs de '+s.inputs.join(' et ')+' à présenter juste avant le front. Mets X quand la valeur est indifférente.';
+  }
+  function trNew(){ TR.st=trGenerate(); trStatement(TR.st); trRender(); }
+
+  $('tr-table').addEventListener('click',function(e){
+    var b=e.target.closest&&e.target.closest('button.cyc'); if(!b||TR.st.checked) return;
+    var key=b.getAttribute('data-key'), p=key.split(','), i=+p[0], k=+p[1];
+    TR.st.ans[i][k]=nextVal(TR.st.ans[i][k],b.getAttribute('data-cycle')); trRender();
+    var nb=document.querySelector('#tr-table button[data-key="'+key+'"]'); if(nb) nb.focus();
+  });
+  $('tr-check').addEventListener('click',function(){ var s=TR.st; s.checked=true; TR.tally.done++; if(trPerfect(s)) TR.tally.perfect++; setTally('tr-tally',TR.tally); trRender(); });
+  $('tr-retry').addEventListener('click',function(){ var s=TR.st; s.rows.forEach(function(r,i){ r.exp.forEach(function(e,k){ if(s.ans[i][k]!==e) s.ans[i][k]=''; }); }); s.checked=false; trRender(); });
+  $('tr-sol').addEventListener('click',function(){ var s=TR.st; s.ans=s.rows.map(function(r){return r.exp.slice()}); s.checked=true; s.revealed=true; trRender(); });
+  $('tr-new').addEventListener('click',trNew);
+
+  /* =================================================================== */
+  /* MODE 3 : TABLE DES ÉTATS                                            */
+  /* =================================================================== */
+  var ET={st:null,tally:{done:0,perfect:0}};
+
+  function etGenerate(){
+    var sel=radio('type-et'), type=sel==='rand'?pick(['D','JK','JK','T']):sel;
+    var bsel=$('et-bits').value, n = bsel==='rand' ? pick([2,3,3,3,4]) : +bsel;
+    var withInputs=$('et-inputs').checked, async=asyncOn();
+    var max=1<<n, L = n===2 ? 3+rnd(2) : n===3 ? 3+rnd(3) : 4+rnd(2), seq;
+    for(var tries=0;tries<500;tries++){
+      var pool=[]; for(var v=0;v<max;v++) pool.push(v);
+      seq=shuffle(pool).slice(0,L);
+      if(Math.random()<.5) seq.sort(function(a,b){return a-b});
+      var top=Math.max.apply(null,seq);
+      if(top>=max/2 && !seq.every(function(x,i){return i===0||x===seq[i-1]+1})) break;
+    }
+    var s={type:type,n:n,seq:seq,withInputs:withInputs,async:async};
+    // colonnes à remplir : bits suivants (MSB→LSB), puis entrées par bascule (MSB→LSB)
+    s.cols=[];
+    for(var b=n-1;b>=0;b--) s.cols.push({kind:'nx',bit:b,label:'Q'+b+'⁺',cycle:'01'});
+    if(withInputs) for(b=n-1;b>=0;b--){
+      if(type==='JK'){ s.cols.push({kind:'in',bit:b,idx:0,label:'J'+b,cycle:'01X'}); s.cols.push({kind:'in',bit:b,idx:1,label:'K'+b,cycle:'01X'}); }
+      else if(type==='D') s.cols.push({kind:'in',bit:b,idx:0,label:'D'+b,cycle:'01X'});
+      else s.cols.push({kind:'in',bit:b,idx:0,label:'J'+b+'=K'+b,cycle:'01X'});
+    }
+    s.rows=seq.map(function(p,i){
+      var nx=seq[(i+1)%seq.length];
+      return {p:p,nx:nx,exp:s.cols.map(function(c){
+        var a=(p>>c.bit)&1, z=(nx>>c.bit)&1;
+        return c.kind==='nx' ? String(z) : excite(type,a,z)[c.idx];
+      })};
+    });
+    s.ans=s.rows.map(function(){return s.cols.map(function(){return ''})});
+    s.ansN=''; s.ansInit=[]; for(b=0;b<n;b++) s.ansInit.push('');
+    s.checked=false; s.revealed=false;
+    return s;
+  }
+
+  function etExtra(s){
+    var o='', okN=s.ansN===String(s.n);
+    o+='<label class="q'+(s.checked?(okN?' ok':' err'):'')+'" for="et-nb">Nombre de bascules nécessaires : <select class="qsel" id="et-nb"'+(s.checked?' disabled':'')+'><option value="">—</option>';
+    for(var k=1;k<=6;k++) o+='<option'+(s.ansN===String(k)?' selected':'')+'>'+k+'</option>';
+    o+='</select>'+(s.checked&&!okN?' <span class="m">→ '+s.n+'</span>':'')+'</label>';
+    if(s.async){
+      var s0=s.seq[0];
+      o+='<div class="q" style="flex-basis:100%">Initialisation à l\'état '+s0+' ('+bin(s0,s.n)+') : quelle entrée prioritaire mettre à 0 ?</div>';
+      for(var b=s.n-1;b>=0;b--){
+        var exp=((s0>>b)&1)?'PR':'CLR', v=s.ansInit[b], cls=s.checked?(v===exp?' ok':' err'):'';
+        o+='<label class="q'+cls+'" for="et-init-'+b+'">Q'+b+' : <select class="qsel" id="et-init-'+b+'" data-b="'+b+'"'+(s.checked?' disabled':'')+'><option value="">—</option><option value="PR"'+(v==='PR'?' selected':'')+'>~PR = 0</option><option value="CLR"'+(v==='CLR'?' selected':'')+'>~CLR = 0</option></select>'+(s.checked&&v!==exp?' → ~'+exp:'')+'</label>';
+      }
+    }
+    return o;
+  }
+
+  function etTable(s){
+    var n=s.n, nIn=s.cols.length-n, b;
+    var o='<table><thead><tr><th class="grp" colspan="'+(n+1)+'">État présent</th><th class="grp sep" colspan="'+n+'">État suivant</th>';
+    if(nIn) o+='<th class="grp sep" colspan="'+nIn+'">Entrées des bascules</th>';
+    o+='</tr><tr><th class="sub">déc.</th>';
+    for(b=n-1;b>=0;b--) o+='<th class="sub">Q'+b+'</th>';
+    s.cols.forEach(function(c,k){ var sep = k===0 || (c.kind==='in' && s.cols[k-1].kind==='nx') || (c.kind==='in'&&s.type==='JK'&&c.idx===0&&k>n); o+='<th class="sub'+(sep?' sep':'')+'">'+c.label+'</th>'; });
+    o+='</tr></thead><tbody>';
+    s.rows.forEach(function(r,i){
+      o+='<tr><td>'+r.p+'</td>';
+      for(b=n-1;b>=0;b--) o+='<td class="given">'+((r.p>>b)&1)+'</td>';
+      s.cols.forEach(function(c,k){
+        var sep = k===0 || (c.kind==='in' && s.cols[k-1].kind==='nx') || (c.kind==='in'&&s.type==='JK'&&c.idx===0&&k>n);
+        var cell=cycCell(s.ans[i][k],c.cycle,i+','+k,s.checked,r.exp[k],'État '+r.p+', '+c.label);
+        if(sep) cell=cell.replace('<td class="','<td class="sep ');
+        o+=cell;
+      });
+      o+='</tr>';
+    });
+    return o+'</tbody></table>';
+  }
+
+  function etScore(s){
+    var tot=0,good=0;
+    s.rows.forEach(function(r,i){ r.exp.forEach(function(e,k){ tot++; if(s.ans[i][k]===e) good++; }); });
+    tot++; if(s.ansN===String(s.n)) good++;
+    if(s.async) for(var b=0;b<s.n;b++){ tot++; if(s.ansInit[b]===(((s.seq[0]>>b)&1)?'PR':'CLR')) good++; }
+    return {tot:tot,good:good};
+  }
+  function etRowWhy(s,r){
+    var n=s.n, parts=[];
+    for(var b=n-1;b>=0;b--){
+      var a=(r.p>>b)&1, z=(r.nx>>b)&1, e=excite(s.type,a,z), t;
+      if(!s.withInputs) continue;
+      if(s.type==='JK') t='J'+b+' = '+e[0]+', K'+b+' = '+e[1];
+      else if(s.type==='D') t='D'+b+' = '+e[0];
+      else t='J'+b+' = K'+b+' = '+e[0];
+      parts.push('Q'+b+' : '+a+'→'+z+' donc '+t);
+    }
+    return r.p+' ('+bin(r.p,n)+') → '+r.nx+' ('+bin(r.nx,n)+')'+(parts.length?'. '+parts.join(' ; '):'')+'.';
+  }
+
+  function etRender(){
+    var s=ET.st;
+    $('et-extra').innerHTML=etExtra(s);
+    $('et-table').innerHTML=etTable(s);
+    var sc=etScore(s), perfect=sc.good===sc.tot;
+    $('et-check').hidden=s.checked;
+    $('et-retry').hidden=!s.checked||s.revealed||perfect;
+    $('et-sol').hidden=s.checked&&(s.revealed||perfect);
+    if(!s.checked){ $('et-feedback').hidden=true; return; }
+    $('et-feedback').hidden=false;
+    var el=$('et-score');
+    if(s.revealed){ el.className='score'; el.textContent='Solution affichée'; }
+    else { el.className='score'+(perfect?' perfect':''); el.textContent=perfect?'Sans faute, '+sc.tot+'/'+sc.tot+' !':'Réponses justes : '+sc.good+'/'+sc.tot; }
+    var top=Math.max.apply(null,s.seq), li=[];
+    li.push('<li class="'+(!s.revealed&&s.ansN!==String(s.n)?'err':'')+'"><b>Bascules</b>La plus grande valeur est '+top+' = '+top.toString(2)+' : il faut '+s.n+' bits, donc '+s.n+' bascules.</li>');
+    if(s.async){
+      var s0=s.seq[0], parts=[], bad=false;
+      for(var b=s.n-1;b>=0;b--){ var e=((s0>>b)&1)?'PR':'CLR'; if(s.ansInit[b]!==e) bad=true; parts.push('Q'+b+' = '+((s0>>b)&1)+' → ~'+e+' = 0'); }
+      li.push('<li class="'+(!s.revealed&&bad?'err':'')+'"><b>Init</b>Pour démarrer à '+s0+' ('+bin(s0,s.n)+') : '+parts.join(', ')+'. Ensuite ~PR = ~CLR = 1 pour laisser compter.</li>');
+    }
+    s.rows.forEach(function(r,i){
+      var bad=!s.revealed&&r.exp.some(function(e,k){return s.ans[i][k]!==e});
+      li.push('<li class="'+(bad?'err':'')+'"><b>'+r.p+'</b>'+etRowWhy(s,r)+'</li>');
+    });
+    $('et-expl').innerHTML=li.join('');
+  }
+  function etStatement(s){
+    $('et-title').textContent='Compteur synchrone à bascules '+({JK:'JK',D:'D',T:'JK avec J = K'}[s.type]);
+    var f=[['k','Séquence {'+s.seq.join(', ')+'}'],['','Q0 = poids faible']];
+    if(s.async) f.push(['w','Init par ~PR / ~CLR']);
+    $('et-facts').innerHTML=f.map(function(x){return '<span class="fact '+x[0]+'">'+x[1]+'</span>'}).join('');
+    $('et-seq').textContent='Graphe des états : '+s.seq.join(' → ')+' → '+s.seq[0];
+    $('et-how').textContent='Remplis l\'état suivant de chaque état présent'+(s.withInputs?', puis les entrées de chaque bascule avec la table de transition (X = indifférent)':'')+'.';
+  }
+  function etNew(){ ET.st=etGenerate(); etStatement(ET.st); etRender(); }
+
+  $('et-table').addEventListener('click',function(e){
+    var b=e.target.closest&&e.target.closest('button.cyc'); if(!b||ET.st.checked) return;
+    var key=b.getAttribute('data-key'), p=key.split(','), i=+p[0], k=+p[1];
+    ET.st.ans[i][k]=nextVal(ET.st.ans[i][k],b.getAttribute('data-cycle')); etRender();
+    var nb=document.querySelector('#et-table button[data-key="'+key+'"]'); if(nb) nb.focus();
+  });
+  $('et-extra').addEventListener('change',function(e){
+    var t=e.target, s=ET.st;
+    if(t.id==='et-nb') s.ansN=t.value; else if(t.hasAttribute('data-b')) s.ansInit[+t.getAttribute('data-b')]=t.value;
+    var id=t.id; etRender(); var n=$(id); if(n) n.focus();
+  });
+  $('et-check').addEventListener('click',function(){ var s=ET.st; s.checked=true; ET.tally.done++; var sc=etScore(s); if(sc.good===sc.tot) ET.tally.perfect++; setTally('et-tally',ET.tally); etRender(); });
+  $('et-retry').addEventListener('click',function(){
+    var s=ET.st;
+    s.rows.forEach(function(r,i){ r.exp.forEach(function(e,k){ if(s.ans[i][k]!==e) s.ans[i][k]=''; }); });
+    if(s.ansN!==String(s.n)) s.ansN='';
+    for(var b=0;b<s.n;b++) if(s.ansInit[b]!==(((s.seq[0]>>b)&1)?'PR':'CLR')) s.ansInit[b]='';
+    s.checked=false; etRender();
+  });
+  $('et-sol').addEventListener('click',function(){
+    var s=ET.st; s.ans=s.rows.map(function(r){return r.exp.slice()}); s.ansN=String(s.n);
+    for(var b=0;b<s.n;b++) s.ansInit[b]=((s.seq[0]>>b)&1)?'PR':'CLR';
+    s.checked=true; s.revealed=true; etRender();
+  });
+  $('et-new').addEventListener('click',etNew);
+
+  /* =================================================================== */
+  /* Rappel, modes, réglages                                             */
+  /* =================================================================== */
+  $('tt').innerHTML=
+    '<div><h4>JK : vérité</h4><table><tr><th>J</th><th>K</th><th>Q⁺</th><th>Fn</th></tr><tr><td>0</td><td>0</td><td>Q</td><td>M</td></tr><tr><td>0</td><td>1</td><td>0</td><td>R</td></tr><tr><td>1</td><td>0</td><td>1</td><td>S</td></tr><tr><td>1</td><td>1</td><td>Q̄</td><td>T</td></tr></table></div>'+
+    '<div><h4>JK : transition</h4><table><tr><th>Q</th><th>Q⁺</th><th>J</th><th>K</th></tr><tr><td>0</td><td>0</td><td>0</td><td>X</td></tr><tr><td>0</td><td>1</td><td>1</td><td>X</td></tr><tr><td>1</td><td>0</td><td>X</td><td>1</td></tr><tr><td>1</td><td>1</td><td>X</td><td>0</td></tr></table></div>'+
+    '<div><h4>D : transition</h4><table><tr><th>Q</th><th>Q⁺</th><th>D</th></tr><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>1</td></tr><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>1</td><td>1</td><td>1</td></tr></table></div>'+
+    '<div><h4>J = K : transition</h4><table><tr><th>Q</th><th>Q⁺</th><th>J=K</th></tr><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>1</td></tr><tr><td>1</td><td>0</td><td>1</td></tr><tr><td>1</td><td>1</td><td>0</td></tr></table></div>'+
+    '<div><h4>RS (NOR / NAND)</h4><table><tr><th>S R</th><th>~S ~R</th><th>Fn</th></tr><tr><td>0 0</td><td>1 1</td><td>M</td></tr><tr><td>1 0</td><td>0 1</td><td>S</td></tr><tr><td>0 1</td><td>1 0</td><td>R</td></tr><tr><td>1 1</td><td>0 0</td><td>NU</td></tr></table></div>'+
+    '<p>~PR = 0 force Q à 1 et ~CLR = 0 force Q à 0, tout de suite, sans attendre le front et avant D, J, K. Au repos, on les laisse à 1. Pour une D, au front actif c\'est toujours une copie, même si Q ne change pas.</p>';
+
+  var MODES={chrono:chNew,tr:trNew,et:etNew}, cur='chrono';
+  function setMode(m){
+    cur=m;
+    Array.prototype.forEach.call(document.querySelectorAll('.modes button'),function(b){ b.setAttribute('aria-selected',String(b.getAttribute('data-mode')===m)); });
+    Array.prototype.forEach.call(document.querySelectorAll('.controls .grp'),function(g){ g.hidden=g.getAttribute('data-for')!==m; });
+    ['chrono','tr','et'].forEach(function(k){ $('sec-'+k).hidden=k!==m; });
+    try{ localStorage.setItem('te302-mode',m); }catch(e){}
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('.modes button'),function(b){ b.addEventListener('click',function(){ setMode(b.getAttribute('data-mode')); }); });
+
+  Array.prototype.forEach.call(document.querySelectorAll('input[name="type-chrono"]'),function(r){r.addEventListener('change',chNew)});
+  Array.prototype.forEach.call(document.querySelectorAll('input[name="type-tr"]'),function(r){r.addEventListener('change',trNew)});
+  Array.prototype.forEach.call(document.querySelectorAll('input[name="type-et"]'),function(r){r.addEventListener('change',etNew)});
+  $('chrono-n').addEventListener('change',chNew);
+  $('opt-table').addEventListener('change',chRender);
+  $('tr-n').addEventListener('change',trNew);
+  $('et-bits').addEventListener('change',etNew);
+  $('et-inputs').addEventListener('change',etNew);
+  $('opt-async').addEventListener('change',function(){ chNew(); trNew(); etNew(); });
+
+  chNew(); trNew(); etNew();
+  var start='chrono';
+  var h=(location.hash||'').replace('#','');
+  if(MODES[h]) start=h; else { try{ var sv=localStorage.getItem('te302-mode'); if(MODES[sv]) start=sv; }catch(e){} }
+  setMode(start);
+})();
+</script>
+<script>
+/* Intégré au site MkDocs : suit le thème clair/sombre du site et ajuste la hauteur du cadre */
+(function(){
+  var fe=null, pd=null;
+  try{ fe=window.frameElement; pd=window.parent!==window?window.parent.document:null; }catch(e){}
+  if(!fe||!pd) return;
+  var root=document.documentElement; root.classList.add('embedded');
+  function theme(){ var s=pd.body&&pd.body.getAttribute('data-md-color-scheme'); if(s==='slate') root.setAttribute('data-theme','dark'); else if(s==='default') root.setAttribute('data-theme','light'); }
+  theme();
+  try{ new MutationObserver(theme).observe(pd.body,{attributes:true,attributeFilter:['data-md-color-scheme']}); }catch(e){}
+  function fit(){ fe.style.height=(document.body.scrollHeight+4)+'px'; }
+  if(window.ResizeObserver) new ResizeObserver(fit).observe(document.body);
+  window.addEventListener('load',fit); fit();
+})();
+</script>
+</body>
+</html>
