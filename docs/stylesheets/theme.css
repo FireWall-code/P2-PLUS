@@ -382,3 +382,7 @@
   }
   .md-nav[data-md-level="3"] .md-nav__link:hover { color: var(--md-default-fg-color); }
 }
+
+/* Bouton dans le bandeau d'accueil */
+.md-typeset .accueil-hero .md-button { margin-top: 1rem; }
+.md-typeset .accueil-hero .md-button .twemoji { margin-right: 0.3rem; }
