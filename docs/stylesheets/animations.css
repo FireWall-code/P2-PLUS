@@ -82,19 +82,22 @@
   .md-nav__link { transition: color 0.15s ease, background-color 0.15s ease, transform 0.15s ease; }
   .md-sidebar--primary .md-nav__link:hover { transform: translateX(3px); }
   .md-nav__icon { transition: transform 0.25s ease; }
-  /* Sous-menus qui s'ouvrent en glissant */
-  .md-nav__toggle:checked ~ .md-nav > .md-nav__list > .md-nav__item,
-  .md-nav__item--active > .md-nav > .md-nav__list > .md-nav__item {
-    animation: glisser-gauche 0.3s ease both;
+  /* Sous-menus qui s'ouvrent en glissant — grand écran uniquement : sur mobile,
+     un transform sur les entrées casserait les panneaux du tiroir (position absolue) */
+  @media screen and (min-width: 76.25em) {
+    .md-nav__toggle:checked ~ .md-nav > .md-nav__list > .md-nav__item,
+    .md-nav__item--active > .md-nav > .md-nav__list > .md-nav__item {
+      animation: glisser-gauche 0.3s ease both;
+    }
+    .md-nav__toggle:checked ~ .md-nav > .md-nav__list > .md-nav__item:nth-child(2),
+    .md-nav__item--active > .md-nav > .md-nav__list > .md-nav__item:nth-child(2) { animation-delay: 0.03s; }
+    .md-nav__toggle:checked ~ .md-nav > .md-nav__list > .md-nav__item:nth-child(3),
+    .md-nav__item--active > .md-nav > .md-nav__list > .md-nav__item:nth-child(3) { animation-delay: 0.06s; }
+    .md-nav__toggle:checked ~ .md-nav > .md-nav__list > .md-nav__item:nth-child(4),
+    .md-nav__item--active > .md-nav > .md-nav__list > .md-nav__item:nth-child(4) { animation-delay: 0.09s; }
+    .md-nav__toggle:checked ~ .md-nav > .md-nav__list > .md-nav__item:nth-child(n+5),
+    .md-nav__item--active > .md-nav > .md-nav__list > .md-nav__item:nth-child(n+5) { animation-delay: 0.12s; }
   }
-  .md-nav__toggle:checked ~ .md-nav > .md-nav__list > .md-nav__item:nth-child(2),
-  .md-nav__item--active > .md-nav > .md-nav__list > .md-nav__item:nth-child(2) { animation-delay: 0.03s; }
-  .md-nav__toggle:checked ~ .md-nav > .md-nav__list > .md-nav__item:nth-child(3),
-  .md-nav__item--active > .md-nav > .md-nav__list > .md-nav__item:nth-child(3) { animation-delay: 0.06s; }
-  .md-nav__toggle:checked ~ .md-nav > .md-nav__list > .md-nav__item:nth-child(4),
-  .md-nav__item--active > .md-nav > .md-nav__list > .md-nav__item:nth-child(4) { animation-delay: 0.09s; }
-  .md-nav__toggle:checked ~ .md-nav > .md-nav__list > .md-nav__item:nth-child(n+5),
-  .md-nav__item--active > .md-nav > .md-nav__list > .md-nav__item:nth-child(n+5) { animation-delay: 0.12s; }
   /* Barre d'accent de la matière ouverte qui se déploie */
   @media screen and (min-width: 76.25em) {
     .md-nav[data-md-level="1"] > .md-nav__list > .md-nav__item--active::before {
