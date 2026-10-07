@@ -1,1 +1,7 @@
 title: Cours
+nav:
+  - index.md
+  - chapitre-1-espace-probabilise.md
+  - chapitre-2-probabilites-conditionnelles.md
+  - chapitre-3-va-discretes.md
+  - chapitre-4-va-continues.md

@@ -1,1 +1,8 @@
 title: TD
+nav:
+  - index.md
+  - questions-revision.md
+  - td-1-espace-probabilise.md
+  - td-2-probabilites-conditionnelles.md
+  - td-3-va-discretes.md
+  - td-4-va-continues.md
