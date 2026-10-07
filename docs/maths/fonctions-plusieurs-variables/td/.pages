@@ -1,1 +1,12 @@
 title: TD
+nav:
+  - index.md
+  - td-1-fonctions.md
+  - td-2-limites-continuite.md
+  - td-3-derivees-partielles.md
+  - td-4-integrales-multiples.md
+  - td-5-convexite.md
+  - td-6-extrema.md
+  - annale-de-blanc.md
+  - annale-de-2023.md
+  - annale-de-2024.md

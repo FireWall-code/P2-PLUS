@@ -1,1 +1,9 @@
 title: Cours
+nav:
+  - index.md
+  - chapitre-1-fonctions.md
+  - chapitre-2-limites-continuite.md
+  - chapitre-3-derivees-partielles.md
+  - chapitre-4-integrales-multiples.md
+  - chapitre-5-convexite.md
+  - chapitre-6-extrema.md

@@ -1,1 +1,9 @@
 title: Fiches
+nav:
+  - index.md
+  - fiche-domaines-niveaux.md
+  - fiche-limites-continuite.md
+  - fiche-derivees.md
+  - fiche-integrales.md
+  - fiche-convexite.md
+  - fiche-extrema.md
