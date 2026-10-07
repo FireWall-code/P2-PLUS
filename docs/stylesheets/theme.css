@@ -239,3 +239,146 @@
   -webkit-mask-image: var(--md-admonition-icon--abstract);
           mask-image: var(--md-admonition-icon--abstract);
 }
+
+/* ==================================================================== */
+/* Menu de gauche : hiérarchie catégorie > matière > section > page      */
+/* (docs/javascripts/menu.js pose les classes nav-matiere / data-section) */
+/* ==================================================================== */
+:root {
+  --nav-icone-cours: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9zm6.82 6L12 12.72 5.18 9 12 5.28zM17 16l-5 2.72L7 16v-3.73L12 15l5-2.73z"/></svg>');
+  --nav-icone-td: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 6H2v14a2 2 0 0 0 2 2h14v-2H4zm14.7 1.35-1 1-2.05-2.05 1-1c.21-.22.56-.22.77 0l1.28 1.28c.22.21.22.56 0 .77M9 12.94l6.06-6.06 2.06 2.06L11.06 15H9zM20 4v12H8V4zm0-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2"/></svg>');
+  --nav-icone-fiches: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 20H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2M4 6v12h16V6zm2 3h12v2H6zm0 4h10v2H6z"/></svg>');
+  --nav-icone-entrainement: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.5 21c-3 0-4.19-4.24-5.45-8.72C10.14 9.04 9 5 7.5 5 4.11 5 4 11.93 4 12H2c0-.37.06-9 5.5-9 3 0 4.21 4.25 5.47 8.74C13.83 14.8 15 19 16.5 19c3.44 0 3.53-6.93 3.53-7h2c0 .37-.06 9-5.53 9"/></svg>');
+  --nav-icone-annales: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m23.5 17-5 5-3.5-3.5 1.5-1.5 2 2 3.5-3.5zM6 2a2 2 0 0 0-2 2v16c0 1.11.89 2 2 2h7.81c-.36-.62-.61-1.3-.73-2H6V4h7v5h5v4.08c.33-.05.67-.08 1-.08.34 0 .67.03 1 .08V8l-6-6M8 12v2h8v-2m-8 4v2h5v-2Z"/></svg>');
+}
+
+@media screen and (min-width: 76.25em) {
+  /* Niveau 0 — la catégorie : petit titre en capitales, collé à gauche */
+  .md-nav--lifted > .md-nav__list > .md-nav__item--active > .md-nav__link {
+    margin: 0 0 0.8rem;
+    padding: 0;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--md-primary-fg-color);
+    background: none;
+  }
+  .md-nav--lifted > .md-nav__list > .md-nav__item--active > .md-nav__link a,
+  .md-nav--lifted > .md-nav__list > .md-nav__item--active > .md-nav__link .md-ellipsis {
+    color: inherit;
+  }
+
+  /* Niveau 1 — les matières : blocs séparés par un trait, légèrement décalés */
+  .md-nav[data-md-level="1"] > .md-nav__list {
+    padding: 0;
+  }
+  .md-nav[data-md-level="1"] > .md-nav__list > .md-nav__item {
+    margin: 0;
+    padding: 0.55rem 0 0.55rem 0.5rem;
+    border-top: 1px solid var(--site-border);
+  }
+  .md-nav[data-md-level="1"] > .md-nav__list > .md-nav__item:first-child { border-top: 0; }
+  .md-nav[data-md-level="1"] > .md-nav__list > .md-nav__item > .md-nav__link,
+  .md-nav[data-md-level="1"] > .md-nav__list > .md-nav__item > .md-nav__container > .md-nav__link:first-child {
+    font-size: 0.74rem;
+    font-weight: 650;
+    color: var(--md-default-fg-color);
+    background: none;
+  }
+  /* Matière ouverte : barre d'accent à gauche */
+  .md-nav[data-md-level="1"] > .md-nav__list > .md-nav__item--active {
+    position: relative;
+    background: linear-gradient(90deg, var(--md-accent-fg-color--transparent), transparent 85%);
+    border-radius: 0 8px 8px 0;
+  }
+  .md-nav[data-md-level="1"] > .md-nav__list > .md-nav__item--active::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55rem;
+    bottom: 0.55rem;
+    width: 3px;
+    border-radius: 3px;
+    background: var(--md-primary-fg-color);
+  }
+  .md-nav[data-md-level="1"] > .md-nav__list > .md-nav__item--active > .md-nav__container > .md-nav__link:first-child {
+    color: var(--md-primary-fg-color);
+  }
+
+  /* Nom de la matière + code en badge (posés par menu.js) */
+  .nav-matiere { display: flex; flex-direction: column; gap: 0.2rem; white-space: normal; }
+  .nav-matiere__nom { line-height: 1.3; }
+  .nav-matiere__code {
+    align-self: flex-start;
+    padding: 0.05rem 0.4rem;
+    border-radius: 999px;
+    font-family: var(--md-code-font-family);
+    font-size: 0.56rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--md-default-fg-color--light);
+    background: var(--md-default-fg-color--lightest);
+  }
+  .md-nav__item--active > .md-nav__container .nav-matiere__code {
+    color: var(--md-primary-fg-color);
+    background: var(--md-accent-fg-color--transparent);
+  }
+
+  /* Niveau 2 — sections (Cours, TD, Fiches…) : plus décalées, trait de guidage */
+  .md-nav[data-md-level="2"] {
+    margin: 0.4rem 0 0 0.35rem;
+    padding-left: 0.55rem;
+    border-left: 1px solid var(--site-border);
+  }
+  .md-nav[data-md-level="2"] > .md-nav__list { padding: 0; }
+  .md-nav[data-md-level="2"] > .md-nav__list > .md-nav__item { margin: 0.1rem 0; }
+  .md-nav[data-md-level="2"] > .md-nav__list > .md-nav__item > .md-nav__link,
+  .md-nav[data-md-level="2"] > .md-nav__list > .md-nav__item > .md-nav__container > .md-nav__link:first-child {
+    font-size: 0.7rem;
+    font-weight: 550;
+    color: var(--md-default-fg-color--light);
+  }
+  .md-nav[data-md-level="2"] > .md-nav__list > .md-nav__item--active > .md-nav__container > .md-nav__link:first-child,
+  .md-nav[data-md-level="2"] > .md-nav__list > .md-nav__item > .md-nav__link--active {
+    color: var(--md-default-fg-color);
+    font-weight: 650;
+  }
+  /* Icône devant chaque section */
+  [data-section] > .md-nav__link .md-ellipsis::before,
+  [data-section] > .md-nav__container > .md-nav__link:first-child .md-ellipsis::before {
+    content: "";
+    display: inline-block;
+    width: 0.85rem;
+    height: 0.85rem;
+    margin-right: 0.4rem;
+    vertical-align: -0.15rem;
+    background-color: currentColor;
+    -webkit-mask: var(--nav-icone) center / contain no-repeat;
+            mask: var(--nav-icone) center / contain no-repeat;
+    opacity: 0.85;
+  }
+  [data-section="cours"] { --nav-icone: var(--nav-icone-cours); }
+  [data-section="td"] { --nav-icone: var(--nav-icone-td); }
+  [data-section="fiches"] { --nav-icone: var(--nav-icone-fiches); }
+  [data-section="entrainement"] { --nav-icone: var(--nav-icone-entrainement); }
+  [data-section="annales"] { --nav-icone: var(--nav-icone-annales); }
+
+  /* Niveau 3 — pages : encore plus décalées, plus petites */
+  .md-nav[data-md-level="3"] {
+    margin: 0.25rem 0 0.35rem 0.4rem;
+    padding-left: 0.65rem;
+    border-left: 1px dashed var(--site-border);
+  }
+  .md-nav[data-md-level="3"] > .md-nav__list { padding: 0; }
+  .md-nav[data-md-level="3"] .md-nav__link {
+    font-size: 0.68rem;
+    color: var(--md-default-fg-color--light);
+    margin-top: 0.15rem;
+  }
+  .md-nav[data-md-level="3"] .md-nav__link--active {
+    color: var(--md-primary-fg-color);
+    font-weight: 650;
+  }
+  .md-nav[data-md-level="3"] .md-nav__link:hover { color: var(--md-default-fg-color); }
+}
