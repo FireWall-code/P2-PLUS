@@ -1,1 +1,10 @@
 title: TD
+nav:
+  - index.md
+  - td-1-listes.md
+  - td-2-listes-avancees.md
+  - td-3-piles-files.md
+  - td-4-arbres-binaires.md
+  - td-5-abr-avl.md
+  - annales-cc-2023.md
+  - annale-de-2024.md

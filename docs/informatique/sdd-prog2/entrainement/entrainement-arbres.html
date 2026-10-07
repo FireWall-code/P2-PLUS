@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entraînement arbres</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..800&family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Même charte que l'entraînement aux bascules : feuille d'exercice une colonne, modes en onglets */
+:root{
+  --paper:#f2f4f6; --card:#ffffff; --ink:#17202a; --muted:#5b6673; --line:#d4dbe2; --grid:#e9edf1;
+  --accent:#2347a6; --accent-soft:#e3e9f8; --warn:#b4235a; --warn-soft:#f8e3eb; --ok:#1d7a4f; --ok-soft:#dff2e8;
+  --f-display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --f-body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#11161c; --card:#182029; --ink:#e4e9ef; --muted:#9aa6b4; --line:#2c3743; --grid:#202a34;
+  --accent:#8eaaff; --accent-soft:#1e2a47; --warn:#ff7fa9; --warn-soft:#3a1d2a; --ok:#5fd19b; --ok-soft:#173527; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#11161c; --card:#182029; --ink:#e4e9ef; --muted:#9aa6b4; --line:#2c3743; --grid:#202a34;
+  --accent:#8eaaff; --accent-soft:#1e2a47; --warn:#ff7fa9; --warn-soft:#3a1d2a; --ok:#5fd19b; --ok-soft:#173527; color-scheme:dark}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html.embedded header{display:none}
+html.embedded body{padding-block:0 8px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5;padding-inline:16px;padding-block:0 48px}
+.wrap{max-width:860px;margin:0 auto}
+header{padding-block:24px 10px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--f-display);font-weight:800;font-stretch:78%;font-size:clamp(30px,7vw,42px);line-height:1.05;margin:6px 0 8px;text-wrap:balance}
+.lead{color:var(--muted);margin:0;max-width:64ch}
+
+.modes{display:flex;gap:0;margin-top:16px;border-bottom:2px solid var(--ink);overflow-x:auto;scrollbar-width:none}
+.modes button{flex:0 0 auto;font-family:var(--f-display);font-stretch:82%;font-weight:700;font-size:17px;padding:9px 14px 8px;border:0;background:none;color:var(--muted);cursor:pointer;border-bottom:4px solid transparent;margin-bottom:-2px}
+.modes button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.modes button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+
+.controls{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--card)}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label{font-family:var(--f-display);font-stretch:85%;font-weight:600;font-size:15px;padding:6px 11px;cursor:pointer;border-right:1px solid var(--line);white-space:nowrap}
+.seg label:last-of-type{border-right:0}
+.seg input:checked+label{background:var(--accent);color:var(--card)}
+.seg input:focus-visible+label{outline:2px solid var(--accent);outline-offset:-2px}
+
+.sheet{background:var(--card);border:1px solid var(--line);border-radius:10px;margin-top:18px;padding:14px 0 16px}
+.statement{padding:0 16px}
+.statement h2{font-family:var(--f-display);font-weight:800;font-stretch:82%;font-size:24px;line-height:1.15;margin:0 0 4px;text-wrap:balance}
+.facts{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.fact{font-family:var(--f-mono);font-size:12.5px;padding:3px 8px;border-radius:5px;background:var(--grid)}
+.fact.k{background:var(--accent-soft);color:var(--accent)}
+.fact.w{background:var(--warn-soft);color:var(--warn)}
+.how{font-size:14.5px;color:var(--muted);margin:6px 0 0}
+
+.board{overflow-x:auto;margin-top:12px;padding:0 16px 4px;-webkit-overflow-scrolling:touch}
+svg{display:block;margin:0 auto}
+svg .edge{stroke:var(--muted);stroke-width:1.6}
+svg .nd{fill:var(--card);stroke:var(--ink);stroke-width:1.8}
+svg .nd.new{fill:var(--accent-soft);stroke:var(--accent)}
+svg .nd.bad{fill:var(--warn-soft);stroke:var(--warn)}
+svg .nd.good{fill:var(--ok-soft);stroke:var(--ok)}
+svg .val{font-family:var(--f-mono);font-size:13px;font-weight:600;fill:var(--ink);text-anchor:middle;dominant-baseline:central}
+svg .bf{font-family:var(--f-mono);font-size:11px;fill:var(--muted);text-anchor:start}
+svg .bf.bad{fill:var(--warn);font-weight:600}
+svg .cap{font-family:var(--f-display);font-size:13px;font-weight:700;fill:var(--muted);text-anchor:middle}
+
+.answer{padding:12px 16px 0;display:grid;gap:10px}
+.answer .big{font-weight:700}
+.answer input[type=text]{width:100%;font-family:var(--f-mono);font-size:15px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink)}
+.answer input[type=text]:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.answer .ok input,.answer input.ok{background:var(--ok-soft)}
+.answer input.err{background:var(--warn-soft)}
+.row{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}
+.qsel{font-family:var(--f-mono);font-size:14px;padding:5px 6px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink)}
+.qsel:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.qsel.ok{background:var(--ok-soft)} .qsel.err{background:var(--warn-soft)}
+
+.xt{overflow-x:auto;margin:0;border:1px solid var(--line);border-radius:8px}
+.xt table{border-collapse:collapse;font-variant-numeric:tabular-nums;min-width:100%}
+.xt th,.xt td{border-bottom:1px solid var(--line);border-left:1px solid var(--grid);padding:5px 6px;text-align:center;white-space:nowrap}
+.xt tr:last-child td{border-bottom:0}
+.xt th{font-family:var(--f-display);font-stretch:85%;font-weight:700;font-size:14px;background:var(--grid)}
+.xt td{font-family:var(--f-mono);font-size:14px}
+.xt td.ok{background:var(--ok-soft)} .xt td.err{background:var(--warn-soft)}
+.xt td .res{display:block;font-size:11px;min-height:14px}
+
+.actions{display:flex;flex-wrap:wrap;gap:8px;padding:14px 16px 0}
+.btn{font-family:var(--f-display);font-stretch:88%;font-weight:700;font-size:15px;padding:9px 16px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.btn.main{background:var(--accent);border-color:var(--accent);color:var(--card)}
+.btn:disabled{opacity:.45;cursor:default}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.feedback{padding:12px 16px 0}
+.score{font-family:var(--f-display);font-stretch:85%;font-weight:800;font-size:22px}
+.score.perfect{color:var(--ok)}
+.expl{list-style:none;padding:0;margin:8px 0 0;display:grid;gap:4px}
+.expl li{font-size:14.5px;padding:6px 10px;border-radius:6px;background:var(--grid)}
+.expl li.err{background:var(--warn-soft)}
+.expl li.ok{background:var(--ok-soft)}
+.expl b{font-family:var(--f-mono);font-size:13px;margin-right:6px}
+.seq{font-family:var(--f-mono);font-size:14.5px;display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.seq span{padding:2px 6px;border-radius:5px;background:var(--grid)}
+.seq span.ok{background:var(--ok-soft)} .seq span.err{background:var(--warn-soft);color:var(--warn);font-weight:600}
+.tally{font-family:var(--f-mono);font-size:12.5px;color:var(--muted);margin-top:10px}
+.steps{display:grid;gap:12px;margin-top:10px}
+.step{border-top:1px solid var(--line);padding-top:8px}
+.step p{margin:0 0 4px;font-size:14.5px}
+.stepnav{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.stepnav .cnt{font-family:var(--f-mono);font-size:13px;color:var(--muted)}
+
+details.help{margin-top:16px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:0 16px}
+details.help summary{cursor:pointer;padding:12px 0;font-weight:700}
+details.help .in{padding-bottom:14px;font-size:14.5px}
+details.help table{border-collapse:collapse;font-size:14px;margin-top:6px}
+details.help td,details.help th{border:1px solid var(--line);padding:4px 8px;text-align:left}
+code{font-family:var(--f-mono);font-size:.92em}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">TI301P · arbres binaires</div>
+  <h1>Entraînement aux arbres</h1>
+  <p class="lead">Arbres tirés au hasard, corrigés immédiatement : parcours, facteurs d'équilibre, choix des rotations, et insertion AVL pas à pas.</p>
+</header>
+
+<nav class="modes" role="tablist" aria-label="Mode d'entraînement">
+  <button role="tab" data-mode="parcours" aria-selected="true">Parcours</button>
+  <button role="tab" data-mode="equilibre" aria-selected="false">Facteurs d'équilibre</button>
+  <button role="tab" data-mode="rotation" aria-selected="false">Rotations</button>
+  <button role="tab" data-mode="pas" aria-selected="false">AVL pas à pas</button>
+</nav>
+
+<!-- ============ PARCOURS ============ -->
+<section id="m-parcours">
+  <div class="controls">
+    <div class="seg" role="radiogroup" aria-label="Parcours demandé">
+      <input type="radio" name="trav" id="tv-pre" value="pre" checked><label for="tv-pre">Préfixe</label>
+      <input type="radio" name="trav" id="tv-in" value="in"><label for="tv-in">Infixe</label>
+      <input type="radio" name="trav" id="tv-post" value="post"><label for="tv-post">Postfixe</label>
+      <input type="radio" name="trav" id="tv-bfs" value="bfs"><label for="tv-bfs">Largeur</label>
+    </div>
+    <div class="seg" role="radiogroup" aria-label="Type d'arbre">
+      <input type="radio" name="shape" id="sh-any" value="any" checked><label for="sh-any">Arbre quelconque</label>
+      <input type="radio" name="shape" id="sh-bst" value="bst"><label for="sh-bst">ABR</label>
+    </div>
+  </div>
+  <div class="sheet">
+    <div class="statement">
+      <h2 id="p-title">Parcours préfixe</h2>
+      <p class="how" id="p-how"></p>
+    </div>
+    <div class="board" id="p-board"></div>
+    <div class="answer">
+      <label class="big" for="p-input">Ta réponse (valeurs séparées par des espaces)</label>
+      <input type="text" id="p-input" autocomplete="off" spellcheck="false" inputmode="numeric">
+    </div>
+    <div class="actions">
+      <button class="btn main" id="p-check">Corriger</button>
+      <button class="btn" id="p-new">Nouvel arbre</button>
+    </div>
+    <div class="feedback" id="p-fb" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- ============ EQUILIBRE ============ -->
+<section id="m-equilibre" hidden>
+  <div class="controls">
+    <div class="seg" role="radiogroup" aria-label="Taille de l'arbre">
+      <input type="radio" name="bsize" id="bs-s" value="6"><label for="bs-s">6 nœuds</label>
+      <input type="radio" name="bsize" id="bs-m" value="8" checked><label for="bs-m">8 nœuds</label>
+      <input type="radio" name="bsize" id="bs-l" value="10"><label for="bs-l">10 nœuds</label>
+    </div>
+  </div>
+  <div class="sheet">
+    <div class="statement">
+      <h2>Reporte le facteur d'équilibre de chaque nœud</h2>
+      <p class="how">BF = hauteur(gauche) − hauteur(droit), avec hauteur(vide) = −1 et hauteur(feuille) = 0. Puis dis si l'arbre est un AVL.</p>
+    </div>
+    <div class="board" id="e-board"></div>
+    <div class="answer">
+      <div class="xt"><table id="e-table"></table></div>
+      <div class="row">
+        <span class="big">Est-ce un AVL ?</span>
+        <select class="qsel" id="e-avl"><option value="">?</option><option value="1">oui</option><option value="0">non</option></select>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn main" id="e-check">Corriger</button>
+      <button class="btn" id="e-new">Nouvel arbre</button>
+    </div>
+    <div class="feedback" id="e-fb" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- ============ ROTATION ============ -->
+<section id="m-rotation" hidden>
+  <div class="sheet">
+    <div class="statement">
+      <h2>Rééquilibre après l'insertion</h2>
+      <p class="how">L'arbre était un AVL. On vient d'insérer la valeur en bleu comme une simple feuille d'ABR. Quel nœud corriger, et avec quelle(s) rotation(s) ?</p>
+      <div class="facts" id="r-facts"></div>
+    </div>
+    <div class="board" id="r-board"></div>
+    <div class="answer">
+      <div class="row">
+        <label class="big" for="r-node">Nœud déséquilibré le plus bas :</label>
+        <select class="qsel" id="r-node"></select>
+      </div>
+      <div class="row">
+        <label class="big" for="r-op">Opération :</label>
+        <select class="qsel" id="r-op">
+          <option value="">?</option>
+          <option value="L">rotation gauche sur ce nœud</option>
+          <option value="R">rotation droite sur ce nœud</option>
+          <option value="LR">gauche sur son fils gauche, puis droite sur lui</option>
+          <option value="RL">droite sur son fils droit, puis gauche sur lui</option>
+        </select>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn main" id="r-check">Corriger</button>
+      <button class="btn" id="r-new">Nouvel exercice</button>
+    </div>
+    <div class="feedback" id="r-fb" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- ============ PAS A PAS ============ -->
+<section id="m-pas" hidden>
+  <div class="sheet">
+    <div class="statement">
+      <h2>Insertion AVL, une valeur à la fois</h2>
+      <p class="how">Entre une suite de valeurs (ou tire-la au hasard), puis avance étape par étape : chaque insertion affiche les facteurs d'équilibre et la rotation appliquée.</p>
+    </div>
+    <div class="answer">
+      <label class="big" for="s-input">Valeurs à insérer</label>
+      <input type="text" id="s-input" autocomplete="off" spellcheck="false" inputmode="numeric">
+      <div class="row">
+        <button class="btn main" id="s-go">Lancer</button>
+        <button class="btn" id="s-rand">Suite au hasard</button>
+        <button class="btn" id="s-sorted">Suite triée (pire cas ABR)</button>
+      </div>
+    </div>
+    <div class="actions stepnav">
+      <button class="btn" id="s-prev">◀ Précédente</button>
+      <button class="btn main" id="s-next">Suivante ▶</button>
+      <span class="cnt" id="s-cnt"></span>
+    </div>
+    <div class="feedback" id="s-msg" aria-live="polite"></div>
+    <div class="board" id="s-board"></div>
+  </div>
+</section>
+
+<div class="tally" id="tally"></div>
+
+<details class="help">
+  <summary>Rappels</summary>
+  <div class="in">
+    <p><b>Préfixe</b> : nœud, gauche, droite. <b>Infixe</b> : gauche, nœud, droite (trié pour un ABR). <b>Postfixe</b> : gauche, droite, nœud. <b>Largeur</b> : niveau par niveau avec une file.</p>
+    <table>
+      <tr><th>BF du nœud</th><th>BF de l'enfant lourd</th><th>Opération</th></tr>
+      <tr><td>−2</td><td>droit : −1</td><td>rotation gauche sur le nœud</td></tr>
+      <tr><td>−2</td><td>droit : +1</td><td>droite sur le fils droit, puis gauche sur le nœud</td></tr>
+      <tr><td>+2</td><td>gauche : +1</td><td>rotation droite sur le nœud</td></tr>
+      <tr><td>+2</td><td>gauche : −1</td><td>gauche sur le fils gauche, puis droite sur le nœud</td></tr>
+    </table>
+  </div>
+</details>
+</div>
+
+<script>
+(function(){
+"use strict";
+/* ---------- outils arbre ---------- */
+function N(v){ return {v:v,l:null,r:null}; }
+function h(n){ return n ? 1+Math.max(h(n.l),h(n.r)) : -1; }
+function bf(n){ return h(n.l)-h(n.r); }
+function clone(n){ if(!n) return null; var c=N(n.v); c.l=clone(n.l); c.r=clone(n.r); return c; }
+function insBST(n,v){ if(!n) return N(v); if(v<n.v) n.l=insBST(n.l,v); else n.r=insBST(n.r,v); return n; }
+function insRand(n,v){ if(!n) return N(v); if(Math.random()<0.5) n.l=insRand(n.l,v); else n.r=insRand(n.r,v); return n; }
+function rotR(n){ var p=n.l; n.l=p.r; p.r=n; return p; }
+function rotL(n){ var p=n.r; n.r=p.l; p.l=n; return p; }
+function pre(n,a){ if(n){a.push(n.v);pre(n.l,a);pre(n.r,a);} return a; }
+function ino(n,a){ if(n){ino(n.l,a);a.push(n.v);ino(n.r,a);} return a; }
+function post(n,a){ if(n){post(n.l,a);post(n.r,a);a.push(n.v);} return a; }
+function bfs(n){ var a=[],q=n?[n]:[]; while(q.length){ var c=q.shift(); a.push(c.v); if(c.l) q.push(c.l); if(c.r) q.push(c.r);} return a; }
+function nodes(n){ var a=[],q=n?[n]:[]; while(q.length){ var c=q.shift(); a.push(c); if(c.l) q.push(c.l); if(c.r) q.push(c.r);} return a; }
+function isAVL(n){ return !n || (Math.abs(bf(n))<=1 && isAVL(n.l) && isAVL(n.r)); }
+function lowestUnbalanced(n){ if(!n) return null; var x=lowestUnbalanced(n.l)||lowestUnbalanced(n.r); if(x) return x; return Math.abs(bf(n))>=2 ? n : null; }
+function rnd(a,b){ return a+Math.floor(Math.random()*(b-a+1)); }
+function distinct(k,lo,hi){ var s={},a=[]; while(a.length<k){ var x=rnd(lo,hi); if(!s[x]){s[x]=1;a.push(x);} } return a; }
+function sgn(x){ return x>0?'+'+x:String(x); }
+
+/* équilibrage AVL avec journal */
+function balance(n,log){
+  var b=bf(n);
+  if(b===-2){
+    if(bf(n.r)>0){ log.push({t:'RL',node:n.v,child:n.r.v,bn:b,bc:bf(n.r)}); n.r=rotR(n.r); }
+    else log.push({t:'L',node:n.v,child:n.r.v,bn:b,bc:bf(n.r)});
+    n=rotL(n);
+  } else if(b===2){
+    if(bf(n.l)<0){ log.push({t:'LR',node:n.v,child:n.l.v,bn:b,bc:bf(n.l)}); n.l=rotL(n.l); }
+    else log.push({t:'R',node:n.v,child:n.l.v,bn:b,bc:bf(n.l)});
+    n=rotR(n);
+  }
+  return n;
+}
+function insAVL(n,v,log){ if(!n) return N(v); if(v<n.v) n.l=insAVL(n.l,v,log); else n.r=insAVL(n.r,v,log); return balance(n,log); }
+function opText(o){
+  if(o.t==='L') return 'rotation gauche sur '+o.node;
+  if(o.t==='R') return 'rotation droite sur '+o.node;
+  if(o.t==='LR') return 'rotation gauche sur '+o.child+', puis rotation droite sur '+o.node;
+  return 'rotation droite sur '+o.child+', puis rotation gauche sur '+o.node;
+}
+
+/* ---------- dessin SVG ---------- */
+var NS='http://www.w3.org/2000/svg';
+function el(tag,attrs,txt){ var e=document.createElementNS(NS,tag); for(var k in attrs) e.setAttribute(k,attrs[k]); if(txt!=null) e.textContent=txt; return e; }
+/* opts : {bf:bool, mark:{valeur:'new'|'bad'|'good'}, caption:str} */
+function draw(root,opts){
+  opts=opts||{};
+  var order=ino(root,[]), idx={}, i;
+  for(i=0;i<order.length;i++) idx[order[i]]=i;
+  var n=Math.max(order.length,1), dx=Math.max(38,Math.min(58,700/n)), dy=58, R=16;
+  var H=h(root), W=n*dx+20, top=opts.caption?54:26, HH=top+(Math.max(H,0))*dy+R+14;
+  var svg=el('svg',{viewBox:'0 0 '+W+' '+HH,width:W,height:HH,role:'img','aria-label':opts.caption||'arbre'});
+  if(opts.caption) svg.appendChild(el('text',{x:W/2,y:16,'class':'cap'},opts.caption));
+  function X(v){ return 10+(idx[v]+0.5)*dx; }
+  function walk(nd,d){
+    if(!nd) return;
+    [nd.l,nd.r].forEach(function(c){ if(c) svg.appendChild(el('line',{x1:X(nd.v),y1:top+d*dy,x2:X(c.v),y2:top+(d+1)*dy,'class':'edge'})); });
+    walk(nd.l,d+1); walk(nd.r,d+1);
+  }
+  function put(nd,d){
+    if(!nd) return;
+    var m=opts.mark&&opts.mark[nd.v];
+    svg.appendChild(el('circle',{cx:X(nd.v),cy:top+d*dy,r:R,'class':'nd'+(m?' '+m:'')}));
+    svg.appendChild(el('text',{x:X(nd.v),y:top+d*dy,'class':'val'},nd.v));
+    if(opts.bf){ var b=bf(nd); svg.appendChild(el('text',{x:X(nd.v)+R-2,y:top+d*dy-R-1,'class':'bf'+(Math.abs(b)>=2?' bad':'')},b===0?'0':sgn(b))); }
+    put(nd.l,d+1); put(nd.r,d+1);
+  }
+  if(root){ walk(root,0); put(root,0); }
+  return svg;
+}
+function show(id,list){ var b=document.getElementById(id); b.innerHTML=''; list.forEach(function(s){ b.appendChild(s); }); }
+
+/* ---------- compteur ---------- */
+var tally={ok:0,tot:0};
+function score(ok){ tally.tot++; if(ok) tally.ok++; document.getElementById('tally').textContent='Session : '+tally.ok+' / '+tally.tot+' exercices réussis'; }
+
+/* ---------- mode PARCOURS ---------- */
+var P={tree:null,done:false};
+var TRAV={pre:['Parcours préfixe','Nœud, puis sous-arbre gauche, puis sous-arbre droit.'],
+          in:['Parcours infixe','Sous-arbre gauche, puis nœud, puis sous-arbre droit.'],
+          post:['Parcours postfixe','Sous-arbre gauche, puis sous-arbre droit, puis nœud.'],
+          bfs:['Parcours en largeur','Niveau par niveau, de gauche à droite (avec une file).']};
+function trav(){ return document.querySelector('input[name=trav]:checked').value; }
+function expected(){ var t=trav(); return t==='pre'?pre(P.tree,[]):t==='in'?ino(P.tree,[]):t==='post'?post(P.tree,[]):bfs(P.tree); }
+function pLabels(){ var t=trav(); document.getElementById('p-title').textContent=TRAV[t][0]; document.getElementById('p-how').textContent=TRAV[t][1]; }
+function pNew(){
+  var bst=document.querySelector('input[name=shape]:checked').value==='bst';
+  var vals=distinct(rnd(7,10),1,99), t=null;
+  vals.forEach(function(v){ t=bst?insBST(t,v):insRand(t,v); });
+  if(!bst && h(t)>5){ return pNew(); }
+  P.tree=t; P.done=false;
+  pLabels(); show('p-board',[draw(t)]);
+  var inp=document.getElementById('p-input'); inp.value=''; inp.className='';
+  document.getElementById('p-fb').innerHTML='';
+}
+function pCheck(){
+  var exp=expected(), got=document.getElementById('p-input').value.trim().split(/[\s,;]+/).filter(Boolean).map(Number);
+  var ok=got.length===exp.length && exp.every(function(v,i){ return got[i]===v; });
+  var inp=document.getElementById('p-input'); inp.className=ok?'ok':'err';
+  var fb=document.getElementById('p-fb'), html='<div class="score'+(ok?' perfect':'')+'">'+(ok?'Exact !':'Pas tout à fait')+'</div>';
+  html+='<div class="seq" aria-label="Réponse attendue">'+exp.map(function(v,i){ return '<span class="'+(got[i]===v?'ok':'err')+'">'+v+'</span>'; }).join('')+'</div>';
+  if(!ok){
+    var k=0; while(k<exp.length && got[k]===exp[k]) k++;
+    html+='<ul class="expl"><li class="err"><b>'+(k+1)+'ᵉ valeur</b>'+(got[k]===undefined?'il manque des valeurs à partir d\'ici.':'attendu '+exp[k]+', tu as écrit '+got[k]+'.')+'</li>';
+    var t=trav();
+    if(t==='in') html+='<li>Astuce : tout le sous-arbre gauche d\'un nœud est écrit <b>avant</b> lui.</li>';
+    if(t==='pre') html+='<li>Astuce : un nœud est écrit <b>dès qu\'on l\'atteint</b>, avant de descendre.</li>';
+    if(t==='post') html+='<li>Astuce : un nœud n\'est écrit qu\'<b>après</b> ses deux sous-arbres ; la racine est en dernier.</li>';
+    if(t==='bfs') html+='<li>Astuce : on termine <b>tout</b> un niveau avant de passer au suivant.</li>';
+    html+='</ul>';
+  }
+  fb.innerHTML=html;
+  if(!P.done){ P.done=true; score(ok); }
+}
+
+/* ---------- mode EQUILIBRE ---------- */
+var E={tree:null,done:false};
+function eNew(){
+  var k=+document.querySelector('input[name=bsize]:checked').value, t=null;
+  distinct(k,1,99).forEach(function(v){ t=insBST(t,v); });
+  if(h(t)>5) return eNew();
+  E.tree=t; E.done=false;
+  show('e-board',[draw(t)]);
+  var tb=document.getElementById('e-table'), ns=nodes(t);
+  var opts='<option value="">?</option>'+[-4,-3,-2,-1,0,1,2,3,4].map(function(x){ return '<option value="'+x+'">'+(x>0?'+'+x:x)+'</option>'; }).join('');
+  tb.innerHTML='<tr><th>Nœud</th>'+ns.map(function(n){ return '<th>'+n.v+'</th>'; }).join('')+'</tr>'+
+               '<tr><td>BF</td>'+ns.map(function(n){ return '<td><select class="qsel" data-v="'+n.v+'" aria-label="BF du nœud '+n.v+'">'+opts+'</select><span class="res"></span></td>'; }).join('')+'</tr>';
+  var a=document.getElementById('e-avl'); a.value=''; a.className='qsel';
+  document.getElementById('e-fb').innerHTML='';
+}
+function eCheck(){
+  var ns=nodes(E.tree), map={}, good=0, total=ns.length+1;
+  ns.forEach(function(n){ map[n.v]=n; });
+  document.querySelectorAll('#e-table select').forEach(function(s){
+    var n=map[+s.dataset.v], exp=bf(n), ok=s.value!=='' && +s.value===exp, td=s.parentNode;
+    td.className=ok?'ok':'err'; td.querySelector('.res').textContent=ok?'✓':(exp===0?'0':sgn(exp));
+    if(ok) good++;
+  });
+  var avl=isAVL(E.tree), a=document.getElementById('e-avl'), aok=a.value!=='' && (+a.value===1)===avl;
+  a.className='qsel '+(aok?'ok':'err'); if(aok) good++;
+  var mark={}; ns.forEach(function(n){ if(Math.abs(bf(n))>=2) mark[n.v]='bad'; });
+  show('e-board',[draw(E.tree,{bf:true,mark:mark})]);
+  var ok=good===total, html='<div class="score'+(ok?' perfect':'')+'">'+good+' / '+total+'</div><ul class="expl">';
+  html+='<li><b>Hauteurs</b>'+ns.map(function(n){ return n.v+' → '+h(n); }).join(', ')+'</li>';
+  html+='<li class="'+(aok?'ok':'err')+'"><b>AVL</b>'+(avl?'oui : tous les BF sont dans {−1, 0, +1}.':'non : '+ns.filter(function(n){return Math.abs(bf(n))>=2;}).map(function(n){return n.v+' a un BF de '+sgn(bf(n));}).join(', ')+'.')+'</li></ul>';
+  document.getElementById('e-fb').innerHTML=html;
+  if(!E.done){ E.done=true; score(ok); }
+}
+
+/* ---------- mode ROTATION ---------- */
+var R={before:null,after:null,v:null,done:false};
+function rNew(){
+  var tries=0;
+  while(tries++<400){
+    var base=null, log=[];
+    distinct(rnd(5,9),1,99).forEach(function(v){ base=insAVL(base,v,log); });
+    var present={}; ino(base,[]).forEach(function(v){ present[v]=1; });
+    var cands=[]; for(var v=1;v<=99;v++) if(!present[v]) cands.push(v);
+    cands.sort(function(){ return Math.random()-0.5; });
+    for(var i=0;i<cands.length;i++){
+      var t=insBST(clone(base),cands[i]);
+      if(!isAVL(t)){
+        var low=lowestUnbalanced(t), b=bf(low), child=b>0?low.l:low.r, bc=bf(child);
+        var op=b===2?(bc<0?'LR':'R'):(bc>0?'RL':'L');
+        var want=['L','R','LR','RL'][rnd(0,3)];
+        if(op!==want && Math.random()<0.6) continue;   /* varier les quatre cas */
+        R.before=t; R.v=cands[i]; R.low=low.v; R.op=op; R.b=b; R.child=child.v; R.bc=bc; R.done=false;
+        var lg=[]; R.after=insAVL(clone(base),cands[i],lg); R.log=lg;
+        var mk={}; mk[R.v]='new';
+        show('r-board',[draw(t,{mark:mk})]);
+        document.getElementById('r-facts').innerHTML='<span class="fact k">valeur insérée : '+R.v+'</span>';
+        var sel=document.getElementById('r-node');
+        sel.innerHTML='<option value="">?</option>'+bfs(t).map(function(x){ return '<option value="'+x+'">'+x+'</option>'; }).join('');
+        sel.className='qsel'; var o=document.getElementById('r-op'); o.value=''; o.className='qsel';
+        document.getElementById('r-fb').innerHTML='';
+        return;
+      }
+    }
+  }
+}
+function rCheck(){
+  var sel=document.getElementById('r-node'), o=document.getElementById('r-op');
+  var nok=sel.value!=='' && +sel.value===R.low, ook=o.value===R.op;
+  sel.className='qsel '+(nok?'ok':'err'); o.className='qsel '+(ook?'ok':'err');
+  var mk={}; mk[R.low]='bad'; mk[R.v]='new';
+  var figs=[draw(R.before,{bf:true,mark:mk,caption:'Après insertion ABR'})];
+  var txt={L:'rotation gauche sur '+R.low,R:'rotation droite sur '+R.low,
+           LR:'rotation gauche sur '+R.child+', puis rotation droite sur '+R.low,
+           RL:'rotation droite sur '+R.child+', puis rotation gauche sur '+R.low}[R.op];
+  if(R.op==='LR'||R.op==='RL'){
+    var mid=clone(R.before);
+    (function fix(n,parent,side){
+      if(!n) return;
+      if(n.v===R.low){ if(R.op==='LR') n.l=rotL(n.l); else n.r=rotR(n.r); return; }
+      fix(n.l,n,'l'); fix(n.r,n,'r');
+    })(mid);
+    figs.push(draw(mid,{bf:true,caption:'Après la 1re rotation (cas en ligne)'}));
+  }
+  var gm={}; gm[R.v]='new';
+  figs.push(draw(R.after,{bf:true,mark:gm,caption:'AVL rééquilibré'}));
+  show('r-board',figs);
+  var ok=nok&&ook, html='<div class="score'+(ok?' perfect':'')+'">'+(ok?'Exact !':'À revoir')+'</div><ul class="expl">';
+  html+='<li class="'+(nok?'ok':'err')+'"><b>Nœud</b>'+R.low+' : BF = '+sgn(R.b)+' (premier nœud à ±2 en remontant depuis '+R.v+').</li>';
+  html+='<li class="'+(ook?'ok':'err')+'"><b>Cas</b>enfant lourd '+R.child+' : BF = '+(R.bc===0?'0':sgn(R.bc))+' → '+(Math.sign(R.b)===Math.sign(R.bc)?'mêmes signes, une rotation':'signes opposés, double rotation')+' : '+txt+'.</li></ul>';
+  document.getElementById('r-fb').innerHTML=html;
+  if(!R.done){ R.done=true; score(ok); }
+}
+
+/* ---------- mode PAS A PAS ---------- */
+var S={vals:[],i:0,snaps:[]};
+function sBuild(vals){
+  var t=null; S.snaps=[{tree:null,msg:'Arbre vide.'}]; S.vals=vals;
+  vals.forEach(function(v){
+    var lg=[], bstOnly=insBST(clone(t),v);
+    t=insAVL(t,v,lg);
+    S.snaps.push({tree:clone(t),before:bstOnly,v:v,log:lg});
+  });
+  S.i=0; sShow();
+}
+function sShow(){
+  var s=S.snaps[S.i], msg=document.getElementById('s-msg');
+  document.getElementById('s-cnt').textContent='étape '+S.i+' / '+(S.snaps.length-1);
+  document.getElementById('s-prev').disabled=S.i===0;
+  document.getElementById('s-next').disabled=S.i===S.snaps.length-1;
+  if(S.i===0){ msg.innerHTML='<ul class="expl"><li>Arbre vide. Valeurs : '+S.vals.join(', ')+'</li></ul>'; show('s-board',[]); return; }
+  var mk={}; mk[s.v]='new';
+  if(s.log.length){
+    var o=s.log[0], bad={}; bad[o.node]='bad'; bad[s.v]='new';
+    msg.innerHTML='<ul class="expl"><li class="err"><b>insérer '+s.v+'</b>le nœud '+o.node+' passe à '+sgn(o.bn)+', son enfant '+o.child+' est à '+(o.bc===0?'0':sgn(o.bc))+' → '+opText(o)+'.</li></ul>';
+    show('s-board',[draw(s.before,{bf:true,mark:bad,caption:'Insertion ABR de '+s.v}),draw(s.tree,{bf:true,mark:mk,caption:'Après '+opText(o)})]);
+  } else {
+    msg.innerHTML='<ul class="expl"><li class="ok"><b>insérer '+s.v+'</b>tous les BF restent dans {−1, 0, +1} : aucune rotation.</li></ul>';
+    show('s-board',[draw(s.tree,{bf:true,mark:mk})]);
+  }
+}
+function sGo(){
+  var vals=document.getElementById('s-input').value.trim().split(/[\s,;]+/).filter(Boolean).map(Number).filter(function(x){ return isFinite(x); });
+  var seen={}; vals=vals.filter(function(x){ if(seen[x]) return false; seen[x]=1; return true; }).slice(0,15);
+  if(!vals.length) return;
+  document.getElementById('s-input').value=vals.join(' ');
+  sBuild(vals);
+}
+
+/* ---------- modes ---------- */
+var MODES={parcours:pNew,equilibre:eNew,rotation:rNew,pas:null}, started={};
+function setMode(m){
+  document.querySelectorAll('.modes button').forEach(function(b){ b.setAttribute('aria-selected',b.dataset.mode===m?'true':'false'); });
+  Object.keys(MODES).forEach(function(k){ document.getElementById('m-'+k).hidden=k!==m; });
+  if(!started[m]){ started[m]=1; if(MODES[m]) MODES[m](); else { document.getElementById('s-input').value='30 20 10 25 40 22 50 21'; sGo(); } }
+  try{ localStorage.setItem('ti301-arbres-mode',m); }catch(e){}
+}
+document.querySelectorAll('.modes button').forEach(function(b){ b.addEventListener('click',function(){ setMode(b.dataset.mode); }); });
+document.querySelectorAll('input[name=trav]').forEach(function(r){ r.addEventListener('change',function(){ pLabels(); var i=document.getElementById('p-input'); i.value=''; i.className=''; document.getElementById('p-fb').innerHTML=''; P.done=false; }); });
+document.querySelectorAll('input[name=shape]').forEach(function(r){ r.addEventListener('change',pNew); });
+document.querySelectorAll('input[name=bsize]').forEach(function(r){ r.addEventListener('change',eNew); });
+document.getElementById('p-check').addEventListener('click',pCheck);
+document.getElementById('p-new').addEventListener('click',pNew);
+document.getElementById('p-input').addEventListener('keydown',function(e){ if(e.key==='Enter') pCheck(); });
+document.getElementById('e-check').addEventListener('click',eCheck);
+document.getElementById('e-new').addEventListener('click',eNew);
+document.getElementById('r-check').addEventListener('click',rCheck);
+document.getElementById('r-new').addEventListener('click',rNew);
+document.getElementById('s-go').addEventListener('click',sGo);
+document.getElementById('s-input').addEventListener('keydown',function(e){ if(e.key==='Enter') sGo(); });
+document.getElementById('s-rand').addEventListener('click',function(){ document.getElementById('s-input').value=distinct(8,1,99).join(' '); sGo(); });
+document.getElementById('s-sorted').addEventListener('click',function(){ document.getElementById('s-input').value='1 2 3 4 5 6 7'; sGo(); });
+document.getElementById('s-prev').addEventListener('click',function(){ if(S.i>0){ S.i--; sShow(); } });
+document.getElementById('s-next').addEventListener('click',function(){ if(S.i<S.snaps.length-1){ S.i++; sShow(); } });
+
+var start='parcours', hsh=(location.hash||'').replace('#','');
+if(hsh in MODES) start=hsh; else { try{ var sv=localStorage.getItem('ti301-arbres-mode'); if(sv in MODES) start=sv; }catch(e){} }
+setMode(start);
+})();
+</script>
+<script>
+/* Intégré au site MkDocs : suit le thème clair/sombre du site et ajuste la hauteur du cadre */
+(function(){
+  var fe=null, pd=null;
+  try{ fe=window.frameElement; pd=window.parent!==window?window.parent.document:null; }catch(e){}
+  if(!fe||!pd) return;
+  var root=document.documentElement; root.classList.add('embedded');
+  function theme(){ var s=pd.body&&pd.body.getAttribute('data-md-color-scheme'); if(s==='slate') root.setAttribute('data-theme','dark'); else if(s==='default') root.setAttribute('data-theme','light'); }
+  theme();
+  try{ new MutationObserver(theme).observe(pd.body,{attributes:true,attributeFilter:['data-md-color-scheme']}); }catch(e){}
+  function fit(){ fe.style.height=(document.body.scrollHeight+4)+'px'; }
+  if(window.ResizeObserver) new ResizeObserver(fit).observe(document.body);
+  window.addEventListener('load',fit); fit();
+})();
+</script>
+</body>
+</html>
