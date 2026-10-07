@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fiche CE TE302</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout : une colonne de fiche type datasheet, nav collante par chapitre, chronogrammes dessinés au pas de l'horloge */
+:root{
+  --paper:#f2f4f6; --card:#ffffff; --ink:#17202a; --muted:#5b6673; --line:#d4dbe2; --grid:#e6eaee;
+  --accent:#2347a6; --accent-soft:#e3e9f8; --warn:#b4235a; --warn-soft:#f8e3eb; --ok:#1d7a4f;
+  --f-display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --f-body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#11161c; --card:#182029; --ink:#e4e9ef; --muted:#9aa6b4; --line:#2c3743; --grid:#222c36;
+  --accent:#8eaaff; --accent-soft:#1e2a47; --warn:#ff7fa9; --warn-soft:#3a1d2a; --ok:#5fd19b; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#11161c; --card:#182029; --ink:#e4e9ef; --muted:#9aa6b4; --line:#2c3743; --grid:#222c36;
+  --accent:#8eaaff; --accent-soft:#1e2a47; --warn:#ff7fa9; --warn-soft:#3a1d2a; --ok:#5fd19b; color-scheme:dark}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html.embedded header.top .eyebrow,html.embedded header.top h1{display:none}
+html.embedded header.top{padding-top:4px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;padding-inline:16px;padding-block:0 48px}
+.wrap{max-width:760px;margin:0 auto}
+header.top{padding-block:28px 18px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.1;margin:0}
+h1{font-size:clamp(30px,7vw,46px);font-weight:800;font-stretch:78%;letter-spacing:-.01em;margin-block:6px 10px}
+h2{font-size:28px;font-weight:800;font-stretch:80%}
+h3{font-size:19px;font-weight:700;font-stretch:90%;margin-top:26px}
+p{margin:10px 0}
+.lead{color:var(--muted);max-width:62ch}
+.format{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:16px}
+.format div{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:14px}
+.format b{display:block;font-family:var(--f-display);font-stretch:85%;font-size:15px}
+
+nav.chips{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:1px solid var(--line);margin-inline:-16px;padding:8px 16px}
+nav.chips .row{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+nav.chips a{flex:0 0 auto;font-family:var(--f-display);font-stretch:85%;font-weight:600;font-size:14px;color:var(--ink);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:5px 12px;background:var(--card)}
+nav.chips a:hover,nav.chips a:focus-visible{border-color:var(--accent);color:var(--accent);outline:none}
+
+section{padding-top:34px;scroll-margin-top:54px}
+.sec-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;border-bottom:2px solid var(--ink);padding-bottom:6px}
+.src{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+
+ul,ol{padding-left:22px;margin:8px 0}
+li{margin:4px 0}
+code,.m{font-family:var(--f-mono);font-size:.9em}
+.ov{text-decoration:overline}
+b.k{color:var(--accent)}
+
+.tbl{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:8px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+th,td{padding:7px 10px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+th{font-family:var(--f-display);font-stretch:85%;font-weight:700;background:var(--grid)}
+td.m,th.m{font-family:var(--f-mono)}
+td.fn{font-weight:700;color:var(--accent)}
+td.bad{color:var(--warn);font-weight:700}
+
+.box{border-radius:8px;padding:12px 14px;margin:14px 0}
+.box .tag{display:inline-block;font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:4px;margin-bottom:4px}
+.retenir{background:var(--accent-soft)}
+.retenir .tag{background:var(--accent);color:var(--card)}
+.piege{background:var(--warn-soft)}
+.piege .tag{background:var(--warn);color:var(--card)}
+.tp{background:var(--card);border:1px dashed var(--muted)}
+.tp .tag{background:var(--ink);color:var(--paper)}
+.box p:first-of-type{margin-top:2px}
+.box ul{margin-bottom:0}
+
+.formula{font-family:var(--f-mono);font-size:15px;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:10px 12px;overflow-x:auto;white-space:nowrap}
+
+figure{margin:14px 0}
+.chrono{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 6px}
+.chrono svg{display:block}
+figcaption{font-size:13.5px;color:var(--muted);margin-top:6px}
+svg .lbl{font-family:var(--f-mono);font-size:11px;fill:var(--muted)}
+svg .num{font-family:var(--f-mono);font-size:9.5px;fill:var(--muted)}
+svg .sig{fill:none;stroke:var(--accent);stroke-width:1.8;stroke-linejoin:round}
+svg .clk{fill:none;stroke:var(--ink);stroke-width:1.6}
+svg .mark{stroke:var(--line);stroke-width:1;stroke-dasharray:3 3}
+svg .bus{fill:var(--card);stroke:var(--ink);stroke-width:1}
+svg .bus.g{fill:var(--warn);stroke:var(--warn)}
+svg .bust{font-family:var(--f-mono);font-size:10.5px;fill:var(--ink);text-anchor:middle}
+
+.steps{counter-reset:s;list-style:none;padding:0}
+.steps li{counter-increment:s;display:grid;grid-template-columns:30px 1fr;gap:10px;margin:10px 0}
+.steps li::before{content:counter(s);font-family:var(--f-display);font-weight:800;font-size:20px;color:var(--accent);text-align:right}
+.steps li>div{min-width:0}
+
+details{background:var(--card);border:1px solid var(--line);border-radius:8px;margin:8px 0;padding:0 12px}
+summary{cursor:pointer;padding:10px 0;font-weight:700;list-style-position:outside;margin-left:16px}
+summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+details .opts{margin:0 0 6px;padding-left:18px;font-size:15px}
+details .ans{border-top:1px solid var(--line);padding:8px 0 12px;font-size:15px}
+details .ans b{color:var(--ok)}
+.qtag{font-family:var(--f-mono);font-size:11px;color:var(--muted);font-weight:400;margin-left:6px}
+
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.two>div{min-width:0}
+footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div class="eyebrow">TE302 · Systèmes numériques · EFREI P2</div>
+  <h1>Fiche de révision du CE du samedi 10 octobre</h1>
+  <p class="lead">Tout le CTD et les TP jusqu'aux compteurs asynchrones inclus : bascules, registres, compteurs asynchrones. Les compteurs synchrones (synthèse avec Karnaugh) ne sont pas au programme de ce CE.</p>
+  <div class="format">
+    <div><b>QCM sur le cours</b>Une seule bonne réponse en général. Définitions, tables, temps.</div>
+    <div><b>Exercice de compréhension</b>Les fondamentaux vus en CTD et en TP.</div>
+    <div><b>Exercice d'application</b>Lire un schéma et une datasheet, tracer des chronogrammes. Prends une règle.</div>
+  </div>
+  <p class="src" style="margin-top:12px">Documents interdits · calculatrice utile mais pas indispensable</p>
+</header>
+
+<nav class="chips" aria-label="Sections">
+  <div class="row">
+    <a href="#bascules">Bascules</a>
+    <a href="#registres">Registres</a>
+    <a href="#compteurs">Compteurs async</a>
+    <a href="#methode">Méthode chrono</a>
+    <a href="#tp">Ce qu'on a vu en TP</a>
+    <a href="#qcm">QCM d'entraînement</a>
+  </div>
+</nav>
+
+<!-- ===================== BASCULES ===================== -->
+<section id="bascules">
+  <div class="sec-head"><h2>Les bascules</h2><span class="src">CTD 1 · TP1</span></div>
+
+  <p><b>Combinatoire</b> : les sorties ne dépendent que des entrées. <b>Séquentiel</b> : les sorties dépendent aussi de l'état précédent (bouclage, mémoire). La bascule est la brique de base du séquentiel : elle mémorise 1 bit.</p>
+
+  <h3>Les familles</h3>
+  <ul>
+    <li><b>Asynchrone</b> (RS) : réagit dès que les entrées changent.</li>
+    <li><b>Synchrone sur niveau</b> (latch, RST, D latch) : réagit tant que l'horloge est au niveau actif.</li>
+    <li><b>Synchrone sur front</b> (flip-flop D, JK) : réagit uniquement au front actif.</li>
+  </ul>
+  <div class="box retenir"><span class="tag">Lire le symbole</span>
+    <ul>
+      <li>Triangle sur CLK : déclenchement sur <b>front montant</b> (↑).</li>
+      <li>Rond + triangle : déclenchement sur <b>front descendant</b> (↓).</li>
+      <li>Rond devant une entrée (<span class="m">~CLR</span>, <span class="m">~PR</span>) : entrée <b>active au niveau bas</b>.</li>
+    </ul>
+  </div>
+
+  <h3>Bascule RS asynchrone</h3>
+  <div class="two">
+    <div>
+      <p style="margin-bottom:0"><b>Avec des NOR</b> : entrées actives à 1.</p>
+      <div class="tbl"><table>
+        <tr><th class="m">S</th><th class="m">R</th><th class="m">Q</th><th>Fonction</th></tr>
+        <tr><td class="m">0</td><td class="m">0</td><td class="m">Q</td><td class="fn">Mémoire</td></tr>
+        <tr><td class="m">1</td><td class="m">0</td><td class="m">1</td><td class="fn">Set</td></tr>
+        <tr><td class="m">0</td><td class="m">1</td><td class="m">0</td><td class="fn">Reset</td></tr>
+        <tr><td class="m">1</td><td class="m">1</td><td class="m">0 (Q̄=0)</td><td class="bad">Non utilisé</td></tr>
+      </table></div>
+    </div>
+    <div>
+      <p style="margin-bottom:0"><b>Avec des NAND</b> (TP1) : entrées actives à 0.</p>
+      <div class="tbl"><table>
+        <tr><th class="m">S</th><th class="m">R</th><th class="m">Q</th><th>Fonction</th></tr>
+        <tr><td class="m">1</td><td class="m">1</td><td class="m">Q</td><td class="fn">Mémoire</td></tr>
+        <tr><td class="m">0</td><td class="m">1</td><td class="m">1</td><td class="fn">Set</td></tr>
+        <tr><td class="m">1</td><td class="m">0</td><td class="m">0</td><td class="fn">Reset</td></tr>
+        <tr><td class="m">0</td><td class="m">0</td><td class="m">1 (Q̄=1)</td><td class="bad">Non utilisé</td></tr>
+      </table></div>
+    </div>
+  </div>
+  <div class="box piege"><span class="tag">Piège</span>
+    <p>L'état « non utilisé » donne Q = Q̄, ce qui contredit la définition. En NOR c'est S = R = 1, en NAND c'est S = R = 0. Le cours écrit la table NAND dans l'ordre R, S : regarde toujours sur le schéma quelle porte sort Q.</p>
+  </div>
+
+  <h3>Bascule D</h3>
+  <ul>
+    <li><b>D latch (sur niveau)</b> : clk = 1 → Q recopie D en continu ; clk = 0 → mémoire.</li>
+    <li><b>D flip-flop (sur front)</b> : au front actif, Q prend la valeur de D <i>juste avant</i> le front. Le reste du temps, mémoire.</li>
+  </ul>
+  <div class="formula">Q(t + tp) = D(t)  au front actif ; sinon Q garde sa valeur</div>
+  <div class="tbl"><table>
+    <tr><th>CLK</th><th class="m">D</th><th class="m">Q(t+Δt)</th><th>Fonction (TP1)</th></tr>
+    <tr><td>pas de front actif</td><td class="m">X</td><td class="m">Q(t)</td><td class="fn">M (maintien)</td></tr>
+    <tr><td>front actif</td><td class="m">0</td><td class="m">0</td><td class="fn">C (copie)</td></tr>
+    <tr><td>front actif</td><td class="m">1</td><td class="m">1</td><td class="fn">C (copie)</td></tr>
+  </table></div>
+
+  <h3>Bascule JK</h3>
+  <div class="two">
+    <div>
+      <p style="margin-bottom:0"><b>Table de vérité</b> (au front actif)</p>
+      <div class="tbl"><table>
+        <tr><th class="m">J</th><th class="m">K</th><th class="m">Q(t+Δt)</th><th>Fonction</th></tr>
+        <tr><td class="m">0</td><td class="m">0</td><td class="m">Q(t)</td><td class="fn">M (mémoire)</td></tr>
+        <tr><td class="m">0</td><td class="m">1</td><td class="m">0</td><td class="fn">R (reset)</td></tr>
+        <tr><td class="m">1</td><td class="m">0</td><td class="m">1</td><td class="fn">S (set)</td></tr>
+        <tr><td class="m">1</td><td class="m">1</td><td class="m">Q̄(t)</td><td class="fn">T (toggle)</td></tr>
+      </table></div>
+    </div>
+    <div>
+      <p style="margin-bottom:0"><b>Table de transitions</b> (X = 0 ou 1)</p>
+      <div class="tbl"><table>
+        <tr><th class="m">Q(t)</th><th class="m">Q(t+1)</th><th class="m">J</th><th class="m">K</th></tr>
+        <tr><td class="m">0</td><td class="m">0</td><td class="m">0</td><td class="m">X</td></tr>
+        <tr><td class="m">0</td><td class="m">1</td><td class="m">1</td><td class="m">X</td></tr>
+        <tr><td class="m">1</td><td class="m">0</td><td class="m">X</td><td class="m">1</td></tr>
+        <tr><td class="m">1</td><td class="m">1</td><td class="m">X</td><td class="m">0</td></tr>
+      </table></div>
+    </div>
+  </div>
+  <p>Moyen mnémotechnique : <b>J</b> comme « jump » (met à 1), <b>K</b> comme « kill » (met à 0). Les deux à 1 : la sortie s'inverse.</p>
+
+  <h3>Entrées asynchrones PRE et CLR</h3>
+  <ul>
+    <li><b>Prioritaires</b> sur l'horloge et sur les entrées D, J, K.</li>
+    <li><b>Indépendantes</b> de l'horloge : elles agissent tout de suite, sans attendre de front.</li>
+    <li><b>Actives au niveau bas</b> : <span class="m">~PR = 0</span> force Q = 1 (mise à un, MAU), <span class="m">~CLR = 0</span> force Q = 0 (remise à zéro, RAZ).</li>
+    <li>Pour les rendre inactives, on les relie à <b>1 (VCC)</b>. Les deux à 0 en même temps : interdit.</li>
+  </ul>
+
+  <h3>Les trois temps d'une bascule</h3>
+  <div class="tbl"><table>
+    <tr><th>Nom</th><th>Symbole</th><th>Définition</th></tr>
+    <tr><td>Pré-positionnement (setup)</td><td class="m">tpp</td><td>Durée minimale pendant laquelle D doit être stable <b>avant</b> le front actif.</td></tr>
+    <tr><td>Maintien (hold)</td><td class="m">tm</td><td>Durée minimale pendant laquelle D doit rester stable <b>après</b> le front actif.</td></tr>
+    <tr><td>Propagation</td><td class="m">tp ou Δt</td><td>Retard entre le front actif et le moment où Q est valide.</td></tr>
+  </table></div>
+  <p>En TP1, on a mesuré <span class="m">ΔtLH</span> (sortie qui monte) et <span class="m">ΔtHL</span> (sortie qui descend), de l'ordre de la dizaine de nanosecondes. La fréquence d'horloge maximale est de l'ordre de <span class="m">f<sub>max</sub> ≈ 1 / tp<sub>max</sub></span>, avec le tp le plus défavorable.</p>
+
+  <h3>Montage diviseur de fréquence (toggle)</h3>
+  <p>Bascule D avec <span class="m">D = Q̄</span>, ou JK avec <span class="m">J = K = 1</span> : la sortie s'inverse à chaque front actif. Sa fréquence vaut <b>f<sub>H</sub> / 2</b>.</p>
+  <figure>
+    <div class="chrono" id="w-toggle"></div>
+    <figcaption>D flip-flop sur front montant, D = Q̄, CI Q = 0. Q change un tp après chaque front ↑ : période doublée.</figcaption>
+  </figure>
+</section>
+
+<!-- ===================== REGISTRES ===================== -->
+<section id="registres">
+  <div class="sec-head"><h2>Les registres</h2><span class="src">CTD 2 · TP2</span></div>
+  <p>Un registre de longueur N = <b>N bascules D sur la même horloge</b>. Il mémorise un mot de N bits.</p>
+  <p>Quatre fonctions : <b>transfert parallèle</b> (N bits disponibles en même temps), <b>mémorisation</b>, <b>transfert série</b> (bit par bit, par décalage), <b>rotation</b> (sortie série rebouclée sur l'entrée série).</p>
+
+  <h3>Décalages et rotations</h3>
+  <div class="tbl"><table>
+    <tr><th>Fonction</th><th>Câblage</th><th>Entrée série</th><th>Sortie série</th></tr>
+    <tr><td>Décalage à droite</td><td class="m">Di = Qi−1</td><td class="m">D0 = E</td><td class="m">Q(N−1)</td></tr>
+    <tr><td>Décalage à gauche</td><td class="m">Di = Qi+1</td><td class="m">D(N−1) = E</td><td class="m">Q0</td></tr>
+    <tr><td>Rotation à droite</td><td class="m">Di = Qi−1</td><td class="m">D0 = Q(N−1)</td><td class="m">Q(N−1)</td></tr>
+    <tr><td>Rotation à gauche</td><td class="m">Di = Qi+1</td><td class="m">D(N−1) = Q0</td><td class="m">Q0</td></tr>
+  </table></div>
+  <p>Décalage à droite sur 4 bits, contenu initial <span class="m">D0 D1 D2 D3</span>, entrée E :</p>
+  <div class="tbl"><table>
+    <tr><th>Front</th><th class="m">Q0</th><th class="m">Q1</th><th class="m">Q2</th><th class="m">Q3</th><th>Sortie</th></tr>
+    <tr><td>Initial</td><td class="m">D0</td><td class="m">D1</td><td class="m">D2</td><td class="m">D3</td><td class="m">D3</td></tr>
+    <tr><td>1</td><td class="m">E</td><td class="m">D0</td><td class="m">D1</td><td class="m">D2</td><td class="m">D2</td></tr>
+    <tr><td>2</td><td class="m">E</td><td class="m">E</td><td class="m">D0</td><td class="m">D1</td><td class="m">D1</td></tr>
+    <tr><td>4</td><td class="m">E</td><td class="m">E</td><td class="m">E</td><td class="m">E</td><td class="m">E</td></tr>
+  </table></div>
+
+  <h3>Architectures</h3>
+  <ul>
+    <li><b>Entrée série / sorties parallèles</b> : le mot est disponible sur les sorties après <b>N fronts</b>.</li>
+    <li><b>Entrées parallèles / sorties parallèles</b> : les Di sont copiées sur les Qi <b>au même front</b>, après tp (si tpp et tm sont respectés).</li>
+    <li><b>Chargement série/parallèle</b> : un multiplexeur 2→1 devant chaque D choisit entre la donnée parallèle et la sortie de la voisine.</li>
+  </ul>
+  <div class="formula">MUX 2→1 :  s = ā·e0 + a·e1   (a = 0 → e0, a = 1 → e1)</div>
+  <div class="box piege"><span class="tag">Piège</span>
+    <p>La convention de la commande change selon le document. Dans le cours, <span class="m">S/P = 1</span> charge les Di (parallèle). Dans le TP2, <span class="m">L = 0</span> chargeait en parallèle et <span class="m">L = 1</span> décalait. Lis toujours le schéma ou la table fournie.</p>
+  </div>
+
+  <h3>Registre bidirectionnel</h3>
+  <p>Commande de sens K (ou R en TP2) : décalage à droite pour K = 1, à gauche pour K = 0. Chaque entrée s'écrit avec un MUX d'adresse K :</p>
+  <div class="formula">Di = K·Q(i−1) + K̄·Q(i+1)<br>D0 = K·DS + K̄·Q1        D(N−1) = K·Q(N−2) + K̄·DS<br>QS = K·Q(N−1) + K̄·Q0</div>
+  <p>Il faut <b>N + 1 MUX</b> : N pour les entrées D, plus 1 pour la sortie série QS qui change aussi selon le sens. En TP2 sur 4 bits : 5 MUX. Pour l'exercice 2 du CTD sur 6 bits (74HC174) : 7 MUX.</p>
+
+  <h3>Circuits intégrés à connaître</h3>
+  <div class="tbl"><table>
+    <tr><th>Circuit</th><th>Ce qu'il contient</th><th>À retenir</th></tr>
+    <tr><td class="m">7474</td><td>2 bascules D, front ↑</td><td>~PR et ~CLR actives au niveau bas</td></tr>
+    <tr><td class="m">74HC107</td><td>2 bascules JK, front ↓</td><td>~CLR active au niveau bas</td></tr>
+    <tr><td class="m">74HC174</td><td>6 bascules D, CLK commune</td><td>~CLR commune, active au niveau bas</td></tr>
+    <tr><td class="m">74HC164</td><td>Registre 8 bits, décalage QA → QH</td><td>Donnée série DS = A·B (une entrée sert de validation)</td></tr>
+    <tr><td class="m">74HC194</td><td>Registre universel 4 bits</td><td>~MR actif bas, DSR et DSL, modes par S1 S0</td></tr>
+  </table></div>
+  <p>Modes du 74HC194 : <span class="m">S1S0 = 00</span> maintien, <span class="m">01</span> décalage à droite (entrée DSR, sortie Q3), <span class="m">10</span> décalage à gauche (entrée DSL, sortie Q0), <span class="m">11</span> chargement parallèle. Le jour J, vérifie sur la table fournie.</p>
+
+  <h3>Compteurs construits avec un registre</h3>
+  <ul>
+    <li><b>Compteur en anneau</b> : un seul 1 qui tourne. <b>N états</b> avec N bascules. Exemple de l'annale 2023 : <span class="m">D0 = NOR(Q0, Q1)</span>, CI Q0Q1Q2 = 100, séquence <b>1, 2, 4</b>, synchrone.</li>
+    <li><b>Compteur Johnson</b> : on réinjecte l'inverse de la dernière sortie, <span class="m">DS = Q̄(N−1)</span>. <b>2N états</b> avec N bascules, un seul bit change à chaque front.</li>
+  </ul>
+  <div class="tbl"><table>
+    <tr><th>Front</th><th class="m">Q0 Q1 Q2 Q3</th></tr>
+    <tr><td>CI</td><td class="m">0 0 0 0</td></tr>
+    <tr><td>1 → 4</td><td class="m">1 0 0 0 · 1 1 0 0 · 1 1 1 0 · 1 1 1 1</td></tr>
+    <tr><td>5 → 8</td><td class="m">0 1 1 1 · 0 0 1 1 · 0 0 0 1 · 0 0 0 0</td></tr>
+  </table></div>
+  <p class="src">Johnson 4 bits : 8 états, chaque sortie est un créneau de période 8 fronts.</p>
+
+  <h3>Registres de l'ATmega328P</h3>
+  <p class="src">Recherche en autonomie du CTD 2 (exercices 5 à 7) : à connaître si ça a été corrigé en séance.</p>
+  <ul>
+    <li>32 registres de travail de 8 bits (R0 à R31). Paires : <span class="m">X = R27:R26</span>, <span class="m">Y = R29:R28</span>, <span class="m">Z = R31:R30</span>.</li>
+    <li><span class="m">SREG</span> : registre d'état. Le bit <b>C</b> (Carry) reçoit la retenue, ou le bit qui sort lors d'un décalage.</li>
+  </ul>
+  <div class="tbl"><table>
+    <tr><th>Instruction</th><th>Effet</th><th>R18 = 10110110 devient</th><th>C</th></tr>
+    <tr><td class="m">LSL</td><td>Décalage à gauche, 0 entre à droite, bit 7 → C</td><td class="m">01101100</td><td class="m">1</td></tr>
+    <tr><td class="m">LSR</td><td>Décalage à droite, 0 entre à gauche, bit 0 → C</td><td class="m">01011011</td><td class="m">0</td></tr>
+    <tr><td class="m">ASR</td><td>Décalage à droite, le bit 7 (signe) est conservé</td><td class="m">11011011</td><td class="m">0</td></tr>
+    <tr><td class="m">ROL</td><td>Rotation à gauche à travers C (C → bit 0, bit 7 → C)</td><td class="m">0110110C</td><td class="m">1</td></tr>
+    <tr><td class="m">ROR</td><td>Rotation à droite à travers C (C → bit 7, bit 0 → C)</td><td class="m">C1011011</td><td class="m">0</td></tr>
+  </table></div>
+  <p>ROL et ROR tournent sur <b>9 bits</b> (8 bits + C) : ce n'est pas une rotation circulaire classique sur 8 bits. LSL multiplie par 2, LSR divise par 2 un nombre non signé, ASR divise par 2 un nombre signé.</p>
+</section>
+
+<!-- ===================== COMPTEURS ===================== -->
+<section id="compteurs">
+  <div class="sec-head"><h2>Les compteurs asynchrones</h2><span class="src">CTD 3 · TD2</span></div>
+  <ul>
+    <li>Un compteur à <b>N bascules</b> a au plus <b>2<sup>N</sup> états</b>, de 0 à 2<sup>N</sup> − 1.</li>
+    <li><b>Cycle complet</b> : les 2<sup>N</sup> états, compteur modulo 2<sup>N</sup> (noté #2<sup>N</sup>). <b>Cycle incomplet</b> : M états avec M &lt; 2<sup>N</sup>, compteur modulo M.</li>
+    <li>Nombre de bascules : le plus petit N tel que la plus grande valeur de la séquence s'écrive sur N bits. Séquence [3, 4, 5, 9] : 9 = 1001, donc <b>4 bascules</b>.</li>
+  </ul>
+  <div class="box retenir"><span class="tag">Asynchrone ou synchrone</span>
+    <p><b>Asynchrone</b> (série, à propagation) : seule la bascule Q0 reçoit l'horloge H. Chaque bascule suivante est déclenchée par la sortie de la précédente, <span class="m">CLKi = Qi−1</span> ou <span class="m">Q̄i−1</span>. Les retards s'additionnent.</p>
+    <p><b>Synchrone</b> (parallèle) : toutes les bascules reçoivent la même horloge, sur le même front.</p>
+  </div>
+
+  <h3>Le montage de base</h3>
+  <p>Chaque bascule est en mode toggle (<span class="m">D = Q̄</span> ou <span class="m">J = K = 1</span>), donc chacune divise par 2 la fréquence de son horloge :</p>
+  <div class="formula">f(Qi) = f<sub>H</sub> / 2<sup>(i+1)</sup>      ex. f<sub>H</sub> = 1 MHz → Q0 : 500 kHz, Q1 : 250 kHz, Q2 : 125 kHz</div>
+
+  <h3>Compteur ou décompteur ?</h3>
+  <p>Pour compter, la bascule i doit basculer quand Q(i−1) passe de <b>1 à 0</b> (c'est la retenue : 011 → 100). Il faut donc qu'un front actif de CLKi tombe à ce moment.</p>
+  <div class="tbl"><table>
+    <tr><th>Front actif des bascules</th><th class="m">CLKi = Qi−1</th><th class="m">CLKi = Q̄i−1</th></tr>
+    <tr><td>Front descendant ↓ (JK du cours, 74HC107)</td><td class="fn">Compteur</td><td class="fn">Décompteur</td></tr>
+    <tr><td>Front montant ↑ (D du cours, 7474)</td><td class="fn">Décompteur</td><td class="fn">Compteur</td></tr>
+  </table></div>
+  <div class="box piege"><span class="tag">Piège</span>
+    <p>Ne retiens pas « Q = compteur » tout seul : ça dépend du front. Vérifie toujours sur les deux premiers fronts du chronogramme : si on passe de 0 à 1, c'est un compteur ; si on passe de 0 à 7 (ou 15), c'est un décompteur.</p>
+  </div>
+
+  <figure>
+    <div class="chrono" id="w-ideal"></div>
+    <figcaption>Compteur asynchrone #8, bascules JK sur front ↓, J = K = 1, CLKi = Qi−1, CI 000. Chronogramme théorique (tp négligé). Q0 est le bit de poids faible.</figcaption>
+  </figure>
+  <p>Décompteur avec bascules D sur front ↑ et <span class="m">CLKi = Qi−1</span>, CI 000 : séquence 0, 7, 6, 5, 4, 3, 2, 1, 0… Annale 2023 : décompteur <b>modulo 4</b> à 2 bascules, CI Q0 = Q1 = 1, séquence <b>3, 2, 1, 0</b>, non synchrone.</p>
+
+  <h3>Le temps de propagation et ses effets</h3>
+  <p>Au front de H, Q0 change après tp. Si Q0 fait basculer Q1, Q1 change après 2tp, puis Q2 après 3tp, etc. Pire cas : <b>tous</b> les bits changent (7 → 0 sur 3 bits).</p>
+  <div class="formula">Retard max = N·tp      Condition : N·tp &lt; T<sub>H</sub>  →  f<sub>max</sub> = 1 / (N·tp)</div>
+  <p>Exemple du TD avec tp = 8 ns : 3 bascules → 24 ns → f<sub>max</sub> ≈ 41,7 MHz. Avec 4 bascules → 32 ns → f<sub>max</sub> ≈ 31,2 MHz.</p>
+  <figure>
+    <div class="chrono" id="w-tp"></div>
+    <figcaption>Zoom sur le passage de 3 à 4 en tenant compte de tp. Le compteur passe brièvement par 2 puis 0 avant d'atteindre 4 : ce sont des états transitoires (aléas, glitchs), en couleur.</figcaption>
+  </figure>
+  <p>Mêmes effets ailleurs : <span class="m">7 → 6 → 4 → 0</span> ; <span class="m">1 → 0 → 2</span>. Plus il y a de bascules, plus les retards cumulés sont grands.</p>
+  <p><b>Définition à savoir réciter</b> : le temps de propagation d'une bascule synchrone est le retard entre le front actif de son horloge et le moment où sa sortie Q est valide.</p>
+
+  <h3>Compteur modulo M par remise à zéro</h3>
+  <ol>
+    <li>Écrire M en binaire.</li>
+    <li>Prendre les bits à <b>1</b> de M et les envoyer dans une <b>NAND</b>.</li>
+    <li>Relier la sortie de la NAND aux <span class="m">~CLR</span> de toutes les bascules (actives au niveau bas).</li>
+  </ol>
+  <div class="tbl"><table>
+    <tr><th>Modulo</th><th>M en binaire</th><th>Bascules</th><th>Détection</th></tr>
+    <tr><td class="m">5</td><td class="m">101</td><td class="m">3</td><td class="m">~CLR = NAND(Q2, Q0)</td></tr>
+    <tr><td class="m">6</td><td class="m">110</td><td class="m">3</td><td class="m">~CLR = NAND(Q2, Q1)</td></tr>
+    <tr><td class="m">10</td><td class="m">1010</td><td class="m">4</td><td class="m">~CLR = NAND(Q3, Q1)</td></tr>
+    <tr><td class="m">12</td><td class="m">1100</td><td class="m">4</td><td class="m">~CLR = NAND(Q3, Q2)</td></tr>
+  </table></div>
+  <div class="box piege"><span class="tag">Piège</span>
+    <p>On détecte <b>M</b> (5 pour un modulo 5), pas M − 1 : la remise à zéro est asynchrone, elle agit dès que l'état M apparaît, sans attendre le front suivant. On ne met dans la NAND que les bits à 1 : les états supérieurs à M ne sont jamais atteints.</p>
+  </div>
+  <figure>
+    <div class="chrono" id="w-mod5"></div>
+    <figcaption>Compteur modulo 5 : séquence 0, 1, 2, 3, 4, 0… L'état 5 n'existe que le temps que la NAND réagisse et que les bascules se remettent à zéro (fine bande colorée après le front 5).</figcaption>
+  </figure>
+  <p><b>Durée de l'état 5</b> : théoriquement nulle. En pratique, environ tp de la NAND + temps de remise à zéro, soit quelques nanosecondes. C'est un état parasite (glitch) visible à l'analyseur logique. Risque : si une bascule se remet à zéro avant les autres, la NAND repasse à 1 trop tôt et la RAZ peut être incomplète.</p>
+</section>
+
+<!-- ===================== METHODE ===================== -->
+<section id="methode">
+  <div class="sec-head"><h2>Méthode pour l'exercice d'application</h2><span class="src">Lecture de schéma · chronogrammes</span></div>
+  <ol class="steps">
+    <li><div><b>Identifier chaque bascule</b> : type (D, JK), front actif (triangle seul ou rond + triangle), état de PRE et CLR (reliés à 1 = inactifs).</div></li>
+    <li><div><b>Écrire l'équation de chaque entrée</b> : Di, Ji, Ki, et surtout <b>qui pilote CLKi</b> (H pour tout le monde = synchrone ; Qi−1 ou Q̄i−1 = asynchrone).</div></li>
+    <li><div><b>Noter les conditions initiales</b> (CI) à gauche du chronogramme.</div></li>
+    <li><div><b>Tracer les traits verticaux à la règle</b> sur chaque front actif de H, et les numéroter.</div></li>
+    <li><div><b>Calculer l'état suivant avec les valeurs juste avant le front</b>. Pour un asynchrone, une bascule ne change que sur un front actif de <i>sa propre</i> horloge (la sortie précédente).</div></li>
+    <li><div><b>Annoter les fonctions</b> si demandé : M, C pour une D ; M, S, R, T pour une JK ; S, R, M, NU pour une RS.</div></li>
+    <li><div><b>Si tp est demandé</b>, décaler chaque transition : Q0 à +tp, Q1 à +2tp… et repérer les états transitoires.</div></li>
+    <li><div><b>Conclure</b> : lire la séquence en décimal avec <b>Q0 = poids faible</b>, donner la fonction (compteur, décompteur, registre à décalage), le modulo, synchrone ou non.</div></li>
+  </ol>
+  <div class="box retenir"><span class="tag">Vérifications rapides</span>
+    <ul>
+      <li>Chaque Qi d'un compteur à cycle complet est un créneau de période 2<sup>i+1</sup> × T<sub>H</sub>.</li>
+      <li>Un compteur ne doit jamais sauter de valeur entre deux fronts (hors états transitoires).</li>
+      <li>Pour un registre à décalage, chaque sortie recopie la précédente avec un front de retard.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== TP ===================== -->
+<section id="tp">
+  <div class="sec-head"><h2>Ce qu'on a vu en TP</h2><span class="src">Multisim · TP1 et TP2</span></div>
+
+  <div class="box tp"><span class="tag">TP1 · Bascules</span>
+    <ul>
+      <li><b>RS en NAND</b> (74HC) en sous-circuit, testée avec le Word Generator sur la séquence {1, 3, 2, 3, 0} en mode BURST, puis annotée S, R, M, NU sur GRAPHER.</li>
+      <li><b>D avec le 7474</b> (PR et CLR actives au niveau bas), XWG à 1 kHz et analyseur à 10 kHz, annotations M et C.</li>
+      <li><b>Temps de propagation</b> : XWG à 10 MHz, analyseur à 100 MHz, mesure de ΔtLH et ΔtHL, d'où un ordre de grandeur de f<sub>max</sub>.</li>
+      <li><b>Exemple d'application</b> en mode STEP, puis à 50 MHz : la période (20 ns) devient comparable aux temps de propagation et la séquence affichée n'est plus correcte.</li>
+      <li><b>JK avec le 74HC107</b> (front ↓, CLR active au niveau bas), annotations M, S, R, T.</li>
+    </ul>
+  </div>
+
+  <div class="box tp"><span class="tag">TP2 · Registres</span>
+    <ul>
+      <li><b>MUX 2→1 en 4 NAND</b> : une NAND en inverseur donne ā, puis <span class="m">s = ā·e0 + a·e1</span>. Avec a = 0, s recopie e0 ; avec a = 1, s recopie e1.</li>
+      <li><b>Registre 3 bits S/P</b> (3 MUX + 3 bascules D du TP1, L commune aux 3 MUX). Séquence de test avec EPi = 1 : au front 1 (L = 0) chargement parallèle, Q0Q1Q2 = 111 ; ensuite L = 1, ES = 0 : 011, 001, 000 ; ES = 1 : 100, 110, 111 ; ES = 0 : 011.</li>
+      <li><b>Registre bidirectionnel 4 bits</b> : 74HC174 + sous-circuit « Combinatoire » de 5 MUX d'adresse R, ~CLR relié à VCC, horloge à 1 Hz. R = 1 : les sondes s'allument de Q0 vers Q3 ; R = 0 : de Q3 vers Q0.</li>
+      <li><b>74HC164 en compteur Johnson</b> : A et B reliés à une NAND dont les deux entrées sont sur QH, donc DS = Q̄H. Partant de 0 : 11111111 au 8e front, 00000000 au 16e. 16 états avec 8 bascules, l'horloge est divisée par 16.</li>
+    </ul>
+  </div>
+
+  <h3>Les questions du prof, avec la réponse</h3>
+  <div class="tbl"><table>
+    <tr><th>Question</th><th>Réponse</th></tr>
+    <tr><td style="white-space:normal">Pourquoi des MUX et pas des fils ?</td><td style="white-space:normal">Un fil fixe un seul sens de décalage. Le MUX choisit la source de chaque bascule selon R.</td></tr>
+    <tr><td style="white-space:normal">Pourquoi ~CLR à VCC ?</td><td style="white-space:normal">Elle est active au niveau bas : à 0, le registre resterait bloqué à 0000.</td></tr>
+    <tr><td style="white-space:normal">Pourquoi 5 MUX et pas 4 ?</td><td style="white-space:normal">La sortie série change aussi selon le sens (Q3 à droite, Q0 à gauche).</td></tr>
+    <tr><td style="white-space:normal">À quoi sert un Johnson ?</td><td style="white-space:normal">2N états avec N bascules, un seul bit change à chaque front : séquencement, division de fréquence.</td></tr>
+    <tr><td style="white-space:normal">Série ou parallèle ?</td><td style="white-space:normal">Parallèle : tous les bits en un front. Série : un bit par front, N fronts pour N bits.</td></tr>
+  </table></div>
+  <p class="src">Réglage Multisim à ne pas oublier : mode BURST (une seule salve) et pas CYCLE.</p>
+</section>
+
+<!-- ===================== QCM ===================== -->
+<section id="qcm">
+  <div class="sec-head"><h2>QCM d'entraînement</h2><span class="src">Annale 2023 + questions type</span></div>
+  <p>Réponds dans ta tête, puis ouvre la question pour voir la correction.</p>
+
+  <details><summary>Une bascule D active sur front montant, avec D = Q̄. Sa sortie Q… <span class="qtag">annale 2023</span></summary>
+    <ol class="opts" type="a"><li>change d'état sur front descendant de H</li><li>change d'état selon l'entrée PRESET</li><li>inverse l'état précédent sur front montant de H</li><li>mémorise l'état précédent</li></ol>
+    <div class="ans"><b>c.</b> D = Q̄ : à chaque front montant, Q prend l'inverse de sa valeur. C'est le diviseur par 2.</div></details>
+
+  <details><summary>Les entrées PRESET et CLEAR d'une bascule… <span class="qtag">annale 2023</span></summary>
+    <ol class="opts" type="a"><li>sont actives sur niveau haut</li><li>dépendent de l'horloge</li><li>dépendent de l'horloge et de l'entrée D</li><li>sont indépendantes de l'horloge et de l'entrée D</li></ol>
+    <div class="ans"><b>d.</b> Elles sont asynchrones, prioritaires, et actives au niveau bas.</div></details>
+
+  <details><summary>Sur le chronogramme d'une bascule D, tpp correspond au… <span class="qtag">annale 2023</span></summary>
+    <ol class="opts" type="a"><li>temps minimum avant que Q soit valide</li><li>temps minimum pendant lequel D doit être maintenue avant le front actif</li><li>temps minimum pendant lequel D doit être maintenue après le front actif</li><li>temps de propagation avant que Q soit valide</li></ol>
+    <div class="ans"><b>b.</b> tpp = setup. c. est tm (hold), a. et d. décrivent tp.</div></details>
+
+  <details><summary>Un registre 4 bits dont chaque entrée ei arrive directement sur une D… <span class="qtag">annale 2023</span></summary>
+    <ol class="opts" type="a"><li>copie ses entrées ei sur ses sorties Si au même front d'horloge</li><li>copie ses entrées après 4 fronts</li><li>est un registre entrée parallèle – sortie série</li><li>est un registre entrée série – sortie parallèle</li></ol>
+    <div class="ans"><b>a.</b> Chargement parallèle : un seul front suffit. Il faudrait 4 fronts en série.</div></details>
+
+  <details><summary>Un compteur ayant la séquence [3, 4, 5, 9] nécessite… <span class="qtag">annale 2023</span></summary>
+    <ol class="opts" type="a"><li>3 bascules</li><li>4 bascules</li><li>5 bascules</li><li>9 bascules</li></ol>
+    <div class="ans"><b>b.</b> 9 = 1001 s'écrit sur 4 bits. Ce n'est pas le nombre d'états (4) qui compte, mais la plus grande valeur.</div></details>
+
+  <details><summary>Bascule JK avec J = K = 1, au front actif…</summary>
+    <ol class="opts" type="a"><li>Q = 1</li><li>Q = 0</li><li>Q garde sa valeur</li><li>Q s'inverse</li></ol>
+    <div class="ans"><b>d.</b> Mode toggle.</div></details>
+
+  <details><summary>Compteur asynchrone à 4 bascules, tp = 10 ns par bascule. Fréquence d'horloge maximale ?</summary>
+    <ol class="opts" type="a"><li>100 MHz</li><li>40 MHz</li><li>25 MHz</li><li>10 MHz</li></ol>
+    <div class="ans"><b>c.</b> Retard max = 4 × 10 = 40 ns, donc f<sub>max</sub> = 1 / 40 ns = 25 MHz.</div></details>
+
+  <details><summary>Bascules D sur front montant, CLKi = Qi−1, CI 000. Le circuit est…</summary>
+    <ol class="opts" type="a"><li>un compteur modulo 8</li><li>un décompteur modulo 8</li><li>un registre à décalage</li><li>un compteur synchrone</li></ol>
+    <div class="ans"><b>b.</b> Au premier front, Q0 passe de 0 à 1 : ce front montant fait basculer Q1, qui fait basculer Q2. On passe de 0 à 7.</div></details>
+
+  <details><summary>Compteur asynchrone modulo 10 par RAZ. Que met-on dans la NAND reliée aux ~CLR ?</summary>
+    <ol class="opts" type="a"><li>Q3 et Q0</li><li>Q3 et Q1</li><li>Q3, Q2 et Q1</li><li>Q0 et Q1</li></ol>
+    <div class="ans"><b>b.</b> 10 = 1010 : Q3 et Q1. (Q3 et Q0 détecte 9, ce qui ferait un modulo 9.)</div></details>
+
+  <details><summary>Horloge à 1 MHz. Fréquence de Q2 dans un compteur asynchrone ?</summary>
+    <ol class="opts" type="a"><li>333 kHz</li><li>250 kHz</li><li>125 kHz</li><li>500 kHz</li></ol>
+    <div class="ans"><b>c.</b> f<sub>H</sub> / 2<sup>3</sup> = 125 kHz.</div></details>
+
+  <details><summary>Compteur Johnson à 4 bascules : nombre d'états ?</summary>
+    <ol class="opts" type="a"><li>4</li><li>8</li><li>16</li><li>5</li></ol>
+    <div class="ans"><b>b.</b> 2N = 8. En anneau, ce serait N = 4. En binaire naturel, 2<sup>N</sup> = 16.</div></details>
+
+  <details><summary>Registre à décalage 8 bits, entrée série. Combien de fronts pour charger un mot complet ?</summary>
+    <ol class="opts" type="a"><li>1</li><li>4</li><li>8</li><li>16</li></ol>
+    <div class="ans"><b>c.</b> Un bit par front.</div></details>
+
+  <details><summary>Bascule RS en NOR avec S = R = 1 ?</summary>
+    <ol class="opts" type="a"><li>Mémoire</li><li>Set</li><li>Reset</li><li>État non utilisé</li></ol>
+    <div class="ans"><b>d.</b> Q = Q̄ = 0, ce qui contredit la définition.</div></details>
+
+  <details><summary>Différence entre une D latch et une D flip-flop ?</summary>
+    <ol class="opts" type="a"><li>La latch réagit sur front, la flip-flop sur niveau</li><li>La latch réagit sur niveau, la flip-flop sur front</li><li>La latch n'a pas d'horloge</li><li>Aucune</li></ol>
+    <div class="ans"><b>b.</b> La latch recopie D tant que clk est au niveau actif ; la flip-flop ne recopie qu'au front.</div></details>
+</section>
+
+<footer>Sources : CTD 1 à 3 de D. Achvar (2026-27), TP1 et TP2, TD Compteurs, DE 2023 corrigé, et nos séances de TP2. Bon courage pour samedi.</footer>
+</div>
+
+<script>
+(function(){
+  var LW=46, ROW=30, TOP=20;
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+  function draw(id,cfg){
+    var el=document.getElementById(id); if(!el) return;
+    var u=cfg.unit, tEnd=cfg.tEnd, W=LW+tEnd*u+8;
+    var rows=cfg.signals.length+(cfg.bus?1:0), H=TOP+rows*ROW+6;
+    var x=function(t){return (LW+t*u).toFixed(1)};
+    var out='<svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+esc(cfg.aria)+'">';
+    (cfg.edges||[]).forEach(function(t,i){
+      out+='<line class="mark" x1="'+x(t)+'" y1="12" x2="'+x(t)+'" y2="'+(H-4)+'"/>';
+      out+='<text class="num" x="'+x(t)+'" y="10" text-anchor="middle">'+(i+1)+'</text>';
+    });
+    cfg.signals.forEach(function(s,r){
+      var base=TOP+r*ROW, yv=function(v){return v?base+5:base+22};
+      var ev=s.ev.filter(function(e){return e[0]<=tEnd});
+      var d='M'+x(0)+','+yv(ev[0][1]);
+      for(var i=1;i<ev.length;i++){d+=' H'+x(ev[i][0])+' V'+yv(ev[i][1]);}
+      d+=' H'+x(tEnd);
+      out+='<text class="lbl" x="4" y="'+(base+17)+'">'+esc(s.name)+'</text>';
+      out+='<path class="'+(s.clk?'clk':'sig')+'" d="'+d+'"/>';
+    });
+    if(cfg.bus){
+      var base=TOP+cfg.signals.length*ROW, top=base+4, bot=base+24, mid=base+14;
+      out+='<text class="lbl" x="4" y="'+(base+18)+'">état</text>';
+      var segs=cfg.bus;
+      segs.forEach(function(sg,i){
+        var x0=LW+sg[0]*u, x1=LW+Math.min(sg[1],tEnd)*u, w=x1-x0, s=Math.min(3,w/2);
+        var g=sg[3];
+        out+='<polygon class="bus'+(g?' g':'')+'" points="'+(x0+s)+','+top+' '+(x1-s)+','+top+' '+x1+','+mid+' '+(x1-s)+','+bot+' '+(x0+s)+','+bot+' '+x0+','+mid+'"/>';
+        if(w>14) out+='<text class="bust" x="'+((x0+x1)/2).toFixed(1)+'" y="'+(mid+4)+'"'+(g?' style="fill:var(--card)"':'')+'>'+sg[2]+'</text>';
+      });
+    }
+    out+='</svg>';
+    el.innerHTML=out;
+  }
+  function busFrom(changes,tEnd,P){
+    var c=[];
+    changes.forEach(function(ch){ if(c.length&&Math.abs(c[c.length-1][0]-ch[0])<1e-9) c[c.length-1][1]=ch[1]; else c.push(ch.slice()); });
+    var segs=[];
+    for(var i=0;i<c.length;i++){
+      var t0=c[i][0], t1=i+1<c.length?c[i+1][0]:tEnd; if(t0>=tEnd) break;
+      var last=i+1>=c.length||c[i+1][0]>=tEnd;
+      segs.push([t0,t1,c[i][1], !last && t0>0 && (t1-t0)<P*0.45]);
+    }
+    return segs;
+  }
+  function counter(o){
+    var n=o.n,P=o.P,tp=o.tp,bits=[],i;
+    for(i=0;i<n;i++) bits.push((o.init>>i)&1);
+    var val=function(){var v=0;for(var j=0;j<n;j++)v+=bits[j]<<j;return v};
+    var ev=bits.map(function(b){return [[0,b]]}), Hev=[[0,1]], edges=[], changes=[[0,val()]];
+    for(var k=0;k<o.edges;k++){
+      var t=P/2+k*P; Hev.push([t,0]); Hev.push([t+P/2,1]); edges.push(t);
+      var time=t; i=0;
+      while(true){ time+=tp; var old=bits[i]; bits[i]^=1; ev[i].push([time,bits[i]]); changes.push([time,val()]); if(old===1&&i+1<n) i++; else break; }
+      if(o.mod&&val()===o.mod){ time+=o.tr; for(var j=0;j<n;j++){ if(bits[j]){bits[j]=0; ev[j].push([time,0]);} } changes.push([time,0]); }
+    }
+    var sig=[{name:'H',ev:Hev,clk:true}];
+    for(i=0;i<n;i++) sig.push({name:'Q'+i,ev:ev[i]});
+    return {signals:sig, edges:edges, bus:busFrom(changes,o.tEnd,P)};
+  }
+  // 1. diviseur par 2 (D = Q̄, front montant)
+  (function(){
+    var P=2,tp=0.12,Hev=[[0,0]],Qev=[[0,0]],Dev=[[0,1]],q=0,edges=[];
+    for(var k=0;k<8;k++){ var t=1+k*P; Hev.push([t,1]); Hev.push([t+1,0]); edges.push(t); q^=1; Qev.push([t+tp,q]); Dev.push([t+tp,1-q]); }
+    draw('w-toggle',{unit:22,tEnd:16.6,edges:edges,aria:'Chronogramme bascule D en diviseur de fréquence',
+      signals:[{name:'H',ev:Hev,clk:true},{name:'D=Q̄',ev:Dev},{name:'Q',ev:Qev}]});
+  })();
+  // 2. compteur #8 idéal
+  (function(){
+    var r=counter({n:3,P:2,edges:9,tp:0,init:0,tEnd:18.4});
+    draw('w-ideal',{unit:20,tEnd:18.4,edges:r.edges,signals:r.signals,bus:r.bus,aria:'Chronogramme compteur asynchrone modulo 8'});
+  })();
+  // 3. zoom tp sur 3 -> 4
+  (function(){
+    var r=counter({n:3,P:4,edges:1,tp:0.6,init:3,tEnd:4.4});
+    draw('w-tp',{unit:76,tEnd:4.4,edges:r.edges,signals:r.signals,bus:r.bus,aria:'Zoom sur le passage de 3 à 4 avec temps de propagation'});
+  })();
+  // 4. modulo 5
+  (function(){
+    var r=counter({n:3,P:2,edges:8,tp:0.1,init:0,mod:5,tr:0.18,tEnd:16.4});
+    draw('w-mod5',{unit:22,tEnd:16.4,edges:r.edges,signals:r.signals,bus:r.bus,aria:'Chronogramme compteur asynchrone modulo 5'});
+  })();
+})();
+</script>
+<script>
+/* Intégrée au site MkDocs : suit le thème clair/sombre du site et ajuste la hauteur du cadre */
+(function(){
+  var fe=null, pd=null;
+  try{ fe=window.frameElement; pd=window.parent!==window?window.parent.document:null; }catch(e){}
+  if(!fe||!pd) return;
+  var root=document.documentElement; root.classList.add('embedded');
+  function theme(){ var s=pd.body&&pd.body.getAttribute('data-md-color-scheme'); if(s==='slate') root.setAttribute('data-theme','dark'); else if(s==='default') root.setAttribute('data-theme','light'); }
+  theme();
+  try{ new MutationObserver(theme).observe(pd.body,{attributes:true,attributeFilter:['data-md-color-scheme']}); }catch(e){}
+  function fit(){ fe.style.height=(document.body.scrollHeight+4)+'px'; }
+  if(window.ResizeObserver) new ResizeObserver(fit).observe(document.body);
+  window.addEventListener('load',fit); fit();
+})();
+</script>
+</body>
+</html>
