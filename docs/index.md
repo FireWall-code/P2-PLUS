@@ -12,6 +12,8 @@ hide:
 Cours, corrections de TD et fiches de révision, matière par matière.
 Appuie sur ++slash++ pour chercher une notion.
 
+[:material-notebook-edit-outline: Mon OneNote](https://1drv.ms/o/c/c3c4d3215cf8054d/IgBEeqXeMpY6RJgayAvnapWqAee10UjrJRUloWHXmlZY7UM?e=gjFICo){ .md-button .md-button--primary target="_blank" rel="noopener" }
+
 </div>
 
 ## :material-timer-sand: Prochaines évaluations
