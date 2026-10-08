@@ -398,7 +398,7 @@ details.help summary{cursor:pointer;padding:12px 0;font-weight:700}
       } else if(r.kind==='as') o+=asyncRow(r.name==='~PR'?'PRE':'CLR',s.steps,base,xEnd);
       else {
         var yv=function(v){return v?base+6:base+26};
-        if(s.checked){
+        if(s.revealed){
           var sev=[[LABEL,s.ci]];
           for(i=0;i<N;i++) sev.push([s.steps[i].as?fx(i)-COL*.22:fx(i), s.steps[i].q]);
           o+='<path class="sol" d="'+path(sev,base,xEnd)+'"/>';
@@ -442,7 +442,7 @@ details.help summary{cursor:pointer;padding:12px 0;font-weight:700}
       o+='<div class="c'+cls+'"><div class="qbtns">'+
         '<button type="button" data-q="1" data-i="'+i+'" aria-label="Front '+(i+1)+', Q = 1" aria-pressed="'+(a.q===1)+'"'+(s.checked?' disabled':'')+'>1</button>'+
         '<button type="button" data-q="0" data-i="'+i+'" aria-label="Front '+(i+1)+', Q = 0" aria-pressed="'+(a.q===0)+'"'+(s.checked?' disabled':'')+'>0</button></div>'+
-        (s.checked?(a.q!==s.steps[i].q?'<span class="res">→ '+s.steps[i].q+'</span>':'<span class="res">✓</span>'):'')+'</div>';
+        (s.checked?(a.q!==s.steps[i].q?'<span class="res">✗</span>':'<span class="res">✓</span>'):'')+'</div>';
     }
     o+='</div><div class="grow" style="grid-template-columns:'+cols+'"><div class="h">Fonction</div>';
     var fo=fnOptions(s);
@@ -451,7 +451,7 @@ details.help summary{cursor:pointer;padding:12px 0;font-weight:700}
       if(s.checked) c2=b.fn===s.steps[i].fn?' ok':' err';
       o+='<div class="c'+c2+'"><select id="fn-'+i+'" data-i="'+i+'" aria-label="Fonction au front '+(i+1)+'"'+(s.checked?' disabled':'')+'><option value="">—</option>';
       fo.forEach(function(f){ o+='<option value="'+f+'"'+(b.fn===f?' selected':'')+'>'+f+'</option>'; });
-      o+='</select>'+(s.checked?(b.fn!==s.steps[i].fn?'<span class="res">→ '+s.steps[i].fn+'</span>':'<span class="res">✓</span>'):'')+'</div>';
+      o+='</select>'+(s.checked?(b.fn!==s.steps[i].fn?'<span class="res">✗</span>':'<span class="res">✓</span>'):'')+'</div>';
     }
     return o+'</div>';
   }
@@ -498,6 +498,7 @@ details.help summary{cursor:pointer;padding:12px 0;font-weight:700}
     var sc=$('score');
     if(s.revealed){ sc.className='score'; sc.textContent='Solution affichée'; }
     else { sc.className='score'+(chPerfect(s)?' perfect':''); sc.textContent=chPerfect(s)?'Sans faute, '+s.N+'/'+s.N+' !':'Q : '+nq+'/'+s.N+' · Fonctions : '+nf+'/'+s.N; }
+    if(!s.revealed&&!chPerfect(s)){ var N=0; s.steps.forEach(function(x,i){ if(s.ans[i].q!==x.q) N++; if(s.ans[i].fn!==x.fn) N++; }); $('expl').innerHTML='<li class="err">'+N+' erreur'+(N>1?'s':'')+', marquée'+(N>1?'s':'')+' ✗. « Corriger mes erreurs » efface seulement les cases fausses pour que tu les refasses. « Voir la solution » donne la correction expliquée.</li>'; return; }
     $('expl').innerHTML=s.steps.map(function(x,i){
       var bad=!s.revealed&&(s.ans[i].q!==x.q||s.ans[i].fn!==x.fn);
       return '<li class="'+(bad?'err':'')+'"><b>'+(s.type==='RS'?'t':'F')+(i+1)+'</b>'+chExplain(s,i)+'</li>';
@@ -531,7 +532,7 @@ details.help summary{cursor:pointer;padding:12px 0;font-weight:700}
     var td='', tdc='';
     if(checked) tdc = v===expect?' ok':' err';
     td='<td class="'+tdc.trim()+'"><button type="button" class="'+cls+'" data-key="'+key+'" data-cycle="'+cycle+'" aria-label="'+label+' : '+(v||'vide')+'"'+(checked?' disabled':'')+'>'+(v||'·')+'</button>';
-    if(checked) td+= v===expect ? '<span class="res">✓</span>' : '<span class="res">→ '+expect+'</span>';
+    if(checked) td+= v===expect ? '<span class="res">✓</span>' : '<span class="res">✗</span>';
     return td+'</td>';
   }
   function nextVal(v,cycle){ var seq=[''].concat(cycle.split('')); return seq[(seq.indexOf(v||'')+1)%seq.length]; }
@@ -618,6 +619,7 @@ details.help summary{cursor:pointer;padding:12px 0;font-weight:700}
     var sc=$('tr-score');
     if(s.revealed){ sc.className='score'; sc.textContent='Solution affichée'; }
     else { sc.className='score'+(good===tot?' perfect':''); sc.textContent=good===tot?'Sans faute, '+tot+'/'+tot+' !':'Cases justes : '+good+'/'+tot; }
+    if(!s.revealed&&good!==tot){ var N=tot-good; $('tr-expl').innerHTML='<li class="err">'+N+' erreur'+(N>1?'s':'')+', marquée'+(N>1?'s':'')+' ✗. « Corriger mes erreurs » efface seulement les cases fausses pour que tu les refasses. « Voir la solution » donne la correction expliquée.</li>'; return; }
     $('tr-expl').innerHTML=s.rows.map(function(r,i){
       var bad=!s.revealed&&r.exp.some(function(e,k){return s.ans[i][k]!==e});
       var t = r.as ? (r.as==='CLR'?'~CLR = 0 force Q à 0':'~PR = 0 force Q à 1')+' : les entrées synchrones sont ignorées, donc '+s.inputs.join(' et ')+' = X.'
@@ -688,13 +690,13 @@ details.help summary{cursor:pointer;padding:12px 0;font-weight:700}
     var o='', okN=s.ansN===String(s.n);
     o+='<label class="q'+(s.checked?(okN?' ok':' err'):'')+'" for="et-nb">Nombre de bascules nécessaires : <select class="qsel" id="et-nb"'+(s.checked?' disabled':'')+'><option value="">—</option>';
     for(var k=1;k<=6;k++) o+='<option'+(s.ansN===String(k)?' selected':'')+'>'+k+'</option>';
-    o+='</select>'+(s.checked&&!okN?' <span class="m">→ '+s.n+'</span>':'')+'</label>';
+    o+='</select>'+(s.checked&&!okN?' ✗':'')+'</label>';
     if(s.async){
       var s0=s.seq[0];
       o+='<div class="q" style="flex-basis:100%">Initialisation à l\'état '+s0+' ('+bin(s0,s.n)+') : quelle entrée prioritaire mettre à 0 ?</div>';
       for(var b=s.n-1;b>=0;b--){
         var exp=((s0>>b)&1)?'PR':'CLR', v=s.ansInit[b], cls=s.checked?(v===exp?' ok':' err'):'';
-        o+='<label class="q'+cls+'" for="et-init-'+b+'">Q'+b+' : <select class="qsel" id="et-init-'+b+'" data-b="'+b+'"'+(s.checked?' disabled':'')+'><option value="">—</option><option value="PR"'+(v==='PR'?' selected':'')+'>~PR = 0</option><option value="CLR"'+(v==='CLR'?' selected':'')+'>~CLR = 0</option></select>'+(s.checked&&v!==exp?' → ~'+exp:'')+'</label>';
+        o+='<label class="q'+cls+'" for="et-init-'+b+'">Q'+b+' : <select class="qsel" id="et-init-'+b+'" data-b="'+b+'"'+(s.checked?' disabled':'')+'><option value="">—</option><option value="PR"'+(v==='PR'?' selected':'')+'>~PR = 0</option><option value="CLR"'+(v==='CLR'?' selected':'')+'>~CLR = 0</option></select>'+(s.checked&&v!==exp?' ✗':'')+'</label>';
       }
     }
     return o;
@@ -755,6 +757,7 @@ details.help summary{cursor:pointer;padding:12px 0;font-weight:700}
     var el=$('et-score');
     if(s.revealed){ el.className='score'; el.textContent='Solution affichée'; }
     else { el.className='score'+(perfect?' perfect':''); el.textContent=perfect?'Sans faute, '+sc.tot+'/'+sc.tot+' !':'Réponses justes : '+sc.good+'/'+sc.tot; }
+    if(!s.revealed&&!perfect){ var N=sc.tot-sc.good; $('et-expl').innerHTML='<li class="err">'+N+' erreur'+(N>1?'s':'')+', marquée'+(N>1?'s':'')+' ✗. « Corriger mes erreurs » efface seulement les cases fausses pour que tu les refasses. « Voir la solution » donne la correction expliquée.</li>'; return; }
     var top=Math.max.apply(null,s.seq), li=[];
     li.push('<li class="'+(!s.revealed&&s.ansN!==String(s.n)?'err':'')+'"><b>Bascules</b>La plus grande valeur est '+top+' = '+top.toString(2)+' : il faut '+s.n+' bits, donc '+s.n+' bascules.</li>');
     if(s.async){
